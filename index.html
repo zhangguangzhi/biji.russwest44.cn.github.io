@@ -295,11 +295,6 @@
 <td>模糊搜索包，会搜索到包的简介</td>
 </tr>
 <tr>
-<td>yum  list  \</td>
-<td>grep  包名</td>
-<td>精确搜索包</td>
-</tr>
-<tr>
 <td>yum  install  包名</td>
 <td>安装包，后面跟-y表示自动确认安装</td>
 </tr>
@@ -325,6 +320,7 @@
 </tr>
 </tbody>
 </table>
+<p>精确搜索包：yum  list  |  grep  包名</p>
 <h3 id="3、搭建本地yum仓库"><a href="#3、搭建本地yum仓库" class="headerlink" title="3、搭建本地yum仓库"></a>3、搭建本地yum仓库</h3><p>yum需要联网使用，如果遇到不能联网，我们可以搭建本地yum仓库</p>
 <p>（1）挂载光盘</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# mount /dev/cdrom /mnt/</div><div class="line">mount: /dev/sr0 写保护，将以只读方式挂载</div></pre></td></tr></table></figure>
