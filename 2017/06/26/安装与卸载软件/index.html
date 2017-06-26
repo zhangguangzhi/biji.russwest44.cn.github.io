@@ -16,7 +16,7 @@
 <meta property="og:description" content="[TOC] 一、安装软件包的三种方法1、rpm工具rpm：红帽子公司包管理系统。 优点：管理简单，安装速度快 缺点：功能不如源码包灵活，安装时rpm可能需要安装其他依赖包 2、yum工具yum是Python开发的工具，具体也是安装rpm包，会自动安装依赖包。 3、源码包可以看到源代码，需要使用编译器编译成可执行文件。 优点：开源，自由选择所需功能，稳定，效率高 缺点：安装步骤较多，安装时间较长，报">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/134021314.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/140612331.png?imageslim">
-<meta property="og:updated_time" content="2017-06-26T06:14:08.631Z">
+<meta property="og:updated_time" content="2017-06-26T06:29:23.821Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux安装与卸载软件">
 <meta name="twitter:description" content="[TOC] 一、安装软件包的三种方法1、rpm工具rpm：红帽子公司包管理系统。 优点：管理简单，安装速度快 缺点：功能不如源码包灵活，安装时rpm可能需要安装其他依赖包 2、yum工具yum是Python开发的工具，具体也是安装rpm包，会自动安装依赖包。 3、源码包可以看到源代码，需要使用编译器编译成可执行文件。 优点：开源，自由选择所需功能，稳定，效率高 缺点：安装步骤较多，安装时间较长，报">
@@ -168,9 +168,12 @@
 <h2 id="二、使用rpm工具"><a href="#二、使用rpm工具" class="headerlink" title="二、使用rpm工具"></a>二、使用rpm工具</h2><h3 id="1、挂载光盘"><a href="#1、挂载光盘" class="headerlink" title="1、挂载光盘"></a>1、挂载光盘</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# mount /dev/cdrom /mnt/</div><div class="line">mount: /dev/sr0 写保护，将以只读方式挂载</div><div class="line">[root@allen1 ~]#</div></pre></td></tr></table></figure>
 <h3 id="2、查看光盘内的rpm包"><a href="#2、查看光盘内的rpm包" class="headerlink" title="2、查看光盘内的rpm包"></a>2、查看光盘内的rpm包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mnt]# cd /mnt/Packages/</div><div class="line">[root@allen1 Packages]# ls</div><div class="line">abattis-cantarell-fonts-0.0.16-3.el7.noarch.rpm</div><div class="line">abrt-2.1.11-45.el7.centos.x86_64.rpm</div><div class="line">.....</div></pre></td></tr></table></figure>
 <h3 id="3、rpm包的命名介绍"><a href="#3、rpm包的命名介绍" class="headerlink" title="3、rpm包的命名介绍"></a>3、rpm包的命名介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# ls httpd-2.4.6-45.el7.centos.x86_64.rpm </div><div class="line">httpd-2.4.6-45.el7.centos.x86_64.rpm</div></pre></td></tr></table></figure>
-<p>httpd：软件包名                            -2.4.6：软件版本号</p>
-<p>-45：发布版本号（发布次数）                el7.centos：适用的Linux平台</p>
-<p>x86_64：适合的硬件平台（i686为32位）        rpm：后缀表示名</p>
+<p>httpd：软件包名                            </p>
+<p>-2.4.6：软件版本号</p>
+<p>-45：发布版本号（发布次数）                </p>
+<p>el7.centos：适用的Linux平台</p>
+<p>x86_64：适合的硬件平台（i686为32位）        </p>
+<p>rpm：后缀表示名</p>
 <p><strong>包名：httpd</strong></p>
 <p><strong>包全名：httpd-2.4.6-45.el7.centos.x86_64.rpm</strong></p>
 <h3 id="4、rpm命令使用"><a href="#4、rpm命令使用" class="headerlink" title="4、rpm命令使用"></a>4、rpm命令使用</h3><table>
@@ -215,10 +218,14 @@
 </tr>
 </tbody>
 </table>
-<p>-i：安装                    -h：人性化显示</p>
-<p>-v：显示详情                -U：升级</p>
-<p>-e：卸载                    -q：查询</p>
-<p>-a：列出全部                -i：查询包详情</p>
+<p>-i：安装                    </p>
+<p>-h：人性化显示</p>
+<p>-v：显示详情                </p>
+<p>-U：升级</p>
+<p>-e：卸载                    </p>
+<p>-q：查询</p>
+<p>-a：列出全部                </p>
+<p>-i：查询包详情</p>
 <p><strong>一条命令查看文件由那个包安装：rpm  -qf  `which  cmd`</strong></p>
 <p><strong>在安装和卸载时，可能会需要解决包的依赖性，可以使用–nodeps不检查依赖性，但是一般不建议使用。</strong></p>
 <h3 id="5、下载rpm包安装"><a href="#5、下载rpm包安装" class="headerlink" title="5、下载rpm包安装"></a>5、下载rpm包安装</h3><p>有时，在光盘中没有我们需要的rpm，这是我们可以到<a href="http://rpmfind.net/搜索，根据平台下载到本地，再进行安装" target="_blank" rel="external">http://rpmfind.net/搜索，根据平台下载到本地，再进行安装</a></p>
