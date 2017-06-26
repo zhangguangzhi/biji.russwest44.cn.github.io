@@ -178,6 +178,183 @@
 
 
   
+    <article id="post-安装与卸载软件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/26/安装与卸载软件/">linux安装与卸载软件</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/26/安装与卸载软件/" class="archive-article-date">
+  	<time datetime="2017-06-26T04:33:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、安装软件包的三种方法"><a href="#一、安装软件包的三种方法" class="headerlink" title="一、安装软件包的三种方法"></a>一、安装软件包的三种方法</h2><h3 id="1、rpm工具"><a href="#1、rpm工具" class="headerlink" title="1、rpm工具"></a>1、rpm工具</h3><p>rpm：红帽子公司包管理系统。</p>
+<p>优点：管理简单，安装速度快</p>
+<p>缺点：功能不如源码包灵活，安装时rpm可能需要安装其他依赖包</p>
+<h3 id="2、yum工具"><a href="#2、yum工具" class="headerlink" title="2、yum工具"></a>2、yum工具</h3><p>yum是Python开发的工具，具体也是安装rpm包，会自动安装依赖包。</p>
+<h3 id="3、源码包"><a href="#3、源码包" class="headerlink" title="3、源码包"></a>3、源码包</h3><p>可以看到源代码，需要使用编译器编译成可执行文件。</p>
+<p>优点：开源，自由选择所需功能，稳定，效率高</p>
+<p>缺点：安装步骤较多，安装时间较长，报错时新手解决难度大</p>
+<h2 id="二、使用rpm工具"><a href="#二、使用rpm工具" class="headerlink" title="二、使用rpm工具"></a>二、使用rpm工具</h2><h3 id="1、挂载光盘"><a href="#1、挂载光盘" class="headerlink" title="1、挂载光盘"></a>1、挂载光盘</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# mount /dev/cdrom /mnt/</div><div class="line">mount: /dev/sr0 写保护，将以只读方式挂载</div><div class="line">[root@allen1 ~]#</div></pre></td></tr></table></figure>
+<h3 id="2、查看光盘内的rpm包"><a href="#2、查看光盘内的rpm包" class="headerlink" title="2、查看光盘内的rpm包"></a>2、查看光盘内的rpm包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mnt]# cd /mnt/Packages/</div><div class="line">[root@allen1 Packages]# ls</div><div class="line">abattis-cantarell-fonts-0.0.16-3.el7.noarch.rpm</div><div class="line">abrt-2.1.11-45.el7.centos.x86_64.rpm</div><div class="line">.....</div></pre></td></tr></table></figure>
+<h3 id="3、rpm包的命名介绍"><a href="#3、rpm包的命名介绍" class="headerlink" title="3、rpm包的命名介绍"></a>3、rpm包的命名介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# ls httpd-2.4.6-45.el7.centos.x86_64.rpm </div><div class="line">httpd-2.4.6-45.el7.centos.x86_64.rpm</div></pre></td></tr></table></figure>
+<p>httpd：软件包名                            -2.4.6：软件版本号</p>
+<p>-45：发布版本号（发布次数）                el7.centos：适用的Linux平台</p>
+<p>x86_64：适合的硬件平台（i686为32位）        rpm：后缀表示名</p>
+<p><strong>包名：httpd</strong></p>
+<p><strong>包全名：httpd-2.4.6-45.el7.centos.x86_64.rpm</strong></p>
+<h3 id="4、rpm命令使用"><a href="#4、rpm命令使用" class="headerlink" title="4、rpm命令使用"></a>4、rpm命令使用</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">安装rpm包</td>
+<td style="text-align:left"><strong>rpm  -ivh  rpm包全名</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">升级rpm包</td>
+<td style="text-align:left">rpm  -Uvh  rpm包全名</td>
+</tr>
+<tr>
+<td style="text-align:left">卸载rpm包</td>
+<td style="text-align:left"><strong>rpm  -e  包名</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">查询已安装的rpm包</td>
+<td style="text-align:left">rpm  -qa</td>
+</tr>
+<tr>
+<td style="text-align:left">查询指定包是否安装</td>
+<td style="text-align:left"><strong>rpm  -q  包名</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">查询指定包信息</td>
+<td style="text-align:left">rpm  -qi  包名</td>
+</tr>
+<tr>
+<td style="text-align:left">列出包安装的文件</td>
+<td style="text-align:left">rpm  -ql</td>
+</tr>
+<tr>
+<td style="text-align:left">查看一个文件是由那个包安装</td>
+<td style="text-align:left">rpm  -qf  文件绝对路径</td>
+</tr>
+</tbody>
+</table>
+<p>-i：安装                    -h：人性化显示</p>
+<p>-v：显示详情                -U：升级</p>
+<p>-e：卸载                    -q：查询</p>
+<p>-a：列出全部                -i：查询包详情</p>
+<p><strong>一条命令查看文件由那个包安装：rpm  -qf  `which  cmd`</strong></p>
+<p><strong>在安装和卸载时，可能会需要解决包的依赖性，可以使用–nodeps不检查依赖性，但是一般不建议使用。</strong></p>
+<h3 id="5、下载rpm包安装"><a href="#5、下载rpm包安装" class="headerlink" title="5、下载rpm包安装"></a>5、下载rpm包安装</h3><p>有时，在光盘中没有我们需要的rpm，这是我们可以到<a href="http://rpmfind.net/搜索，根据平台下载到本地，再进行安装" target="_blank" rel="external">http://rpmfind.net/搜索，根据平台下载到本地，再进行安装</a></p>
+<h2 id="三、使用yum工具"><a href="#三、使用yum工具" class="headerlink" title="三、使用yum工具"></a>三、使用yum工具</h2><p>直接使用rpm包安装或卸载，可能需要解决依赖性问题。使用yum进行安装则会自动解决依赖性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# rpm -ivh texlive-2012-38.20130427_r30134.el7.x86_64.rpm </div><div class="line">错误：依赖检测失败：</div><div class="line">	texlive-scheme-basic 被 texlive-2:2012-38.20130427_r30134.el7.x86_64 需要</div><div class="line">	texlive-collection-latexrecommended 被 texlive-2:2012-38.20130427_r30134.el7.x86_64 需要</div><div class="line">	tex-kpathsea 被 texlive-2:2012-38.20130427_r30134.el7.x86_64 需要</div><div class="line">	tex-tetex 被 texlive-2:2012-38.20130427_r30134.el7.x86_64 需要</div></pre></td></tr></table></figure>
+<h3 id="1、yum的配置文件"><a href="#1、yum的配置文件" class="headerlink" title="1、yum的配置文件"></a>1、yum的配置文件</h3><p>yum  list：可以列出可用的rpm包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# yum list</div><div class="line">texlive-cmap.noarch                          2:svn26568.0-38.el7                 base     </div><div class="line">texlive-cmap-doc.noarch                      2:svn26568.0-38.el7                 base     </div><div class="line">texlive-cmextra.noarch                       2:svn14075.0-38.el7                 base     </div><div class="line">texlive-cns.noarch                           2:svn15878.0-38.el7                 base     </div><div class="line">texlive-cns-doc.noarch                       2:svn15878.0-38.el7                 base     </div><div class="line">texlive-collectbox.noarch                    2:svn26557.0-38.el7                 base    </div><div class="line">........</div></pre></td></tr></table></figure>
+<p>最右侧的“base”为yum仓库名称，该名称是在yum的配置文件/etc/yum.repos.d/CentOS-Base.repo中定义的。</p>
+<p>如果最右侧显示的是“@anaconda”，表示该rpm已安装</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/134021314.png?imageslim" alt="mark"></p>
+<h3 id="2、yum常用命令"><a href="#2、yum常用命令" class="headerlink" title="2、yum常用命令"></a>2、yum常用命令</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yum list</td>
+<td>列出可用rpm包</td>
+</tr>
+<tr>
+<td>yum  liyum  search  包名</td>
+<td>模糊搜索包，会搜索到包的简介</td>
+</tr>
+<tr>
+<td>yum  list  \</td>
+<td>grep  包名</td>
+<td>精确搜索包</td>
+</tr>
+<tr>
+<td>yum  install  包名</td>
+<td>安装包，后面跟-y表示自动确认安装</td>
+</tr>
+<tr>
+<td>yum  grouplist</td>
+<td>列出可用rpm包组</td>
+</tr>
+<tr>
+<td>yum  groupinstall   ’包组名’</td>
+<td>安装包组</td>
+</tr>
+<tr>
+<td>yum  remove  包名</td>
+<td>卸载包，后面跟-y表示自动确认卸载</td>
+</tr>
+<tr>
+<td>yum  update  包名</td>
+<td>升级包，后面跟-y表示自动确认升级</td>
+</tr>
+<tr>
+<td>yum  procides  “/*/命令”</td>
+<td>查看命令文件是由那个包安装</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3、搭建本地yum仓库"><a href="#3、搭建本地yum仓库" class="headerlink" title="3、搭建本地yum仓库"></a>3、搭建本地yum仓库</h3><p>yum需要联网使用，如果遇到不能联网，我们可以搭建本地yum仓库</p>
+<p>（1）挂载光盘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# mount /dev/cdrom /mnt/</div><div class="line">mount: /dev/sr0 写保护，将以只读方式挂载</div></pre></td></tr></table></figure>
+<p>（2）备份yum配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# cp -r /etc/yum.repos.d  /etc/yum.repos.d.bak</div></pre></td></tr></table></figure>
+<p>（3）创建本地yum仓库配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# rm -rf /etc/yum.repos.d/*</div><div class="line">[root@allen1 Packages]# vim /etc/yum.repos.d/dvd.repo</div><div class="line">写入一下内容：</div><div class="line">#仓库名称</div><div class="line">[dvd]</div><div class="line">#自定义标识</div><div class="line">name=install dvd</div><div class="line">#仓库地址</div><div class="line">baseurl=file:///mnt</div><div class="line">#是否可用，1为可用</div><div class="line">enable=1</div><div class="line">#是否检测，0位不检测</div><div class="line">gpcheck=0</div></pre></td></tr></table></figure>
+<p>（4）刷新yum缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# yum  clean  all</div><div class="line">[root@allen1 Packages]# yum  list</div><div class="line">yum-utils.noarch                             1.1.31-40.el7                       dvd      </div><div class="line">zenity.x86_64                                3.8.0-5.el7                         dvd      </div><div class="line">zlib-devel.x86_64                            1.2.7-17.el7                        dvd      </div><div class="line">zsh.x86_64                                   5.0.2-25.el7                        dvd      </div><div class="line">zziplib.x86_64                               0.13.62-5.el7                       dvd </div><div class="line">.........</div></pre></td></tr></table></figure>
+<p>（5）安装</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/140612331.png?imageslim" alt="mark"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/26/安装与卸载软件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
