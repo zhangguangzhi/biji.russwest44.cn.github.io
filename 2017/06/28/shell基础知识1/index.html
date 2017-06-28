@@ -9,7 +9,7 @@
   <title>shell基础知识之一 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
-<meta name="keywords" content="shell">
+<meta name="keywords" content="shell,特殊符号">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell基础知识之一">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/28/shell基础知识1/index.html">
@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/171211675.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172644219.png?imageslim">
-<meta property="og:updated_time" content="2017-06-28T09:36:07.598Z">
+<meta property="og:updated_time" content="2017-06-28T12:41:21.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell基础知识之一">
 <meta name="twitter:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
@@ -180,11 +180,12 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/160321239.png?imageslim" alt="mark"></p>
 <a id="more"></a>
 <h2 id="二、命令历史"><a href="#二、命令历史" class="headerlink" title="二、命令历史"></a>二、命令历史</h2><p>我们每次输入的命令都是会保存在一个文件中，使用方向键可以查看我们输入过的命令。</p>
-<h3 id="1、查看命令历史的命令：history"><a href="#1、查看命令历史的命令：history" class="headerlink" title="1、查看命令历史的命令：history"></a>1、查看命令历史的命令：history</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# history |tail -5</div><div class="line">  962  ksh</div><div class="line">  963  yum install -y zsh</div><div class="line">  964  zsh</div><div class="line">  965  history </div><div class="line">  966  history |tail -5</div></pre></td></tr></table></figure>
+<h3 id="1、查看命令历史的命令：history"><a href="#1、查看命令历史的命令：history" class="headerlink" title="1、查看命令历史的命令：history"></a>1、查看命令历史的命令：history</h3><p>history命令查看的是缓存中的命令历史</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# history |tail -5</div><div class="line">  962  ksh</div><div class="line">  963  yum install -y zsh</div><div class="line">  964  zsh</div><div class="line">  965  history </div><div class="line">  966  history |tail -5</div></pre></td></tr></table></figure>
 <p>选项：</p>
 <ul>
 <li>-c：清空缓存中的命令历史</li>
-<li>-w：将缓存中的历史命令写入保存文件~/.bash_history</li>
+<li>-w：将缓存中的命令历史写入保存文件~/.bash_history</li>
 </ul>
 <h3 id="2、存放历史命令配置文件"><a href="#2、存放历史命令配置文件" class="headerlink" title="2、存放历史命令配置文件"></a>2、存放历史命令配置文件</h3><p>用户家目录下：<strong>~/.bash_history</strong></p>
 <p>~/.bash_history只保存正确退出的命令，默认最大保存1000条。</p>
@@ -203,11 +204,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source /etc/profile</div><div class="line">[root@allen1 ~]# echo $HISTTIMEFORMAT</div><div class="line">%Y/%m/%d %H:%M:%S</div><div class="line">[root@allen1 ~]# history |tail -2</div><div class="line">  986  2017/06/28 16:36:26 echo $HISTTIMEFORMAT</div><div class="line">  987  2017/06/28 16:36:30 history |tail -2</div></pre></td></tr></table></figure>
 <p>环境变量HISTTIMEFORMAT的值就是该时间格式，临时显示可以直接修改该变量的值。</p>
 <h3 id="5、如何永久保存命令历史"><a href="#5、如何永久保存命令历史" class="headerlink" title="5、如何永久保存命令历史"></a>5、如何永久保存命令历史</h3><p>增加隐藏权限a，chattr +a  ~/.bash_history</p>
-<h3 id="6、快速定位历史命令"><a href="#6、快速定位历史命令" class="headerlink" title="6、快速定位历史命令"></a>6、快速定位历史命令</h3><p>!!：执行上一条命令</p>
+<h3 id="6、快速定位历史命令"><a href="#6、快速定位历史命令" class="headerlink" title="6、快速定位历史命令"></a>6、快速定位历史命令</h3><ul>
+<li>!!：执行上一条命令</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls test</div><div class="line">test</div><div class="line">[root@allen1 ~]# !!</div><div class="line">ls test</div><div class="line">test</div></pre></td></tr></table></figure>
-<p>!n：n为数字，运行第n条命令</p>
+<ul>
+<li>!n：n为数字，运行第n条命令</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# history |tail -2</div><div class="line">  999  2017/06/28 16:49:08 ls test</div><div class="line"> 1000  2017/06/28 16:49:11 history |tail -2</div><div class="line">[root@allen1 ~]# !999</div><div class="line">ls test</div><div class="line">test</div></pre></td></tr></table></figure>
-<p>!字符串：执行最后一条以“字符串”结尾的命令</p>
+<ul>
+<li>!字符串：执行最后一条以“字符串”结尾的命令</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> 1004  2017/06/28 16:51:24 mkdir test2</div><div class="line"> 1005  2017/06/28 16:51:26 mkdir test3</div><div class="line"> 1006  2017/06/28 16:51:43 history </div><div class="line">[root@allen1 ~]# !mkdir</div><div class="line">mkdir test3</div><div class="line">[root@allen1 ~]# ls -d test3</div><div class="line">test3</div></pre></td></tr></table></figure>
 <h2 id="三、命令补全及其别名"><a href="#三、命令补全及其别名" class="headerlink" title="三、命令补全及其别名"></a>三、命令补全及其别名</h2><h3 id="1、命令补全"><a href="#1、命令补全" class="headerlink" title="1、命令补全"></a>1、命令补全</h3><p>使用tab，可以补全命令，也可以补全路径</p>
 <p>（1）补全命令和路径</p>
@@ -233,11 +240,11 @@
 <p>使用alias命令设置别名后，在其他终端或用户是无法使用的。</p>
 <p>如果要使用需要进行以下操作：</p>
 <ul>
-<li><p>编辑配置文件/etc/profile，添加设置别名的命令</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim" alt="mark"></p>
-</li>
-<li><p>保存后，source一下/etc/profile</p>
-</li>
+<li>编辑配置文件/etc/profile，添加设置别名的命令</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim" alt="![img](http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim)mark"></p>
+<ul>
+<li>保存后，source一下/etc/profile</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source /etc/profile</div><div class="line">[root@allen1 ~]# su - admin</div><div class="line">[admin@allen1 ~]$ lsa</div><div class="line">总用量 20</div><div class="line">drwx------. 2 admin admin  97 6月  28 16:10 .</div><div class="line">drwxr-xr-x. 6 root  root   58 6月  28 15:58 ..</div><div class="line">-rw-------. 1 admin admin 462 6月  28 17:20 .bash_history</div><div class="line">-rw-r--r--. 1 admin admin  18 8月   3 2016 .bash_logout</div><div class="line">-rw-r--r--. 1 admin admin 193 8月   3 2016 .bash_profile</div><div class="line">-rw-r--r--. 1 admin admin 231 8月   3 2016 .bashrc</div><div class="line">-rw-r--r--. 1 admin admin 658 1月  18 06:28 .zshrc</div></pre></td></tr></table></figure>
 <p>（5）设置只有特定用户才能使用该别名</p>
@@ -246,6 +253,30 @@
 <li>保存后，source一下~/.bashrc</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[admin@allen1 ~]$ source ~/.bashrc</div><div class="line">[admin@allen1 ~]$ lsh</div><div class="line">总用量 0</div><div class="line">-rw-rw-r--. 1 admin admin 0 6月  28 17:26 1.txt</div><div class="line">[admin@allen1 ~]$ ls -lh</div><div class="line">总用量 0</div><div class="line">-rw-rw-r--. 1 admin admin 0 6月  28 17:26 1.txt</div><div class="line">[admin@allen1 ~]$ su - root</div><div class="line">密码：</div><div class="line">上一次登录：三 6月 28 17:28:07 CST 2017pts/0 上</div><div class="line">[root@allen1 ~]# lsh</div><div class="line">-bash: lsh: 未找到命令		\\此时只有admin能使用lsh，root是不行的</div></pre></td></tr></table></figure>
+<h2 id="四、特殊符号之通配符"><a href="#四、特殊符号之通配符" class="headerlink" title="四、特殊符号之通配符"></a>四、特殊符号之通配符</h2><p>（1）*：表示多个任意字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls *.txt</div><div class="line">1.txt  2.txt  3.txt  42.txt  4.txt  aa.txt  a.txt</div></pre></td></tr></table></figure>
+<p>（2）?：一个任意字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls ?.txt</div><div class="line">1.txt  2.txt  3.txt  4.txt  a.txt</div></pre></td></tr></table></figure>
+<p>（3）[]：代表范围中的一个字符，有“-”连接，或者字符全部都写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls [1-3].txt</div><div class="line">1.txt  2.txt  3.txt</div><div class="line">[root@allen1 test2]# ls [123].txt</div><div class="line">1.txt  2.txt  3.txt</div></pre></td></tr></table></figure>
+<p>（4）{}：代表范围中的一个字符，可用”,”分隔</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls &#123;1,2,a&#125;.txt</div><div class="line">1.txt  2.txt  a.txt</div></pre></td></tr></table></figure>
+<h2 id="五、输入输出重定向"><a href="#五、输入输出重定向" class="headerlink" title="五、输入输出重定向"></a>五、输入输出重定向</h2><p>（1）标准输出重定向</p>
+<p>使用”&gt;”符号，将命令执行的标准输出内容重定向到指定文件，覆盖原文件内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls -l 1.txt &gt;a.txt</div><div class="line">[root@allen1 test2]# cat a.txt</div><div class="line">-rw-r--r--. 1 root root 0 6月  28 20:23 1.txt</div></pre></td></tr></table></figure>
+<p>使用”&gt;&gt;”符号，将命令执行的标准输出内容追加到指定文件，不会覆盖原文件内容</p>
+<p>（2）标准错误输出重定向</p>
+<p>使用”2&gt;”符号，将命令执行的标准错误输出的内容重定向到指定文件，覆盖原文件内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls 41.txt 2&gt;err.txt</div><div class="line">[root@allen1 test2]# cat err.txt </div><div class="line">ls: 无法访问41.txt: 没有那个文件或目录</div></pre></td></tr></table></figure>
+<p>使用“2&gt;&gt;”符号，将命令执行的标准错误输出的内容追加到指定文件，不覆盖原文件内容</p>
+<p>（3）全部标准输出重定向</p>
+<p>使用“&amp;&gt;” ，将命令执行的正确和错误输出重定向到同一指定文件，覆盖原文件内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls -l 1.txt 41.txt &amp;&gt; all.txt</div><div class="line">[root@allen1 test2]# cat all.txt </div><div class="line">ls: 无法访问41.txt: 没有那个文件或目录</div><div class="line">-rw-r--r--. 1 root root 0 6月  28 20:23 1.txt</div></pre></td></tr></table></figure>
+<p>使用“&amp;&gt;&gt;” ，将命令执行的正确和错误输出追加到同一指定文件，不覆盖原文件内容</p>
+<p><strong>分开重定向使用：&gt;正确文件，2&gt;错误文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls -l 1.txt 41.txt &gt; a.txt 2&gt;err.txt</div><div class="line">[root@allen1 test2]# cat a.txt</div><div class="line">-rw-r--r--. 1 root root 0 6月  28 20:23 1.txt</div><div class="line">[root@allen1 test2]# cat err.txt </div><div class="line">ls: 无法访问41.txt: 没有那个文件或目录</div></pre></td></tr></table></figure>
+<p>（4）输入重定向</p>
+<p>将文件的内容作为命令的输入，用法command &lt;file，例如wc -l &lt; 1.txt</p>
 
       
 
@@ -260,6 +291,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">特殊符号</a>
         		</li>
       		
 		</ul>
@@ -461,6 +496,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
             
             <div class="clearfix"></div>
