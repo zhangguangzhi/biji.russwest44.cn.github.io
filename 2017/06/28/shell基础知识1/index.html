@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/171211675.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172644219.png?imageslim">
-<meta property="og:updated_time" content="2017-06-28T12:41:21.876Z">
+<meta property="og:updated_time" content="2017-06-28T12:46:30.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell基础知识之一">
 <meta name="twitter:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
@@ -199,7 +199,8 @@
 <p>环境变量HISTSIZE的值为命令历史保存数量，临时修改可以修改该变量的值。</p>
 <h3 id="4、如何给命令历史添加时间格式"><a href="#4、如何给命令历史添加时间格式" class="headerlink" title="4、如何给命令历史添加时间格式"></a>4、如何给命令历史添加时间格式</h3><p>现在的需求时运行history命令时，同时显示历史命令是什么时候运行的。</p>
 <p>（1）修改配置文件/etc/profile</p>
-<p>添加内容：HISTTIMEFORMAT=”%Y/%m/%d %H:%M:%S”<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/163143626.png?imageslim" alt="mark"></p>
+<p>添加内容：HISTTIMEFORMAT=”%Y/%m/%d %H:%M:%S”</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/163143626.png?imageslim" alt="mark"></p>
 <p>（2）保存后，重新进入终端或者source下/et/profile</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source /etc/profile</div><div class="line">[root@allen1 ~]# echo $HISTTIMEFORMAT</div><div class="line">%Y/%m/%d %H:%M:%S</div><div class="line">[root@allen1 ~]# history |tail -2</div><div class="line">  986  2017/06/28 16:36:26 echo $HISTTIMEFORMAT</div><div class="line">  987  2017/06/28 16:36:30 history |tail -2</div></pre></td></tr></table></figure>
 <p>环境变量HISTTIMEFORMAT的值就是该时间格式，临时显示可以直接修改该变量的值。</p>
@@ -231,9 +232,11 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# systemctl res	\\敲2下tab显示res开头的参数</div><div class="line">rescue        reset-failed  restart</div></pre></td></tr></table></figure>
 <h3 id="2、命令别名"><a href="#2、命令别名" class="headerlink" title="2、命令别名"></a>2、命令别名</h3><p>（1）显示所有命令别名</p>
-<p>alias：显示系统中的所有命令别名<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/170826217.png?imageslim" alt="mark"></p>
+<p>alias：显示系统中的所有命令别名</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/170826217.png?imageslim" alt="mark"></p>
 <p>（2）设置命令别名</p>
-<p>alias   命令别名=’命令内容’<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/171211675.png?imageslim" alt="mark"></p>
+<p>alias   命令别名=’命令内容’</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/171211675.png?imageslim" alt="mark"></p>
 <p>（3）设置别名的配置文件</p>
 <p>~/.bashrc 、/etc/profile.d/*.sh、/etc.profile</p>
 <p>（4）设置其他终端或用户可用的别名</p>
@@ -249,7 +252,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source /etc/profile</div><div class="line">[root@allen1 ~]# su - admin</div><div class="line">[admin@allen1 ~]$ lsa</div><div class="line">总用量 20</div><div class="line">drwx------. 2 admin admin  97 6月  28 16:10 .</div><div class="line">drwxr-xr-x. 6 root  root   58 6月  28 15:58 ..</div><div class="line">-rw-------. 1 admin admin 462 6月  28 17:20 .bash_history</div><div class="line">-rw-r--r--. 1 admin admin  18 8月   3 2016 .bash_logout</div><div class="line">-rw-r--r--. 1 admin admin 193 8月   3 2016 .bash_profile</div><div class="line">-rw-r--r--. 1 admin admin 231 8月   3 2016 .bashrc</div><div class="line">-rw-r--r--. 1 admin admin 658 1月  18 06:28 .zshrc</div></pre></td></tr></table></figure>
 <p>（5）设置只有特定用户才能使用该别名</p>
 <ul>
-<li>编辑用户家目录下的配置文件~/.bashrc，添加设置别名的命令<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/172644219.png?imageslim" alt="mark"></li>
+<li>编辑用户家目录下的配置文件~/.bashrc，添加设置别名的命令</li>
+<li><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/172644219.png?imageslim" alt="mark"></li>
 <li>保存后，source一下~/.bashrc</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[admin@allen1 ~]$ source ~/.bashrc</div><div class="line">[admin@allen1 ~]$ lsh</div><div class="line">总用量 0</div><div class="line">-rw-rw-r--. 1 admin admin 0 6月  28 17:26 1.txt</div><div class="line">[admin@allen1 ~]$ ls -lh</div><div class="line">总用量 0</div><div class="line">-rw-rw-r--. 1 admin admin 0 6月  28 17:26 1.txt</div><div class="line">[admin@allen1 ~]$ su - root</div><div class="line">密码：</div><div class="line">上一次登录：三 6月 28 17:28:07 CST 2017pts/0 上</div><div class="line">[root@allen1 ~]# lsh</div><div class="line">-bash: lsh: 未找到命令		\\此时只有admin能使用lsh，root是不行的</div></pre></td></tr></table></figure>
