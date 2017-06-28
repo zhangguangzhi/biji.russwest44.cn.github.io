@@ -213,70 +213,9 @@
 </li>
 </ul>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/160321239.png?imageslim" alt="mark"></p>
-<h2 id="二、命令历史"><a href="#二、命令历史" class="headerlink" title="二、命令历史"></a>二、命令历史</h2><p>我们每次输入的命令都是会保存在一个文件中，使用方向键可以查看我们输入过的命令。</p>
-<h3 id="1、查看命令历史的命令：history"><a href="#1、查看命令历史的命令：history" class="headerlink" title="1、查看命令历史的命令：history"></a>1、查看命令历史的命令：history</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# history |tail -5</div><div class="line">  962  ksh</div><div class="line">  963  yum install -y zsh</div><div class="line">  964  zsh</div><div class="line">  965  history </div><div class="line">  966  history |tail -5</div></pre></td></tr></table></figure>
-<p>选项：</p>
-<ul>
-<li>-c：清空缓存中的命令历史</li>
-<li>-w：将缓存中的历史命令写入保存文件~/.bash_history</li>
-</ul>
-<h3 id="2、存放历史命令配置文件"><a href="#2、存放历史命令配置文件" class="headerlink" title="2、存放历史命令配置文件"></a>2、存放历史命令配置文件</h3><p>用户家目录下：<strong>~/.bash_history</strong></p>
-<p>~/.bash_history只保存正确退出的命令，默认最大保存1000条。</p>
-<p>history命令显示的命令历史与~/.bash_history一般不会同步，可以使用history -w强制保存</p>
-<p>3、如何修改命令历史保存数量</p>
-<p>（1）修改配置文件/etc/profile</p>
-<p>将HISTSIZE=1000修改为你想保存的数量<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/162034834.png?imageslim" alt="mark"></p>
-<p>（2）保存后，重新进入终端或者source一下/etc/profile</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source /etc/profile</div><div class="line">[root@allen1 ~]# echo $HISTSIZE</div><div class="line">1110</div></pre></td></tr></table></figure>
-<p>环境变量HISTSIZE的值为命令历史保存数量，临时修改可以修改该变量的值。</p>
-<h3 id="4、如何给命令历史添加时间格式"><a href="#4、如何给命令历史添加时间格式" class="headerlink" title="4、如何给命令历史添加时间格式"></a>4、如何给命令历史添加时间格式</h3><p>现在的需求时运行history命令时，同时显示历史命令是什么时候运行的。</p>
-<p>（1）修改配置文件/etc/profile</p>
-<p>添加内容：HISTTIMEFORMAT=”%Y/%m/%d %H:%M:%S”<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/163143626.png?imageslim" alt="mark"></p>
-<p>（2）保存后，重新进入终端或者source下/et/profile</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source /etc/profile</div><div class="line">[root@allen1 ~]# echo $HISTTIMEFORMAT</div><div class="line">%Y/%m/%d %H:%M:%S</div><div class="line">[root@allen1 ~]# history |tail -2</div><div class="line">  986  2017/06/28 16:36:26 echo $HISTTIMEFORMAT</div><div class="line">  987  2017/06/28 16:36:30 history |tail -2</div></pre></td></tr></table></figure>
-<p>环境变量HISTTIMEFORMAT的值就是该时间格式，临时显示可以直接修改该变量的值。</p>
-<h3 id="5、如何永久保存命令历史"><a href="#5、如何永久保存命令历史" class="headerlink" title="5、如何永久保存命令历史"></a>5、如何永久保存命令历史</h3><p>增加隐藏权限a，chattr +a  ~/.bash_history</p>
-<h3 id="6、快速定位历史命令"><a href="#6、快速定位历史命令" class="headerlink" title="6、快速定位历史命令"></a>6、快速定位历史命令</h3><p>!!：执行上一条命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls test</div><div class="line">test</div><div class="line">[root@allen1 ~]# !!</div><div class="line">ls test</div><div class="line">test</div></pre></td></tr></table></figure>
-<p>!n：n为数字，运行第n条命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# history |tail -2</div><div class="line">  999  2017/06/28 16:49:08 ls test</div><div class="line"> 1000  2017/06/28 16:49:11 history |tail -2</div><div class="line">[root@allen1 ~]# !999</div><div class="line">ls test</div><div class="line">test</div></pre></td></tr></table></figure>
-<p>!字符串：执行最后一条以“字符串”结尾的命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> 1004  2017/06/28 16:51:24 mkdir test2</div><div class="line"> 1005  2017/06/28 16:51:26 mkdir test3</div><div class="line"> 1006  2017/06/28 16:51:43 history </div><div class="line">[root@allen1 ~]# !mkdir</div><div class="line">mkdir test3</div><div class="line">[root@allen1 ~]# ls -d test3</div><div class="line">test3</div></pre></td></tr></table></figure>
-<h2 id="三、命令补全及其别名"><a href="#三、命令补全及其别名" class="headerlink" title="三、命令补全及其别名"></a>三、命令补全及其别名</h2><h3 id="1、命令补全"><a href="#1、命令补全" class="headerlink" title="1、命令补全"></a>1、命令补全</h3><p>使用tab，可以补全命令，也可以补全路径</p>
-<p>（1）补全命令和路径</p>
-<p>敲两下：当遇到开头一样的多个命令时，需要敲两下显示全部列表以供选择</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls		\\敲2下tab键显示ls开头的命令</div><div class="line"></div><div class="line">ls        lsblk     lsinitrd  lslocks   lsmod     lspci     </div><div class="line"></div><div class="line">lsattr    lscpu     lsipc     lslogins  lsns      lsscsi</div></pre></td></tr></table></figure>
-<p>敲一下：当命令开头唯一时，敲一下即可补全命令。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# lsa  敲一下tab  lsattr</div></pre></td></tr></table></figure>
-<p>以上面lsa开头为例，敲一下tab键，就能将命令补全为lsattr</p>
-<p><strong>路径的补全方式与命令一致</strong></p>
-<p>（2）centos7补全命令参数    </p>
-<ul>
-<li>需要安装bash-completion</li>
-<li>重新启动系统</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# systemctl res	\\敲2下tab显示res开头的参数</div><div class="line">rescue        reset-failed  restart</div></pre></td></tr></table></figure>
-<h3 id="2、命令别名"><a href="#2、命令别名" class="headerlink" title="2、命令别名"></a>2、命令别名</h3><p>（1）显示所有命令别名</p>
-<p>alias：显示系统中的所有命令别名<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/170826217.png?imageslim" alt="mark"></p>
-<p>（2）设置命令别名</p>
-<p>alias   命令别名=’命令内容’<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/171211675.png?imageslim" alt="mark"></p>
-<p>（3）设置别名的配置文件</p>
-<p>~/.bashrc 、/etc/profile.d/*.sh、/etc.profile</p>
-<p>（4）设置其他终端或用户可用的别名</p>
-<p>使用alias命令设置别名后，在其他终端或用户是无法使用的。</p>
-<p>如果要使用需要进行以下操作：</p>
-<ul>
-<li>编辑配置文件/etc/profile，添加设置别名的命令<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim" alt="mark"></li>
-<li>保存后，source一下/etc/profile</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source /etc/profile</div><div class="line">[root@allen1 ~]# su - admin</div><div class="line">[admin@allen1 ~]$ lsa</div><div class="line">总用量 20</div><div class="line">drwx------. 2 admin admin  97 6月  28 16:10 .</div><div class="line">drwxr-xr-x. 6 root  root   58 6月  28 15:58 ..</div><div class="line">-rw-------. 1 admin admin 462 6月  28 17:20 .bash_history</div><div class="line">-rw-r--r--. 1 admin admin  18 8月   3 2016 .bash_logout</div><div class="line">-rw-r--r--. 1 admin admin 193 8月   3 2016 .bash_profile</div><div class="line">-rw-r--r--. 1 admin admin 231 8月   3 2016 .bashrc</div><div class="line">-rw-r--r--. 1 admin admin 658 1月  18 06:28 .zshrc</div></pre></td></tr></table></figure>
-<p>（5）设置只有特定用户才能使用该别名</p>
-<ul>
-<li>编辑用户家目录下的配置文件~/.bashrc，添加设置别名的命令<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/172644219.png?imageslim" alt="mark"></li>
-<li>保存后，source一下~/.bashrc</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[admin@allen1 ~]$ source ~/.bashrc</div><div class="line">[admin@allen1 ~]$ lsh</div><div class="line">总用量 0</div><div class="line">-rw-rw-r--. 1 admin admin 0 6月  28 17:26 1.txt</div><div class="line">[admin@allen1 ~]$ ls -lh</div><div class="line">总用量 0</div><div class="line">-rw-rw-r--. 1 admin admin 0 6月  28 17:26 1.txt</div><div class="line">[admin@allen1 ~]$ su - root</div><div class="line">密码：</div><div class="line">上一次登录：三 6月 28 17:28:07 CST 2017pts/0 上</div><div class="line">[root@allen1 ~]# lsh</div><div class="line">-bash: lsh: 未找到命令		\\此时只有admin能使用lsh，root是不行的</div></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2017/06/28/shell基础知识1/#more">more >></a>
+        
       
 
       

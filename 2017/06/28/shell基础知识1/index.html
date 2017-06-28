@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>shell基础知识之一 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等    二、命令历史我们每次输入的命令都是会保存在一个文件中，使用方向键可以查看我们输入过的命令。 1、查看命令历史的命令">
+  <meta name="description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
 <meta name="keywords" content="shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell基础知识之一">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/28/shell基础知识1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等    二、命令历史我们每次输入的命令都是会保存在一个文件中，使用方向键可以查看我们输入过的命令。 1、查看命令历史的命令">
+<meta property="og:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/155443234.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/160321239.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/162034834.png?imageslim">
@@ -23,10 +23,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/171211675.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172644219.png?imageslim">
-<meta property="og:updated_time" content="2017-06-28T09:31:21.288Z">
+<meta property="og:updated_time" content="2017-06-28T09:36:07.598Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell基础知识之一">
-<meta name="twitter:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等    二、命令历史我们每次输入的命令都是会保存在一个文件中，使用方向键可以查看我们输入过的命令。 1、查看命令历史的命令">
+<meta name="twitter:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/155443234.png?imageslim">
   
   
@@ -178,6 +178,7 @@
 </li>
 </ul>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/160321239.png?imageslim" alt="mark"></p>
+<a id="more"></a>
 <h2 id="二、命令历史"><a href="#二、命令历史" class="headerlink" title="二、命令历史"></a>二、命令历史</h2><p>我们每次输入的命令都是会保存在一个文件中，使用方向键可以查看我们输入过的命令。</p>
 <h3 id="1、查看命令历史的命令：history"><a href="#1、查看命令历史的命令：history" class="headerlink" title="1、查看命令历史的命令：history"></a>1、查看命令历史的命令：history</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# history |tail -5</div><div class="line">  962  ksh</div><div class="line">  963  yum install -y zsh</div><div class="line">  964  zsh</div><div class="line">  965  history </div><div class="line">  966  history |tail -5</div></pre></td></tr></table></figure>
 <p>选项：</p>
@@ -190,7 +191,8 @@
 <p>history命令显示的命令历史与~/.bash_history一般不会同步，可以使用history -w强制保存</p>
 <p>3、如何修改命令历史保存数量</p>
 <p>（1）修改配置文件/etc/profile</p>
-<p>将HISTSIZE=1000修改为你想保存的数量<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/162034834.png?imageslim" alt="mark"></p>
+<p>将HISTSIZE=1000修改为你想保存的数量</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/162034834.png?imageslim" alt="mark"></p>
 <p>（2）保存后，重新进入终端或者source一下/etc/profile</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source /etc/profile</div><div class="line">[root@allen1 ~]# echo $HISTSIZE</div><div class="line">1110</div></pre></td></tr></table></figure>
 <p>环境变量HISTSIZE的值为命令历史保存数量，临时修改可以修改该变量的值。</p>
@@ -231,8 +233,11 @@
 <p>使用alias命令设置别名后，在其他终端或用户是无法使用的。</p>
 <p>如果要使用需要进行以下操作：</p>
 <ul>
-<li>编辑配置文件/etc/profile，添加设置别名的命令<img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim" alt="mark"></li>
-<li>保存后，source一下/etc/profile</li>
+<li><p>编辑配置文件/etc/profile，添加设置别名的命令</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim" alt="mark"></p>
+</li>
+<li><p>保存后，source一下/etc/profile</p>
+</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source /etc/profile</div><div class="line">[root@allen1 ~]# su - admin</div><div class="line">[admin@allen1 ~]$ lsa</div><div class="line">总用量 20</div><div class="line">drwx------. 2 admin admin  97 6月  28 16:10 .</div><div class="line">drwxr-xr-x. 6 root  root   58 6月  28 15:58 ..</div><div class="line">-rw-------. 1 admin admin 462 6月  28 17:20 .bash_history</div><div class="line">-rw-r--r--. 1 admin admin  18 8月   3 2016 .bash_logout</div><div class="line">-rw-r--r--. 1 admin admin 193 8月   3 2016 .bash_profile</div><div class="line">-rw-r--r--. 1 admin admin 231 8月   3 2016 .bashrc</div><div class="line">-rw-r--r--. 1 admin admin 658 1月  18 06:28 .zshrc</div></pre></td></tr></table></figure>
 <p>（5）设置只有特定用户才能使用该别名</p>
