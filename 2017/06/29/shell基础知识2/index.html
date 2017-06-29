@@ -6,28 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>linux安装与卸载软件 | Hexo</title>
+  <title>shell基础知识之二 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、安装软件包的三种方法1、rpm工具rpm：红帽子公司包管理系统。 优点：管理简单，安装速度快 缺点：功能不如源码包灵活，安装时rpm可能需要安装其他依赖包 2、yum工具yum是Python开发的工具，具体也是安装rpm包，会自动安装依赖包。 3、源码包可以看到源代码，需要使用编译器编译成可执行文件。 优点：开源，自由选择所需功能，稳定，效率高 缺点：安装步骤较多，安装时间较长，报">
-<meta name="keywords" content="yum,源码,rpm">
+  <meta name="description" content="shell基础知识之一 [TOC] 一、管道符管道符“|”：将前面命令的输出内容传递给后面的命令处理。 12345[root@allen1 ~]# lsanaconda-ks.cfg  d6z  dir2  file1  file2  file3  passwd  test  test1  test2  test3[root@allen1 ~]# ls |wc -l11\\前面ls命令列出了11个">
+<meta name="keywords" content="shell,环境变量">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux安装与卸载软件">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/26/安装与卸载软件/index.html">
+<meta property="og:title" content="shell基础知识之二">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/29/shell基础知识2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 一、安装软件包的三种方法1、rpm工具rpm：红帽子公司包管理系统。 优点：管理简单，安装速度快 缺点：功能不如源码包灵活，安装时rpm可能需要安装其他依赖包 2、yum工具yum是Python开发的工具，具体也是安装rpm包，会自动安装依赖包。 3、源码包可以看到源代码，需要使用编译器编译成可执行文件。 优点：开源，自由选择所需功能，稳定，效率高 缺点：安装步骤较多，安装时间较长，报">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/134021314.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/140612331.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/201440503.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/204348458.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/204917142.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/210402585.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/210511489.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170627/110536422.png?imageslim">
-<meta property="og:updated_time" content="2017-06-28T13:04:37.198Z">
+<meta property="og:description" content="shell基础知识之一 [TOC] 一、管道符管道符“|”：将前面命令的输出内容传递给后面的命令处理。 12345[root@allen1 ~]# lsanaconda-ks.cfg  d6z  dir2  file1  file2  file3  passwd  test  test1  test2  test3[root@allen1 ~]# ls |wc -l11\\前面ls命令列出了11个">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/222003563.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/222027585.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/222323664.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231759895.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231905382.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231024643.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231528852.png?imageslim">
+<meta property="og:updated_time" content="2017-06-29T15:30:12.043Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux安装与卸载软件">
-<meta name="twitter:description" content="[TOC] 一、安装软件包的三种方法1、rpm工具rpm：红帽子公司包管理系统。 优点：管理简单，安装速度快 缺点：功能不如源码包灵活，安装时rpm可能需要安装其他依赖包 2、yum工具yum是Python开发的工具，具体也是安装rpm包，会自动安装依赖包。 3、源码包可以看到源代码，需要使用编译器编译成可执行文件。 优点：开源，自由选择所需功能，稳定，效率高 缺点：安装步骤较多，安装时间较长，报">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170626/134021314.png?imageslim">
+<meta name="twitter:title" content="shell基础知识之二">
+<meta name="twitter:description" content="shell基础知识之一 [TOC] 一、管道符管道符“|”：将前面命令的输出内容传递给后面的命令处理。 12345[root@allen1 ~]# lsanaconda-ks.cfg  d6z  dir2  file1  file2  file3  passwd  test  test1  test2  test3[root@allen1 ~]# ls |wc -l11\\前面ls命令列出了11个">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/222003563.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -143,241 +142,96 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-安装与卸载软件" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-shell基础知识2" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      linux安装与卸载软件
+      shell基础知识之二
     </h1>
   
 
         
-        <a href="/2017/06/26/安装与卸载软件/" class="archive-article-date">
-  	<time datetime="2017-06-26T04:33:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-26</time>
+        <a href="/2017/06/29/shell基础知识2/" class="archive-article-date">
+  	<time datetime="2017-06-29T13:47:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<h2 id="一、安装软件包的三种方法"><a href="#一、安装软件包的三种方法" class="headerlink" title="一、安装软件包的三种方法"></a>一、安装软件包的三种方法</h2><h3 id="1、rpm工具"><a href="#1、rpm工具" class="headerlink" title="1、rpm工具"></a>1、rpm工具</h3><p>rpm：红帽子公司包管理系统。</p>
-<p>优点：管理简单，安装速度快</p>
-<p>缺点：功能不如源码包灵活，安装时rpm可能需要安装其他依赖包</p>
-<h3 id="2、yum工具"><a href="#2、yum工具" class="headerlink" title="2、yum工具"></a>2、yum工具</h3><p>yum是Python开发的工具，具体也是安装rpm包，会自动安装依赖包。</p>
-<h3 id="3、源码包"><a href="#3、源码包" class="headerlink" title="3、源码包"></a>3、源码包</h3><p>可以看到源代码，需要使用编译器编译成可执行文件。</p>
-<p>优点：开源，自由选择所需功能，稳定，效率高</p>
-<p>缺点：安装步骤较多，安装时间较长，报错时新手解决难度大</p>
-<a id="more"></a>
-<h2 id="二、使用rpm工具"><a href="#二、使用rpm工具" class="headerlink" title="二、使用rpm工具"></a>二、使用rpm工具</h2><h3 id="1、挂载光盘"><a href="#1、挂载光盘" class="headerlink" title="1、挂载光盘"></a>1、挂载光盘</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# mount /dev/cdrom /mnt/</div><div class="line">mount: /dev/sr0 写保护，将以只读方式挂载</div><div class="line">[root@allen1 ~]#</div></pre></td></tr></table></figure>
-<h3 id="2、查看光盘内的rpm包"><a href="#2、查看光盘内的rpm包" class="headerlink" title="2、查看光盘内的rpm包"></a>2、查看光盘内的rpm包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mnt]# cd /mnt/Packages/</div><div class="line">[root@allen1 Packages]# ls</div><div class="line">abattis-cantarell-fonts-0.0.16-3.el7.noarch.rpm</div><div class="line">abrt-2.1.11-45.el7.centos.x86_64.rpm</div><div class="line">.....</div></pre></td></tr></table></figure>
-<h3 id="3、rpm包的命名介绍"><a href="#3、rpm包的命名介绍" class="headerlink" title="3、rpm包的命名介绍"></a>3、rpm包的命名介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# ls httpd-2.4.6-45.el7.centos.x86_64.rpm </div><div class="line">httpd-2.4.6-45.el7.centos.x86_64.rpm</div></pre></td></tr></table></figure>
-<p>httpd：软件包名                            </p>
-<p>-2.4.6：软件版本号</p>
-<p>-45：发布版本号（发布次数）                </p>
-<p>el7.centos：适用的Linux平台</p>
-<p>x86_64：适合的硬件平台（i686为32位）        </p>
-<p>rpm：后缀表示名</p>
-<p><strong>包名：httpd</strong></p>
-<p><strong>包全名：httpd-2.4.6-45.el7.centos.x86_64.rpm</strong></p>
-<h3 id="4、rpm命令使用"><a href="#4、rpm命令使用" class="headerlink" title="4、rpm命令使用"></a>4、rpm命令使用</h3><table>
-<thead>
-<tr>
-<th style="text-align:left">作用</th>
-<th style="text-align:left">命令</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">安装rpm包</td>
-<td style="text-align:left"><strong>rpm  -ivh  rpm包全名</strong></td>
-</tr>
-<tr>
-<td style="text-align:left">升级rpm包</td>
-<td style="text-align:left">rpm  -Uvh  rpm包全名</td>
-</tr>
-<tr>
-<td style="text-align:left">卸载rpm包</td>
-<td style="text-align:left"><strong>rpm  -e  包名</strong></td>
-</tr>
-<tr>
-<td style="text-align:left">查询已安装的rpm包</td>
-<td style="text-align:left">rpm  -qa</td>
-</tr>
-<tr>
-<td style="text-align:left">查询指定包是否安装</td>
-<td style="text-align:left"><strong>rpm  -q  包名</strong></td>
-</tr>
-<tr>
-<td style="text-align:left">查询指定包信息</td>
-<td style="text-align:left">rpm  -qi  包名</td>
-</tr>
-<tr>
-<td style="text-align:left">列出包安装的文件</td>
-<td style="text-align:left">rpm  -ql</td>
-</tr>
-<tr>
-<td style="text-align:left">查看一个文件是由那个包安装</td>
-<td style="text-align:left">rpm  -qf  文件绝对路径</td>
-</tr>
-</tbody>
-</table>
-<p>-i：安装                    </p>
-<p>-h：人性化显示</p>
-<p>-v：显示详情                </p>
-<p>-U：升级</p>
-<p>-e：卸载                    </p>
-<p>-q：查询</p>
-<p>-a：列出全部                </p>
-<p>-i：查询包详情</p>
-<p><strong>一条命令查看文件由那个包安装：rpm  -qf  `which  cmd`</strong></p>
-<p><strong>在安装和卸载时，可能会需要解决包的依赖性，可以使用–nodeps不检查依赖性，但是一般不建议使用。</strong></p>
-<h3 id="5、下载rpm包安装"><a href="#5、下载rpm包安装" class="headerlink" title="5、下载rpm包安装"></a>5、下载rpm包安装</h3><p>有时，在光盘中没有我们需要的rpm，这时我们可以到 <a href="http://rpmfind.net/" target="_blank" rel="external">http://rpmfind.net/</a> 搜索，根据平台下载到本地，再进行安装。</p>
-<h2 id="三、使用yum工具"><a href="#三、使用yum工具" class="headerlink" title="三、使用yum工具"></a>三、使用yum工具</h2><p>直接使用rpm包安装或卸载，可能需要解决依赖性问题。使用yum进行安装则会自动解决依赖性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# rpm -ivh texlive-2012-38.20130427_r30134.el7.x86_64.rpm </div><div class="line">错误：依赖检测失败：</div><div class="line">	texlive-scheme-basic 被 texlive-2:2012-38.20130427_r30134.el7.x86_64 需要</div><div class="line">	texlive-collection-latexrecommended 被 texlive-2:2012-38.20130427_r30134.el7.x86_64 需要</div><div class="line">	tex-kpathsea 被 texlive-2:2012-38.20130427_r30134.el7.x86_64 需要</div><div class="line">	tex-tetex 被 texlive-2:2012-38.20130427_r30134.el7.x86_64 需要</div></pre></td></tr></table></figure>
-<h3 id="1、yum源的配置文件"><a href="#1、yum源的配置文件" class="headerlink" title="1、yum源的配置文件"></a>1、yum源的配置文件</h3><p>yum  list：可以列出可用的rpm包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# yum list</div><div class="line">texlive-cmap.noarch                          2:svn26568.0-38.el7                 base     </div><div class="line">texlive-cmap-doc.noarch                      2:svn26568.0-38.el7                 base     </div><div class="line">texlive-cmextra.noarch                       2:svn14075.0-38.el7                 base     </div><div class="line">texlive-cns.noarch                           2:svn15878.0-38.el7                 base     </div><div class="line">texlive-cns-doc.noarch                       2:svn15878.0-38.el7                 base     </div><div class="line">texlive-collectbox.noarch                    2:svn26557.0-38.el7                 base    </div><div class="line">........</div></pre></td></tr></table></figure>
-<p>最右侧的“base”为yum仓库名称，该名称是在yum的配置文件/etc/yum.repos.d/CentOS-Base.repo中定义的。</p>
-<p>如果最右侧显示的是“@anaconda”，表示该rpm已安装</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/134021314.png?imageslim" alt="mark"></p>
-<h3 id="2、yum常用命令"><a href="#2、yum常用命令" class="headerlink" title="2、yum常用命令"></a>2、yum常用命令</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>yum list</td>
-<td>列出可用rpm包</td>
-</tr>
-<tr>
-<td>yum   search  包名</td>
-<td>模糊搜索包，会搜索到包的简介</td>
-</tr>
-<tr>
-<td>yum  install  包名</td>
-<td>安装包，后面跟-y表示自动确认安装</td>
-</tr>
-<tr>
-<td>yum  grouplist</td>
-<td>列出可用rpm包组</td>
-</tr>
-<tr>
-<td>yum  groupinstall   ’包组名’</td>
-<td>安装包组</td>
-</tr>
-<tr>
-<td>yum  remove  包名</td>
-<td>卸载包，后面跟-y表示自动确认卸载</td>
-</tr>
-<tr>
-<td>yum  update  包名</td>
-<td>升级包，后面跟-y表示自动确认升级</td>
-</tr>
-<tr>
-<td>yum  procides  “/*/命令”</td>
-<td>查看命令文件是由那个包安装</td>
-</tr>
-</tbody>
-</table>
-<p>精确搜索包：yum  list  |  grep  包名</p>
-<h3 id="3、搭建本地yum仓库"><a href="#3、搭建本地yum仓库" class="headerlink" title="3、搭建本地yum仓库"></a>3、搭建本地yum仓库</h3><p>yum需要联网使用，如果遇到不能联网，我们可以搭建本地yum仓库</p>
-<p>（1）挂载光盘</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# mount /dev/cdrom /mnt/</div><div class="line">mount: /dev/sr0 写保护，将以只读方式挂载</div></pre></td></tr></table></figure>
-<p>（2）备份yum配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# cp -r /etc/yum.repos.d  /etc/yum.repos.d.bak</div></pre></td></tr></table></figure>
-<p>（3）创建本地yum仓库配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# rm -rf /etc/yum.repos.d/*</div><div class="line">[root@allen1 Packages]# vim /etc/yum.repos.d/dvd.repo</div><div class="line">写入一下内容：</div><div class="line">#仓库名称</div><div class="line">[dvd]</div><div class="line">#自定义标识</div><div class="line">name=install dvd</div><div class="line">#仓库地址</div><div class="line">baseurl=file:///mnt</div><div class="line">#是否可用，1为可用</div><div class="line">enable=1</div><div class="line">#是否检测，0位不检测</div><div class="line">gpgcheck=0</div></pre></td></tr></table></figure>
-<p>（4）刷新yum缓存</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@allen1 Packages]# yum  clean  all</div><div class="line">[root@allen1 Packages]# yum  list</div><div class="line">yum-utils.noarch                             1.1.31-40.el7                       dvd      </div><div class="line">zenity.x86_64                                3.8.0-5.el7                         dvd      </div><div class="line">zlib-devel.x86_64                            1.2.7-17.el7                        dvd      </div><div class="line">zsh.x86_64                                   5.0.2-25.el7                        dvd      </div><div class="line">zziplib.x86_64                               0.13.62-5.el7                       dvd </div><div class="line">.........</div><div class="line">[root@allen1 Packages]# yum  makecache		\\创建缓存</div></pre></td></tr></table></figure>
-<p>（5）安装</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/140612331.png?imageslim" alt="mark"></p>
-<p>（6）使用镜像文件搭建yum仓库</p>
-<p>操作步骤与光盘类似，但是我们需要挂载iso镜像文件，挂载命令如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mount -o loop -t iso9600  镜像文件.iso  /挂载点</div><div class="line">#-o loop：表示将一个文件当成磁盘分区</div><div class="line">#-t iso9600：指定文件系统为iso9600</div></pre></td></tr></table></figure>
-<h3 id="4、yum更换国内源"><a href="#4、yum更换国内源" class="headerlink" title="4、yum更换国内源"></a>4、yum更换国内源</h3><p>自带的yum源可能因为网络原因，不太好用，这时我们可以更换成国内源。</p>
-<p>（1）停用本地yum源</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# rm -rf /etc/yum.repos.d/dvd.repo</div></pre></td></tr></table></figure>
-<p>（2）下载国内yum源（163）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget  http://mirrors.163.com/.help/CentOS7-Base-163.repo</div><div class="line">或</div><div class="line">curl  -O  http://mirrors.163.com/.help/CentOS7-Base-163.repo</div><div class="line">[root@allen1 ~]# ls CentOS7-Base-163.repo </div><div class="line">CentOS7-Base-163.repo</div></pre></td></tr></table></figure>
-<p>（3）查看国内yum源配置文件</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/201440503.png?imageslim" alt="mark"></p>
-<p>（4）刷新yum缓存</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum clean all</div><div class="line">yum list</div><div class="line">yum makecache</div></pre></td></tr></table></figure>
-<h3 id="5、安装拓展源epel"><a href="#5、安装拓展源epel" class="headerlink" title="5、安装拓展源epel"></a>5、安装拓展源epel</h3><p>如果只有一个163的软件源可能不够，有些rpm包没有，所以需要安装拓展源</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum  install  -y  epel-release</div><div class="line">yum  list |grep  epel</div><div class="line">[root@allen1 Packages]# yum list |grep epel|wc -l</div><div class="line">11629</div></pre></td></tr></table></figure>
-<h3 id="6、yum只下载rpm包不安装"><a href="#6、yum只下载rpm包不安装" class="headerlink" title="6、yum只下载rpm包不安装"></a>6、yum只下载rpm包不安装</h3><p> 有时需要将rpm传输给其他机器使用，那么我们可以将rpm包下载下来不安装。</p>
-<p> （1）下载rpm包不安装：<strong>yum  install -y 包名  –downloadonly</strong></p>
-<p>（2）修改下载rpm包存放位置</p>
-<p>rpm包默认存放的位置为：/var/cache/yum/x86_64/7/</p>
-<p>修改配置文件/etc/yum.conf可以修改存放位置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /etc/yum.conf</div><div class="line">[main]</div><div class="line">cachedir=/usr/local/src/rpm</div><div class="line">keepcache=1</div><div class="line">debuglevel=2</div><div class="line">cachedir是放置下载的包的地方，可以修改为自己想放置的位置</div><div class="line">keepcache为1时表示保存已经下载的rpm包</div></pre></td></tr></table></figure>
-<p>（3）下载rpm包时指定存放路径：<strong>yum  install -y 包名  –downloadonly  –downloaddir=绝对路径</strong></p>
-<p>（4）已安装的rpm想下载下来，需要将install更换为reinstall</p>
-<h3 id="7、yum局域网软件源搭建"><a href="#7、yum局域网软件源搭建" class="headerlink" title="7、yum局域网软件源搭建"></a>7、yum局域网软件源搭建</h3><p>（1）搭建Apache服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y httpd</div></pre></td></tr></table></figure>
-<p>（2）准备rpm包</p>
-<p>yum安装好的apache工作目录默认在/var/www/html，因为安装系统时只下载了DVD2.iso，所以只将其解压。然后把DVD2.iso解压出来的Packages目录下的rpm包复制到/var/html/centos-7/Packages目录下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp /mnt/Packages/* /var/www/html/centos-/Packages/</div><div class="line">ls /var/www/html/centos-7/Packages/</div></pre></td></tr></table></figure>
-<p>关闭防火墙和selinux</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">setenforce  0</div><div class="line">systemctl stop firewalld</div></pre></td></tr></table></figure>
-<p>在浏览器中输入ip/centos-7/</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/204348458.png?imageslim" alt="mark"></p>
-<p>（3）创建yum仓库</p>
-<p>准备createrepo：yum -y install createrepo</p>
-<p>创建repository：createrepo  /var/www/html/centos-7/</p>
-<p>创建完成之后，会在/var/www/html/centos-7/repodata下生成一些文件。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/204917142.png?imageslim" alt="mark"></p>
-<p>（4）使用软件源</p>
-<p>在其他centos服务器上试验软件源能不能用</p>
-<p>备份原有repo源：cp   /etc/yum.repos.d    /etc/yum.repos.d.bak</p>
-<p>创建base源，并写入以下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">vim  /etc/yum.repo.d/CentOS-Base.repo</div><div class="line">[base]</div><div class="line">name=CentOS-$releasever - Base</div><div class="line">baseurl=http://192.168.205.137/centos-7/</div><div class="line">#改成0下面那行就不用设置了</div><div class="line">gpgcheck=0</div><div class="line">gpgkey=http:///192.168.205.137/centos-7/RPM-GPG-KEY-CentOS-7</div><div class="line">enabled=1</div><div class="line">#released updates </div><div class="line">#[updates]</div><div class="line">#name=CentOS-$releasever - Updates</div><div class="line">#baseurl=http:///192.168.205.137/centos-7/</div><div class="line">#gpgcheck=1</div><div class="line">#gpgkey=http:///192.168.205.137/centos-7/RPM-GPG-KEY-CentOS-7</div><div class="line">#enabled = 1</div></pre></td></tr></table></figure>
-<p>刷新缓存</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum  clean  all</div><div class="line">yum list</div><div class="line">yum update</div><div class="line">yum makecache</div></pre></td></tr></table></figure>
-<p>（5）测试</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/210402585.png?imageslim" alt="mark"></p>
-<p>测试 yum安装httpd</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/210511489.png?imageslim" alt="mark"></p>
-<p>安装完成后，启动httpd成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen2 yum.repos.d]# systemctl start http.service</div><div class="line">[root@allen2 yum.repos.d]# netstat -lnp |grep 80</div><div class="line">tcp6       0      0 :::80                   :::*                    LISTEN      2729/httpd</div></pre></td></tr></table></figure>
-<h3 id="8、配置yum源的优先级"><a href="#8、配置yum源的优先级" class="headerlink" title="8、配置yum源的优先级"></a>8、配置yum源的优先级</h3><p>作用：多个仓库时，想使用本地的，设置优先级即可，可以节省带宽。</p>
-<p>（1）安装yum-priorities</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install  -y  yum-priorities</div></pre></td></tr></table></figure>
-<p>（2）priorities的配置文件是/etc/yum/pluginconf.d/priorities.conf，确认是否存在。其内容为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[main]</div><div class="line">#0禁用，1启用</div><div class="line">enabled=1</div></pre></td></tr></table></figure>
-<p>（3）编辑/etc/yum.repos.d/目录下的*.repo文件来设置优先级。</p>
-<p>选项为：priority=N   #N的值为1-99</p>
-<p>推荐的设置为：<br>[base], [addons], [updates], [extras] … priority=1<br>[centosplus],[contrib] … priority=2<br>Third Party Repos such as rpmforge … priority=N   (where N is &gt; 10 and based on your preference)</p>
-<p>推荐的设置为：<br>[base], [addons], [updates], [extras] … priority=1<br>[centosplus],[contrib] … priority=2<br>Third Party Repos such as rpmforge … priority=N   (where N is &gt; 10 and based on your preference)</p>
-<p><strong>数字越大,优先级越低</strong></p>
-<h2 id="四、源码包安装"><a href="#四、源码包安装" class="headerlink" title="四、源码包安装"></a>四、源码包安装</h2><p>本次以Apache源码包安装实验。</p>
-<h3 id="1、下载源码包"><a href="#1、下载源码包" class="headerlink" title="1、下载源码包"></a>1、下载源码包</h3><p>一般是需要什么软件，就到官网下载。一般将源码包放置在/usr/local/src</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://mirror.bit.edu.cn/apache/httpd/httpd-2.2.32.tar.gz</div><div class="line">[root@allen1 src]# ls -l httpd-2.2.32.tar.gz </div><div class="line">-rw-r--r--. 1 root root 7684420 6月  20 19:42 httpd-2.2.32.tar.gz</div></pre></td></tr></table></figure>
-<h3 id="2、解压源码包"><a href="#2、解压源码包" class="headerlink" title="2、解压源码包"></a>2、解压源码包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar  -zxvf  httpd-2.2.32.tar.gz</div><div class="line">cd httpd-2.2.32</div></pre></td></tr></table></figure>
-<p>README：介绍文档</p>
-<p>INSTALL：安装文档</p>
-<h3 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h3><p>（1）./configure</p>
-<p><strong>作用</strong>：检测系统环境（是否有gcc等其他你要安装的软件的依赖） + 生成makefile</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/apache2</div><div class="line">#--prefix表示指定安装目录，因为源码包没有卸载命令，所以安装时一定要指定目录。一般在/usr/local/下</div><div class="line">#使用“echo $?”可以查看命令是否执行成功，命令输出为0时表示成功</div><div class="line"># ./configure  --help  #查看./configure的其它选项及其作用</div></pre></td></tr></table></figure>
-<p>执行./configure命令后出现以下错误：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170627/110536422.png?imageslim" alt="mark"></p>
-<p>解决办法：yum  install  -y  gcc  gcc+，安装后重新./configure成功</p>
-<p>（2）make</p>
-<p><strong>作用</strong>：运行 makefile 里面的 default task  编译成二进制</p>
-<p>该过程较慢，执行后也可以使用“echo $?”查看是否成功。如果非0，应该注意后面几行</p>
-<p>出现错误时可用make  clean    清除缓存文件</p>
-<p>（3）make install</p>
-<p><strong>作用</strong>：运行makefile 里面的 install 任务 通常就是把编译好的文件复制到合适的路径（如果configure 有指定路径就是复制到那时候设置的路径）</p>
-<p>出现错误时需要删除安装目录重新执行安装</p>
-<p>（4）卸载源码安装的软件，只需要删除安装目录。</p>
-<h3 id="4、测试安装是否成功"><a href="#4、测试安装是否成功" class="headerlink" title="4、测试安装是否成功"></a>4、测试安装是否成功</h3><p>按照INSTALL安装文档启动Apache成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 httpd-2.2.32]# /usr/local/apache2/bin/apachectl start</div><div class="line">httpd: Could not reliably determine the server&apos;s fully qualified domain name, using fe80::52fb:cb8f:c488:934b for ServerName</div><div class="line">[root@allen1 httpd-2.2.32]# netstat -lnp |grep 80</div><div class="line">tcp6       0      0 :::80                   :::*                    LISTEN      27434/httpd</div></pre></td></tr></table></figure>
+        <p><a href="http://zhangguangzhi.top/2017/06/28/shell%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%861/" target="_blank" rel="external">shell基础知识之一</a></p>
+<p>[TOC]</p>
+<h2 id="一、管道符"><a href="#一、管道符" class="headerlink" title="一、管道符"></a>一、管道符</h2><p>管道符“|”：将前面命令的输出内容传递给后面的命令处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls</div><div class="line">anaconda-ks.cfg  d6z  dir2  file1  file2  file3  passwd  test  test1  test2  test3</div><div class="line">[root@allen1 ~]# ls |wc -l</div><div class="line">11</div><div class="line">\\前面ls命令列出了11个文件，后面wc -l的作用是统计ls列出的文件数量</div></pre></td></tr></table></figure>
+<h2 id="二、作业控制"><a href="#二、作业控制" class="headerlink" title="二、作业控制"></a>二、作业控制</h2><h3 id="1、暂停当前命令并放入后台：Ctrl-z"><a href="#1、暂停当前命令并放入后台：Ctrl-z" class="headerlink" title="1、暂停当前命令并放入后台：Ctrl  +  z"></a>1、暂停当前命令并放入后台：Ctrl  +  z</h3><p>暂停后，会将命令暂时放入后台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# sleep 1000</div><div class="line">^Z</div><div class="line">[3]+  已停止               sleep 1000</div></pre></td></tr></table></figure>
+<h3 id="2、后台命令恢复到前台运行：fg"><a href="#2、后台命令恢复到前台运行：fg" class="headerlink" title="2、后台命令恢复到前台运行：fg"></a>2、后台命令恢复到前台运行：fg</h3><p>fg    后台命令id号（不加id为最后一个）</p>
+<p>此时，命令会占用当前终端命令行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# fg 3</div><div class="line">sleep 1000</div></pre></td></tr></table></figure>
+<h3 id="3、将命令从前台放入后台"><a href="#3、将命令从前台放入后台" class="headerlink" title="3、将命令从前台放入后台"></a>3、将命令从前台放入后台</h3><p>bg    后台id（不加id为最后一个）</p>
+<p>此时，如果命令运行有输出，不会占用终端命令行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# bg 3</div><div class="line">[3]+ sleep 1000 &amp;</div><div class="line">[root@allen1 ~]# jobs</div><div class="line">[3]-  运行中               sleep 1000 &amp;</div><div class="line">[4]+  已停止               sleep 2000</div></pre></td></tr></table></figure>
+<h3 id="4、将命令放入后台运行"><a href="#4、将命令放入后台运行" class="headerlink" title="4、将命令放入后台运行"></a>4、将命令放入后台运行</h3><p>&amp;：在需要放入后台执行的命令后面加上&amp;，只在本终端生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# jobs</div><div class="line">[4]+  已停止               sleep 2000</div><div class="line">[5]-  运行中               sleep 100 &amp;</div></pre></td></tr></table></figure>
+<h3 id="5、终止前台命令：Ctrl-c"><a href="#5、终止前台命令：Ctrl-c" class="headerlink" title="5、终止前台命令：Ctrl  +  c"></a>5、终止前台命令：Ctrl  +  c</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# fg 4</div><div class="line">sleep 2000</div><div class="line">^C</div></pre></td></tr></table></figure>
+<h3 id="6、jobs"><a href="#6、jobs" class="headerlink" title="6、jobs"></a>6、jobs</h3><p>jobs：查看后台运行命令</p>
+<p>只能显示当前终端下后台的命令，选项-l可以显示该命令的进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# sleep 100 &amp;</div><div class="line">[1] 2830</div><div class="line">[root@allen1 ~]# jobs -l</div><div class="line">[1]+  2830 运行中               sleep 100 &amp;</div></pre></td></tr></table></figure>
+<h2 id="三、shell变量"><a href="#三、shell变量" class="headerlink" title="三、shell变量"></a>三、shell变量</h2><p>变量就是使用一个较简单的字符串来替代某些具有特殊意义的设定以及数据。</p>
+<p>常见系统变量：PATH、HOME、PWD、LOGNAME等</p>
+<h3 id="1、查看shell变量"><a href="#1、查看shell变量" class="headerlink" title="1、查看shell变量"></a>1、查看shell变量</h3><p>env：可列出系统预设的全部系统变量</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/222003563.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/222027585.png?imageslim" alt="mark"></p>
+<p>set：除了列出系统预设的系统变量，还可以显示自定义的变量</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/222323664.png?imageslim" alt="mark"></p>
+<h3 id="2、自定义变量"><a href="#2、自定义变量" class="headerlink" title="2、自定义变量"></a>2、自定义变量</h3><p>如何自定义变量：a=b，a为变量名，b为变量内容，等号两边没有空格</p>
+<p>自定义变量有以下规则：</p>
+<p>（1）变量名只能由字母，数字，下划线组成，而且不能以数字开头。尽量不使用大写字母。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# a=1</div><div class="line">[root@allen1 ~]# echo $a</div><div class="line">1</div><div class="line">[root@allen1 ~]# _1=2</div><div class="line">[root@allen1 ~]# echo $_1</div><div class="line">2</div><div class="line">[root@allen1 ~]# 1a=1</div><div class="line">-bash: 1a=1: 未找到命令</div></pre></td></tr></table></figure>
+<p>（2）当变量内容带有特殊字符（如空格）时，需要加上单引号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# a=a b c </div><div class="line">-bash: b: 未找到命令</div><div class="line">[root@allen1 ~]# a=&apos;a b c&apos; </div><div class="line">[root@allen1 ~]# echo $a</div><div class="line">a b c</div><div class="line">[root@allen1 ~]# a=&apos;a$bc&apos;</div><div class="line">[root@allen1 ~]# echo $a</div><div class="line">a$bc</div></pre></td></tr></table></figure>
+<p>（3）变量内容本身带有单引号，需要加上双引号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# a=&apos;allen&apos;s&apos;</div><div class="line">&gt; ^C</div><div class="line">[root@allen1 ~]# a=&quot;allen&apos;s&quot;</div><div class="line">[root@allen1 ~]# echo $a</div><div class="line">allen&apos;s</div></pre></td></tr></table></figure>
+<p>（4）变量内容需要累加其他变量的内容，其他变量需要加双引号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# b=2</div><div class="line">[root@allen1 ~]# c=a$bc</div><div class="line">[root@allen1 ~]# echo $c</div><div class="line">a</div><div class="line">[root@allen1 ~]# c=a&quot;$b&quot;c</div><div class="line">[root@allen1 ~]# echo $c</div><div class="line">a2c</div></pre></td></tr></table></figure>
+<p>（5）变量内容需要用到其他命令的运行结果则需要加反引号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# name=`whoami`</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line">root</div><div class="line">[root@allen1 ~]# whoami</div><div class="line">root</div></pre></td></tr></table></figure>
+<h3 id="3、设置全局变量"><a href="#3、设置全局变量" class="headerlink" title="3、设置全局变量"></a>3、设置全局变量</h3><p>自定义变量一般只针对当前终端以及bash生效，如果子bash想用该变量，可以将该自定义变量设置为全局变量。（父bash是不生效的）</p>
+<ul>
+<li>查询当前登录用户：echo $LOGNAME</li>
+<li><strong>查询当前登录终端：echo $SSH_TTY</strong></li>
+<li>查询当前所在bash：pstree</li>
+</ul>
+<p>自定义变量时，在前面加上export即可将该变量设置为全局变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# name=allen</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line">allen</div><div class="line">[root@allen1 ~]# bash</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line"></div><div class="line">[root@allen1 ~]# exit</div><div class="line">exit</div><div class="line">[root@allen1 ~]# export  name=allen</div><div class="line">[root@allen1 ~]# bash</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line">allen</div><div class="line">[root@allen1 ~]# bash</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line">allen</div></pre></td></tr></table></figure>
+<h3 id="4、其他用户如何使用自定义变量"><a href="#4、其他用户如何使用自定义变量" class="headerlink" title="4、其他用户如何使用自定义变量"></a>4、其他用户如何使用自定义变量</h3><p>一个普通用户自定义了一个变量，如果要使得其他用户都能使用需要进行以下操作：</p>
+<p>（1）编辑配置文件/etc/profile，写入export  变量=变量内容</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/231759895.png?imageslim" alt="mark"></p>
+<p>（2）保存后，source重新加载/etc/profile，测试</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/231905382.png?imageslim" alt="mark"></p>
+<h3 id="5、取消变量赋值"><a href="#5、取消变量赋值" class="headerlink" title="5、取消变量赋值"></a>5、取消变量赋值</h3><p>unset    变量名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# echo $name</div><div class="line">allen</div><div class="line">[root@allen1 ~]# unset name</div><div class="line">[root@allen1 ~]# echo $name</div></pre></td></tr></table></figure>
+<h2 id="四、环境变量配置文件"><a href="#四、环境变量配置文件" class="headerlink" title="四、环境变量配置文件"></a>四、环境变量配置文件</h2><p>1、/etc/profile</p>
+<p>全局环境变量，交互，登录才执行</p>
+<p>2、/etc/bashrc</p>
+<p>用户不用登录，执行shell就生效</p>
+<p>3、~/.bash_profile  ~/.bashrc </p>
+<p>这些文件的配置只针对相应用户生效</p>
+<p>以上文件修改后需要即时生效，可以使用命令source</p>
+<p>4、bash_profile和bashrc的区别：</p>
+<p>bash_profile只有用户登录才调用，bashrc只要执行shell就调用。</p>
+<p>而且，登录时，.bash_profile调用.bashrc，.bashrc调用/etc/bashrc</p>
+<p><strong>若要配置环境变量之类，最保险是写在 .bashrc 文件中。因为不管是登陆还是不登陆，该文件总会被调用！</strong></p>
+<p>5、 ~/.bash_logout    ~./bash_history</p>
+<p> ~/.bash_logout：定义用户退出时，执行指定命令</p>
+<p>6、环境变量PS1</p>
+<p>PS1：命令提示符</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/231024643.png?imageslim" alt="mark"></p>
+<p>PS2：换行提示符</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/231528852.png?imageslim" alt="mark"></p>
 
       
 
@@ -391,15 +245,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">yum</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rpm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">环境变量</a>
         		</li>
       		
 		</ul>
@@ -455,7 +305,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/06/26/安装与卸载软件/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/06/29/shell基础知识2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -469,15 +319,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/06/26/yum配置文件详解/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          yum配置文件详解
+          记录Linux的学习
         
       </div>
     </a>
   
+  
+    <a href="/2017/06/28/shell基础知识1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">shell基础知识之一</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
