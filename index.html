@@ -178,6 +178,78 @@
 
 
   
+    <article id="post-shell基础知识3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/30/shell基础知识3/">shell基础知识之三</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/30/shell基础知识3/" class="archive-article-date">
+  	<time datetime="2017-06-30T15:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://zhangguangzhi.top/2017/06/28/shell%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%861/" target="_blank" rel="external">shell基础知识之一</a><br><a href="http://zhangguangzhi.top/2017/06/29/shell%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%862/" target="_blank" rel="external">shell基础知识之二</a></p>
+<p>[TOC]</p>
+<h2 id="一、文本内容处理命令"><a href="#一、文本内容处理命令" class="headerlink" title="一、文本内容处理命令"></a>一、文本内容处理命令</h2><p><strong>以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容</strong></p>
+<h3 id="1、cut"><a href="#1、cut" class="headerlink" title="1、cut"></a>1、cut</h3><p>cut：截取字符串</p>
+<p>-d：指定分隔符</p>
+<p>-f：指定截取字符段</p>
+<p>-c：指定第几个字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat /etc/passwd | cut -d &quot;:&quot;  -f 1</div><div class="line">root</div><div class="line">bin</div><div class="line">daemon</div><div class="line">.....</div><div class="line">[root@allen1 ~]# cat /etc/passwd | cut -c  3</div><div class="line">o</div><div class="line">n</div><div class="line">......</div></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2017/06/30/shell基础知识3/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">特殊符号</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/30/shell基础知识3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-shell基础知识2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -202,73 +274,9 @@
 <p>[TOC]</p>
 <h2 id="一、管道符"><a href="#一、管道符" class="headerlink" title="一、管道符"></a>一、管道符</h2><p>管道符“|”：将前面命令的输出内容传递给后面的命令处理。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls</div><div class="line">anaconda-ks.cfg  d6z  dir2  file1  file2  file3  passwd  test  test1  test2  test3</div><div class="line">[root@allen1 ~]# ls |wc -l</div><div class="line">11</div><div class="line">\\前面ls命令列出了11个文件，后面wc -l的作用是统计ls列出的文件数量</div></pre></td></tr></table></figure>
-<h2 id="二、作业控制"><a href="#二、作业控制" class="headerlink" title="二、作业控制"></a>二、作业控制</h2><h3 id="1、暂停当前命令并放入后台：Ctrl-z"><a href="#1、暂停当前命令并放入后台：Ctrl-z" class="headerlink" title="1、暂停当前命令并放入后台：Ctrl  +  z"></a>1、暂停当前命令并放入后台：Ctrl  +  z</h3><p>暂停后，会将命令暂时放入后台</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# sleep 1000</div><div class="line">^Z</div><div class="line">[3]+  已停止               sleep 1000</div></pre></td></tr></table></figure>
-<h3 id="2、后台命令恢复到前台运行：fg"><a href="#2、后台命令恢复到前台运行：fg" class="headerlink" title="2、后台命令恢复到前台运行：fg"></a>2、后台命令恢复到前台运行：fg</h3><p>fg    后台命令id号（不加id为最后一个）</p>
-<p>此时，命令会占用当前终端命令行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# fg 3</div><div class="line">sleep 1000</div></pre></td></tr></table></figure>
-<h3 id="3、将命令从前台放入后台"><a href="#3、将命令从前台放入后台" class="headerlink" title="3、将命令从前台放入后台"></a>3、将命令从前台放入后台</h3><p>bg    后台id（不加id为最后一个）</p>
-<p>此时，如果命令运行有输出，不会占用终端命令行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# bg 3</div><div class="line">[3]+ sleep 1000 &amp;</div><div class="line">[root@allen1 ~]# jobs</div><div class="line">[3]-  运行中               sleep 1000 &amp;</div><div class="line">[4]+  已停止               sleep 2000</div></pre></td></tr></table></figure>
-<h3 id="4、将命令放入后台运行"><a href="#4、将命令放入后台运行" class="headerlink" title="4、将命令放入后台运行"></a>4、将命令放入后台运行</h3><p>&amp;：在需要放入后台执行的命令后面加上&amp;，只在本终端生效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# jobs</div><div class="line">[4]+  已停止               sleep 2000</div><div class="line">[5]-  运行中               sleep 100 &amp;</div></pre></td></tr></table></figure>
-<h3 id="5、终止前台命令：Ctrl-c"><a href="#5、终止前台命令：Ctrl-c" class="headerlink" title="5、终止前台命令：Ctrl  +  c"></a>5、终止前台命令：Ctrl  +  c</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# fg 4</div><div class="line">sleep 2000</div><div class="line">^C</div></pre></td></tr></table></figure>
-<h3 id="6、jobs"><a href="#6、jobs" class="headerlink" title="6、jobs"></a>6、jobs</h3><p>jobs：查看后台运行命令</p>
-<p>只能显示当前终端下后台的命令，选项-l可以显示该命令的进程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# sleep 100 &amp;</div><div class="line">[1] 2830</div><div class="line">[root@allen1 ~]# jobs -l</div><div class="line">[1]+  2830 运行中               sleep 100 &amp;</div></pre></td></tr></table></figure>
-<h2 id="三、shell变量"><a href="#三、shell变量" class="headerlink" title="三、shell变量"></a>三、shell变量</h2><p>变量就是使用一个较简单的字符串来替代某些具有特殊意义的设定以及数据。</p>
-<p>常见系统变量：PATH、HOME、PWD、LOGNAME等</p>
-<h3 id="1、查看shell变量"><a href="#1、查看shell变量" class="headerlink" title="1、查看shell变量"></a>1、查看shell变量</h3><p>env：可列出系统预设的全部系统变量</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/222003563.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/222027585.png?imageslim" alt="mark"></p>
-<p>set：除了列出系统预设的系统变量，还可以显示自定义的变量</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/222323664.png?imageslim" alt="mark"></p>
-<h3 id="2、自定义变量"><a href="#2、自定义变量" class="headerlink" title="2、自定义变量"></a>2、自定义变量</h3><p>如何自定义变量：a=b，a为变量名，b为变量内容，等号两边没有空格</p>
-<p>自定义变量有以下规则：</p>
-<p>（1）变量名只能由字母，数字，下划线组成，而且不能以数字开头。尽量不使用大写字母。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# a=1</div><div class="line">[root@allen1 ~]# echo $a</div><div class="line">1</div><div class="line">[root@allen1 ~]# _1=2</div><div class="line">[root@allen1 ~]# echo $_1</div><div class="line">2</div><div class="line">[root@allen1 ~]# 1a=1</div><div class="line">-bash: 1a=1: 未找到命令</div></pre></td></tr></table></figure>
-<p>（2）当变量内容带有特殊字符（如空格）时，需要加上单引号。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# a=a b c </div><div class="line">-bash: b: 未找到命令</div><div class="line">[root@allen1 ~]# a=&apos;a b c&apos; </div><div class="line">[root@allen1 ~]# echo $a</div><div class="line">a b c</div><div class="line">[root@allen1 ~]# a=&apos;a$bc&apos;</div><div class="line">[root@allen1 ~]# echo $a</div><div class="line">a$bc</div></pre></td></tr></table></figure>
-<p>（3）变量内容本身带有单引号，需要加上双引号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# a=&apos;allen&apos;s&apos;</div><div class="line">&gt; ^C</div><div class="line">[root@allen1 ~]# a=&quot;allen&apos;s&quot;</div><div class="line">[root@allen1 ~]# echo $a</div><div class="line">allen&apos;s</div></pre></td></tr></table></figure>
-<p>（4）变量内容需要累加其他变量的内容，其他变量需要加双引号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# b=2</div><div class="line">[root@allen1 ~]# c=a$bc</div><div class="line">[root@allen1 ~]# echo $c</div><div class="line">a</div><div class="line">[root@allen1 ~]# c=a&quot;$b&quot;c</div><div class="line">[root@allen1 ~]# echo $c</div><div class="line">a2c</div></pre></td></tr></table></figure>
-<p>（5）变量内容需要用到其他命令的运行结果则需要加反引号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# name=`whoami`</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line">root</div><div class="line">[root@allen1 ~]# whoami</div><div class="line">root</div></pre></td></tr></table></figure>
-<h3 id="3、设置全局变量"><a href="#3、设置全局变量" class="headerlink" title="3、设置全局变量"></a>3、设置全局变量</h3><p>自定义变量一般只针对当前终端以及bash生效，如果子bash想用该变量，可以将该自定义变量设置为全局变量。（父bash是不生效的）</p>
-<ul>
-<li>查询当前登录用户：echo $LOGNAME</li>
-<li><strong>查询当前登录终端：echo $SSH_TTY</strong></li>
-<li>查询当前所在bash：pstree</li>
-</ul>
-<p>自定义变量时，在前面加上export即可将该变量设置为全局变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# name=allen</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line">allen</div><div class="line">[root@allen1 ~]# bash</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line"></div><div class="line">[root@allen1 ~]# exit</div><div class="line">exit</div><div class="line">[root@allen1 ~]# export  name=allen</div><div class="line">[root@allen1 ~]# bash</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line">allen</div><div class="line">[root@allen1 ~]# bash</div><div class="line">[root@allen1 ~]# echo $name</div><div class="line">allen</div></pre></td></tr></table></figure>
-<h3 id="4、其他用户如何使用自定义变量"><a href="#4、其他用户如何使用自定义变量" class="headerlink" title="4、其他用户如何使用自定义变量"></a>4、其他用户如何使用自定义变量</h3><p>一个普通用户自定义了一个变量，如果要使得其他用户都能使用需要进行以下操作：</p>
-<p>（1）编辑配置文件/etc/profile，写入export  变量=变量内容</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/231759895.png?imageslim" alt="mark"></p>
-<p>（2）保存后，source重新加载/etc/profile，测试</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/231905382.png?imageslim" alt="mark"></p>
-<h3 id="5、取消变量赋值"><a href="#5、取消变量赋值" class="headerlink" title="5、取消变量赋值"></a>5、取消变量赋值</h3><p>unset    变量名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# echo $name</div><div class="line">allen</div><div class="line">[root@allen1 ~]# unset name</div><div class="line">[root@allen1 ~]# echo $name</div></pre></td></tr></table></figure>
-<h2 id="四、环境变量配置文件"><a href="#四、环境变量配置文件" class="headerlink" title="四、环境变量配置文件"></a>四、环境变量配置文件</h2><p>1、/etc/profile</p>
-<p>全局环境变量，交互，登录才执行</p>
-<p>2、/etc/bashrc</p>
-<p>用户不用登录，执行shell就生效</p>
-<p>3、~/.bash_profile  ~/.bashrc </p>
-<p>这些文件的配置只针对相应用户生效</p>
-<p>以上文件修改后需要即时生效，可以使用命令source</p>
-<p>4、bash_profile和bashrc的区别：</p>
-<p>bash_profile只有用户登录才调用，bashrc只要执行shell就调用。</p>
-<p>而且，登录时，.bash_profile调用.bashrc，.bashrc调用/etc/bashrc</p>
-<p><strong>若要配置环境变量之类，最保险是写在 .bashrc 文件中。因为不管是登陆还是不登陆，该文件总会被调用！</strong></p>
-<p>5、 ~/.bash_logout    ~./bash_history</p>
-<p> ~/.bash_logout：定义用户退出时，执行指定命令</p>
-<p>6、环境变量PS1</p>
-<p>PS1：命令提示符</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/231024643.png?imageslim" alt="mark"></p>
-<p>PS2：换行提示符</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170629/231528852.png?imageslim" alt="mark"></p>
-
+        
+          <a class="article-more-a" href="/2017/06/29/shell基础知识2/#more">more >></a>
+        
       
 
       

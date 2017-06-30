@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231905382.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231024643.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231528852.png?imageslim">
-<meta property="og:updated_time" content="2017-06-29T15:30:12.043Z">
+<meta property="og:updated_time" content="2017-06-30T15:45:20.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell基础知识之二">
 <meta name="twitter:description" content="shell基础知识之一 [TOC] 一、管道符管道符“|”：将前面命令的输出内容传递给后面的命令处理。 12345[root@allen1 ~]# lsanaconda-ks.cfg  d6z  dir2  file1  file2  file3  passwd  test  test1  test2  test3[root@allen1 ~]# ls |wc -l11\\前面ls命令列出了11个">
@@ -166,15 +166,16 @@
 <p>[TOC]</p>
 <h2 id="一、管道符"><a href="#一、管道符" class="headerlink" title="一、管道符"></a>一、管道符</h2><p>管道符“|”：将前面命令的输出内容传递给后面的命令处理。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls</div><div class="line">anaconda-ks.cfg  d6z  dir2  file1  file2  file3  passwd  test  test1  test2  test3</div><div class="line">[root@allen1 ~]# ls |wc -l</div><div class="line">11</div><div class="line">\\前面ls命令列出了11个文件，后面wc -l的作用是统计ls列出的文件数量</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h2 id="二、作业控制"><a href="#二、作业控制" class="headerlink" title="二、作业控制"></a>二、作业控制</h2><h3 id="1、暂停当前命令并放入后台：Ctrl-z"><a href="#1、暂停当前命令并放入后台：Ctrl-z" class="headerlink" title="1、暂停当前命令并放入后台：Ctrl  +  z"></a>1、暂停当前命令并放入后台：Ctrl  +  z</h3><p>暂停后，会将命令暂时放入后台</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# sleep 1000</div><div class="line">^Z</div><div class="line">[3]+  已停止               sleep 1000</div></pre></td></tr></table></figure>
 <h3 id="2、后台命令恢复到前台运行：fg"><a href="#2、后台命令恢复到前台运行：fg" class="headerlink" title="2、后台命令恢复到前台运行：fg"></a>2、后台命令恢复到前台运行：fg</h3><p>fg    后台命令id号（不加id为最后一个）</p>
 <p>此时，命令会占用当前终端命令行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# fg 3</div><div class="line">sleep 1000</div></pre></td></tr></table></figure>
-<h3 id="3、将命令从前台放入后台"><a href="#3、将命令从前台放入后台" class="headerlink" title="3、将命令从前台放入后台"></a>3、将命令从前台放入后台</h3><p>bg    后台id（不加id为最后一个）</p>
+<h3 id="3、将命令从前台放入后台：bg"><a href="#3、将命令从前台放入后台：bg" class="headerlink" title="3、将命令从前台放入后台：bg"></a>3、将命令从前台放入后台：bg</h3><p>bg    后台id（不加id为最后一个）</p>
 <p>此时，如果命令运行有输出，不会占用终端命令行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# bg 3</div><div class="line">[3]+ sleep 1000 &amp;</div><div class="line">[root@allen1 ~]# jobs</div><div class="line">[3]-  运行中               sleep 1000 &amp;</div><div class="line">[4]+  已停止               sleep 2000</div></pre></td></tr></table></figure>
-<h3 id="4、将命令放入后台运行"><a href="#4、将命令放入后台运行" class="headerlink" title="4、将命令放入后台运行"></a>4、将命令放入后台运行</h3><p>&amp;：在需要放入后台执行的命令后面加上&amp;，只在本终端生效</p>
+<h3 id="4、将命令放入后台运行：-amp"><a href="#4、将命令放入后台运行：-amp" class="headerlink" title="4、将命令放入后台运行：&amp;"></a>4、将命令放入后台运行：&amp;</h3><p>&amp;：在需要放入后台执行的命令后面加上&amp;，只在本终端生效</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# jobs</div><div class="line">[4]+  已停止               sleep 2000</div><div class="line">[5]-  运行中               sleep 100 &amp;</div></pre></td></tr></table></figure>
 <h3 id="5、终止前台命令：Ctrl-c"><a href="#5、终止前台命令：Ctrl-c" class="headerlink" title="5、终止前台命令：Ctrl  +  c"></a>5、终止前台命令：Ctrl  +  c</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# fg 4</div><div class="line">sleep 2000</div><div class="line">^C</div></pre></td></tr></table></figure>
 <h3 id="6、jobs"><a href="#6、jobs" class="headerlink" title="6、jobs"></a>6、jobs</h3><p>jobs：查看后台运行命令</p>
@@ -319,11 +320,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/30/shell基础知识3/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          shell基础知识之三
         
       </div>
     </a>

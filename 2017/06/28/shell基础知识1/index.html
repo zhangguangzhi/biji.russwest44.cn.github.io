@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/171211675.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172644219.png?imageslim">
-<meta property="og:updated_time" content="2017-06-28T12:53:04.487Z">
+<meta property="og:updated_time" content="2017-06-30T03:29:30.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell基础知识之一">
 <meta name="twitter:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
@@ -266,7 +266,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls [1-3].txt</div><div class="line">1.txt  2.txt  3.txt</div><div class="line">[root@allen1 test2]# ls [123].txt</div><div class="line">1.txt  2.txt  3.txt</div></pre></td></tr></table></figure>
 <p>（4）{}：代表范围中的一个字符，可用”,”分隔</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls &#123;1,2,a&#125;.txt</div><div class="line">1.txt  2.txt  a.txt</div></pre></td></tr></table></figure>
-<h2 id="五、输入输出重定向"><a href="#五、输入输出重定向" class="headerlink" title="五、输入输出重定向"></a>五、输入输出重定向</h2><p>（1）标准输出重定向</p>
+<h2 id="五、特殊符号之输入输出重定向"><a href="#五、特殊符号之输入输出重定向" class="headerlink" title="五、特殊符号之输入输出重定向"></a>五、特殊符号之输入输出重定向</h2><p>（1）标准输出重定向</p>
 <p>使用”&gt;”符号，将命令执行的标准输出内容重定向到指定文件，覆盖原文件内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls -l 1.txt &gt;a.txt</div><div class="line">[root@allen1 test2]# cat a.txt</div><div class="line">-rw-r--r--. 1 root root 0 6月  28 20:23 1.txt</div></pre></td></tr></table></figure>
 <p>使用”&gt;&gt;”符号，将命令执行的标准输出内容追加到指定文件，不会覆盖原文件内容</p>
@@ -280,6 +280,7 @@
 <p>使用“&amp;&gt;&gt;” ，将命令执行的正确和错误输出追加到同一指定文件，不覆盖原文件内容</p>
 <p><strong>分开重定向使用：&gt;正确文件，2&gt;错误文件</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls -l 1.txt 41.txt &gt; a.txt 2&gt;err.txt</div><div class="line">[root@allen1 test2]# cat a.txt</div><div class="line">-rw-r--r--. 1 root root 0 6月  28 20:23 1.txt</div><div class="line">[root@allen1 test2]# cat err.txt </div><div class="line">ls: 无法访问41.txt: 没有那个文件或目录</div></pre></td></tr></table></figure>
+<p>快捷用法：“&gt;filename”可以快速清空文件内容</p>
 <p>（4）输入重定向</p>
 <p>将文件的内容作为命令的输入，用法command &lt;file，例如wc -l &lt; 1.txt</p>
 
