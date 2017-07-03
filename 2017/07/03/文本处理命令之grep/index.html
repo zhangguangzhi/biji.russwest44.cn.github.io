@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/194920967.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/200353340.png?imageslim">
-<meta property="og:updated_time" content="2017-07-03T14:20:56.364Z">
+<meta property="og:updated_time" content="2017-07-03T15:15:25.435Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本处理命令之grep">
 <meta name="twitter:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
@@ -188,7 +188,7 @@
 <p>-w   精确匹配</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep   &quot;12&quot; passwd </div><div class="line">123</div><div class="line">12</div><div class="line">124</div><div class="line">[root@allen1 ~]# grep  -w &quot;12&quot; passwd </div><div class="line">12</div></pre></td></tr></table></figure>
 <p>-r    匹配目录下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep -r &quot;root&quot; ./</div><div class="line">./d6z/1.txt:#                       reboot. Useful when non-root dump target is specified.</div><div class="line">./d6z/1.txt:#sshkey /root/.ssh/kdump_id_rsa</div><div class="line">./d6z/1.txt:log_group = root</div><div class="line">./d6z/1.txt:action_mail_acct = root</div><div class="line">./d6z/1.txt:# use chroot = yes</div><div class="line">匹配到二进制文件 ./d6z/test2.tar</div><div class="line">./passwd:root:x:0:0:root:/root:/bin/bash</div><div class="line">./passwd:operator:x:11:0:operator:/root:/sbin/nologin</div><div class="line">.......</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep -r &quot;root&quot; ./</div><div class="line">./d6z/1.txt:#                       reboot. Useful when non-root dump target is specified.</div><div class="line">./d6z/1.txt:#sshkey /root/.ssh/kdump_id_rsa</div><div class="line">./d6z/1.txt:log_group = root</div><div class="line">./d6z/1.txt:action_mail_acct = root</div><div class="line">./d6z/1.txt:# use chroot = yes</div><div class="line">匹配到二进制文件 ./d6z/test2.tar</div><div class="line">./passwd:root:x:0:0:root:/root:/bin/bash</div><div class="line">./passwd:operator:x:11:0:operator:/root:/sbin/nologin</div><div class="line">.......</div><div class="line">#在一个目录下，过滤所有*.php文档中含有eval的行：grep -r --include=&quot;*.php&quot; &apos;eval&apos; /data/</div></pre></td></tr></table></figure>
 <p>-q    安静模式，即不输出内容，用于shell脚本判断</p>
 <p>-E    使用特殊符号是不需要使用脱义符，类似egrep</p>
 <p>-l     匹配多个文件时，输出只打印符合条件的文件</p>
