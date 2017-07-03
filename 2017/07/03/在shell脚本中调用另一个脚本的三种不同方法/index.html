@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Tag: 特殊符号 | Hexo</title>
+  <title>在shell脚本中调用另一个脚本的三种不同方法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/tags/特殊符号/index.html">
+  <meta name="description" content="[TOC] 一、调用方式1、fork（bash）：如果shell包含执行命令，那么指明了不会影响父级的命令，在子命令执行后在执行父级命令。子级的环境变量不会影响到父级。被执行的脚本在子shell中。 2、exec：执行子级的命令后，不在执行父级命令。被调用的脚本与父脚本在同一个shell内执行，当使用exec调用一个新脚本后，父脚本中exec行之后的内容就不会执行。 3、source：执行子级命令">
+<meta name="keywords" content="shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在shell脚本中调用另一个脚本的三种不同方法">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] 一、调用方式1、fork（bash）：如果shell包含执行命令，那么指明了不会影响父级的命令，在子命令执行后在执行父级命令。子级的环境变量不会影响到父级。被执行的脚本在子shell中。 2、exec：执行子级的命令后，不在执行父级命令。被调用的脚本与父脚本在同一个shell内执行，当使用exec调用一个新脚本后，父脚本中exec行之后的内容就不会执行。 3、source：执行子级命令">
+<meta property="og:updated_time" content="2017-07-03T15:12:40.664Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="在shell脚本中调用另一个脚本的三种不同方法">
+<meta name="twitter:description" content="[TOC] 一、调用方式1、fork（bash）：如果shell包含执行命令，那么指明了不会影响父级的命令，在子命令执行后在执行父级命令。子级的环境变量不会影响到父级。被执行的脚本在子shell中。 2、exec：执行子级的命令后，不在执行父级命令。被调用的脚本与父脚本在同一个shell内执行，当使用exec调用一个新脚本后，父脚本中exec行之后的内容就不会执行。 3、source：执行子级命令">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,36 +134,58 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-在shell脚本中调用另一个脚本的三种不同方法" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/30/shell基础知识3/" class="archive-article-date">
-  	<time datetime="2017-06-30T15:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-30</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/30/shell基础知识3/">shell基础知识之三</a>
+    <h1 class="article-title" itemprop="name">
+      在shell脚本中调用另一个脚本的三种不同方法
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/" class="archive-article-date">
+  	<time datetime="2017-07-03T14:21:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、调用方式"><a href="#一、调用方式" class="headerlink" title="一、调用方式"></a>一、调用方式</h2><p>1、fork（bash）：如果shell包含执行命令，那么指明了不会影响父级的命令，在子命令执行后在执行父级命令。子级的环境变量不会影响到父级。被执行的脚本在子shell中。</p>
+<p>2、exec：执行子级的命令后，不在执行父级命令。被调用的脚本与父脚本在同一个shell内执行，当使用exec调用一个新脚本后，父脚本中exec行之后的内容就不会执行。</p>
+<p>3、source：执行子级命令后继续执行父级命令，同时子级设置的环境变量会影响到父级的环境变量。在同一个shell中执行，所以被调用的脚本中声明的变量和环境变量都可以在主脚本中得到和使用。</p>
+<a id="more"></a>
+<h2 id="二、3中方式的详细说明"><a href="#二、3中方式的详细说明" class="headerlink" title="二、3中方式的详细说明"></a>二、3中方式的详细说明</h2><h3 id="1、创建脚本"><a href="#1、创建脚本" class="headerlink" title="1、创建脚本"></a>1、创建脚本</h3><p>创建4个脚本，分别为fork_1.sh，exec_1.sh，source_1.sh，2.sh</p>
+<p>分别使用前三个脚本调用2.sh</p>
+<p>fork_1.sh的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">echo &quot;fork 2.sh begin&quot;</div><div class="line">export a=1</div><div class="line">bash ./2.sh</div><div class="line">echo &quot;1.sh b  is $b&quot;</div><div class="line">echo &quot;fork 2.sh end&quot;</div></pre></td></tr></table></figure>
+<p>exec_1.sh的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">echo &quot;exec 2.sh begin&quot;</div><div class="line">export a=1</div><div class="line">exec ./2.sh</div><div class="line">echo &quot;1.sh b  is $b&quot;</div><div class="line">echo &quot;exec 2.sh end&quot;</div></pre></td></tr></table></figure>
+<p>source_1.sh的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">echo &quot;source 2.sh begin&quot;</div><div class="line">export a=1</div><div class="line">source ./2.sh</div><div class="line">echo &quot;1.sh b  is $b&quot;</div><div class="line">echo &quot;source 2.sh end&quot;</div></pre></td></tr></table></figure>
+<p>2.sh的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">b=2</div><div class="line">echo &quot;a is $a&quot;</div><div class="line">echo &quot;b is $b&quot;</div></pre></td></tr></table></figure>
+<h3 id="2、赋予权限并执行-1-sh，2-sh"><a href="#2、赋予权限并执行-1-sh，2-sh" class="headerlink" title="2、赋予权限并执行*_1.sh，2.sh"></a>2、赋予权限并执行*_1.sh，2.sh</h3><p>（1）执行fork_1.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# sh fork_1.sh </div><div class="line">fork 2.sh begin</div><div class="line">a is 1</div><div class="line">b is 2</div><div class="line">1.sh b  is </div><div class="line">fork 2.sh end</div></pre></td></tr></table></figure>
+<p>变量b是在2.sh中定义的，说明父脚本并没有得到关于变量b的值的回馈，因为使用fork调用时会创建子shell</p>
+<p>（2）执行exec_1.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# sh exec_1.sh </div><div class="line">exec 2.sh begin</div><div class="line">a is 1</div><div class="line">b is 2</div><div class="line">[root@allen1 ~]# cat exec_1.sh </div><div class="line">#!/bin/bash</div><div class="line">echo &quot;exec 2.sh begin&quot;</div><div class="line">export a=1</div><div class="line">exec ./2.sh</div><div class="line">echo &quot;1.sh b  is $b&quot;</div><div class="line">echo &quot;exec 2.sh end&quot;</div></pre></td></tr></table></figure>
+<p>当exec_1.sh执行“exec  ./2.sh”后，其它的内容都不会再执行，而是接着执行子脚本2.sh的内容。这是一种“过桥抽板”的行为。</p>
+<p>（2）执行source.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# source source_1.sh </div><div class="line">source 2.sh begin</div><div class="line">a is 1</div><div class="line">b is 2</div><div class="line">1.sh b  is 2</div><div class="line">source 2.sh end</div><div class="line">[root@allen1 ~]# cat source_1.sh </div><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">echo &quot;source 2.sh begin&quot;</div><div class="line">export a=1</div><div class="line">source ./2.sh</div><div class="line">echo &quot;1.sh b  is $b&quot;</div><div class="line">echo &quot;source 2.sh end&quot;</div></pre></td></tr></table></figure>
+<p>使用source去调用子脚本，是在同一个shell中执行。并且子脚本会将声明的变量和环境变量传递回来给父脚本。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -166,69 +193,102 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">特殊符号</a>
-        		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/28/shell基础知识1/" class="archive-article-date">
-  	<time datetime="2017-06-28T07:47:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-28</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/28/shell基础知识1/">shell基础知识之一</a>
-    </h1>
+    <a href="/2017/07/03/sort默认不按ascii表排序如何解决/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          sort默认不按ascii表排序如何解决
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/03/文本处理命令之grep/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">文本处理命令之grep</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">特殊符号</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -251,9 +311,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
