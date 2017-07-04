@@ -9,7 +9,7 @@
   <title>文本处理命令之grep | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
-<meta name="keywords" content="grep,正则">
+<meta name="keywords" content="grep,正则,文本处理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文本处理命令之grep">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/03/文本处理命令之grep/index.html">
@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/194920967.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/200353340.png?imageslim">
-<meta property="og:updated_time" content="2017-07-03T15:15:25.435Z">
+<meta property="og:updated_time" content="2017-07-04T07:22:18.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本处理命令之grep">
 <meta name="twitter:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
@@ -171,7 +171,7 @@
 <p>.*：任意字符</p>
 <p><strong>以下特殊符号需要脱义或者使用egrep（grep  -E）</strong></p>
 <p>{}：表示匹配的字符重复的次数</p>
-<p>()：表示一个整体</p>
+<p>()：表示一个整体，后面需要引用时，使用\n，n为数字</p>
 <p>?：表示0个或1个前面字符</p>
 <p>+：表示一个或多个前面字符</p>
 <p>|：表示或者，字符串1|字符串2|字符串3</p>
@@ -246,6 +246,10 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
         		</li>
       		
 		</ul>
@@ -446,19 +450,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,6 +459,26 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
             
             <div class="clearfix"></div>
