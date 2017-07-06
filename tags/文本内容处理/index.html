@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>shell基础知识之三 | Hexo</title>
+  <title>Tag: 文本内容处理 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="shell基础知识之一shell基础知识之二 [TOC] 一、文本内容处理命令以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容 1、cutcut：截取字符串 -d：指定分隔符 -f：指定截取字符段 -c：指定第几个字符 123456789[root@allen1 ~]# cat /etc/passwd | cut -d &amp;quot;:&amp;quot;  -f 1root">
-<meta name="keywords" content="shell,特殊符号,文本内容处理">
-<meta property="og:type" content="article">
-<meta property="og:title" content="shell基础知识之三">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/30/shell基础知识3/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://zhangguangzhi.github.io/tags/文本内容处理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="shell基础知识之一shell基础知识之二 [TOC] 一、文本内容处理命令以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容 1、cutcut：截取字符串 -d：指定分隔符 -f：指定截取字符段 -c：指定第几个字符 123456789[root@allen1 ~]# cat /etc/passwd | cut -d &amp;quot;:&amp;quot;  -f 1root">
-<meta property="og:updated_time" content="2017-07-04T14:45:33.931Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shell基础知识之三">
-<meta name="twitter:description" content="shell基础知识之一shell基础知识之二 [TOC] 一、文本内容处理命令以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容 1、cutcut：截取字符串 -d：指定分隔符 -f：指定截取字符段 -c：指定第几个字符 123456789[root@allen1 ~]# cat /etc/passwd | cut -d &amp;quot;:&amp;quot;  -f 1root">
+<meta name="twitter:title" content="Hexo">
   
   
     <link rel="icon" href="/favicon.png">
@@ -134,91 +129,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-shell基础知识3" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      shell基础知识之三
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/06/30/shell基础知识3/" class="archive-article-date">
+  	<time datetime="2017-06-30T15:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-30</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/06/30/shell基础知识3/">shell基础知识之三</a>
     </h1>
   
 
-        
-        <a href="/2017/06/30/shell基础知识3/" class="archive-article-date">
-  	<time datetime="2017-06-30T15:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://zhangguangzhi.top/2017/06/28/shell%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%861/" target="_blank" rel="external">shell基础知识之一</a><br><a href="http://zhangguangzhi.top/2017/06/29/shell%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%862/" target="_blank" rel="external">shell基础知识之二</a></p>
-<p>[TOC]</p>
-<h2 id="一、文本内容处理命令"><a href="#一、文本内容处理命令" class="headerlink" title="一、文本内容处理命令"></a>一、文本内容处理命令</h2><p><strong>以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容</strong></p>
-<h3 id="1、cut"><a href="#1、cut" class="headerlink" title="1、cut"></a>1、cut</h3><p>cut：截取字符串</p>
-<p>-d：指定分隔符</p>
-<p>-f：指定截取字符段</p>
-<p>-c：指定第几个字符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat /etc/passwd | cut -d &quot;:&quot;  -f 1</div><div class="line">root</div><div class="line">bin</div><div class="line">daemon</div><div class="line">.....</div><div class="line">[root@allen1 ~]# cat /etc/passwd | cut -c  3</div><div class="line">o</div><div class="line">n</div><div class="line">......</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="2、sort"><a href="#2、sort" class="headerlink" title="2、sort"></a>2、sort</h3><p>sort：对文本内容进行排序，默认以ascii表排序，当文件内容第一位相同时，比较后面一位，一次类推。</p>
-<p>-n：以数字排序，字母和特殊字符为0</p>
-<p>-r：反向排序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat 1.txt |sort -n</div><div class="line">&gt;</div><div class="line">a</div><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">34</div><div class="line">[root@allen1 ~]# cat 1.txt |sort -nr</div><div class="line">34</div><div class="line">3</div><div class="line">2</div><div class="line">1</div><div class="line">a</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-<p>-t：指定分隔符</p>
-<p>-k：指定字符段，n1/n1-n2</p>
-<h3 id="3、wc"><a href="#3、wc" class="headerlink" title="3、wc"></a>3、wc</h3><p>wc：统计文本内容</p>
-<p>-l：统计行数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat 1.txt |wc -l </div><div class="line">6</div></pre></td></tr></table></figure>
-<p>-m：统计字符数</p>
-<p>-w：统计单词，遇到空格就算一个单词</p>
-<h3 id="4、uniq"><a href="#4、uniq" class="headerlink" title="4、uniq"></a>4、uniq</h3><p>uniq：去除文本内容中重复的内容，先使用sort排序后再去重</p>
-<p>-c：统计重复次数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat 1.txt |sort|uniq -c</div><div class="line">      1 </div><div class="line">      1 &gt;</div><div class="line">      2 1</div><div class="line">      2 2</div><div class="line">      2 3</div><div class="line">      1 34</div><div class="line">      2 a</div></pre></td></tr></table></figure>
-<h3 id="5、tee"><a href="#5、tee" class="headerlink" title="5、tee"></a>5、tee</h3><p>tee：重定向时，终端也会有输出</p>
-<p>-a：追加重定向</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls | tee  1.txt</div><div class="line">1.sh</div><div class="line">1.txt</div><div class="line">aa.txt</div><div class="line">anaconda-ks.cfg</div><div class="line">d6z</div></pre></td></tr></table></figure>
-<h3 id="6、tr"><a href="#6、tr" class="headerlink" title="6、tr"></a>6、tr</h3><p>tr：替换字符</p>
-<p>替换字符  需使用输入重定向&lt;，或者使用管道符|</p>
-<p>#tr  ‘a’  ‘A’  &lt;passwd      将passwd中出现的a替换为A                    #一对一替换</p>
-<p>#tr  ‘abc’  ‘A’  &lt;passwd     将passwd中出现的a,b,c替换为A                #多对一替换</p>
-<p>#tr  ‘a-z’  ‘A-Z’  &lt;passwd    将passwd中的小写字符替换为大写字母        #范围的替换</p>
-<p>#tr  ‘abcd’  ‘ABCD’  &lt;passwd                                                                 #对应替换</p>
-<h3 id="7、split"><a href="#7、split" class="headerlink" title="7、split"></a>7、split</h3><p>split：切割文件，一般用于切割日志文件</p>
-<p>-b：指定大小，默认单位为字节b，单位使用K，M</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# split -b 100K ../1.txt </div><div class="line">[root@allen1 test1]# ls</div><div class="line">xaa  xab  xac  xad  xae  xaf</div></pre></td></tr></table></figure>
-<p>-l：指定行数切割</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# split -l 50 ../1.txt </div><div class="line">[root@allen1 test1]# ls -l</div><div class="line">总用量 1144</div><div class="line">-rw-r--r--. 1 root root 1350 6月  30 23:29 xaa</div><div class="line">-rw-r--r--. 1 root root 1814 6月  30 23:29 xab</div><div class="line">-rw-r--r--. 1 root root 1531 6月  30 23:29 xac</div><div class="line">-rw-r--r--. 1 root root 1935 6月  30 23:29 xad</div><div class="line">-rw-r--r--. 1 root root 2287 6月  30 23:29 xae</div><div class="line">....</div></pre></td></tr></table></figure>
-<p>此时，切割完成的文件名都是以x开头按顺序生成的，如何指定切割生成的文件名</p>
-<p>在切割命令的最后加上自定义文件名前缀：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# split -b 100K ../1.txt  split.</div><div class="line">[root@allen1 test1]# ls</div><div class="line">split.aa  split.ab  split.ac  split.ad  split.ae  split.af</div></pre></td></tr></table></figure>
-<h2 id="二、其它特殊符号"><a href="#二、其它特殊符号" class="headerlink" title="二、其它特殊符号"></a>二、其它特殊符号</h2><p>#：注释字符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# #ls</div><div class="line">[root@allen1 test1]# echo $?</div><div class="line">0</div></pre></td></tr></table></figure>
-<p>$：变量前缀，用于引用变量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# b=1</div><div class="line">[root@allen1 test1]# echo $b</div><div class="line">1</div></pre></td></tr></table></figure>
-<p>\：脱义符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# a=1</div><div class="line">[root@allen1 test1]# c=b$a</div><div class="line">[root@allen1 test1]# echo $c</div><div class="line">b1</div><div class="line">[root@allen1 test1]# c=b\$a			\\使$失去特殊符号作用，成为普通符号</div><div class="line">[root@allen1 test1]# echo $c</div><div class="line">b$a</div></pre></td></tr></table></figure>
-<p>;：多条命令使用；分隔，同时执行多条命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls 2.txt ;ls 1.txt</div><div class="line">ls: 无法访问2.txt: 没有那个文件或目录</div><div class="line">1.txt</div><div class="line">#无论命令正确与否都会执行</div></pre></td></tr></table></figure>
-<p>~：表示用户家目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# echo $HOME </div><div class="line">/root</div><div class="line">[root@allen1 ~]# cd ~</div><div class="line">[root@allen1 ~]# pwd</div><div class="line">/root</div></pre></td></tr></table></figure>
-<p>||：多条命令使用；分隔，同时执行多条命令</p>
-<p>~：用户家目录，正则表达式表示匹配符</p>
-<p>&amp;：放在命令后面，会把命令放在后太执行</p>
-<p>||：逻辑或，前面命令执行失败，后面的命令才会执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls 1.txt ||ls a.txt</div><div class="line">1.txt</div><div class="line">[root@allen1 ~]# ls 2.txt ||ls aa.txt</div><div class="line">ls: 无法访问2.txt: 没有那个文件或目录</div><div class="line">aa.txt</div><div class="line">#前面命令正确，后面命令不执行</div><div class="line">#前面正确错误。后面命令执行</div></pre></td></tr></table></figure>
-<p>&amp;&amp;：逻辑与，前面命令执行成功，后面的命令才能执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls 1.txt &amp;&amp; ls aa.txt</div><div class="line">1.txt</div><div class="line">aa.txt</div><div class="line">[root@allen1 ~]# ls 2.txt &amp;&amp; ls aa.txt</div><div class="line">ls: 无法访问2.txt: 没有那个文件或目录</div><div class="line">#前面命令正确，后面命令才会执行</div><div class="line">#前面命令错误，后面命令不会执行</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -238,98 +178,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/06/30/shell基础知识3/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/07/03/文本处理命令之grep/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          文本处理命令之grep
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/06/29/shell基础知识2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">shell基础知识之二</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -352,9 +213,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
