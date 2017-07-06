@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170706/104700874.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170706/104949805.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170706/105039135.png?imageslim">
-<meta property="og:updated_time" content="2017-07-06T02:57:23.701Z">
+<meta property="og:updated_time" content="2017-07-06T02:58:57.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本处理命令之awk">
 <meta name="twitter:description" content="[TOC] 一、awk如何工作1、awk和sed在工作原理和用法上有类似之处，都是检查输入数据中的行是否匹配指定的模式，如果匹配成功就对匹配的行执行相应的操作，重复这个过程直到所有的输入数据都被处理完，awk和sed都是面向数据流的工具,都可以使用正则表达式匹配来确定要操作的行。 2、awk支持简单编程，awk主要针对行的段进行操作。并且执行的动作需要写在花括号{ }中。   3、awk程序会重复">
@@ -162,6 +162,7 @@
 <h2 id="一、awk如何工作"><a href="#一、awk如何工作" class="headerlink" title="一、awk如何工作"></a>一、awk如何工作</h2><p>1、awk和sed在工作原理和用法上有类似之处，都是检查输入数据中的行是否匹配指定的模式，如果匹配成功就对匹配的行执行相应的操作，重复这个过程直到所有的输入数据都被处理完，awk和sed都是面向数据流的工具,都可以使用正则表达式匹配来确定要操作的行。</p>
 <p>2、awk支持简单编程，awk主要针对行的段进行操作。并且执行的动作需要写在花括号{ }中。  </p>
 <p>3、awk程序会重复处理输入数据中的每一行，通过一个循环来实现，该循环为awk的主循环，我们所写的规则都在这个主循环中执行，直到匹配到的数据行处理完成。</p>
+<a id="more"></a>
 <h2 id="二、awk语法格式"><a href="#二、awk语法格式" class="headerlink" title="二、awk语法格式"></a>二、awk语法格式</h2><h3 id="1、基本格式"><a href="#1、基本格式" class="headerlink" title="1、基本格式"></a>1、基本格式</h3><p><code>awk  选项  &#39;/pattern/{动作}&#39;  file</code></p>
 <p> ‘/pattern/{动作}’ 为一个主循环，pattern可以是字符，正则表达式，判断表达式用于匹配行。{ }中的动作指定匹配后进行的操作，可以为多个命令，使用 ; 分开。</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170706/104700874.png?imageslim" alt="mark"></p>
@@ -198,8 +199,10 @@
 <h3 id="8、数组"><a href="#8、数组" class="headerlink" title="8、数组"></a>8、数组</h3><ul>
 <li>awk程序中的数组与shell中的数组有一定的差别</li>
 <li>awk的数组不需要指定元素个数</li>
-<li>awk的数组像一个hash表，维护索引值与数组元素值的映射关系，描述的只是一个对应的关系。而且索引值可以是离散的整数或字符串。</li>
-<li>应用：netstat -lnp |awk ‘/^tcp/{stat[\$6]++}END{for ( i in stat )print i,stat[i]}’    \{stat[\$6]++}表示数组stat的索引为$6（因为$6的值不止一个），记录$6的值，并且元素值加1。</li>
+<li>awk的数组像一个hash表，维护索引值与数组元素值的映射关系，描述的只是一个对应的关系。而且索引值可以是离散的整数或字符串。<ul>
+<li>应用：netstat -lnp |awk ‘/^tcp/{stat[\$6]++}END{for ( i in stat )print i,stat[i]}’\{stat[\$6]++}表示数组stat的索引为$6（因为$6的值不止一个），记录$6的值，并且元素值加1。</li>
+</ul>
+</li>
 </ul>
 <h2 id="三、awk实例"><a href="#三、awk实例" class="headerlink" title="三、awk实例"></a>三、awk实例</h2><h3 id="1、截取文档某个段"><a href="#1、截取文档某个段" class="headerlink" title="1、截取文档某个段"></a>1、截取文档某个段</h3><p>#awk  -F  ‘:’  ‘{print $1}’  /etc/passwd            </p>
 <p>  打印passwd文件，以“：”为分隔符的第一段</p>
