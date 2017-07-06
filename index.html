@@ -201,19 +201,9 @@
         <p>man grep的时候有一个-P，文档上的英文：</p>
 <p>-P, –perl-regexp</p>
 <p>​              Interpret PATTERN as a Perl regular expression.  This is highly experimental and grep -P may warn of  nimplemented features.</p>
-<p>这意思是，-P 可以让grep使用perl的正则表达式语法，因为perl的正则更加多元化，能实现更加复杂的场景。</p>
-<p>最典型的用法是，匹配指定字符串之间的字符。 比如，我们想在一句话（Hello，my name is aming.)中匹配中间的一段字符串（my name is) 可以这样写正则表达式。 </p>
-<p>echo “Hello, my name is aming.”|grep -P ‘(?&lt;=Hello, ).*(?= aming.)’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# echo &quot;Hello, my name is aming.&quot;|grep -P &apos;(?&lt;=Hello, ).*(?= aming.)&apos;</div><div class="line">Hello, my name is aming.</div></pre></td></tr></table></figure>
-<p><strong>?&lt;=字符串1：表示只匹配字符串1后面的内容</strong></p>
-<p><strong>?= 字符串2：表示只匹配字符串2前面的内容</strong></p>
-<p>如果只需要匹配到的部分，还可以加上-o选项</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">echo &quot;Hello, my name is aming.&quot;|grep -Po &apos;(?&lt;=Hello, ).*(?= aming.)&apos;</div><div class="line"></div><div class="line">[root@allen1 ~]# echo &quot;Hello, my name is aming.&quot;|grep -Po &apos;(?&lt;=Hello, ).*(?= aming.)&apos;</div><div class="line"></div><div class="line">my name is</div></pre></td></tr></table></figure>
-<p>根据这个思路，我们可以去匹配IP地址</p>
-<p>centos6：ifconfig eth0 |grep -Po ‘(?&lt;=addr:).*(?= Bcast)’</p>
-<p>centos7： ifconfig ens33 |grep -Po ‘(?&lt;=inet ).*(?= netmask)’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ifconfig ens33 |grep -Po &apos;(?&lt;=inet ).*(?= netmask)&apos;</div><div class="line">192.168.205.137</div></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2017/07/06/grep-P的使用/#more">more >></a>
+        
       
 
       

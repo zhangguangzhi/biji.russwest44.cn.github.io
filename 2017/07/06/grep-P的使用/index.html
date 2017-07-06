@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>grep  -P的使用 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="man grep的时候有一个-P，文档上的英文： -P, –perl-regexp ​              Interpret PATTERN as a Perl regular expression.  This is highly experimental and grep -P may warn of  nimplemented features. 这意思是，-P 可以让grep使用p">
+  <meta name="description" content="man grep的时候有一个-P，文档上的英文： -P, –perl-regexp ​              Interpret PATTERN as a Perl regular expression.  This is highly experimental and grep -P may warn of  nimplemented features.">
 <meta name="keywords" content="grep,正则">
 <meta property="og:type" content="article">
 <meta property="og:title" content="grep  -P的使用">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/06/grep-P的使用/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="man grep的时候有一个-P，文档上的英文： -P, –perl-regexp ​              Interpret PATTERN as a Perl regular expression.  This is highly experimental and grep -P may warn of  nimplemented features. 这意思是，-P 可以让grep使用p">
-<meta property="og:updated_time" content="2017-07-06T11:44:24.722Z">
+<meta property="og:description" content="man grep的时候有一个-P，文档上的英文： -P, –perl-regexp ​              Interpret PATTERN as a Perl regular expression.  This is highly experimental and grep -P may warn of  nimplemented features.">
+<meta property="og:updated_time" content="2017-07-06T11:45:04.970Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="grep  -P的使用">
-<meta name="twitter:description" content="man grep的时候有一个-P，文档上的英文： -P, –perl-regexp ​              Interpret PATTERN as a Perl regular expression.  This is highly experimental and grep -P may warn of  nimplemented features. 这意思是，-P 可以让grep使用p">
+<meta name="twitter:description" content="man grep的时候有一个-P，文档上的英文： -P, –perl-regexp ​              Interpret PATTERN as a Perl regular expression.  This is highly experimental and grep -P may warn of  nimplemented features.">
   
   
     <link rel="icon" href="/favicon.png">
@@ -157,6 +157,7 @@
         <p>man grep的时候有一个-P，文档上的英文：</p>
 <p>-P, –perl-regexp</p>
 <p>​              Interpret PATTERN as a Perl regular expression.  This is highly experimental and grep -P may warn of  nimplemented features.</p>
+<a id="more"></a>
 <p>这意思是，-P 可以让grep使用perl的正则表达式语法，因为perl的正则更加多元化，能实现更加复杂的场景。</p>
 <p>最典型的用法是，匹配指定字符串之间的字符。 比如，我们想在一句话（Hello，my name is aming.)中匹配中间的一段字符串（my name is) 可以这样写正则表达式。 </p>
 <p>echo “Hello, my name is aming.”|grep -P ‘(?&lt;=Hello, ).*(?= aming.)’</p>
