@@ -200,34 +200,9 @@
       
         <p>[TOC]</p>
 <h3 id="1、打印文件特定的某行到某行之间的内容"><a href="#1、打印文件特定的某行到某行之间的内容" class="headerlink" title="1、打印文件特定的某行到某行之间的内容"></a>1、打印文件特定的某行到某行之间的内容</h3><p>可以利用sed的字符串匹配，或者正则匹配</p>
-<p>例如，有个文件test的内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# cat test </div><div class="line">ert</div><div class="line">fff</div><div class="line">**</div><div class="line">[abcfd]</div><div class="line">123</div><div class="line">324</div><div class="line">444</div><div class="line">[rty]</div><div class="line">**</div><div class="line">fgfgf</div></pre></td></tr></table></figure>
-<p>需要截取</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[abcfd]</div><div class="line">123</div><div class="line">324</div><div class="line">444</div><div class="line">[rty]</div></pre></td></tr></table></figure>
-<p>解决：<code>sed -n &#39;/\[abcfd\]/,/\[rty\]/p&#39; test</code></p>
-<h3 id="2、sed如何转换大小写字母"><a href="#2、sed如何转换大小写字母" class="headerlink" title="2、sed如何转换大小写字母"></a>2、sed如何转换大小写字母</h3><p>sed中，使用\u表示大写，\l表示小写</p>
-<p>（1）把每个单词的第一个小写字母变成大写：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed &apos;s/\b[a-z]/\u&amp;/g&apos; test </div><div class="line">Ert</div><div class="line">Fff</div></pre></td></tr></table></figure>
-<p>（2）把所有小写变成大写</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed &apos;s/[a-z]/\u&amp;/g&apos; test </div><div class="line">ERT</div><div class="line">FFF</div></pre></td></tr></table></figure>
-<p>（3）把所有大写变成小写</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed  &apos;s/[A-Z]/\l&amp;/g&apos; test </div><div class="line">abv</div><div class="line">[root@allen1 sed]# cat  test </div><div class="line">ABV</div></pre></td></tr></table></figure>
-<h3 id="3、sed在文件中某一行最后添加内容"><a href="#3、sed在文件中某一行最后添加内容" class="headerlink" title="3、sed在文件中某一行最后添加内容"></a>3、sed在文件中某一行最后添加内容</h3><p>需求是在某一行的最后添加一个数字，有以下两种方式</p>
-<p>（1）使用&amp;代替匹配到的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed -r &apos;/ABV/s/(^.*$)/&amp; abc/&apos; test </div><div class="line">ABV abc</div><div class="line">ert</div><div class="line">fff</div></pre></td></tr></table></figure>
-<p>（2）使用小括号和\n代替匹配到内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed -r &apos;/ABV/s/(^.*$)/\1 abc/&apos; test </div><div class="line">ABV abc</div><div class="line">ert</div><div class="line">fff</div></pre></td></tr></table></figure>
-<p>如需要在某行前面添加内容，只需要将&amp;和添加内容互换位置</p>
-<h3 id="4、如何使用sed打印1到100行包含某个字符串的行"><a href="#4、如何使用sed打印1到100行包含某个字符串的行" class="headerlink" title="4、如何使用sed打印1到100行包含某个字符串的行"></a>4、如何使用sed打印1到100行包含某个字符串的行</h3><p>其实可以使用|连接两个命令，但是我们只需要一条命令就能解决</p>
-<p>使用|连接命令：<code>sed -n &#39;1,100p&#39; test.txt|sed -n &#39;/abc/&#39;p</code></p>
-<p>使用一条命令解决：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed  -n &apos;1,100&#123;/abc/p&#125;&apos;  test</div></pre></td></tr></table></figure>
-<p>指定多个字符：<code>sed -n  &#39;1,100{/abc/p;/dd/p}&#39;  test</code></p>
-<h3 id="5、sed删除某关键字的下一行到最后一行"><a href="#5、sed删除某关键字的下一行到最后一行" class="headerlink" title="5、sed删除某关键字的下一行到最后一行"></a>5、sed删除某关键字的下一行到最后一行</h3><p>[root@test200 ~]# cat test<br>a<br>b<br>c<br>d<br>e<br>f<br>[root@test200 ~]# sed ‘/c/{p;:a;N;$!ba;d}’ test<br>a<br>b<br>c</p>
-<p>定义一个标签a，匹配c，然后N把下一行加到模式空间里，匹配最后一行时，才退出标签循环，然后命令d，把这个模式空间里的内容全部清除。</p>
-<p>if 匹配”c”<br>:a<br>追加下一行<br>if 不匹配”$”<br>goto a<br>最后退出循环，d命令删除。</p>
-<p>由上，我们可以通过sed删除匹配行以及匹配行下一行<br>sed -i ‘/sample/{N;d}’ filename<br>//sample是匹配字符，N在这里就是下一行，d是删除</p>
-
+        
+          <a class="article-more-a" href="/2017/07/06/sed的一些特殊用法/#more">more >></a>
+        
       
 
       

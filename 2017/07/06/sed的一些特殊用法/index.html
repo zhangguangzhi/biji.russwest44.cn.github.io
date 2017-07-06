@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>sed的一些特殊用法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 1、打印文件特定的某行到某行之间的内容可以利用sed的字符串匹配，或者正则匹配 例如，有个文件test的内容如下： 1234567891011[root@allen1 sed]# cat test ertfff**[abcfd]123324444[rty]**fgfgf 需要截取 12345[abcfd]123324444[rty] 解决：sed -n &amp;#39;/\[abcfd\]/">
+  <meta name="description" content="[TOC] 1、打印文件特定的某行到某行之间的内容可以利用sed的字符串匹配，或者正则匹配">
 <meta name="keywords" content="sed">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sed的一些特殊用法">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/06/sed的一些特殊用法/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 1、打印文件特定的某行到某行之间的内容可以利用sed的字符串匹配，或者正则匹配 例如，有个文件test的内容如下： 1234567891011[root@allen1 sed]# cat test ertfff**[abcfd]123324444[rty]**fgfgf 需要截取 12345[abcfd]123324444[rty] 解决：sed -n &amp;#39;/\[abcfd\]/">
-<meta property="og:updated_time" content="2017-07-06T11:17:48.345Z">
+<meta property="og:description" content="[TOC] 1、打印文件特定的某行到某行之间的内容可以利用sed的字符串匹配，或者正则匹配">
+<meta property="og:updated_time" content="2017-07-06T11:18:48.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sed的一些特殊用法">
-<meta name="twitter:description" content="[TOC] 1、打印文件特定的某行到某行之间的内容可以利用sed的字符串匹配，或者正则匹配 例如，有个文件test的内容如下： 1234567891011[root@allen1 sed]# cat test ertfff**[abcfd]123324444[rty]**fgfgf 需要截取 12345[abcfd]123324444[rty] 解决：sed -n &amp;#39;/\[abcfd\]/">
+<meta name="twitter:description" content="[TOC] 1、打印文件特定的某行到某行之间的内容可以利用sed的字符串匹配，或者正则匹配">
   
   
     <link rel="icon" href="/favicon.png">
@@ -156,6 +156,7 @@
       
         <p>[TOC]</p>
 <h3 id="1、打印文件特定的某行到某行之间的内容"><a href="#1、打印文件特定的某行到某行之间的内容" class="headerlink" title="1、打印文件特定的某行到某行之间的内容"></a>1、打印文件特定的某行到某行之间的内容</h3><p>可以利用sed的字符串匹配，或者正则匹配</p>
+<a id="more"></a>
 <p>例如，有个文件test的内容如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# cat test </div><div class="line">ert</div><div class="line">fff</div><div class="line">**</div><div class="line">[abcfd]</div><div class="line">123</div><div class="line">324</div><div class="line">444</div><div class="line">[rty]</div><div class="line">**</div><div class="line">fgfgf</div></pre></td></tr></table></figure>
 <p>需要截取</p>
