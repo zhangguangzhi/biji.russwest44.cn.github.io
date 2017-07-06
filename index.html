@@ -178,6 +178,93 @@
 
 
   
+    <article id="post-sed的一些特殊用法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/06/sed的一些特殊用法/">sed的一些特殊用法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/06/sed的一些特殊用法/" class="archive-article-date">
+  	<time datetime="2017-07-06T10:34:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="1、打印文件特定的某行到某行之间的内容"><a href="#1、打印文件特定的某行到某行之间的内容" class="headerlink" title="1、打印文件特定的某行到某行之间的内容"></a>1、打印文件特定的某行到某行之间的内容</h3><p>可以利用sed的字符串匹配，或者正则匹配</p>
+<p>例如，有个文件test的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# cat test </div><div class="line">ert</div><div class="line">fff</div><div class="line">**</div><div class="line">[abcfd]</div><div class="line">123</div><div class="line">324</div><div class="line">444</div><div class="line">[rty]</div><div class="line">**</div><div class="line">fgfgf</div></pre></td></tr></table></figure>
+<p>需要截取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[abcfd]</div><div class="line">123</div><div class="line">324</div><div class="line">444</div><div class="line">[rty]</div></pre></td></tr></table></figure>
+<p>解决：<code>sed -n &#39;/\[abcfd\]/,/\[rty\]/p&#39; test</code></p>
+<h3 id="2、sed如何转换大小写字母"><a href="#2、sed如何转换大小写字母" class="headerlink" title="2、sed如何转换大小写字母"></a>2、sed如何转换大小写字母</h3><p>sed中，使用\u表示大写，\l表示小写</p>
+<p>（1）把每个单词的第一个小写字母变成大写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed &apos;s/\b[a-z]/\u&amp;/g&apos; test </div><div class="line">Ert</div><div class="line">Fff</div></pre></td></tr></table></figure>
+<p>（2）把所有小写变成大写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed &apos;s/[a-z]/\u&amp;/g&apos; test </div><div class="line">ERT</div><div class="line">FFF</div></pre></td></tr></table></figure>
+<p>（3）把所有大写变成小写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed  &apos;s/[A-Z]/\l&amp;/g&apos; test </div><div class="line">abv</div><div class="line">[root@allen1 sed]# cat  test </div><div class="line">ABV</div></pre></td></tr></table></figure>
+<h3 id="3、sed在文件中某一行最后添加内容"><a href="#3、sed在文件中某一行最后添加内容" class="headerlink" title="3、sed在文件中某一行最后添加内容"></a>3、sed在文件中某一行最后添加内容</h3><p>需求是在某一行的最后添加一个数字，有以下两种方式</p>
+<p>（1）使用&amp;代替匹配到的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed -r &apos;/ABV/s/(^.*$)/&amp; abc/&apos; test </div><div class="line">ABV abc</div><div class="line">ert</div><div class="line">fff</div></pre></td></tr></table></figure>
+<p>（2）使用小括号和\n代替匹配到内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed -r &apos;/ABV/s/(^.*$)/\1 abc/&apos; test </div><div class="line">ABV abc</div><div class="line">ert</div><div class="line">fff</div></pre></td></tr></table></figure>
+<p>如需要在某行前面添加内容，只需要将&amp;和添加内容互换位置</p>
+<h3 id="4、如何使用sed打印1到100行包含某个字符串的行"><a href="#4、如何使用sed打印1到100行包含某个字符串的行" class="headerlink" title="4、如何使用sed打印1到100行包含某个字符串的行"></a>4、如何使用sed打印1到100行包含某个字符串的行</h3><p>其实可以使用|连接两个命令，但是我们只需要一条命令就能解决</p>
+<p>使用|连接命令：<code>sed -n &#39;1,100p&#39; test.txt|sed -n &#39;/abc/&#39;p</code></p>
+<p>使用一条命令解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed  -n &apos;1,100&#123;/abc/p&#125;&apos;  test</div></pre></td></tr></table></figure>
+<p>指定多个字符：<code>sed -n  &#39;1,100{/abc/p;/dd/p}&#39;  test</code></p>
+<h3 id="5、sed删除某关键字的下一行到最后一行"><a href="#5、sed删除某关键字的下一行到最后一行" class="headerlink" title="5、sed删除某关键字的下一行到最后一行"></a>5、sed删除某关键字的下一行到最后一行</h3><p>[root@test200 ~]# cat test<br>a<br>b<br>c<br>d<br>e<br>f<br>[root@test200 ~]# sed ‘/c/{p;:a;N;$!ba;d}’ test<br>a<br>b<br>c</p>
+<p>定义一个标签a，匹配c，然后N把下一行加到模式空间里，匹配最后一行时，才退出标签循环，然后命令d，把这个模式空间里的内容全部清除。</p>
+<p>if 匹配”c”<br>:a<br>追加下一行<br>if 不匹配”$”<br>goto a<br>最后退出循环，d命令删除。</p>
+<p>由上，我们可以通过sed删除匹配行以及匹配行下一行<br>sed -i ‘/sample/{N;d}’ filename<br>//sample是匹配字符，N在这里就是下一行，d是删除</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/06/sed的一些特殊用法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-文本处理命令之awk" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -288,11 +375,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -740,72 +827,6 @@
 
 
   
-    <article id="post-yum配置文件详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/26/yum配置文件详解/">yum配置文件详解</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/26/yum配置文件详解/" class="archive-article-date">
-  	<time datetime="2017-06-26T13:46:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、-etc-yum-conf配置详解："><a href="#1、-etc-yum-conf配置详解：" class="headerlink" title="1、/etc/yum.conf配置详解："></a>1、/etc/yum.conf配置详解：</h2><p>[main]</p>
-<p>cachedir=/var/cache/yum                                 #yum下载的RPM包的缓存目录</p>
-<p>keepcache=0                                              #缓存是否保存，1保存，0不保存。</p>
-<p>debuglevel=2                                             #调试级别(0-10)，默认为2(</p>
-<p>logfile=/var/log/yum.log                                 #yum的日志文件所在的位置</p>
-<p>exactarch=1                                                                                                 #在更新的时候，是否允许更新不同版本的RPM包，比如是否在i386上更新i686的RPM包。</p>
-        
-          <a class="article-more-a" href="/2017/06/26/yum配置文件详解/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">yum</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/26/yum配置文件详解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -902,15 +923,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -926,19 +947,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -950,7 +963,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
             
             <div class="clearfix"></div>

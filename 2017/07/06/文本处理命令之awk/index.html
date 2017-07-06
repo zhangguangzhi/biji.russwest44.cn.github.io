@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170706/104700874.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170706/104949805.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170706/105039135.png?imageslim">
-<meta property="og:updated_time" content="2017-07-06T03:06:17.056Z">
+<meta property="og:updated_time" content="2017-07-06T08:29:00.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本处理命令之awk">
 <meta name="twitter:description" content="[TOC] 一、awk如何工作1、awk和sed在工作原理和用法上有类似之处，都是检查输入数据中的行是否匹配指定的模式，如果匹配成功就对匹配的行执行相应的操作，重复这个过程直到所有的输入数据都被处理完，awk和sed都是面向数据流的工具,都可以使用正则表达式匹配来确定要操作的行。 2、awk支持简单编程，awk主要针对行的段进行操作。并且执行的动作需要写在花括号{ }中。   3、awk程序会重复">
@@ -197,103 +197,54 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1、&#123;for (变量起始值;测试条件;变量变化)动作&#125;</div><div class="line">#用于需要计算的情况</div><div class="line">2、&#123;for ( i in a ) 动作&#125;</div><div class="line">#用于赋值</div></pre></td></tr></table></figure>
 <h3 id="8、数组"><a href="#8、数组" class="headerlink" title="8、数组"></a>8、数组</h3><ul>
-<li>awk程序中的数组与shell中的数组有一定的差别</li>
-<li>awk的数组不需要指定元素个数</li>
-<li>awk的数组像一个hash表，维护索引值与数组元素值的映射关系，描述的只是一个对应的关系。而且索引值可以是离散的整数或字符串。<ul>
-<li>应用：netstat -lnp |awk ‘/^tcp/{stat[\$6]++}END{for ( i in stat )print i,stat[i]}’\{stat[\$6]++}表示数组stat的索引为$6（因为$6的值不止一个），记录$6的值，并且元素值加1。</li>
-</ul>
+<li><p>awk程序中的数组与shell中的数组有一定的差别</p>
+</li>
+<li><p>awk的数组不需要指定元素个数</p>
+</li>
+<li><p>awk的数组像一个hash表，维护索引值与数组元素值的映射关系，描述的只是一个对应的关系。而且索引值可以是离散的整数或字符串。</p>
+</li>
+<li><p>应用：netstat -lnp |awk ‘/^tcp/{stat[\$6]++}END{for ( i in stat )print i,stat[i]}’</p>
+<p>​       {stat[\$6]++} 表示数组stat的索引为\$6（因为\$6的值不止一个），记录$6的值，并且元素值加1。</p>
 </li>
 </ul>
-<h2 id="三、awk实例"><a href="#三、awk实例" class="headerlink" title="三、awk实例"></a>三、awk实例</h2><h3 id="1、截取文档某个段"><a href="#1、截取文档某个段" class="headerlink" title="1、截取文档某个段"></a>1、截取文档某个段</h3><p>#awk  -F  ‘:’  ‘{print $1}’  /etc/passwd            </p>
-<p>  打印passwd文件，以“：”为分隔符的第一段</p>
-<p>-F  指定分隔符，不加以空格或者tab为分隔符，分隔符需要加单引号</p>
-<p>print  打印某个字段，加”{ }”</p>
-<p>$1表示第一个字符，$n表示第n个字符，$0表示整行</p>
-<p>同时打印第3段和第4段：{print \$3,$4}</p>
-<p>#awk -F ‘:’  ‘{print \$1”#”\$3”#”\$4”#”}’ passwd</p>
-<p>  打印并在输出添加“#”。</p>
-<p>#awk -F ‘:’ ‘{OFS=”:”}{print \$1,$2}’ passwd </p>
-<p>  OFS指定输出分隔符</p>
-<h3 id="2、匹配字符或字符串"><a href="#2、匹配字符或字符串" class="headerlink" title="2、匹配字符或字符串"></a>2、匹配字符或字符串</h3><p>#awk ‘/oo/‘ passwd</p>
-<p>  匹配含有“oo”的行，匹配的固定格式为/字符串/</p>
-<p>#awk -F ‘:’ ‘/user/{print $1,$3}/root/{print $1,$3}’ passwd</p>
-<p>  先匹配user后在匹配root并打印第1和第3段</p>
-<p>#awk -F ‘:’  ‘$1~/root/{print $1,$3}’  passwd</p>
-<p>  第一段匹配root，并打印第1和第3段</p>
-<p>.    *    +    ？  （）    |    都可以使用</p>
-<p>{}需要使用–posix参数</p>
-<p>#awk  ‘/r.o/‘ passwd</p>
-<p>#awk  ‘/r*o/‘ passwd</p>
-<p>#awk  ‘/(oo)+/‘ passwd</p>
-<p>#awk  ‘/(oo)?/‘ passwd</p>
-<p>#awk  –posix  ‘/(oo){1,3}/‘  passwd</p>
-<p>#awk  ‘/root|user/‘  passwd</p>
-<h3 id="3，条件操作符"><a href="#3，条件操作符" class="headerlink" title="3，条件操作符"></a>3，条件操作符</h3><p>==     精确匹配             与~的区别，==“匹配内容”     ~/匹配内容/ （非精确匹配）</p>
-<p>#awk -F ‘:’  ‘$1==”root”‘  passwd</p>
-<p>  精确匹配第一段为root的行</p>
-<p>!=      不匹配</p>
-<p>#awk -F “:” $7!=”nologin”‘ passwd</p>
-<p>  不匹配第7段为nologin的行</p>
-<p>=       赋值</p>
-<p># awk -F ‘:’  ‘$1=”50”‘  passwd</p>
-<p>  将第1段的赋值为50</p>
-<p>&lt;   &gt;   &lt;=   &gt;=             表示比较</p>
+<h2 id="三、awk实例"><a href="#三、awk实例" class="headerlink" title="三、awk实例"></a>三、awk实例</h2><h3 id="1、截取文档某个段"><a href="#1、截取文档某个段" class="headerlink" title="1、截取文档某个段"></a>1、截取文档某个段</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">1、awk  -F  &apos;:&apos;  &apos;&#123;print $1&#125;&apos;  /etc/passwd    </div><div class="line">#打印passwd文件，以“：”为分隔符的第一段</div><div class="line">-F  指定分隔符，不加以空格或者tab为分隔符，分隔符需要加单引号</div><div class="line">print  打印某个字段，加&quot;&#123; &#125;&quot;</div><div class="line">$1表示第一个字符，n表示第n个字符，$0表示整行</div><div class="line">[root@allen1 sed]# awk  -F &apos;:&apos;  &apos;&#123;print $1&#125;&apos; /etc/passwd</div><div class="line">root</div><div class="line">bin</div><div class="line">daemon</div><div class="line">adm</div><div class="line">lp</div><div class="line">........</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">2、同时打印第3段和第4段：&#123;print $3,$4&#125;</div><div class="line">[root@allen1 sed]# awk  -F &apos;:&apos;  &apos;&#123;print $3,$4&#125;&apos; /etc/passwd</div><div class="line">0 0</div><div class="line">1 1</div><div class="line">2 2</div><div class="line">3 4</div><div class="line">......</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">3、打印并在输出添加“#”。</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos;  &apos;&#123;print $1&quot;#&quot;$3&quot;#&quot;$4&quot;#&quot;&#125;&apos; passwd</div><div class="line">root#0#0#</div><div class="line">###</div><div class="line">bin#1#1#</div><div class="line">daemon#2#2#</div><div class="line">adm#3#4#</div><div class="line">.....</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">4、指定输出分隔符：OFS</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;&#123;OFS=&quot;:&quot;&#125;&#123;print $1,$2&#125;&apos; passwd </div><div class="line">root:x</div><div class="line">bin:x</div><div class="line">daemon:x</div><div class="line">.......</div></pre></td></tr></table></figure>
+<h3 id="2、匹配字符或字符串"><a href="#2、匹配字符或字符串" class="headerlink" title="2、匹配字符或字符串"></a>2、匹配字符或字符串</h3><p>匹配字符串的固定格式为/字符串/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1、匹配含有“oo”的行，匹配的固定格式为/字符串/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">2、先匹配user后在匹配root并打印第1和第3段</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;/user/&#123;print 1,3&#125;/root/&#123;print 1,3&#125;&apos; passwd</div><div class="line">1 3</div><div class="line">1 3</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3、第一段匹配root，并打印第1和第3段</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos;  &apos;$1~/root/&#123;print $1,$3&#125;&apos;  passwd</div><div class="line">root 0</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">正则表达式的特殊符号都能直接使用</div><div class="line">.    *    +    ？  （）    |    都可以使用</div><div class="line"></div><div class="line">&#123;&#125;需要使用--posix参数</div><div class="line"></div><div class="line">#awk  &apos;/r.o/&apos; passwd</div><div class="line"></div><div class="line">#awk  &apos;/r*o/&apos; passwd</div><div class="line"></div><div class="line">#awk  &apos;/(oo)+/&apos; passwd</div><div class="line"></div><div class="line">#awk  &apos;/(oo)?/&apos; passwd</div><div class="line"></div><div class="line">#awk  --posix  &apos;/(oo)&#123;1,3&#125;/&apos;  passwd</div><div class="line"></div><div class="line">#awk  &apos;/root|user/&apos;  passwd</div></pre></td></tr></table></figure>
+<h3 id="3、条件操作符"><a href="#3、条件操作符" class="headerlink" title="3、条件操作符"></a>3、条件操作符</h3><p>（1）==     精确匹配             </p>
+<p>与~的区别，==“匹配内容”     ~/匹配内容/ （非精确匹配）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#精确匹配第一段为root的行</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos;  &apos;$1 == &quot;root&quot;&apos;  passwd</div><div class="line">root:x:0:0:root:/root:/bin/bash</div></pre></td></tr></table></figure>
+<p>（2）!=      不匹配</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#不匹配第7段为nologin的行</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;$7 != &quot;nologin&quot;&apos; passwd</div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">bin:x:1:1:bin:/bin:/sbin/nologin</div><div class="line">........</div></pre></td></tr></table></figure>
+<p>（3）=       赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#将第1段的赋值为50</div><div class="line">50 x 0 0 root /root /bin/bash</div><div class="line">50 x 1 1 bin /bin /sbin/nologin</div><div class="line">50 x 2 2 daemon /sbin /sbin/nologin</div><div class="line">......</div></pre></td></tr></table></figure>
+<p>（4）&lt;   &gt;   &lt;=   &gt;=             表示比较</p>
 <p>和数字比较时，不加双引号为数字，加双引号为字符。</p>
-<p># awk -F ‘:’ ‘$3&gt;=500’ passwd      &lt;=</p>
-<p>  匹配第3段大于等于数字500的行   </p>
-<p># awk -F ‘:’ ‘$3&gt;=”500”‘ passwd    &lt;=</p>
-<p>  匹配第3段大于等于字符500的行</p>
-<p>#awk -F ‘:’ ‘$3&gt;$4’ passwd     &lt;</p>
-<p>  匹配第3段大于第4段的行</p>
-<p>||    或者           &amp;&amp;    并且</p>
-<p># awk -F  ‘:’ ‘\$3&gt;5 &amp;&amp; $4&lt;9’ passwd</p>
-<p>  匹配第3段大于5并且第4段小于9的行</p>
-<p># awk -F ‘:’ ‘$3&gt;5 || $7==”/bin/bash”‘ passwd</p>
-<p>  匹配第3段大于5或者第7段包含/bin/bash的行</p>
-<h3 id="3，条件操作符-1"><a href="#3，条件操作符-1" class="headerlink" title="3，条件操作符"></a>3，条件操作符</h3><p>==     精确匹配             与~的区别，==“匹配内容”     ~/匹配内容/ （非精确匹配）</p>
-<p>#awk -F ‘:’  ‘$1==”root”‘  passwd</p>
-<p>  精确匹配第一段为root的行</p>
-<p>!=      不匹配</p>
-<p>#awk -F “:” $7!=”nologin”‘ passwd</p>
-<p>  不匹配第7段为nologin的行</p>
-<p>=       赋值</p>
-<p># awk -F ‘:’  ‘$1=”50”‘  passwd</p>
-<p>  将第1段的赋值为50</p>
-<p>&lt;   &gt;   &lt;=   &gt;=             表示比较</p>
-<p>和数字比较时，不加双引号为数字，加双引号为字符。</p>
-<p># awk -F ‘:’ ‘$3&gt;=500’ passwd      &lt;=</p>
-<p>  匹配第3段大于等于数字500的行   </p>
-<p># awk -F ‘:’ ‘$3&gt;=”500”‘ passwd    &lt;=</p>
-<p>  匹配第3段大于等于字符500的行</p>
-<p>#awk -F ‘:’ ‘$3&gt;$4’ passwd     &lt;</p>
-<p>  匹配第3段大于第4段的行</p>
-<p>||    或者           &amp;&amp;    并且</p>
-<p># awk -F  ‘:’ ‘\$3&gt;5 &amp;&amp; $4&lt;9’ passwd</p>
-<p>  匹配第3段大于5并且第4段小于9的行</p>
-<p># awk -F ‘:’ ‘$3&gt;5 || $7==”/bin/bash”‘ passwd</p>
-<p>  匹配第3段大于5或者第7段包含/bin/bash的行</p>
-<h3 id="4，内置变量"><a href="#4，内置变量" class="headerlink" title="4，内置变量"></a>4，内置变量</h3><p>NR：行       \$NR：和行相同的数字的段的值</p>
-<p># awk -F ‘:’ ‘NR&lt;10’ passwd</p>
-<p>  打印行号小于10的行</p>
-<p># awk -F ‘:’ ‘NR==10’ passwd</p>
-<p>  打印行号等于10的行</p>
-<p># awk -F ‘:’ ‘NR&gt;10’ passwd</p>
-<p>  打印行号大于10的行</p>
-<p># awk -F ‘:’ ‘NR==10{print $1,$5}’ passwd</p>
-<p>  打印行号等于10的行的第1段和第5段</p>
-<p>NF：以分隔符分隔了多少段           $NF：最后一段的值</p>
-<p># awk  -F ‘:’  ‘{print $NF}’ passwd</p>
-<p>  打印每一行的最后一段</p>
-<p># awk -F ‘:’  ‘{if(NF=7)print $1}’ passwd</p>
-<p>  如果以：分隔段数为7，打印第一段的值</p>
-<p># awk -F ‘:’ ‘{print \$NR,$NF}’ passwd</p>
-<p>  打印和行形同的数字的段的值，打印每一行的行位。</p>
-<h3 id="5，数学运算"><a href="#5，数学运算" class="headerlink" title="5，数学运算"></a>5，数学运算</h3><p># awk -F ‘:’ ‘{$7=$3+\$4}{print $7}’ passwd</p>
-<p>  将第7段赋值为第3段+第4段，打印第7段的值</p>
-<p># awk -F ‘:’ ‘{(sum=sum+$3)}END{print sum}’ passwd</p>
-<p>  将第3段的值相加，打印相加的值</p>
-<p>awk -F ‘:’  ‘BEGIN{OFS=”:”}{if(条件){语句1}{语句2}{语句3}END{语句1}}’   filename</p>
-<p>awk -F ‘[，：]’ ‘{print $1,$2}’  filename</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#匹配第3段大于等于数字500的行</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;$3&gt;=500&apos; passwd</div><div class="line">systemd-bus-proxy:x:999:997:systemd Bus Proxy:/:/sbin/nologin</div><div class="line">polkitd:x:998:996:User for polkitd:/:/sbin/nologin</div><div class="line">.....</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#匹配第3段大于等于字符500的行</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;$3&gt;=&quot;500&quot;&apos; passwd</div><div class="line">shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown</div><div class="line">halt:x:7:0:halt:/sbin:/sbin/halt</div><div class="line">mail:x:8:12:mail:/var/spool/mail:/sbin/nologin</div><div class="line">......</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#匹配第3段大于第4段的行</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;$3&gt;$4&apos; passwd</div><div class="line">sync:x:5:0:sync:/sbin:/bin/sync</div><div class="line">shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown</div><div class="line">halt:x:7:0:halt:/sbin:/sbin/halt</div><div class="line">operator:x:11:0:operator:/root:/sbin/nologin</div><div class="line">systemd-bus-proxy:x:999:997:systemd Bus Proxy</div><div class="line">.......</div></pre></td></tr></table></figure>
+<p>（5）||    或者        </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#匹配第3段大于5或者第7段包含/bin/bash的行</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;$3&gt;$5 || $7==&quot;/bin/bash&quot;&apos; passwd</div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">postfix:x:89:89::/var/spool/postfix:/sbin/nologin</div><div class="line">chrony:x:997:995::/var/lib/chrony:/sbin/nologin</div><div class="line">admin:x:1013:1013::/home/admin:/bin/bash</div></pre></td></tr></table></figure>
+<p>（6） &amp;&amp;    并且</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#匹配第3段大于5并且第4段小于9的行</div><div class="line">[root@allen1 sed]# awk -F  &apos;:&apos; &apos;$3&gt;5 &amp;&amp; $4&lt;9&apos; passwd</div><div class="line">shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown</div><div class="line">halt:x:7:0:halt:/sbin:/sbin/halt</div><div class="line">operator:x:11:0:operator:/root:/sbin/nologin</div></pre></td></tr></table></figure>
+<h3 id="4、内置变量"><a href="#4、内置变量" class="headerlink" title="4、内置变量"></a>4、内置变量</h3><p>（1）NR：行       \$NR：和行相同的数字的段的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#打印行号小于10的行</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;NR&lt;10&apos; passwd|cat -n</div><div class="line">     1	root:x:0:0:root:/root:/bin/bash</div><div class="line">     2	bin:x:1:1:bin:/bin:/sbin/nologin</div><div class="line">     3	daemon:x:2:2:daemon:/sbin:/sbin/nologin</div><div class="line">     4	adm:x:3:4:adm:/var/adm:/sbin/nologin</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#打印行号等于10的行的第1段和第5段</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;NR==10&#123;print 1,5&#125;&apos; passwd</div><div class="line">1 5</div></pre></td></tr></table></figure>
+<p>（2）NF：以分隔符分隔了多少段           $NF：最后一段的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#如果以：分隔段数为7，打印第一段的值</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos;  &apos;&#123;if(NF=7)print $1&#125;&apos; passwd</div><div class="line">root</div><div class="line">bin</div><div class="line">daemon</div><div class="line">adm</div><div class="line">lp</div><div class="line">......</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#打印每一行的最后一段</div><div class="line">[root@allen1 sed]#  awk  -F &apos;:&apos;  &apos;&#123;print $NF&#125;&apos; passwd</div><div class="line">/bin/bash</div><div class="line">/sbin/nologin</div><div class="line">/sbin/nologin</div><div class="line">/sbin/nologin</div><div class="line">......</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#打印和行形同的数字的段的值，打印每一行的行位。</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;&#123;print $NR,$NF&#125;&apos; passwd</div><div class="line">root /bin/bash</div><div class="line">x /sbin/nologin</div><div class="line">2 /sbin/nologin</div><div class="line">4 /sbin/nologin</div><div class="line">lp /sbin/nologin</div><div class="line">/sbin /bin/sync</div><div class="line">/sbin/shutdown /sbin/shutdown</div><div class="line">/sbin/halt</div></pre></td></tr></table></figure>
+<h3 id="5、数学运算"><a href="#5、数学运算" class="headerlink" title="5、数学运算"></a>5、数学运算</h3><p>（1）变量直接相加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#将第7段赋值为第3段+第4段，打印第7段的值</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;&#123;$7=$3+$4&#125;&#123;print $7&#125;&apos; passwd</div><div class="line">0</div><div class="line">2</div><div class="line">4</div><div class="line">7</div><div class="line">11</div><div class="line">......</div></pre></td></tr></table></figure>
+<p>（2）变量求和</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#将第3段的值相加，打印相加的值</div><div class="line">[root@allen1 sed]# awk -F &apos;:&apos; &apos;&#123;(sum=sum+$3)&#125;END&#123;print sum&#125;&apos; passwd</div><div class="line">4722</div></pre></td></tr></table></figure>
+<p><code>awk -F &#39;:&#39;  &#39;BEGIN{OFS=&quot;:&quot;}{if(条件){语句1}{语句2}{语句3}END{语句1}}&#39;   filename</code></p>
+<p>awk -F ‘[，：]’ ‘{print \$1,$2}’  filename</p>
 <p>[ ]表示先以“，”为分隔符，输出结果再用：为分隔符打印出第一段和第二段   </p>
 <h3 id="6、函数使用"><a href="#6、函数使用" class="headerlink" title="6、函数使用"></a>6、函数使用</h3><p>自定义函数length()</p>
 <p>awk ‘{if(length($1)==4) print $1}’ datafile</p>
@@ -389,11 +340,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/07/06/sed的一些特殊用法/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          sed的一些特殊用法
         
       </div>
     </a>
@@ -508,15 +459,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -532,19 +483,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -556,7 +499,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
             
             <div class="clearfix"></div>

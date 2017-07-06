@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>shell基础知识之三 | Hexo</title>
+  <title>sed的一些特殊用法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="shell基础知识之一shell基础知识之二 [TOC] 一、文本内容处理命令以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容 1、cutcut：截取字符串 -d：指定分隔符 -f：指定截取字符段 -c：指定第几个字符 123456789[root@allen1 ~]# cat /etc/passwd | cut -d &amp;quot;:&amp;quot;  -f 1root">
-<meta name="keywords" content="shell,特殊符号,文本内容处理">
+  <meta name="description" content="[TOC] 1、打印文件特定的某行到某行之间的内容可以利用sed的字符串匹配，或者正则匹配 例如，有个文件test的内容如下： 1234567891011[root@allen1 sed]# cat test ertfff**[abcfd]123324444[rty]**fgfgf 需要截取 12345[abcfd]123324444[rty] 解决：sed -n &amp;#39;/\[abcfd\]/">
+<meta name="keywords" content="sed">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shell基础知识之三">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/30/shell基础知识3/index.html">
+<meta property="og:title" content="sed的一些特殊用法">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/06/sed的一些特殊用法/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="shell基础知识之一shell基础知识之二 [TOC] 一、文本内容处理命令以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容 1、cutcut：截取字符串 -d：指定分隔符 -f：指定截取字符段 -c：指定第几个字符 123456789[root@allen1 ~]# cat /etc/passwd | cut -d &amp;quot;:&amp;quot;  -f 1root">
-<meta property="og:updated_time" content="2017-07-04T14:45:33.931Z">
+<meta property="og:description" content="[TOC] 1、打印文件特定的某行到某行之间的内容可以利用sed的字符串匹配，或者正则匹配 例如，有个文件test的内容如下： 1234567891011[root@allen1 sed]# cat test ertfff**[abcfd]123324444[rty]**fgfgf 需要截取 12345[abcfd]123324444[rty] 解决：sed -n &amp;#39;/\[abcfd\]/">
+<meta property="og:updated_time" content="2017-07-06T11:17:48.345Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shell基础知识之三">
-<meta name="twitter:description" content="shell基础知识之一shell基础知识之二 [TOC] 一、文本内容处理命令以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容 1、cutcut：截取字符串 -d：指定分隔符 -f：指定截取字符段 -c：指定第几个字符 123456789[root@allen1 ~]# cat /etc/passwd | cut -d &amp;quot;:&amp;quot;  -f 1root">
+<meta name="twitter:title" content="sed的一些特殊用法">
+<meta name="twitter:description" content="[TOC] 1、打印文件特定的某行到某行之间的内容可以利用sed的字符串匹配，或者正则匹配 例如，有个文件test的内容如下： 1234567891011[root@allen1 sed]# cat test ertfff**[abcfd]123324444[rty]**fgfgf 需要截取 12345[abcfd]123324444[rty] 解决：sed -n &amp;#39;/\[abcfd\]/">
   
   
     <link rel="icon" href="/favicon.png">
@@ -134,83 +134,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-shell基础知识3" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-sed的一些特殊用法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      shell基础知识之三
+      sed的一些特殊用法
     </h1>
   
 
         
-        <a href="/2017/06/30/shell基础知识3/" class="archive-article-date">
-  	<time datetime="2017-06-30T15:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-30</time>
+        <a href="/2017/07/06/sed的一些特殊用法/" class="archive-article-date">
+  	<time datetime="2017-07-06T10:34:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="http://zhangguangzhi.top/2017/06/28/shell%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%861/" target="_blank" rel="external">shell基础知识之一</a><br><a href="http://zhangguangzhi.top/2017/06/29/shell%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%862/" target="_blank" rel="external">shell基础知识之二</a></p>
-<p>[TOC]</p>
-<h2 id="一、文本内容处理命令"><a href="#一、文本内容处理命令" class="headerlink" title="一、文本内容处理命令"></a>一、文本内容处理命令</h2><p><strong>以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容</strong></p>
-<h3 id="1、cut"><a href="#1、cut" class="headerlink" title="1、cut"></a>1、cut</h3><p>cut：截取字符串</p>
-<p>-d：指定分隔符</p>
-<p>-f：指定截取字符段</p>
-<p>-c：指定第几个字符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat /etc/passwd | cut -d &quot;:&quot;  -f 1</div><div class="line">root</div><div class="line">bin</div><div class="line">daemon</div><div class="line">.....</div><div class="line">[root@allen1 ~]# cat /etc/passwd | cut -c  3</div><div class="line">o</div><div class="line">n</div><div class="line">......</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="2、sort"><a href="#2、sort" class="headerlink" title="2、sort"></a>2、sort</h3><p>sort：对文本内容进行排序，默认以ascii表排序，当文件内容第一位相同时，比较后面一位，一次类推。</p>
-<p>-n：以数字排序，字母和特殊字符为0</p>
-<p>-r：反向排序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat 1.txt |sort -n</div><div class="line">&gt;</div><div class="line">a</div><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">34</div><div class="line">[root@allen1 ~]# cat 1.txt |sort -nr</div><div class="line">34</div><div class="line">3</div><div class="line">2</div><div class="line">1</div><div class="line">a</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-<p>-t：指定分隔符</p>
-<p>-k：指定字符段，n1/n1-n2</p>
-<h3 id="3、wc"><a href="#3、wc" class="headerlink" title="3、wc"></a>3、wc</h3><p>wc：统计文本内容</p>
-<p>-l：统计行数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat 1.txt |wc -l </div><div class="line">6</div></pre></td></tr></table></figure>
-<p>-m：统计字符数</p>
-<p>-w：统计单词，遇到空格就算一个单词</p>
-<h3 id="4、uniq"><a href="#4、uniq" class="headerlink" title="4、uniq"></a>4、uniq</h3><p>uniq：去除文本内容中重复的内容，先使用sort排序后再去重</p>
-<p>-c：统计重复次数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat 1.txt |sort|uniq -c</div><div class="line">      1 </div><div class="line">      1 &gt;</div><div class="line">      2 1</div><div class="line">      2 2</div><div class="line">      2 3</div><div class="line">      1 34</div><div class="line">      2 a</div></pre></td></tr></table></figure>
-<h3 id="5、tee"><a href="#5、tee" class="headerlink" title="5、tee"></a>5、tee</h3><p>tee：重定向时，终端也会有输出</p>
-<p>-a：追加重定向</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls | tee  1.txt</div><div class="line">1.sh</div><div class="line">1.txt</div><div class="line">aa.txt</div><div class="line">anaconda-ks.cfg</div><div class="line">d6z</div></pre></td></tr></table></figure>
-<h3 id="6、tr"><a href="#6、tr" class="headerlink" title="6、tr"></a>6、tr</h3><p>tr：替换字符</p>
-<p>替换字符  需使用输入重定向&lt;，或者使用管道符|</p>
-<p>#tr  ‘a’  ‘A’  &lt;passwd      将passwd中出现的a替换为A                    #一对一替换</p>
-<p>#tr  ‘abc’  ‘A’  &lt;passwd     将passwd中出现的a,b,c替换为A                #多对一替换</p>
-<p>#tr  ‘a-z’  ‘A-Z’  &lt;passwd    将passwd中的小写字符替换为大写字母        #范围的替换</p>
-<p>#tr  ‘abcd’  ‘ABCD’  &lt;passwd                                                                 #对应替换</p>
-<h3 id="7、split"><a href="#7、split" class="headerlink" title="7、split"></a>7、split</h3><p>split：切割文件，一般用于切割日志文件</p>
-<p>-b：指定大小，默认单位为字节b，单位使用K，M</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# split -b 100K ../1.txt </div><div class="line">[root@allen1 test1]# ls</div><div class="line">xaa  xab  xac  xad  xae  xaf</div></pre></td></tr></table></figure>
-<p>-l：指定行数切割</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# split -l 50 ../1.txt </div><div class="line">[root@allen1 test1]# ls -l</div><div class="line">总用量 1144</div><div class="line">-rw-r--r--. 1 root root 1350 6月  30 23:29 xaa</div><div class="line">-rw-r--r--. 1 root root 1814 6月  30 23:29 xab</div><div class="line">-rw-r--r--. 1 root root 1531 6月  30 23:29 xac</div><div class="line">-rw-r--r--. 1 root root 1935 6月  30 23:29 xad</div><div class="line">-rw-r--r--. 1 root root 2287 6月  30 23:29 xae</div><div class="line">....</div></pre></td></tr></table></figure>
-<p>此时，切割完成的文件名都是以x开头按顺序生成的，如何指定切割生成的文件名</p>
-<p>在切割命令的最后加上自定义文件名前缀：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# split -b 100K ../1.txt  split.</div><div class="line">[root@allen1 test1]# ls</div><div class="line">split.aa  split.ab  split.ac  split.ad  split.ae  split.af</div></pre></td></tr></table></figure>
-<h2 id="二、其它特殊符号"><a href="#二、其它特殊符号" class="headerlink" title="二、其它特殊符号"></a>二、其它特殊符号</h2><p>#：注释字符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# #ls</div><div class="line">[root@allen1 test1]# echo $?</div><div class="line">0</div></pre></td></tr></table></figure>
-<p>$：变量前缀，用于引用变量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# b=1</div><div class="line">[root@allen1 test1]# echo $b</div><div class="line">1</div></pre></td></tr></table></figure>
-<p>\：脱义符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test1]# a=1</div><div class="line">[root@allen1 test1]# c=b$a</div><div class="line">[root@allen1 test1]# echo $c</div><div class="line">b1</div><div class="line">[root@allen1 test1]# c=b\$a			\\使$失去特殊符号作用，成为普通符号</div><div class="line">[root@allen1 test1]# echo $c</div><div class="line">b$a</div></pre></td></tr></table></figure>
-<p>;：多条命令使用；分隔，同时执行多条命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls 2.txt ;ls 1.txt</div><div class="line">ls: 无法访问2.txt: 没有那个文件或目录</div><div class="line">1.txt</div><div class="line">#无论命令正确与否都会执行</div></pre></td></tr></table></figure>
-<p>~：表示用户家目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# echo $HOME </div><div class="line">/root</div><div class="line">[root@allen1 ~]# cd ~</div><div class="line">[root@allen1 ~]# pwd</div><div class="line">/root</div></pre></td></tr></table></figure>
-<p>||：多条命令使用；分隔，同时执行多条命令</p>
-<p>~：用户家目录，正则表达式表示匹配符</p>
-<p>&amp;：放在命令后面，会把命令放在后太执行</p>
-<p>||：逻辑或，前面命令执行失败，后面的命令才会执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls 1.txt ||ls a.txt</div><div class="line">1.txt</div><div class="line">[root@allen1 ~]# ls 2.txt ||ls aa.txt</div><div class="line">ls: 无法访问2.txt: 没有那个文件或目录</div><div class="line">aa.txt</div><div class="line">#前面命令正确，后面命令不执行</div><div class="line">#前面正确错误。后面命令执行</div></pre></td></tr></table></figure>
-<p>&amp;&amp;：逻辑与，前面命令执行成功，后面的命令才能执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls 1.txt &amp;&amp; ls aa.txt</div><div class="line">1.txt</div><div class="line">aa.txt</div><div class="line">[root@allen1 ~]# ls 2.txt &amp;&amp; ls aa.txt</div><div class="line">ls: 无法访问2.txt: 没有那个文件或目录</div><div class="line">#前面命令正确，后面命令才会执行</div><div class="line">#前面命令错误，后面命令不会执行</div></pre></td></tr></table></figure>
+        <p>[TOC]</p>
+<h3 id="1、打印文件特定的某行到某行之间的内容"><a href="#1、打印文件特定的某行到某行之间的内容" class="headerlink" title="1、打印文件特定的某行到某行之间的内容"></a>1、打印文件特定的某行到某行之间的内容</h3><p>可以利用sed的字符串匹配，或者正则匹配</p>
+<p>例如，有个文件test的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# cat test </div><div class="line">ert</div><div class="line">fff</div><div class="line">**</div><div class="line">[abcfd]</div><div class="line">123</div><div class="line">324</div><div class="line">444</div><div class="line">[rty]</div><div class="line">**</div><div class="line">fgfgf</div></pre></td></tr></table></figure>
+<p>需要截取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[abcfd]</div><div class="line">123</div><div class="line">324</div><div class="line">444</div><div class="line">[rty]</div></pre></td></tr></table></figure>
+<p>解决：<code>sed -n &#39;/\[abcfd\]/,/\[rty\]/p&#39; test</code></p>
+<h3 id="2、sed如何转换大小写字母"><a href="#2、sed如何转换大小写字母" class="headerlink" title="2、sed如何转换大小写字母"></a>2、sed如何转换大小写字母</h3><p>sed中，使用\u表示大写，\l表示小写</p>
+<p>（1）把每个单词的第一个小写字母变成大写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed &apos;s/\b[a-z]/\u&amp;/g&apos; test </div><div class="line">Ert</div><div class="line">Fff</div></pre></td></tr></table></figure>
+<p>（2）把所有小写变成大写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed &apos;s/[a-z]/\u&amp;/g&apos; test </div><div class="line">ERT</div><div class="line">FFF</div></pre></td></tr></table></figure>
+<p>（3）把所有大写变成小写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed  &apos;s/[A-Z]/\l&amp;/g&apos; test </div><div class="line">abv</div><div class="line">[root@allen1 sed]# cat  test </div><div class="line">ABV</div></pre></td></tr></table></figure>
+<h3 id="3、sed在文件中某一行最后添加内容"><a href="#3、sed在文件中某一行最后添加内容" class="headerlink" title="3、sed在文件中某一行最后添加内容"></a>3、sed在文件中某一行最后添加内容</h3><p>需求是在某一行的最后添加一个数字，有以下两种方式</p>
+<p>（1）使用&amp;代替匹配到的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed -r &apos;/ABV/s/(^.*$)/&amp; abc/&apos; test </div><div class="line">ABV abc</div><div class="line">ert</div><div class="line">fff</div></pre></td></tr></table></figure>
+<p>（2）使用小括号和\n代替匹配到内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed -r &apos;/ABV/s/(^.*$)/\1 abc/&apos; test </div><div class="line">ABV abc</div><div class="line">ert</div><div class="line">fff</div></pre></td></tr></table></figure>
+<p>如需要在某行前面添加内容，只需要将&amp;和添加内容互换位置</p>
+<h3 id="4、如何使用sed打印1到100行包含某个字符串的行"><a href="#4、如何使用sed打印1到100行包含某个字符串的行" class="headerlink" title="4、如何使用sed打印1到100行包含某个字符串的行"></a>4、如何使用sed打印1到100行包含某个字符串的行</h3><p>其实可以使用|连接两个命令，但是我们只需要一条命令就能解决</p>
+<p>使用|连接命令：<code>sed -n &#39;1,100p&#39; test.txt|sed -n &#39;/abc/&#39;p</code></p>
+<p>使用一条命令解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sed  -n &apos;1,100&#123;/abc/p&#125;&apos;  test</div></pre></td></tr></table></figure>
+<p>指定多个字符：<code>sed -n  &#39;1,100{/abc/p;/dd/p}&#39;  test</code></p>
+<h3 id="5、sed删除某关键字的下一行到最后一行"><a href="#5、sed删除某关键字的下一行到最后一行" class="headerlink" title="5、sed删除某关键字的下一行到最后一行"></a>5、sed删除某关键字的下一行到最后一行</h3><p>[root@test200 ~]# cat test<br>a<br>b<br>c<br>d<br>e<br>f<br>[root@test200 ~]# sed ‘/c/{p;:a;N;$!ba;d}’ test<br>a<br>b<br>c</p>
+<p>定义一个标签a，匹配c，然后N把下一行加到模式空间里，匹配最后一行时，才退出标签循环，然后命令d，把这个模式空间里的内容全部清除。</p>
+<p>if 匹配”c”<br>:a<br>追加下一行<br>if 不匹配”$”<br>goto a<br>最后退出循环，d命令删除。</p>
+<p>由上，我们可以通过sed删除匹配行以及匹配行下一行<br>sed -i ‘/sample/{N;d}’ filename<br>//sample是匹配字符，N在这里就是下一行，d是删除</p>
 
       
 
@@ -224,15 +196,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">特殊符号</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">文本内容处理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
         		</li>
       		
 		</ul>
@@ -288,7 +252,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/06/30/shell基础知识3/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/06/sed的一些特殊用法/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -302,18 +266,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/03/文本处理命令之grep/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          文本处理命令之grep
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/06/29/shell基础知识2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">shell基础知识之二</div>
+    <a href="/2017/07/06/文本处理命令之awk/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">文本处理命令之awk</div>
       <i class="icon-circle-right"></i>
     </a>
   
