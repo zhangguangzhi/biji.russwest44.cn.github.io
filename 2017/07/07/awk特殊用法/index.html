@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Tag: 源码 | Hexo</title>
+  <title>awk拓展用法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/tags/源码/index.html">
+  <meta name="description" content="[TOC] 一、awk合并一个文件需求：需要把两个文件中，第一列相同的行合并到同一行中。例如，有两个文件，内容如下">
+<meta name="keywords" content="awk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="awk拓展用法">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/07/awk特殊用法/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] 一、awk合并一个文件需求：需要把两个文件中，第一列相同的行合并到同一行中。例如，有两个文件，内容如下">
+<meta property="og:updated_time" content="2017-07-07T13:15:42.795Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="awk拓展用法">
+<meta name="twitter:description" content="[TOC] 一、awk合并一个文件需求：需要把两个文件中，第一列相同的行合并到同一行中。例如，有两个文件，内容如下">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,68 +134,179 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-awk特殊用法" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/26/安装与卸载软件/" class="archive-article-date">
-  	<time datetime="2017-06-26T04:33:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/26/安装与卸载软件/">linux安装与卸载软件</a>
+    <h1 class="article-title" itemprop="name">
+      awk拓展用法
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/07/07/awk特殊用法/" class="archive-article-date">
+  	<time datetime="2017-07-07T12:19:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、awk合并一个文件"><a href="#一、awk合并一个文件" class="headerlink" title="一、awk合并一个文件"></a>一、awk合并一个文件</h3><p>需求：需要把两个文件中，第一列相同的行合并到同一行中。例如，有两个文件，内容如下</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat 1.txt </div><div class="line">1 aa</div><div class="line">2 bb</div><div class="line">3 ee</div><div class="line">4 ss</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat 2.txt </div><div class="line">1 ab</div><div class="line">2 cd</div><div class="line">3 ad</div><div class="line">4 bd</div><div class="line">5 de</div></pre></td></tr></table></figure>
+<p>合并后的结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1 ab aa</div><div class="line">2 cd bb</div><div class="line">3 ad ee</div><div class="line">4 bd ss</div><div class="line">5 de</div></pre></td></tr></table></figure>
+<p>实现命令为：</p>
+<p><code>awk &#39;NR==FNR{a[$1]=$2}NR&gt;FNR{print $0,a[$1]}&#39;  1.txt  2.txt</code></p>
+<p><code>awk &#39;NR==FNR{a[FNR]=$0}NR&gt;FNR{print $0,a[FNR]}&#39; a.txt b.txt</code></p>
+<p>说明：</p>
+<p>NR表示读取的行数，FNR表示读取的当前行数</p>
+<p>所以NR==FNR就表示读取1.txt的时候，同理NR&gt;FNR表示读取2.txt的时候</p>
+<p>数组a其实就相当于一个map</p>
+<h3 id="二、把一个文件多行连接成一行"><a href="#二、把一个文件多行连接成一行" class="headerlink" title="二、把一个文件多行连接成一行"></a>二、把一个文件多行连接成一行</h3><p>需求：一个文件每行都有一个数字，现在需要把每行的数字用“+”连接起来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat a</div><div class="line">96</div><div class="line">1093</div><div class="line">1855</div><div class="line">1253</div><div class="line">1364</div><div class="line">1332</div><div class="line">2308</div><div class="line">2589</div><div class="line">2531</div></pre></td></tr></table></figure>
+<p>（1）使用awk实现：<code>awk &#39;{printf (&quot;%s+&quot;,$0)}&#39;  a; echo &quot;&quot;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# awk &apos;&#123;printf (&quot;%s+&quot;,$0)&#125;&apos;  a; echo &quot;&quot;</div><div class="line">96+1093+1855+1253+1364+1332+2308+2589+2531+</div></pre></td></tr></table></figure>
+<p>（2）使用sed实现：<code>cat a|xargs|sed &#39;s/ /+/g&#39;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat a|xargs|sed &apos;s/ /+/g&apos;</div><div class="line">96+1093+1855+1253+1364+1332+2308+2589+2531</div></pre></td></tr></table></figure>
+<h3 id="三、awk中gsub函数的使用"><a href="#三、awk中gsub函数的使用" class="headerlink" title="三、awk中gsub函数的使用"></a>三、awk中gsub函数的使用</h3><p>（1）将passwd文件中所有www替换成abc</p>
+<p>#awk  ‘gsub(/www/,”abc”)’ passwd </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# awk  &apos;gsub(/www/,&quot;abc&quot;)&apos; passwd </div><div class="line">abc</div><div class="line">[root@allen1 ~]# grep &apos;www&apos;  passwd</div><div class="line">www</div></pre></td></tr></table></figure>
+<p>（2）替换$1中的www为abc</p>
+<p>#awk -F ‘:’ ‘gsub(/www/,”abc”,$1) {print $0}’ passwd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# awk -F &apos;:&apos; &apos;gsub(/www/,&quot;abc&quot;,$1) &#123;print $0&#125;&apos; passwd</div><div class="line">abc2 </div><div class="line">[root@allen1 ~]# grep &apos;www&apos;  passwd</div><div class="line">www2:</div></pre></td></tr></table></figure>
+<p>（3）sub函数利用，将passwd文件中第一次出现的www替换为abc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk &apos;sub(/www/,&quot;abc&quot;)&apos; /etc/passwd</div></pre></td></tr></table></figure>
+<h3 id="四、awk截取指定多个域为一行脚本"><a href="#四、awk截取指定多个域为一行脚本" class="headerlink" title="四、awk截取指定多个域为一行脚本"></a>四、awk截取指定多个域为一行脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">for j in `seq 0 20`; do</div><div class="line">        let x=100*$j</div><div class="line">        let y=$x+1</div><div class="line">        let z=$x+100</div><div class="line">        for i in `seq $y $z` ; do</div><div class="line">                awk  -v a=$i &apos;&#123;printf $a &quot; &quot;&#125;&apos; example.txt &gt;&gt;/tmp/test.txt</div><div class="line">                echo &quot; &quot; &gt;&gt;/tmp/test.txt</div><div class="line">        done</div><div class="line">done</div></pre></td></tr></table></figure>
+<h3 id="五、awk过滤两个或多个关键词"><a href="#五、awk过滤两个或多个关键词" class="headerlink" title="五、awk过滤两个或多个关键词"></a>五、awk过滤两个或多个关键词</h3><p>#awk ‘/123|abc/‘  filename</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# awk &apos;/root|admin/&apos;  passwd</div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">operator:x:11:0:operator:/root:/sbin/nologin</div><div class="line">admin:x:1013:1013::/home/admin:/bin/bash</div></pre></td></tr></table></figure>
+<p>grep如何实现</p>
+<p>#grep -E ‘123|abc’ filename</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep -E  &apos;root|admin&apos;  passwd</div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">operator:x:11:0:operator:/root:/sbin/nologin</div><div class="line">admin:x:1013:1013::/home/admin:/bin/bash</div></pre></td></tr></table></figure>
+<h3 id="六、用awk编写生成指定结果文件的程序"><a href="#六、用awk编写生成指定结果文件的程序" class="headerlink" title="六、用awk编写生成指定结果文件的程序"></a>六、用awk编写生成指定结果文件的程序</h3><p>需求：用awk编写生成以下结构文件的程序。( 最后列使用现在的时间，时间格式为YYYYMMDDHHMISS)  各列的值应如下所示，每增加一行便加1，共500万行。</p>
+<p>1,1,0000000001,0000000001,0000000001,0000000001,0000000001,0000000001,2005100110101<br>2,2,0000000002,0000000002,0000000002,0000000002,0000000002,0000000002,2005100110101</p>
+<p><code>awk &#39;BEGIN{for(i=1;i&lt;=10;i++)printf(&quot;%d,%d,%010d,%010d,%010d,%010d,%010d,%010d,%d\n&quot;,i,i,i,i,i,i,i,i,strftime(&quot;%Y%m%d%H%M&quot;))}&#39;</code></p>
+<p>shell脚本实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#! /bin/bash</div><div class="line"></div><div class="line">for i in `seq 1 5000000`; do</div><div class="line">    n=`echo &quot;$i&quot;|awk &apos;&#123;print length($0)&#125;&apos;`</div><div class="line">    export m=$[10-$n]</div><div class="line">    export o=`perl -e &apos;$a=&apos;0&apos;; $b=$a x $ENV&#123;&quot;m&quot;&#125;; print $b;&apos;`</div><div class="line">    export j=$i</div><div class="line">    p=`perl -e &apos;$c=$ENV&#123;&quot;o&quot;&#125;.$ENV&#123;&quot;j&quot;&#125;; print $c;&apos;`</div><div class="line">    echo &quot;$i,$i,$p,$p,$p,$p,$p,$p,`date +%Y%m%d%H%M%S`&quot;</div><div class="line">done</div></pre></td></tr></table></figure>
+<h3 id="七、如何使用awk的print打印单引号"><a href="#七、如何使用awk的print打印单引号" class="headerlink" title="七、如何使用awk的print打印单引号"></a>七、如何使用awk的print打印单引号</h3><p><code>awk &#39;{print &quot;This is a &#39;&quot;&#39;&quot;&#39;&quot;$1} filename</code></p>
+<p>说明：在awk中使用脱义字符\是起不到作用的，如果想打印特殊字符，只能使用’””‘ 这样的组合才可以。<br>这里自左至右为单引号 双引号 双引号 单引号其中两个单引号为一对，两个双引号为一对。想脱义\$那就是’”$”‘ 脱义单引号那就是 ‘“‘“‘</p>
+<p>格式为：单引号双引号特殊符号双引号单引号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# awk &apos;&#123;print &quot;This is a &apos;&quot;&apos;&quot;&apos;&quot;$1&#125;&apos; 3.txt</div><div class="line">This is a &apos;</div><div class="line">[root@allen1 ~]# awk &apos;&#123;print &quot;This is a &apos;&quot;$&quot;&apos;&quot;$1&#125;&apos; 3.txt</div><div class="line">This is a $</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rpm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">yum</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">awk</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/07/awk特殊用法/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录Linux的学习
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2017/07/07/awk如何使用外部shell变量/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">awk如何使用外部shell变量</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -213,9 +329,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
