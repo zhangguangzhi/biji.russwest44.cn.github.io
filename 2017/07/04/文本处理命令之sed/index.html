@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="[TOC] 一、什么是sed，以及sed是如何工作的？1、sed是一个流编辑器，它可以对从标准输入流中得到数据进行处理，然后把处理以后得到的结果输出到标准输出，而标准输出通常关联到终端屏幕，因此处理后的结果也会显示到屏幕上。 2、sed的工作模式，当sed命令执行时，它会从输入文件中（或者标准输入）读取一行数据，并把这行数据复制一份保存在它内部的一个工作缓存中。sed命令把它的这个缓存叫做模式空间">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170704/165554790.png?imageslim">
-<meta property="og:updated_time" content="2017-07-05T02:23:01.488Z">
+<meta property="og:updated_time" content="2017-07-09T08:56:06.929Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本处理命令之sed">
 <meta name="twitter:description" content="[TOC] 一、什么是sed，以及sed是如何工作的？1、sed是一个流编辑器，它可以对从标准输入流中得到数据进行处理，然后把处理以后得到的结果输出到标准输出，而标准输出通常关联到终端屏幕，因此处理后的结果也会显示到屏幕上。 2、sed的工作模式，当sed命令执行时，它会从输入文件中（或者标准输入）读取一行数据，并把这行数据复制一份保存在它内部的一个工作缓存中。sed命令把它的这个缓存叫做模式空间">
@@ -188,7 +188,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#sed  &apos;5,10&apos;d  passwd        #删除5-10行</div><div class="line">#sed  &apos;/root/&apos;d  passwd      #删除包含&apos;root&apos;的行</div><div class="line">#sed  &apos;/[0-9]/&apos;d passwd      #删除包含字母的行</div></pre></td></tr></table></figure>
 <p>（3）i，在匹配到的行上方插入内容</p>
 <p><strong>可匹配，’行数’    ‘/字符串/‘    ‘/正则表达式/‘</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#sed &apos;1i$a test&apos; passwd				#匹配到第1行，并在上方插入“$a test”</div><div class="line">#sed &apos;/root/i$a test&apos; passwd		#匹配到包含“root”的行，并在上方插入“$a test”</div><div class="line">#sed &apos;/^root/i$a test&apos; passwd		#匹配到以”root“开头的行，并在上方插入“$a test”</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#sed &apos;1i$a test&apos; passwd				#匹配到第1行，并在上方插入“$a test”</div><div class="line">#sed &apos;/root/i$a test&apos; passwd		#匹配到包含“root”的行，并在上方插入“$a test”</div><div class="line">#sed &apos;/^root/i$a test&apos; passwd		#匹配到以”root“开头的行，并在上方插入“$a test”</div><div class="line">#如何插入多行：</div><div class="line">sed &apos;1i$a test\n$b test&apos;   passwd	使用/n换行符可以插入多行</div></pre></td></tr></table></figure>
 <p>（4）a，在匹配到的行下方增加内容</p>
 <p>可匹配， ‘行数’      ‘/字符串/‘      ‘/正则表达式/‘</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#sed &apos;1a$a test&apos; passwd				#匹配到第1行，并在下方插入“$a test”</div><div class="line">#sed &apos;/root/a$a test&apos; passwd		#匹配到包含“root”的行，并在下方插入“$a test”</div><div class="line">#sed &apos;/^root/a$a test&apos; passwd		#匹配到以”root“开头的行，并在下方插入“$a test”</div></pre></td></tr></table></figure>
@@ -212,11 +212,24 @@
 <p>#sed ‘’s/正则2/字符串&amp;/gi            \\将正则2匹配到的内容前面添加内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 grep]# sed &apos;s/^.*$/test:&amp;/g&apos;  /root/passwd </div><div class="line">test:root:x:0:0:root:/root:/bin/bash</div><div class="line">test:bin:x:1:1:bin:/bin:/sbin/nologin</div><div class="line">test:daemon:x:2:2:daemon:/sbin:/sbin/nologin</div><div class="line">test:adm:x:3:4:adm:/var/adm:/sbin/nologin</div><div class="line">.......</div><div class="line">[root@allen1 grep]# sed &apos;s/^.*$/&amp;:test/g&apos;  /root/passwd </div><div class="line">root:x:0:0:root:/root:/bin/bash:test</div><div class="line">bin:x:1:1:bin:/bin:/sbin/nologin:test</div><div class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin:test</div><div class="line">......</div></pre></td></tr></table></figure>
 <p>（3）替换字符位置 </p>
-<p>替换字符位置需要根据文件的特征，使用相应的正则表达式表示需要替换的字符串。并用（）表示成一个整体，方便后面引用。</p>
+<p>替换字符位置需要根据文件的特征，使用相应的正则表达式表示需要替换的字符串。并用（）表示成一个整体，方便后面引用，使用\1,\2进行引用，最多9个。</p>
 <p>#sed     -r      ‘s/(rot)(.*)(bash)/\3\2\1/‘      passwd</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#将passwd文件中的“rot”与&quot;bash&quot;互换位置</div><div class="line">[root@allen1 sed]# sed -r  &apos;s/(rot)(.*)(bash)/\3\2\1/g&apos;   passwd</div><div class="line">bash:x:0:0:root:/root:/bin/rot</div></pre></td></tr></table></figure>
 <p>sed     -r     ‘1s/([^:]+):(.*):([^:]+)/\3:\2:\1/g’     passwd</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#将passwd中的第一行以冒号分隔的第一段和第二段互换位置</div><div class="line">[root@allen1 sed]# head passwd |sed -r &apos;1s/([^:]+):(.*):([^:]+)/\3:\2:\1/g&apos;</div><div class="line">/bin/bash:x:0:0:root:/root:rot</div></pre></td></tr></table></figure>
+<p>（4）（）与\1，&amp;的应用：</p>
+<p>①将（）表示的内容替换为整行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#快速显示IP</div><div class="line">[root@allen1 ~]# ifconfig ens33|sed -r &apos;2s#inet (.*) netmask.*$#\1#g&apos;|sed -n &apos;2p&apos; </div><div class="line">192.168.205.137</div></pre></td></tr></table></figure>
+<p>②&amp;与\1一起使用后，使用bash执行输出内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">#批量重名文件：</div><div class="line">[root@chensiqi1 chen]# find ./ -name &quot;*_finished.jpg&quot;</div><div class="line">./stu_102999_1_finished.jpg</div><div class="line">./stu_102999_5_finished.jpg</div><div class="line">./stu_102999_3_finished.jpg</div><div class="line">./stu_102999_2_finished.jpg</div><div class="line">./stu_102999_4_finished.jpg</div><div class="line">要求为：stu_102999_1_finished.jpg==&gt;stu_102999_1.jpg</div><div class="line">[root@chensiqi1 chen]# find ./ -name &quot;*_finished.jpg&quot; | sed -r &apos;s#^(.*)_finished(.*)#\1\2#g&apos;</div><div class="line">./stu_102999_1.jpg</div><div class="line">./stu_102999_5.jpg</div><div class="line">./stu_102999_3.jpg</div><div class="line">./stu_102999_2.jpg</div><div class="line">[root@chensiqi1 chen]# find ./ -name &quot;*_finished.jpg&quot; | sed -r &apos;s#^(.*)_finished(.*)#&amp; \1\2#g&apos; </div><div class="line">./stu_102999_1_finished.jpg ./stu_102999_1.jpg</div><div class="line">./stu_102999_5_finished.jpg ./stu_102999_5.jpg</div><div class="line">./stu_102999_3_finished.jpg ./stu_102999_3.jpg</div><div class="line">./stu_102999_2_finished.jpg ./stu_102999_2.jpg</div><div class="line">./stu_102999_4_finished.jpg ./stu_102999_4.jpg</div><div class="line">[root@chensiqi1 chen]# find ./ -name &quot;*_finished.jpg&quot; | sed -r &apos;s#^(.*)_finished(.*)#mv &amp; \1\2#g&apos; </div><div class="line">mv ./stu_102999_1_finished.jpg ./stu_102999_1.jpg</div><div class="line">mv ./stu_102999_5_finished.jpg ./stu_102999_5.jpg</div><div class="line">mv ./stu_102999_3_finished.jpg ./stu_102999_3.jpg</div><div class="line">mv ./stu_102999_2_finished.jpg ./stu_102999_2.jpg</div><div class="line">mv ./stu_102999_4_finished.jpg ./stu_102999_4.jpg</div><div class="line">[root@chensiqi1 chen]# find ./ -name &quot;*_finished.jpg&quot; | sed -r &apos;s#^(.*)_finished(.*)#mv &amp; \1\2#g&apos; |bash</div><div class="line">[root@chensiqi1 chen]# ls</div><div class="line">stu_102999_1.jpg  stu_102999_2.jpg  stu_102999_3.jpg  stu_102999_4.jpg  stu_102999_5.jpg</div><div class="line"></div><div class="line">命令说明：</div><div class="line">1.“\1”代表前面“(^.*)”匹配内容，“&amp;”代表“s# #”里被替换的内容，这里匹配到的是完整的文件名。</div><div class="line">2.使用bash命令执行，bash命令执行标准输入的语句，如同我们在命令行输入语句后敲回车。</div></pre></td></tr></table></figure>
+<p><strong>一些复杂的操作，可以使用sed显示出来，然后使用|bash直接执行。</strong></p>
+<h2 id="三、sed的拓展使用"><a href="#三、sed的拓展使用" class="headerlink" title="三、sed的拓展使用"></a>三、sed的拓展使用</h2><h3 id="1、sed修改文件时先备份文件"><a href="#1、sed修改文件时先备份文件" class="headerlink" title="1、sed修改文件时先备份文件"></a>1、sed修改文件时先备份文件</h3><p>在-i选项后边加上.bak(.任意字符)，sed会对文件进行先备份后修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 file2]# cat aa</div><div class="line">1111111111111111111111111111111111111111111111111111111</div><div class="line">[root@allen1 file2]# sed -i.bak  &apos;s/[0-9]/a/g&apos; aa</div><div class="line">[root@allen1 file2]# cat aa</div><div class="line">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div><div class="line">[root@allen1 file2]# cat aa.bak</div><div class="line">1111111111111111111111111111111111111111111111111111111</div></pre></td></tr></table></figure>
+<h3 id="2、sed如何获取行号"><a href="#2、sed如何获取行号" class="headerlink" title="2、sed如何获取行号"></a>2、sed如何获取行号</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">[root@allen1 file2]# cat bb</div><div class="line">aaaaaaaaaaaaaaaaaaaaaa</div><div class="line">aaaaaaaaaaaaaaa</div><div class="line">aaaaaaaaaaaaa</div><div class="line">aaaaa</div><div class="line">[root@allen1 file2]# sed  &apos;=&apos;  bb</div><div class="line">1</div><div class="line">aaaaaaaaaaaaaaaaaaaaaa</div><div class="line">2</div><div class="line">aaaaaaaaaaaaaaa</div><div class="line">3</div><div class="line">aaaaaaaaaaaaa</div><div class="line">4</div><div class="line">aaaaa</div><div class="line">#输出的是行号与行分开</div><div class="line">改进：sed  &apos;=&apos;  bb |sed  &apos;N;S/\N/ /&apos;</div><div class="line">N：表示读取下一行数据并附加到模式空间</div></pre></td></tr></table></figure>
+<p>匹配行数，字符串，正则表达式，指定显示行号</p>
+<p>显示总行数的方法：<code>sed  -n &#39;$=&#39; filename</code></p>
+<h3 id="3、sed如何取不连续的行"><a href="#3、sed如何取不连续的行" class="headerlink" title="3、sed如何取不连续的行"></a>3、sed如何取不连续的行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 file2]# sed -n  &apos;2p;4p&apos;  bb</div><div class="line">aaaaaaaaaaaaaaa</div><div class="line">aaaaa</div></pre></td></tr></table></figure>
+<h3 id="4、特殊符号-的使用"><a href="#4、特殊符号-的使用" class="headerlink" title="4、特殊符号{}的使用"></a>4、特殊符号{}的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">[root@allen1 file2]# sed -n  &apos;2,4p;=&apos;  bb</div><div class="line">1</div><div class="line">aaaaaaaaaaaaaaa</div><div class="line">2</div><div class="line">aaaaaaaaaaaaa</div><div class="line">3</div><div class="line">aaaaa</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">[root@allen1 file2]# sed -n  &apos;2,4&#123;p;=&#125;&apos;  bb</div><div class="line">aaaaaaaaaaaaaaa</div><div class="line">2</div><div class="line">aaaaaaaaaaaaa</div><div class="line">3</div><div class="line">aaaaa</div><div class="line">4</div><div class="line"></div><div class="line">sed是一个编辑命令处理一次后，再重新加载文件内容处理第二个编辑命令，</div><div class="line">&#123;&#125;可以将几个sed编辑命令统一，只在一个数据流中处理，避免重复输出</div></pre></td></tr></table></figure>
       
 
       
@@ -426,15 +439,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -450,15 +463,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,6 +476,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,6 +492,18 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
             
             <div class="clearfix"></div>

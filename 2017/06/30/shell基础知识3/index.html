@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/30/shell基础知识3/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="shell基础知识之一shell基础知识之二 [TOC] 一、文本内容处理命令以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容 1、cutcut：截取字符串 -d：指定分隔符 -f：指定截取字符段 -c：指定第几个字符 123456789[root@allen1 ~]# cat /etc/passwd | cut -d &amp;quot;:&amp;quot;  -f 1root">
-<meta property="og:updated_time" content="2017-07-04T14:45:33.931Z">
+<meta property="og:updated_time" content="2017-07-09T08:38:42.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell基础知识之三">
 <meta name="twitter:description" content="shell基础知识之一shell基础知识之二 [TOC] 一、文本内容处理命令以下命令主要是在”|”后面使用，处理的是前面命令输出的数据流，并不会修改文件内容 1、cutcut：截取字符串 -d：指定分隔符 -f：指定截取字符段 -c：指定第几个字符 123456789[root@allen1 ~]# cat /etc/passwd | cut -d &amp;quot;:&amp;quot;  -f 1root">
@@ -211,7 +211,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls 1.txt ||ls a.txt</div><div class="line">1.txt</div><div class="line">[root@allen1 ~]# ls 2.txt ||ls aa.txt</div><div class="line">ls: 无法访问2.txt: 没有那个文件或目录</div><div class="line">aa.txt</div><div class="line">#前面命令正确，后面命令不执行</div><div class="line">#前面正确错误。后面命令执行</div></pre></td></tr></table></figure>
 <p>&amp;&amp;：逻辑与，前面命令执行成功，后面的命令才能执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls 1.txt &amp;&amp; ls aa.txt</div><div class="line">1.txt</div><div class="line">aa.txt</div><div class="line">[root@allen1 ~]# ls 2.txt &amp;&amp; ls aa.txt</div><div class="line">ls: 无法访问2.txt: 没有那个文件或目录</div><div class="line">#前面命令正确，后面命令才会执行</div><div class="line">#前面命令错误，后面命令不会执行</div></pre></td></tr></table></figure>
-
+<p>{}：生成序列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 file2]# touch &#123;aa,ab,ac&#125;</div><div class="line">[root@allen1 file2]# ls</div><div class="line">aa  ab  ac</div><div class="line"></div><div class="line">#利用&#123;&#125;进行文件备份</div><div class="line">[root@allen1 file2]# cp aa&#123;,.bak&#125;</div><div class="line">[root@allen1 file2]# ls</div><div class="line">aa  aa.bak  ab  ac</div><div class="line">[root@allen1 file2]# cat aa aa.bak </div><div class="line">1111111111111111111111111111111111111111111111111111111</div><div class="line">1111111111111111111111111111111111111111111111111111111</div></pre></td></tr></table></figure>
       
 
       
@@ -421,15 +422,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -445,15 +446,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,6 +459,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -474,6 +475,18 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
             
             <div class="clearfix"></div>
