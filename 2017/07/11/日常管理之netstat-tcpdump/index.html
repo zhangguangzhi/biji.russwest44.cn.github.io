@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>日常管理之netstat,tcpdump，tshark | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接 选项： -a (all)显示所有选项，默认不显示LISTEN相关 -t (tcp)仅显示tcp相关选项 -u (udp)仅显示udp相关选项 -n 使用IP地址和端口号 -l 仅列出有在 Listen (监听) 的服務状态 -p 显示建立相关链接的程序名 -r 显示路由信息，路由表 提示：LISTEN和LISTENING的状态只有用-a">
+  <meta name="description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接">
 <meta name="keywords" content="日常管理,系统监控，网络相关">
 <meta property="og:type" content="article">
 <meta property="og:title" content="日常管理之netstat,tcpdump，tshark">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/11/日常管理之netstat-tcpdump/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接 选项： -a (all)显示所有选项，默认不显示LISTEN相关 -t (tcp)仅显示tcp相关选项 -u (udp)仅显示udp相关选项 -n 使用IP地址和端口号 -l 仅列出有在 Listen (监听) 的服務状态 -p 显示建立相关链接的程序名 -r 显示路由信息，路由表 提示：LISTEN和LISTENING的状态只有用-a">
+<meta property="og:description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/221229566.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/221347897.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/222630041.png?imageslim">
-<meta property="og:updated_time" content="2017-07-11T14:38:25.375Z">
+<meta property="og:updated_time" content="2017-07-11T14:40:54.646Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之netstat,tcpdump，tshark">
-<meta name="twitter:description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接 选项： -a (all)显示所有选项，默认不显示LISTEN相关 -t (tcp)仅显示tcp相关选项 -u (udp)仅显示udp相关选项 -n 使用IP地址和端口号 -l 仅列出有在 Listen (监听) 的服務状态 -p 显示建立相关链接的程序名 -r 显示路由信息，路由表 提示：LISTEN和LISTENING的状态只有用-a">
+<meta name="twitter:description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/221229566.png?imageslim">
   
   
@@ -160,6 +160,7 @@
       
         <p>[TOC]</p>
 <h2 id="一、查询网络状态"><a href="#一、查询网络状态" class="headerlink" title="一、查询网络状态"></a>一、查询网络状态</h2><p>netstat：查看当前网络连接</p>
+<a id="more"></a>
 <p>选项：</p>
 <p>-a (all)显示所有选项，默认不显示LISTEN相关</p>
 <p>-t (tcp)仅显示tcp相关选项</p>
