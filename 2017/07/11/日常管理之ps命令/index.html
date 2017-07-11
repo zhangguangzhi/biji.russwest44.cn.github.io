@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Tag: shell | Hexo</title>
+  <title>日常管理之ps命令 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/tags/shell/index.html">
+  <meta name="description" content="[TOC] ps：系统进程查看 1、用法常用用法：ps  aux|ps  -elf ps是显示瞬间进程的状态，并不动态连续；如果想对进程进行实时监控应该用top命令。  USER：进程所属用户 PID：进程的ID。使用kill  PID或kill -9 PID可以终止进程 %CPU：cpu使用率 %MEM：内存使用率 TTY：启动终端 START：启动时间 TIME：占用cpu时间 COMMAND">
+<meta name="keywords" content="日常管理,系统监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日常管理之ps命令">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/11/日常管理之ps命令/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] ps：系统进程查看 1、用法常用用法：ps  aux|ps  -elf ps是显示瞬间进程的状态，并不动态连续；如果想对进程进行实时监控应该用top命令。  USER：进程所属用户 PID：进程的ID。使用kill  PID或kill -9 PID可以终止进程 %CPU：cpu使用率 %MEM：内存使用率 TTY：启动终端 START：启动时间 TIME：占用cpu时间 COMMAND">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/220345001.png?imageslim">
+<meta property="og:updated_time" content="2017-07-11T14:09:00.017Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="日常管理之ps命令">
+<meta name="twitter:description" content="[TOC] ps：系统进程查看 1、用法常用用法：ps  aux|ps  -elf ps是显示瞬间进程的状态，并不动态连续；如果想对进程进行实时监控应该用top命令。  USER：进程所属用户 PID：进程的ID。使用kill  PID或kill -9 PID可以终止进程 %CPU：cpu使用率 %MEM：内存使用率 TTY：启动终端 START：启动时间 TIME：占用cpu时间 COMMAND">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/220345001.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,190 +136,175 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-日常管理之ps命令" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      日常管理之ps命令
+    </h1>
+  
+
+        
+        <a href="/2017/07/11/日常管理之ps命令/" class="archive-article-date">
+  	<time datetime="2017-07-11T14:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>ps：系统进程查看</p>
+<h3 id="1、用法"><a href="#1、用法" class="headerlink" title="1、用法"></a>1、用法</h3><p>常用用法：<code>ps  aux</code>|<code>ps  -elf</code></p>
+<p>ps是显示瞬间进程的状态，并不动态连续；如果想对进程进行实时监控应该用top命令。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170711/220345001.png?imageslim" alt="mark"></p>
+<p>USER：进程所属用户</p>
+<p>PID：进程的ID。使用kill  PID或kill -9 PID可以终止进程</p>
+<p>%CPU：cpu使用率</p>
+<p>%MEM：内存使用率</p>
+<p>TTY：启动终端</p>
+<p>START：启动时间</p>
+<p>TIME：占用cpu时间</p>
+<p>COMMAND：进程名称</p>
+<p>STAT：进程状态</p>
+<p>进程状态：</p>
+<p>D：无法中断的进程，通常为IO</p>
+<p>S：已经休眠的进程（sleep）</p>
+<p>s：主进程                </p>
+<p>R：正在运行的进程                                </p>
+<p>T：已经暂停的进程</p>
+<p>&lt;：高优先级进程                                   </p>
+<p>N：低优先级进程</p>
+<p>X：已经死掉的进程                                </p>
+<p>Z：僵尸进程，无法终止</p>
+<p>l：多线程进程                                        </p>
+<p>+：在前台运行的进程</p>
+<p>W：没有足够内存页分配                        </p>
+<p>L：在内存中被锁了内存分页</p>
+<h3 id="2、应用"><a href="#2、应用" class="headerlink" title="2、应用"></a>2、应用</h3><p>（１）找到PID进行杀死</p>
+<p>（2）将目前属于自己这次登录的PID与相关信息列出来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ps  -l</div><div class="line">F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD</div><div class="line">4 S     0  2022  2019  0  80   0 - 29077 wait   pts/0    00:00:00 bash</div><div class="line">0 R     0  2342  2022  0  80   0 - 37233 -      pts/0    00:00:00 ps</div><div class="line">#WCHAN：目前这个程序是否正在运作当中，若为 - 表示正在运作；</div></pre></td></tr></table></figure>
+<p>（3）查询某个进程或者它的数量</p>
+<p><code>ps  aux |grep &#39;mingetty&#39;|grep -v &#39;grep&#39;|wc  -l</code></p>
+<p>参看资料：<a href="https://linux.cn/article-4743-1.html" target="_blank" rel="external">https://linux.cn/article-4743-1.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/" class="archive-article-date">
-  	<time datetime="2017-07-03T14:21:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/">在shell脚本中调用另一个脚本的三种不同方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/11/日常管理之ps命令/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/30/shell基础知识3/" class="archive-article-date">
-  	<time datetime="2017-06-30T15:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-30</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/30/shell基础知识3/">shell基础知识之三</a>
-    </h1>
+    <a href="/2017/07/11/日常管理之netstat-tcpdump/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          日常管理之netstat,tcpdump，tshark
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/11/日常管理之iostat,iotop,free/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">日常管理之iostat，iotop，free</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">特殊符号</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">文本内容处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/29/shell基础知识2/" class="archive-article-date">
-  	<time datetime="2017-06-29T13:47:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/29/shell基础知识2/">shell基础知识之二</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">环境变量</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/28/shell基础知识1/" class="archive-article-date">
-  	<time datetime="2017-06-28T07:47:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/28/shell基础知识1/">shell基础知识之一</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">特殊符号</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -335,9 +327,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

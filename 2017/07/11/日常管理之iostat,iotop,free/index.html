@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Tag: shell | Hexo</title>
+  <title>日常管理之iostat，iotop，free | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/tags/shell/index.html">
+  <meta name="description" content="[TOC] 一、iostat/iotop1、iostat查看磁盘io，即读写能力 1234567891011[root@allen1 ~]# iostat  -xLinux 3.10.0-514.el7.x86_64 (allen1) 	2017年07月11日 	_x86_64_	(1 CPU)avg-cpu:  %user   %nice %system %iowait  %steal   %i">
+<meta name="keywords" content="日常管理,系统监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日常管理之iostat，iotop，free">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/11/日常管理之iostat,iotop,free/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] 一、iostat/iotop1、iostat查看磁盘io，即读写能力 1234567891011[root@allen1 ~]# iostat  -xLinux 3.10.0-514.el7.x86_64 (allen1) 	2017年07月11日 	_x86_64_	(1 CPU)avg-cpu:  %user   %nice %system %iowait  %steal   %i">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/211554642.png?imageslim">
+<meta property="og:updated_time" content="2017-07-11T13:59:40.620Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="日常管理之iostat，iotop，free">
+<meta name="twitter:description" content="[TOC] 一、iostat/iotop1、iostat查看磁盘io，即读写能力 1234567891011[root@allen1 ~]# iostat  -xLinux 3.10.0-514.el7.x86_64 (allen1) 	2017年07月11日 	_x86_64_	(1 CPU)avg-cpu:  %user   %nice %system %iowait  %steal   %i">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/211554642.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,190 +136,178 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-日常管理之iostat,iotop,free" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      日常管理之iostat，iotop，free
+    </h1>
+  
+
+        
+        <a href="/2017/07/11/日常管理之iostat,iotop,free/" class="archive-article-date">
+  	<time datetime="2017-07-11T13:13:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、iostat-iotop"><a href="#一、iostat-iotop" class="headerlink" title="一、iostat/iotop"></a>一、iostat/iotop</h2><h3 id="1、iostat"><a href="#1、iostat" class="headerlink" title="1、iostat"></a>1、iostat</h3><p>查看磁盘io，即读写能力</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# iostat  -x</div><div class="line">Linux 3.10.0-514.el7.x86_64 (allen1) 	2017年07月11日 	_x86_64_	(1 CPU)</div><div class="line"></div><div class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</div><div class="line">           0.18    0.00    0.36    0.27    0.00   99.19</div><div class="line"></div><div class="line">Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util</div><div class="line">sda               0.00     0.02    1.05    0.33    39.59     2.75    61.48     0.03   19.92   14.00   39.07   4.31   0.59</div><div class="line">sdb               0.00     0.00    0.05    0.00     0.33     0.00    12.53     0.00    4.37    4.37    0.00   3.97   0.02</div><div class="line">scd0              0.00     0.00    0.00    0.00     0.01     0.00     8.00     0.00   19.64   19.64    0.00  19.64   0.00</div><div class="line">dm-0              0.00     0.00    0.01    0.00     0.08     0.00    15.20     0.00   19.27   19.27    0.00  17.87   0.02</div></pre></td></tr></table></figure>
+<p>%util：i/o等待进程占用cpu的时间比</p>
+<h3 id="2、iotop"><a href="#2、iotop" class="headerlink" title="2、iotop"></a>2、iotop</h3><p>动态查看磁盘io，类似top</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# iotop</div><div class="line">Total DISK READ :	0.00 B/s | Total DISK WRITE :       0.00 B/s</div><div class="line">Actual DISK READ:	0.00 B/s | Actual DISK WRITE:       0.00 B/s</div><div class="line">  TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN     IO&gt;    COMMAND                               1 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % systemd --switched-root --system --deserialize 21</div><div class="line">    2 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [kthreadd]</div><div class="line">    3 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [ksoftirqd/0]</div><div class="line">    4 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % [kworker/0:0]</div></pre></td></tr></table></figure>
+<h2 id="二、free"><a href="#二、free" class="headerlink" title="二、free"></a>二、free</h2><h3 id="1、用法"><a href="#1、用法" class="headerlink" title="1、用法"></a>1、用法</h3><p>free：查看内存使用状况，默认使用kb为单位</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170711/211554642.png?imageslim" alt="mark"></p>
+<ul>
+<li><p>该命令可以查看mem和swap内存的使用情况</p>
+</li>
+<li><p>total：总大小</p>
+</li>
+<li><p>used：以使用</p>
+</li>
+<li><p>free：空闲</p>
+</li>
+<li><p>buff/cache：预分配的缓冲内存和缓存大小</p>
+<p>cache：因为磁盘与cpu处理的速度不一样，所以数据从磁盘到cpu是需要经过内存，占用的空间为cache</p>
+<p>buff：cpu将数据处理后写入磁盘的过程也需要内存，占用的空间为buff</p>
+</li>
+<li><p><strong>available</strong>：包含free和buff/cache剩余部分</p>
+</li>
+</ul>
+<p>total=used+free+buff/cache</p>
+<h3 id="2、使用适合单位查看"><a href="#2、使用适合单位查看" class="headerlink" title="2、使用适合单位查看"></a>2、使用适合单位查看</h3><p>以MB为单位查看，free  -m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# free -m</div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:            984          96         626           6         261         719</div><div class="line">Swap:          2047           0        2047</div></pre></td></tr></table></figure>
+<p>以GB为单位查看，free  -g</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# free -g</div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:              0           0           0           0           0           0</div><div class="line">Swap:             1           0           1</div></pre></td></tr></table></figure>
+<p>人性化显示：free  -h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# free  -h</div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:           984M         96M        626M        6.7M        261M        719M</div><div class="line">Swap:          2.0G          0B        2.0G</div></pre></td></tr></table></figure>
+<p>显示总和：free  -t</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# free  -th</div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:           984M         96M        626M        6.7M        261M        719M</div><div class="line">Swap:          2.0G          0B        2.0G</div><div class="line">Total:         3.0G         96M        2.6G</div></pre></td></tr></table></figure>
+<h3 id="3、持续观察内存使用情况"><a href="#3、持续观察内存使用情况" class="headerlink" title="3、持续观察内存使用情况"></a>3、持续观察内存使用情况</h3><p><code>free  -s  n</code>：n为数字，表示频率</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# free  -s 3</div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:        1008392       99216      641220        6860      267956      736896</div><div class="line">Swap:       2097148           0     2097148</div><div class="line">#3秒刷新一次</div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:        1008392       99232      641204        6860      267956      736880</div><div class="line">Swap:       2097148           0     2097148</div></pre></td></tr></table></figure>
+<h3 id="4、预设更新次数，与-s合用，"><a href="#4、预设更新次数，与-s合用，" class="headerlink" title="4、预设更新次数，与-s合用，"></a>4、预设更新次数，与-s合用，</h3><p><code>free  -s n1   -c n2</code>：n1为刷新频率，n2为次数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# free -s 3 -c 2</div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:        1008392       99204      641220        6860      267968      736908</div><div class="line">Swap:       2097148           0     2097148</div><div class="line"></div><div class="line">              total        used        free      shared  buff/cache   available</div><div class="line">Mem:        1008392       99220      641204        6860      267968      736892</div><div class="line">Swap:       2097148           0     2097148</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/" class="archive-article-date">
-  	<time datetime="2017-07-03T14:21:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/">在shell脚本中调用另一个脚本的三种不同方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/11/日常管理之iostat,iotop,free/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/30/shell基础知识3/" class="archive-article-date">
-  	<time datetime="2017-06-30T15:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-30</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/30/shell基础知识3/">shell基础知识之三</a>
-    </h1>
+    <a href="/2017/07/11/日常管理之ps命令/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          日常管理之ps命令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/10/日常管理之sar/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">日常管理之sar</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">特殊符号</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">文本内容处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/29/shell基础知识2/" class="archive-article-date">
-  	<time datetime="2017-06-29T13:47:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/29/shell基础知识2/">shell基础知识之二</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">环境变量</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/28/shell基础知识1/" class="archive-article-date">
-  	<time datetime="2017-06-28T07:47:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/28/shell基础知识1/">shell基础知识之一</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">特殊符号</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -335,9 +330,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
