@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] 一、w命令使用1、w命令输出详情w：查看系统负载以及登录详情 123456[root@allen1 ~]# w 21:24:33 up  1:01,  3 users,  load average: 0.02, 0.02, 0.05USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHATroot     tt">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170710/213317948.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170710/213729116.png?imageslim">
-<meta property="og:updated_time" content="2017-07-10T14:15:32.428Z">
+<meta property="og:updated_time" content="2017-07-12T12:55:51.693Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之系统监控w,uptime,vmstat,top">
 <meta name="twitter:description" content="[TOC] 一、w命令使用1、w命令输出详情w：查看系统负载以及登录详情 123456[root@allen1 ~]# w 21:24:33 up  1:01,  3 users,  load average: 0.02, 0.02, 0.05USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHATroot     tt">
@@ -165,7 +165,7 @@
 <li>21:24:33 up  1:01：表示系统时间以及启动时间</li>
 <li>3 users：表示登录用户。tty1表示终端（共6个），远程登录为pts/0</li>
 <li>load average: 0.02, 0.02, 0.05：表示系统负载，分表为一分钟，五分钟，十五分钟。根据逻辑cpu数量，n个逻辑cpu时值为n最理想。</li>
-<li>负载：单位时间内CPU的活动进程数，负载越大，说明服务器压力越大</li>
+<li><strong>负载</strong>：单位时间内CPU的活动进程数，负载越大，说明服务器压力越大</li>
 <li>JCPU：当前登录端所有进程占用的cpu</li>
 <li>PCPU：当前命令占用CPU</li>
 <li>WHAT：当前终端使用命令</li>
@@ -432,14 +432,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
@@ -448,39 +440,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -492,7 +452,51 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,11 +504,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统监控，网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
             
             <div class="clearfix"></div>

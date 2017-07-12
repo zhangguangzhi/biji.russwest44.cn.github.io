@@ -6,14 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Tag: rpm | Hexo</title>
+  <title>日常管理之Linux防火墙1 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/tags/rpm/index.html">
+  <meta name="description" content="[TOC] 一、selinux1、作用SELinux带给Linux的主要价值是：提供了一个灵活的，可配置的MAC机制。">
+<meta name="keywords" content="日常管理,防火墙">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日常管理之Linux防火墙1">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/12/日常管理之Linux防火墙1/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] 一、selinux1、作用SELinux带给Linux的主要价值是：提供了一个灵活的，可配置的MAC机制。">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/212758952.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/215108191.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/215424918.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/220133137.png?imageslim">
+<meta property="og:updated_time" content="2017-07-12T14:05:44.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="日常管理之Linux防火墙1">
+<meta name="twitter:description" content="[TOC] 一、selinux1、作用SELinux带给Linux的主要价值是：提供了一个灵活的，可配置的MAC机制。">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/212758952.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,68 +139,190 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-日常管理之Linux防火墙1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/26/安装与卸载软件/" class="archive-article-date">
-  	<time datetime="2017-06-26T04:33:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/26/安装与卸载软件/">linux安装与卸载软件</a>
+    <h1 class="article-title" itemprop="name">
+      日常管理之Linux防火墙1
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/07/12/日常管理之Linux防火墙1/" class="archive-article-date">
+  	<time datetime="2017-07-12T13:24:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、selinux"><a href="#一、selinux" class="headerlink" title="一、selinux"></a>一、selinux</h2><h3 id="1、作用"><a href="#1、作用" class="headerlink" title="1、作用"></a>1、作用</h3><p>SELinux带给<a href="http://lib.csdn.net/base/linux" target="_blank" rel="external">Linux</a>的主要价值是：提供了一个灵活的，可配置的MAC机制。</p>
+<a id="more"></a>
+<h3 id="2、查询状态"><a href="#2、查询状态" class="headerlink" title="2、查询状态"></a>2、查询状态</h3><p>getenforce</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# getenforce </div><div class="line">Enforcing		#严厉的</div><div class="line">[root@allen1 ~]# setenforce 0</div><div class="line">[root@allen1 ~]# getenforce </div><div class="line">Permissive	#宽容的</div></pre></td></tr></table></figure>
+<p>3、临时关闭以及永久关闭</p>
+<p>（1）临时关闭：#setenforce 0</p>
+<p>（2）永久关闭：修改配置文件/etc/selinux/config</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170712/212758952.png?imageslim" alt="mark"></p>
+<ul>
+<li>将SELINUX=enforcing改为SELINUX=disabled.</li>
+</ul>
+<h3 id="二、使用netfilter"><a href="#二、使用netfilter" class="headerlink" title="二、使用netfilter"></a>二、使用netfilter</h3><h3 id="1、启用netfilter"><a href="#1、启用netfilter" class="headerlink" title="1、启用netfilter"></a>1、启用netfilter</h3><ul>
+<li>centos7默认使用firewalld，centos5-6使用netfilter。机制有区别，使用工具都为iptables</li>
+<li>centos7也是可以使用netfilter，下面介绍如何开启netfilter</li>
+</ul>
+<p>（1）关闭firewalld自启动：systemctl  disable  firewalld</p>
+<p>（2）停止firewalld：systemctl  stop  firewalld</p>
+<p>（3）安装iptables工具：yum  -y  install    iptables-services</p>
+<p>（4）设置iptables自启动：systemctl  enable  iptables</p>
+<p>（5）启动iptables：systemctl  start  iptables</p>
+<h3 id="2、netfilter的5表5链介绍"><a href="#2、netfilter的5表5链介绍" class="headerlink" title="2、netfilter的5表5链介绍"></a>2、netfilter的5表5链介绍</h3><p><strong>（1）filter，主要用于过滤包的，是系统预设的表。</strong></p>
+<p>內建三个链INPUT，OUTPUT以及FORWARD。</p>
+<p>INPUT作用于进入本机的包，OUTPUT作用于本机送出的包，FORWARD作用于那些跟本机无关的包。</p>
+<p><strong>（2）nat，主要作用是网络地址的转换，也是有三个链。</strong></p>
+<p>PREROUTING链的作用是在包刚刚到达防火墙是改变它的目的地址（所有的数据包进来的时侯都先由这个链处理），如果需要的话。OUTPUT链改变本地产生的包的目的地址。POSTROUTING链在包就要离开防火墙之前就改变其源地址（所有的数据包出来的时侯都先由这个链处理）。</p>
+<p>（3）mangle，主要作用于给数据包打标机，然后根据标机去操作那些包。这个表几乎不怎么用</p>
+<p>（4）raw，可以实现不追踪某些数据包，较少使用</p>
+<p>（5）security，centos6中并没有，用于强制访问控制（MAC）的网络规则</p>
+<h2 id="三、iptables工具使用"><a href="#三、iptables工具使用" class="headerlink" title="三、iptables工具使用"></a>三、iptables工具使用</h2><h3 id="1、iptables传输数据过程"><a href="#1、iptables传输数据过程" class="headerlink" title="1、iptables传输数据过程"></a>1、iptables传输数据过程</h3><p>① 当一个数据包进入网卡时，它首先进入PREROUTING链，内核根据数据包目的IP判断是否需要转送出去。<br>② 如果数据包就是进入本机的，它就会沿着图向下移动，到达INPUT链。数据包到了INPUT链后，任何进程都会收到它。本机上运行的程序可以发送数据包，这些数据包会经过OUTPUT链，然后到达POSTROUTING链输出。<br>③ 如果数据包是要转发出去的，且内核允许转发，数据包就会如图所示向右移动，经过FORWARD链，然后到达POSTROUTING链输出。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170712/215108191.png?imageslim" alt="mark"></p>
+<h3 id="2、iptables的语法规则"><a href="#2、iptables的语法规则" class="headerlink" title="2、iptables的语法规则"></a>2、iptables的语法规则</h3><p>（1）设置iptables规则的语句</p>
+<p><code>iptables  指定表  增加或删除  指定链  指定ip和端口  指定动作</code></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170712/215424918.png?imageslim" alt="mark"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">-t：后面指定表，表示指定表，不加默认为filter表</div><div class="line">-Z：将计数器清零，</div><div class="line">-A：增加规则，放在最后</div><div class="line">-I：插入规则，放在前面，规则从上往下匹配，一旦匹配立即执行动作</div><div class="line">-D：删除规则，需要记得当初创建该规则的命令。</div><div class="line">-P：链的默认规则，没有添加规则时会以该默认规则执行</div><div class="line">-i：指定网卡</div><div class="line">-s：指定来源IP</div><div class="line">-p：指定协议</div><div class="line">--sport：指定来源端口</div><div class="line">-d：指定目标IP</div><div class="line">--dport：指定目标端口</div><div class="line">-j：指定动作，DROP（拒绝），REJECT（拒绝，比DROP友好） ，ACCEPT（接收）</div></pre></td></tr></table></figure>
+<p>（2）iptables常用命令</p>
+<p><code>iptables  -nvL</code>：查看规则，规则保存配置文件为/etc/sysconfig/iptables</p>
+<p><code>iptables  -F</code>：清空规则，临时清除</p>
+<p><code>service  iptables  save</code>：保存规则</p>
+<p>（3）快捷删除规则</p>
+<p>当服务器上的iptables规则比较多时，想删除一条规则时，又不容易掌握当时创建时的规则，无法使用-D选项。以下方法可以快速删除规则</p>
+<p>①<code>iptables  -nlV  --line-number</code></p>
+<p>#列出规则序列号</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170712/220133137.png?imageslim" alt="mark"></p>
+<p>②<code>iptables -D INPUT 1</code></p>
+<p>#-D后面为链名，然后就是规则num，该num就是查看iptables规则时的第一列值</p>
+<p><a href="www.cnblogs.com/metoy/p/4320813.html">参考资料</a></p>
+<p><a href="http://os.51cto.com/art/201209/355490.htm" target="_blank" rel="external">selinux教程</a></p>
+<p><a href="https://pan.baidu.com/s/1jGGdExK?qq-pf-to=pcqq.c2c" target="_blank" rel="external">selinux pdf电子书 </a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">yum</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rpm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">防火墙</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/12/日常管理之Linux防火墙1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录Linux的学习
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2017/07/12/日常管理之网络管理相关命令/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">日常管理之网络管理相关</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -213,9 +345,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
