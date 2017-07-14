@@ -6,19 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>nginx自定义404页面 | Hexo</title>
+  <title>日产管理之防火墙2 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="需求背景是： 网站基于java，使用tomcat搭建环境，使用nginx作为前端代理。若不做特殊处理，当访问出现404时，将会返回tomcat的404页面，现要求404页面为nginx的自定义页面，并非tomcat自带的404页面。 nginx的配置文件内容如下： 12345678910111213141516server &amp;#123;            listen 80;">
-<meta name="keywords" content="nginx">
-<meta property="og:type" content="article">
-<meta property="og:title" content="nginx自定义404页面">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/07/nginx自定义404页面/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="日产管理之防火墙2">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/13/日产管理之防火墙2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="需求背景是： 网站基于java，使用tomcat搭建环境，使用nginx作为前端代理。若不做特殊处理，当访问出现404时，将会返回tomcat的404页面，现要求404页面为nginx的自定义页面，并非tomcat自带的404页面。 nginx的配置文件内容如下： 12345678910111213141516server &amp;#123;            listen 80;">
-<meta property="og:updated_time" content="2017-07-07T13:22:37.630Z">
+<meta property="og:updated_time" content="2017-07-13T10:19:46.858Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nginx自定义404页面">
-<meta name="twitter:description" content="需求背景是： 网站基于java，使用tomcat搭建环境，使用nginx作为前端代理。若不做特殊处理，当访问出现404时，将会返回tomcat的404页面，现要求404页面为nginx的自定义页面，并非tomcat自带的404页面。 nginx的配置文件内容如下： 12345678910111213141516server &amp;#123;            listen 80;">
+<meta name="twitter:title" content="日产管理之防火墙2">
   
   
     <link rel="icon" href="/favicon.png">
@@ -134,34 +130,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-nginx自定义404页面" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-日产管理之防火墙2" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      nginx自定义404页面
+      日产管理之防火墙2
     </h1>
   
 
         
-        <a href="/2017/07/07/nginx自定义404页面/" class="archive-article-date">
-  	<time datetime="2017-07-07T13:21:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
+        <a href="/2017/07/13/日产管理之防火墙2/" class="archive-article-date">
+  	<time datetime="2017-07-13T10:19:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>需求背景是：</p>
-<p>网站基于java，使用tomcat搭建环境，使用nginx作为前端代理。若不做特殊处理，当访问出现404时，将会返回tomcat的404页面，现要求404页面为nginx的自定义页面，并非tomcat自带的404页面。</p>
-<p>nginx的配置文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">            listen 80;</div><div class="line">            server_name www.xxx.com;</div><div class="line">	    proxy_intercept_errors  on;</div><div class="line">	    recursive_error_pages   on;</div><div class="line"></div><div class="line">            location / &#123;</div><div class="line">	         error_page 404 @404;</div><div class="line">                 proxy_pass      http://127.0.0.1:8080;</div><div class="line">                 proxy_set_header Host   $host;</div><div class="line">            &#125;</div><div class="line">	    location @404 &#123;</div><div class="line">		 root /tmp/111/;</div><div class="line">		 error_page 404 /404.html;</div><div class="line">	    &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<p>404.html的位置在/tmp/111/404.html。</p>
-<p>proxy_intercept_errors  on; 当上游服务器响应头回来后，可以根据响应状态码的值进行拦截错误处理，与error_page 指令相互结合。用在访问上游服务器出现错误的情况下。</p>
-<p>recursive_error_pages   on; 可以让下面的location @404生效。</p>
-
+        
       
 
       
@@ -169,17 +158,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -230,7 +208,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/07/nginx自定义404页面/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/13/日产管理之防火墙2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -244,18 +222,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/10/日常管理之w,uptime,top,vmstat/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          日常管理之系统监控w,uptime,vmstat,top
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/07/07/awk特殊用法/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">awk拓展用法</div>
+    <a href="/2017/07/12/日常管理之Linux防火墙1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">日常管理之Linux防火墙</div>
       <i class="icon-circle-right"></i>
     </a>
   
