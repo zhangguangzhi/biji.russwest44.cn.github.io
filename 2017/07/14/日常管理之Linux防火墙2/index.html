@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="[TOC] 一、firewalld简介1、firewalld与iptables的区别Centos7中默认将原来的防火墙iptables升级为了firewalld，firewalld跟iptables比起来至少有两大好处：  firewalld可以动态修改单条规则，而不需要像iptables那样，在修改了规则后必须得全部刷新才可以生效； firewalld在使用上要比iptables人性化很多，即使">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170714/205724778.png?imageslim">
-<meta property="og:updated_time" content="2017-07-14T13:31:58.270Z">
+<meta property="og:updated_time" content="2017-07-14T13:43:34.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之Linux防火墙firewall">
 <meta name="twitter:description" content="[TOC] 一、firewalld简介1、firewalld与iptables的区别Centos7中默认将原来的防火墙iptables升级为了firewalld，firewalld跟iptables比起来至少有两大好处：  firewalld可以动态修改单条规则，而不需要像iptables那样，在修改了规则后必须得全部刷新才可以生效； firewalld在使用上要比iptables人性化很多，即使">
@@ -162,6 +162,7 @@
 <li>firewalld可以动态修改单条规则，而不需要像iptables那样，在修改了规则后必须得全部刷新才可以生效；</li>
 <li>firewalld在使用上要比iptables人性化很多，即使不明白“五张表五条链”而且对TCP/IP协议也不理解也可以实现大部分功能。</li>
 </ul>
+<a id="more"></a>
 <h3 id="2、firewalld和iptables的关系"><a href="#2、firewalld和iptables的关系" class="headerlink" title="2、firewalld和iptables的关系"></a>2、firewalld和iptables的关系</h3><p>firewalld自身并不具备防火墙的功能，而是和iptables一样需要通过内核的netfilter来实现，也就是说firewalld和iptables一样，他们的作用都是用于维护规则，而真正使用规则干活的是内核的netfilter，只不过firewalld和iptables的结构以及使用方法不一样罢了。</p>
 <h3 id="3、firewalld的配置模式"><a href="#3、firewalld的配置模式" class="headerlink" title="3、firewalld的配置模式"></a>3、firewalld的配置模式</h3><p>firewalld的配置文件主要以xml格式为主（主配置文件firewalld.conf除外），他们有两个存储位置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、/etc/firewalld/			\\用户自定义配置</div><div class="line">2、/usr/lib/firewalld		\\系统默认配置文件模板</div><div class="line">#当需要一个文件时firewalld会首先到第一个目录中去查找，如果可以找到，那么就直接使用，否则会继续到第二个目录中查找。</div></pre></td></tr></table></figure>
