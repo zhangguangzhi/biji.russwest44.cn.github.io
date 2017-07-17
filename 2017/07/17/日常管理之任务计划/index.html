@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] 一、计划任务服务—crond1、crond的作用在日常管理中，我们可能需要经常执行以下任务：  每分钟需要执行一个命令检查系统运行状态 每天凌晨需要对过去一个服务数据进行统计 每个星期需要把日志文件被封 每个月需要把数据库进行备份  使用crond服务可以轻松解决以上需求。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170717/173334518.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170717/174049085.png?imageslim">
-<meta property="og:updated_time" content="2017-07-17T11:52:55.793Z">
+<meta property="og:updated_time" content="2017-07-17T13:23:45.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之任务计划">
 <meta name="twitter:description" content="[TOC] 一、计划任务服务—crond1、crond的作用在日常管理中，我们可能需要经常执行以下任务：  每分钟需要执行一个命令检查系统运行状态 每天凌晨需要对过去一个服务数据进行统计 每个星期需要把日志文件被封 每个月需要把数据库进行备份  使用crond服务可以轻松解决以上需求。">
@@ -196,7 +196,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">0,30  18-23  *  *  *  service httpd restart</div><div class="line">0-59/30  18-23  *  *  *  service  httpd  restart</div><div class="line">#每天18-23点，每隔30分重启httpd服务</div></pre></td></tr></table></figure>
 <p>（3）格式总结</p>
 <ul>
-<li>分范围0-59，时范围0-23，日范围0-31，月范围1-12，周范围0-6</li>
+<li>分范围0-59，时范围0-23，日范围1-31，月范围1-12，周范围0-6</li>
 <li>可用格式1-5表示一个范围1到5</li>
 <li>可用格式1,2,3表示1或者2或者3</li>
 <li>可用格式*/2表示被2整除的数字，比如小时，那就是每隔2小时</li>

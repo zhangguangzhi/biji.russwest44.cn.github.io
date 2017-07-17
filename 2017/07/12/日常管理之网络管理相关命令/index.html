@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] 1、ifconfigifconfig：查看网卡IP（ip  add也是可以查看） 安装：yum  install  -y   net-tools">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/151926337.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/202627464.png?imageslim">
-<meta property="og:updated_time" content="2017-07-12T13:34:58.891Z">
+<meta property="og:updated_time" content="2017-07-17T13:26:59.891Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之网络管理相关">
 <meta name="twitter:description" content="[TOC] 1、ifconfigifconfig：查看网卡IP（ip  add也是可以查看） 安装：yum  install  -y   net-tools">
@@ -164,6 +164,7 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170712/151926337.png?imageslim" alt="mark"></p>
 <ul>
 <li>-a：查看所有网卡，包括无IP或者未启动的网卡</li>
+<li>使用ifconfig临时设置网卡IP：<code>ifconfig   网卡   ip  netmask 255.255.255.0</code></li>
 </ul>
 <h3 id="2、ifup-ifdown"><a href="#2、ifup-ifdown" class="headerlink" title="2、ifup/ifdown"></a>2、ifup/ifdown</h3><p>ifup/down：后面跟网卡名称，启动和关闭网卡</p>
 <h3 id="3、增加虚拟网卡"><a href="#3、增加虚拟网卡" class="headerlink" title="3、增加虚拟网卡"></a>3、增加虚拟网卡</h3><p>（1）创建网卡配置文件</p>
@@ -188,6 +189,7 @@
 </ul>
 <h3 id="8、查看网关"><a href="#8、查看网关" class="headerlink" title="8、查看网关"></a>8、查看网关</h3><p>route：查看路由列表，可以查看网关</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 network-scripts]# route -n</div><div class="line">Kernel IP routing table</div><div class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</div><div class="line">0.0.0.0         192.168.205.2   0.0.0.0         UG    100    0        0 ens33</div><div class="line">192.168.205.0   0.0.0.0         255.255.255.0   U     100    0        0 ens33</div></pre></td></tr></table></figure>
+<p>设置网关：<code>route add default gw 网关</code></p>
 <h3 id="9、测试网络连通性"><a href="#9、测试网络连通性" class="headerlink" title="9、测试网络连通性"></a>9、测试网络连通性</h3><p>ping：网络测试命令</p>
 <ul>
 <li>ping  选项  ip或域名</li>
