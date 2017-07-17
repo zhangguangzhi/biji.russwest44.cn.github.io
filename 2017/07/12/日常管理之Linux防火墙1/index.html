@@ -17,9 +17,9 @@
 <meta property="og:description" content="[TOC] 一、selinux1、作用SELinux带给Linux的主要价值是：提供了一个灵活的，可配置的MAC机制。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/212758952.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/215108191.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/215424918.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170717/195837452.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/220133137.png?imageslim">
-<meta property="og:updated_time" content="2017-07-14T12:37:22.271Z">
+<meta property="og:updated_time" content="2017-07-17T12:01:39.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之Linux防火墙selinux，iptables">
 <meta name="twitter:description" content="[TOC] 一、selinux1、作用SELinux带给Linux的主要价值是：提供了一个灵活的，可配置的MAC机制。">
@@ -194,7 +194,7 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170712/215108191.png?imageslim" alt="mark"></p>
 <h3 id="2、iptables的语法规则"><a href="#2、iptables的语法规则" class="headerlink" title="2、iptables的语法规则"></a>2、iptables的语法规则</h3><p>（1）设置iptables规则的格式</p>
 <p><code>iptables  [-t表名]  &lt;-A | I | D&gt; 链名 [规则编号] [-i | o 网卡名称] [-p 协议类型] [-s 源IP地址 | 源子网] [--sport 源端口号] [-d目标IP地址 | 目标子网] [--dport目标端口号] &lt;-j动作&gt;</code></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170712/215424918.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170717/195837452.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">-t：后面指定表，表示指定表，不加默认为filter表</div><div class="line">-Z：将计数器清零，</div><div class="line">-A：增加规则，放在最后</div><div class="line">-I：插入规则，放在前面，规则从上往下匹配，一旦匹配立即执行动作</div><div class="line">-D：删除规则，需要记得当初创建该规则的命令。</div><div class="line">-P：链的默认规则，没有添加规则时会以该默认规则执行</div><div class="line">-i：指定网卡</div><div class="line">-s：指定来源IP</div><div class="line">-p：指定协议</div><div class="line">--sport：指定来源端口</div><div class="line">-d：指定目标IP</div><div class="line">--dport：指定目标端口</div><div class="line">-j：指定动作，DROP（拒绝），REJECT（拒绝，比DROP友好） ，ACCEPT（接收）</div></pre></td></tr></table></figure>
 <p>（2）iptables常用命令</p>
 <p><code>iptables  -nvL</code>：查看规则，规则保存配置文件为/etc/sysconfig/iptables</p>
@@ -235,9 +235,11 @@
 <p>ip段：10.0.0.1-10.0.0.255  ==  10.0.0.0/24<br>ip段：10.0.0.1-10.0.255.255  == 10.0.0.0/16<br>ip段：10.0.0.1-10.255.255.255  ==  10.0.0.0/8</p>
 </li>
 </ul>
+<p><strong>iptables针对一个网段</strong>：<code>iptables -I INPUT -m iprange --src-range 61.4.176.0-61.4.191.255 -j DROP</code>，-m iprange –src-range 参数能够更灵活的控制地址段。</p>
 <h3 id="2、nat表应用"><a href="#2、nat表应用" class="headerlink" title="2、nat表应用"></a>2、nat表应用</h3><p>（1）实验环境</p>
 <p>A机器：ens33：192.168.205.137，ens37:192.168.100.1</p>
 <p>B机器：ens37:192.168.100.100</p>
+<p>C机器：物理机:102.168.205.1</p>
 <p>（2）需求1</p>
 <p>可以让B机器连接外网</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">A机器打开路由转发：</div><div class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward;sysctl -p</div><div class="line">A机器上执行iptables规则设定：设置B机器连接外网</div><div class="line">iptables -t nat -A POSTROUTING -p tcp -s 192.168.100.100 -o ens33 -j SNAT --to-source 192.168.205.137</div><div class="line">#如果A机器上的公网IP是动态的，则执行该命令：iptables -t nat -A POSTROUTING -s 192.168.100.0/24 -o ens33 -j MASQUERADE</div><div class="line">B机器上设置网关为192.168.100.1：</div><div class="line">route add default gw 192.168.100.1</div></pre></td></tr></table></figure>
@@ -251,7 +253,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">A机器打开路由转发：</div><div class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward;sysctl -p</div><div class="line">A机器上执行iptables规则设定：设置端口转发</div><div class="line">iptables -t nat -A PREROUTING -d 192.168.205.137 -p --dport 1122  -j DNAT --to-source 192.168.100.100:22</div><div class="line">A机器上执行iptables规则设定：设置B机器连接外网</div><div class="line">iptables -t nat -A POSTROUTING -s 192.168.100.100 -j SNAT --to-source 192.168.205.137</div></pre></td></tr></table></figure>
 <ul>
 <li>PREROUTING链：在包刚刚到达防火墙时改变它的目的性（包括目标地址和端口）</li>
-<li>DNAT：重写包的目的地址（端口）</li>
+<li>DNAT：后面跟–to-source ip(端口)，重写包的目的地址（端口）</li>
 </ul>
 <p>（4）需求3：</p>
 <p>B机器搭建了web服务器，希望通过Internet访问</p>
@@ -488,18 +490,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
@@ -508,7 +498,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,11 +510,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,26 +526,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
@@ -565,6 +535,38 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
             
             <div class="clearfix"></div>

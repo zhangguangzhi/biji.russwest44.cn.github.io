@@ -6,14 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Archives | Hexo</title>
+  <title>日常管理之任务计划 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/archives/page/2/index.html">
+  <meta name="description" content="[TOC] 一、计划任务服务—crond1、crond的作用在日常管理中，我们可能需要经常执行以下任务：  每分钟需要执行一个命令检查系统运行状态 每天凌晨需要对过去一个服务数据进行统计 每个星期需要把日志文件被封 每个月需要把数据库进行备份  使用crond服务可以轻松解决以上需求。">
+<meta name="keywords" content="日常管理,系统监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日常管理之任务计划">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/17/日常管理之任务计划/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] 一、计划任务服务—crond1、crond的作用在日常管理中，我们可能需要经常执行以下任务：  每分钟需要执行一个命令检查系统运行状态 每天凌晨需要对过去一个服务数据进行统计 每个星期需要把日志文件被封 每个月需要把数据库进行备份  使用crond服务可以轻松解决以上需求。">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170717/173334518.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170717/174049085.png?imageslim">
+<meta property="og:updated_time" content="2017-07-17T11:52:55.793Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="日常管理之任务计划">
+<meta name="twitter:description" content="[TOC] 一、计划任务服务—crond1、crond的作用在日常管理中，我们可能需要经常执行以下任务：  每分钟需要执行一个命令检查系统运行状态 每天凌晨需要对过去一个服务数据进行统计 每个星期需要把日志文件被封 每个月需要把数据库进行备份  使用crond服务可以轻松解决以上需求。">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170717/173334518.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,36 +137,93 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-日常管理之任务计划" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/10/日常管理之w,uptime,top,vmstat/" class="archive-article-date">
-  	<time datetime="2017-07-10T13:22:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/10/日常管理之w,uptime,top,vmstat/">日常管理之系统监控w,uptime,vmstat,top</a>
+    <h1 class="article-title" itemprop="name">
+      日常管理之任务计划
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/07/17/日常管理之任务计划/" class="archive-article-date">
+  	<time datetime="2017-07-17T09:24:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、计划任务服务—crond"><a href="#一、计划任务服务—crond" class="headerlink" title="一、计划任务服务—crond"></a>一、计划任务服务—crond</h2><h3 id="1、crond的作用"><a href="#1、crond的作用" class="headerlink" title="1、crond的作用"></a>1、crond的作用</h3><p>在日常管理中，我们可能需要经常执行以下任务：</p>
+<ul>
+<li>每分钟需要执行一个命令检查系统运行状态</li>
+<li>每天凌晨需要对过去一个服务数据进行统计</li>
+<li>每个星期需要把日志文件被封</li>
+<li>每个月需要把数据库进行备份</li>
+</ul>
+<p>使用crond服务可以轻松解决以上需求。</p>
+<a id="more"></a>
+<h3 id="2、启动crond"><a href="#2、启动crond" class="headerlink" title="2、启动crond"></a>2、启动crond</h3><p>启动命令：<code>systemctl start crond</code></p>
+<p>检查crond是否启动命令：<code>systemctl  status  crond</code></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170717/173334518.png?imageslim" alt="mark"></p>
+<h2 id="二、crond的使用"><a href="#二、crond的使用" class="headerlink" title="二、crond的使用"></a>二、crond的使用</h2><h3 id="1、crontab"><a href="#1、crontab" class="headerlink" title="1、crontab"></a>1、crontab</h3><p>设置计划任务命令：crontab</p>
+<ul>
+<li>-e：创建/修改计划任务，保存位置为/var/spool/cron/username</li>
+<li>-u：指定用户</li>
+<li>-l：查看计划任务列表</li>
+<li>-r：删除计划任务</li>
+</ul>
+<h3 id="2、crond配置文件"><a href="#2、crond配置文件" class="headerlink" title="2、crond配置文件"></a>2、crond配置文件</h3><p>（1）crond主配置文件为/etc/crontab</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170717/174049085.png?imageslim" alt="mark"></p>
+<p>（2）用户计划任务保存文件：/var/spool/cron/username</p>
+<h3 id="3、计划任务配置格式"><a href="#3、计划任务配置格式" class="headerlink" title="3、计划任务配置格式"></a>3、计划任务配置格式</h3><p>（1）格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">.---------------- 分钟 (0 - 59)</div><div class="line"></div><div class="line">|  .------------- 小时 (0 - 23)</div><div class="line"></div><div class="line">|  |  .---------- 天 (1 - 31)</div><div class="line"></div><div class="line">|  |  |  .------- 月 (1 - 12) 或者 jan,feb,mar,apr ...</div><div class="line"></div><div class="line">|  |  |  |  .---- 星期几 (0 - 6) (Sunday=0 or 7) 或者 sun,mon,tue,wed,thu,fri,sat</div><div class="line"></div><div class="line">|  |  |  |  |</div><div class="line"></div><div class="line">*  *  *  *  * user-name  command to be executed</div></pre></td></tr></table></figure>
+<ul>
+<li>user-name如果不指定，则默认为root</li>
+<li>由于crontab有自定义的PATH，所以执行命令需使用绝对路径。</li>
+</ul>
+<p>（2）示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">*/1  *  *  *  *   /usr/bin/date  &gt;&gt;/tmp/log.txt</div><div class="line">#每分钟都打印当前时间到/tmp/log.txt</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">30  21  *  *  *  service  status  httpd　&gt;&gt;/tmp/1.log</div><div class="line">#每天的21点30分查看httpd的状态并写入/tmp/1.log</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">45  4  1,10,22  *  *  service httpd  restart</div><div class="line">#每个月的1号，10号，22号的4点45分重启httpd服务</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">45  4  1-10  *  *  service httpd restart</div><div class="line">#每个月的1到10号的4:45重启httpd服务</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">*/2  *  *  *  *  /usr/bin/date  &gt;&gt;/tmp/log.txt</div><div class="line">1-59/2  *  *  *  *  /usr/bin/date  &gt;&gt;/tmp/log.txt</div><div class="line">#每两分钟打印当前时间到/tmp/log/txt</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">23-7/1  *  *  *  *  service httpd restart</div><div class="line">#23点到7点，每隔1小时重启httpd服务</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">0,30  18-23  *  *  *  service httpd restart</div><div class="line">0-59/30  18-23  *  *  *  service  httpd  restart</div><div class="line">#每天18-23点，每隔30分重启httpd服务</div></pre></td></tr></table></figure>
+<p>（3）格式总结</p>
+<ul>
+<li>分范围0-59，时范围0-23，日范围0-31，月范围1-12，周范围0-6</li>
+<li>可用格式1-5表示一个范围1到5</li>
+<li>可用格式1,2,3表示1或者2或者3</li>
+<li>可用格式*/2表示被2整除的数字，比如小时，那就是每隔2小时</li>
+</ul>
+<h3 id="4、crontab工具的使用"><a href="#4、crontab工具的使用" class="headerlink" title="4、crontab工具的使用"></a>4、crontab工具的使用</h3><ul>
+<li>查看某个用户的计划任务列表</li>
+<li>修改某用户的计划任务</li>
+<li>查看生成的最终计划任务文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">查看crontab命令帮助：crontab  --help</div><div class="line">为用户user1创建(修改)计划任务：crontab  -e  -u user1</div><div class="line">查看user1的计划任务：crontab  -l   -u  user1</div><div class="line">删除user1的计划任务：crontab  -r  -u  user1</div></pre></td></tr></table></figure>
+<h3 id="5、cronttab的日志"><a href="#5、cronttab的日志" class="headerlink" title="5、cronttab的日志"></a>5、cronttab的日志</h3><p>crond的任务执行记录：/var/log/cron</p>
+<p>邮件方式发送日志信息：/var/spool/mail</p>
+<h3 id="6、crontab常见错误"><a href="#6、crontab常见错误" class="headerlink" title="6、crontab常见错误"></a>6、crontab常见错误</h3><ul>
+<li>crond服务未启动</li>
+<li>环境变量，由于crontab有自定义的PATH，所以执行的脚本里的命令需要使用绝对路径。</li>
+<li>命令行双引号中使用</li>
+<li>第三和第五个域之间执行的是“或”操作</li>
+<li>分钟设置有误</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -170,392 +235,101 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统负载</a>
-        		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/17/日常管理之任务计划/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/07/nginx自定义404页面/" class="archive-article-date">
-  	<time datetime="2017-07-07T13:21:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/07/nginx自定义404页面/">nginx自定义404页面</a>
-    </h1>
+    <a href="/2017/07/17/日常管理之服务管理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          日常管理之服务管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/14/日常管理之Linux防火墙2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">日常管理之Linux防火墙firewall</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/07/awk特殊用法/" class="archive-article-date">
-  	<time datetime="2017-07-07T12:19:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/07/awk特殊用法/">awk拓展用法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">awk</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/07/awk如何使用外部shell变量/" class="archive-article-date">
-  	<time datetime="2017-07-07T09:03:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/07/awk如何使用外部shell变量/">awk如何使用外部shell变量</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">awk</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/06/grep-P的使用/" class="archive-article-date">
-  	<time datetime="2017-07-06T11:38:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/06/grep-P的使用/">grep  -P的使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grep</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/06/sed的一些特殊用法/" class="archive-article-date">
-  	<time datetime="2017-07-06T10:34:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/06/sed的一些特殊用法/">sed的一些拓展用法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/06/文本处理命令之awk/" class="archive-article-date">
-  	<time datetime="2017-07-06T02:44:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/06/文本处理命令之awk/">文本处理命令之awk</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">awk</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/04/文本处理命令之sed/" class="archive-article-date">
-  	<time datetime="2017-07-04T08:52:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/04/文本处理命令之sed/">文本处理命令之sed</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/03/sort默认不按ascii表排序如何解决/" class="archive-article-date">
-  	<time datetime="2017-07-03T15:00:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/03/sort默认不按ascii表排序如何解决/">sort默认不按ascii表排序如何解决</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sort</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/" class="archive-article-date">
-  	<time datetime="2017-07-03T14:21:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/">在shell脚本中调用另一个脚本的三种不同方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -579,8 +353,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
