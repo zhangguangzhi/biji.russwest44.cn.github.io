@@ -6,14 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Tag: 文本处理 | Hexo</title>
+  <title>日常管理之添加后台程序 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/tags/文本处理/index.html">
+  <meta name="description" content="我们可以使用“&amp;amp;”，将该符号放在命令的后面，可以将命令放入后台执行。但是，如果退出了该终端，那么这个命令很有可能也会退出，所以我们可使用以下两种方法">
+<meta name="keywords" content="日常管理,系统监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日常管理之添加后台程序">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/19/日常管理之添加后台程序/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="我们可以使用“&amp;amp;”，将该符号放在命令的后面，可以将命令放入后台执行。但是，如果退出了该终端，那么这个命令很有可能也会退出，所以我们可使用以下两种方法">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/234426427.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/234603111.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/234835024.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/235033409.png?imageslim">
+<meta property="og:updated_time" content="2017-07-19T15:51:33.455Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="日常管理之添加后台程序">
+<meta name="twitter:description" content="我们可以使用“&amp;amp;”，将该符号放在命令的后面，可以将命令放入后台执行。但是，如果退出了该终端，那么这个命令很有可能也会退出，所以我们可使用以下两种方法">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/234426427.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,160 +139,161 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-日常管理之添加后台程序" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      日常管理之添加后台程序
+    </h1>
+  
+
+        
+        <a href="/2017/07/19/日常管理之添加后台程序/" class="archive-article-date">
+  	<time datetime="2017-07-19T15:25:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-19</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们可以使用“&amp;”，将该符号放在命令的后面，可以将命令放入后台执行。但是，如果退出了该终端，那么这个命令很有可能也会退出，所以我们可使用以下两种方法</p>
+<a id="more"></a>
+<p>[TOC]</p>
+<h2 id="一、nohup"><a href="#一、nohup" class="headerlink" title="一、nohup"></a>一、nohup</h2><p>首先写一个sleep.sh的脚本，然后将它放到后台执行，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat  ./sleep.sh </div><div class="line">#!/bin/bash</div><div class="line">sleep 1000</div><div class="line"></div><div class="line">[root@allen1 ~]# nohup  sh  ./sleep.sh  &amp;&gt;/dev/null   &amp;</div><div class="line">[1] 3937</div></pre></td></tr></table></figure>
+<p>即使我将运行sleep.sh的终端关掉，我在其他终端依旧可以在后台查看到进程。</p>
+<h2 id="二、screen"><a href="#二、screen" class="headerlink" title="二、screen"></a>二、screen</h2><p>简单来说，screen是一个可以在多个进程之间多路复用一个屋里终端的窗口管理器。screen中有会话的概念，用户可以在一个screen会话中创建多个screen窗口，在每一个screen窗口中就像操作一个真实的ssh连接窗口一样。</p>
+<p>1、安装：<code>yum  install  -y  screen</code></p>
+<p>2、用法：</p>
+<p>（1）创建虚拟终端：screen</p>
+<p>（2）退出但不停止虚拟终端：使用键盘Ctrl  +  a   +  d</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/234426427.png?imageslim" alt="mark"></p>
+<p>（3）查看所有虚拟终端：screen  -ls</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/234603111.png?imageslim" alt="mark"></p>
+<p>（4）进入指定虚拟终端：screen   -r    ID</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">screen  -r  4044</div></pre></td></tr></table></figure>
+<p>（5）终止虚拟终端：在虚拟终端中使用组合键Ctrl  +  d   或者输入exit</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/234835024.png?imageslim" alt="mark"></p>
+<p>（6）自定义虚拟终端名称：screen   -S    名称</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/235033409.png?imageslim" alt="mark"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/06/文本处理命令之awk/" class="archive-article-date">
-  	<time datetime="2017-07-06T02:44:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/06/文本处理命令之awk/">文本处理命令之awk</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">awk</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/19/日常管理之添加后台程序/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/04/文本处理命令之sed/" class="archive-article-date">
-  	<time datetime="2017-07-04T08:52:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/04/文本处理命令之sed/">文本处理命令之sed</a>
-    </h1>
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录Linux的学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/19/日常管理之日志查看/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">日常管理之日志查看</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/03/文本处理命令之grep/" class="archive-article-date">
-  	<time datetime="2017-07-03T11:44:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/03/文本处理命令之grep/">文本处理命令之grep</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grep</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -305,9 +316,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

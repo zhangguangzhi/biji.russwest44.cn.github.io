@@ -26,7 +26,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170718/201853264.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170718/202004204.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170718/202058828.png?imageslim">
-<meta property="og:updated_time" content="2017-07-18T12:21:08.211Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/200904876.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/200929058.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/201022399.png?imageslim">
+<meta property="og:updated_time" content="2017-07-19T12:12:04.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之rsync同步">
 <meta name="twitter:description" content="[TOC] 一、rsync的作用rsync是强大的同步工具，不仅可以远程同步数据（类似scp），还可以本地同步数据（类似cp），但是不同于cp或者scp的一点是，它不会覆盖以前的数据（如果数据已经存在），而是先判断已经存在的数据和新数据的差异，只有数据不同时才会把不相同的部分覆盖，即支持增量同步，只同步变化的数据。如果没有rsync命令，使用“yum  install -y rsync”安装。 二">
@@ -237,6 +240,49 @@
 <h3 id="2、实验"><a href="#2、实验" class="headerlink" title="2、实验"></a>2、实验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#rsync -avpz 111/  root@192.168.205.130:/tmp/111      #上传</div><div class="line">#rsync -acpz  root@192.168.205.130:/tmp/111  111/     #下载</div></pre></td></tr></table></figure>
 <h3 id="3、如何指定传输端口"><a href="#3、如何指定传输端口" class="headerlink" title="3、如何指定传输端口"></a>3、如何指定传输端口</h3><p>-e “ssh -p 10022”     </p>
 <p>-e连接ssh指定端口命令</p>
+<h2 id="七、rsync后台服务方式同步"><a href="#七、rsync后台服务方式同步" class="headerlink" title="七、rsync后台服务方式同步"></a>七、rsync后台服务方式同步</h2><h3 id="1、rsync服务端配置文件"><a href="#1、rsync服务端配置文件" class="headerlink" title="1、rsync服务端配置文件"></a>1、rsync服务端配置文件</h3><p>配置文件位置：/etc/rsyncd.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">port=8730</div><div class="line">log file=/var/log/rsync.log</div><div class="line">pid file=/var/run/rsync.pid</div><div class="line">address</div><div class="line"></div><div class="line">[allen]</div><div class="line">path=/tmp/rsync</div><div class="line">use chroot=yes</div><div class="line">max connections=4</div><div class="line">read only=no</div><div class="line">list=yes</div><div class="line">uid=root</div><div class="line">gid=root</div><div class="line">auth users=allen</div><div class="line">secrets file=/etc/rs.passwd</div><div class="line">host allow=192.168.205.3</div></pre></td></tr></table></figure>
+<h3 id="2、配置文件详解"><a href="#2、配置文件详解" class="headerlink" title="2、配置文件详解"></a>2、配置文件详解</h3><ul>
+<li>port：提供服务的端口，默认为873</li>
+<li>log  file：日志文件</li>
+<li>pid file：进程PID文件，涉及服务的启动，停止等进程管理</li>
+<li>address：指定启动rsyncd服务的ip。如果你的机器有多个IP，就可以指定一个启动rsyncd服务，如果不指定该参数，默认是在全部IP上启动</li>
+<li>[ ] ：指定模块名，里面的内容自定义</li>
+<li>path：指定同步数据存放位置，如不在需要自己创建</li>
+<li>use chroot  ture|false：表示在传输文件前首先chroot到path参数所指定的目录下。这样做的原因是实现额外的安全保护，但是缺点是需要roots全向，并且不能备份指向外部的符号链接所指向的目录文件。默认情况下chroot值为ture，如果你数据当中有软链接文件，建议设置为false</li>
+<li>max connections：指定最大的连接数，默认为0，即没有限制</li>
+<li>read only  ture|false：如果为ture，则不能上传到该模块指定的路径下</li>
+<li>list：表示当用户查询服务器上的可用模块时，该模块是否被列出，设定为ture则列出，false则隐藏</li>
+<li>uid/gid：指定文件传输时以那个用户/组的身份传输</li>
+<li>auth users：指定传输时要使用的用户名（allen@ip）</li>
+<li>secrets  file：指定auth users使用的密码文件，该参数连同上面的参数。如果不指定，则不是用密码验证。注意该密码文件的权限一定要是600，格式：users:passwd</li>
+<li>hosts  allow：表示运行那些主机连接该模块，可以是IP或者是网段，如果是多个，中间使用空格隔开</li>
+</ul>
+<h3 id="3、rsync同步"><a href="#3、rsync同步" class="headerlink" title="3、rsync同步"></a>3、rsync同步</h3><p>（1）启动服务</p>
+<p>启动rsync后台服务方式同步：rsync  –daemon</p>
+<p>如配置文件不是rsyncd.conf，使用rsync –daemon –config=配置文件路径启动服务</p>
+<p>启动后修改配置文件后，不用重新执行rsync –daemon。除非需要变更端口</p>
+<p>查询是否启动：</p>
+<p>netstat -lnp  查看端口（daemon）</p>
+<p>（2）指定端口</p>
+<p>默认端口为873，所以使用其他端口需要使用–port指定端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#将192.168.205.130中的allen模块中的1.txt同步（下载）到当前目录</div><div class="line">rsync  -avzP --port 8730  allen@192.168.205.130::allen/1.txt   ./</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#将当前目录下的1.txt同步（上传）到192.168.205.130的allen模块中</div><div class="line">rsync  -avzp  --port 8730  ./1.txt  allen@192.168.205.130::allen/</div></pre></td></tr></table></figure>
+<p>（3）使用密码文件</p>
+<p>当设置了auth  users和secrets file后，客户端连服务端是需要用户名密码的，若想在命令行上带上密码，可以设定一个密码文件。</p>
+<p><code>rsync  -avL  allen@192.168.205.137::allen/tets/  /tmp/test/  --password-file=/etc/pass</code></p>
+<p>注，其中–password-file=是用来指定密码文件的，/etc/pass是自定义的密码文件，内容为secrets file设置的密码，权限为600</p>
+<h2 id="八、常见错误"><a href="#八、常见错误" class="headerlink" title="八、常见错误"></a>八、常见错误</h2><p>端口与配置文件不一致</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/200904876.png?imageslim" alt="mark"></p>
+<p>解决：使用–port指定端口</p>
+<p>模块设置为read only</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/200929058.png?imageslim" alt="mark"></p>
+<p>解决：修改daemon配置文件，read only=no</p>
+<p>无法同步软链接的源文件</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/201022399.png?imageslim" alt="mark"></p>
+<p>解决：修改daemon配置文件，use chroot=no</p>
+<p>如果A主机想备份东西到B主机？</p>
+<p>A做服务端，配置为只读，更安全。</p>
 
       
 
@@ -328,11 +374,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/07/19/日常管理之日志查看/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          日常管理之日志查看
         
       </div>
     </a>
@@ -455,19 +501,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,6 +510,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -491,6 +533,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
               </li>
              
@@ -499,19 +549,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,15 +565,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,14 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Tag: 文本处理 | Hexo</title>
+  <title>日常管理之日志查看 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/tags/文本处理/index.html">
+  <meta name="description" content="[TOC] 一、系统日志的作用日志记录了系统每天发生的各种各样的事情，比如说监控系统状况，排查trouble等。我们可以通过日志来检查错误发生的原因，或者受到攻击时攻击者留下的痕迹。日志的主要功能是审计和监测，还可以实时地监测系统状态，监测和追踪侵入者等等。">
+<meta name="keywords" content="日常管理,系统监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日常管理之日志查看">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/19/日常管理之日志查看/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] 一、系统日志的作用日志记录了系统每天发生的各种各样的事情，比如说监控系统状况，排查trouble等。我们可以通过日志来检查错误发生的原因，或者受到攻击时攻击者留下的痕迹。日志的主要功能是审计和监测，还可以实时地监测系统状态，监测和追踪侵入者等等。">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/202433262.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/231109520.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/231326540.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/231550101.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/231737572.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/232226218.png?imageslim">
+<meta property="og:updated_time" content="2017-07-19T15:51:57.491Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="日常管理之日志查看">
+<meta name="twitter:description" content="[TOC] 一、系统日志的作用日志记录了系统每天发生的各种各样的事情，比如说监控系统状况，排查trouble等。我们可以通过日志来检查错误发生的原因，或者受到攻击时攻击者留下的痕迹。日志的主要功能是审计和监测，还可以实时地监测系统状态，监测和追踪侵入者等等。">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/202433262.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,160 +141,170 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-日常管理之日志查看" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      日常管理之日志查看
+    </h1>
+  
+
+        
+        <a href="/2017/07/19/日常管理之日志查看/" class="archive-article-date">
+  	<time datetime="2017-07-19T12:12:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-19</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、系统日志的作用"><a href="#一、系统日志的作用" class="headerlink" title="一、系统日志的作用"></a>一、系统日志的作用</h2><p>日志记录了系统每天发生的各种各样的事情，比如说监控系统状况，排查trouble等。我们可以通过日志来检查错误发生的原因，或者受到攻击时攻击者留下的痕迹。日志的主要功能是审计和监测，还可以实时地监测系统状态，监测和追踪侵入者等等。</p>
+<a id="more"></a>
+<h2 id="二、-var-log-messages"><a href="#二、-var-log-messages" class="headerlink" title="二、/var/log/messages"></a>二、/var/log/messages</h2><h3 id="1、messages的作用"><a href="#1、messages的作用" class="headerlink" title="1、messages的作用"></a>1、messages的作用</h3><p>/var/log/messages的守护进程为rsyslogd，如果该进程停止，则不会有日志写入/var/log/messages。</p>
+<p>/var/log/messages日志文件，包含了系统启动时的引导消息，以及系统运行时的其他状态消息。I/O错误，网络错误和其他系统系统错误都会记录到这个文件中，另外其他信息，比如某个人的身份切换为root以及用户自定义安装的软件（Apache）的日志也会在这里列出。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/202433262.png?imageslim" alt="mark"></p>
+<h3 id="2、messages日志的切割"><a href="#2、messages日志的切割" class="headerlink" title="2、messages日志的切割"></a>2、messages日志的切割</h3><p>通常情况下，/var/log/messages是做故障诊断时首先要查看的文件。如果服务器上有多个服务，这个文件很快就会写得很大。所以，系统会使用logrotate工具对该日志进行切割，配置文件为/etc/logrotate.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"># see &quot;man logrotate&quot; for details</div><div class="line"># rotate log files weekly</div><div class="line">weekly</div><div class="line"></div><div class="line"># keep 4 weeks worth of backlogs</div><div class="line">rotate 4</div><div class="line"></div><div class="line"># create new (empty) log files after rotating old ones</div><div class="line">create</div><div class="line"></div><div class="line"># use date as a suffix of the rotated file</div><div class="line">dateext</div><div class="line"></div><div class="line"># uncomment this if you want your log files compressed</div><div class="line">#compress</div><div class="line"></div><div class="line"># RPM packages drop log rotation information into this directory</div><div class="line">include /etc/logrotate.d</div><div class="line"></div><div class="line"># no packages own wtmp and btmp -- we&apos;ll rotate them here</div><div class="line">/var/log/wtmp &#123;</div><div class="line">    monthly</div><div class="line">    create 0664 root utmp</div><div class="line">	minsize 1M</div><div class="line">    rotate 1</div><div class="line">&#125;</div><div class="line"></div><div class="line">/var/log/btmp &#123;</div><div class="line">    missingok</div><div class="line">    monthly</div><div class="line">    create 0600 root utmp</div><div class="line">    rotate 1</div><div class="line">&#125;</div><div class="line"></div><div class="line"># system-specific logs may be also be configured here.</div></pre></td></tr></table></figure>
+<ul>
+<li>weekly：切割日志的时间单位为1周</li>
+<li>rotate 4：切割的次数为4次</li>
+<li>create：切割方式为生成新日志文件</li>
+<li>dateext：新日志文件命名格式</li>
+<li>include /etc/logrotate.d：其他相关配置</li>
+</ul>
+<h2 id="二、dmesg"><a href="#二、dmesg" class="headerlink" title="二、dmesg"></a>二、dmesg</h2><p>除了关注/var/log/messages外，我们还需要关注dmesg这个命令，它可以显示系统的启动信息，如果你的某个硬件有问题（比如网卡），用这个命令也是可以看到的。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/231109520.png?imageslim" alt="mark"></p>
+<p><strong>该命令显示的内容是保存在内存中的，使用<code>dmesg -c</code>可以清楚这些内容</strong></p>
+<h2 id="三、-var-log-dmesg"><a href="#三、-var-log-dmesg" class="headerlink" title="三、/var/log/dmesg"></a>三、/var/log/dmesg</h2><p>该日志文件保存的也是关于系统启动的一些信息。与dmesg命令产生的信息是不同的</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/231326540.png?imageslim" alt="mark"></p>
+<h2 id="四、-var-log-wtmp"><a href="#四、-var-log-wtmp" class="headerlink" title="四、/var/log/wtmp"></a>四、/var/log/wtmp</h2><p>该日志文件保存的是登录系统的详细信息，该文件为<strong>二进制文件</strong>，无法直接查看</p>
+<p>可以使用命令<code>last</code>读取该文件</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/231550101.png?imageslim" alt="mark"></p>
+<h2 id="五、-var-log-btmp"><a href="#五、-var-log-btmp" class="headerlink" title="五、/var/log/btmp"></a>五、/var/log/btmp</h2><p>该日志文件保存的是登录系统失败的用户信息，也是<strong>二进制文件</strong>，</p>
+<p>使用命令<code>blast</code>读取该文件</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/231737572.png?imageslim" alt="mark"></p>
+<h2 id="六、-var-log-secure"><a href="#六、-var-log-secure" class="headerlink" title="六、/var/log/secure"></a>六、/var/log/secure</h2><p>该日志文件保存的是登录信息相关。该日志文件记录验证和授权等方面的信息，比如ssh登录系统成功或失败时，相关的信息都会记录在这个日志里。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/232226218.png?imageslim" alt="mark"></p>
+<p><strong>以上日志文件都是系统状态的日志，我们还应该注意比如Apache，MySQL，PHP的常用服务的错误日志，以便我们监控它们的运行状况</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/06/文本处理命令之awk/" class="archive-article-date">
-  	<time datetime="2017-07-06T02:44:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/06/文本处理命令之awk/">文本处理命令之awk</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">awk</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/19/日常管理之日志查看/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/04/文本处理命令之sed/" class="archive-article-date">
-  	<time datetime="2017-07-04T08:52:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/04/文本处理命令之sed/">文本处理命令之sed</a>
-    </h1>
+    <a href="/2017/07/19/日常管理之添加后台程序/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          日常管理之添加后台程序
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/18/日常管理之rsync同步/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">日常管理之rsync同步</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/03/文本处理命令之grep/" class="archive-article-date">
-  	<time datetime="2017-07-03T11:44:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/03/文本处理命令之grep/">文本处理命令之grep</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grep</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -305,9 +327,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

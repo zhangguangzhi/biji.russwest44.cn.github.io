@@ -17,7 +17,8 @@
 <meta property="og:description" content="[TOC] 1、ifconfigifconfig：查看网卡IP（ip  add也是可以查看） 安装：yum  install  -y   net-tools">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/151926337.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/202627464.png?imageslim">
-<meta property="og:updated_time" content="2017-07-18T11:49:30.264Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/230633747.png?imageslim">
+<meta property="og:updated_time" content="2017-07-19T15:07:27.924Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之网络管理相关">
 <meta name="twitter:description" content="[TOC] 1、ifconfigifconfig：查看网卡IP（ip  add也是可以查看） 安装：yum  install  -y   net-tools">
@@ -190,12 +191,18 @@
 <h3 id="8、查看网关"><a href="#8、查看网关" class="headerlink" title="8、查看网关"></a>8、查看网关</h3><p>route：查看路由列表，可以查看网关</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 network-scripts]# route -n</div><div class="line">Kernel IP routing table</div><div class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</div><div class="line">0.0.0.0         192.168.205.2   0.0.0.0         UG    100    0        0 ens33</div><div class="line">192.168.205.0   0.0.0.0         255.255.255.0   U     100    0        0 ens33</div></pre></td></tr></table></figure>
 <p>设置网关：<code>route add default gw 网关</code></p>
-<h3 id="9、测试网络连通性"><a href="#9、测试网络连通性" class="headerlink" title="9、测试网络连通性"></a>9、测试网络连通性</h3><p>ping：网络测试命令</p>
+<h3 id="9、测试网络连通性"><a href="#9、测试网络连通性" class="headerlink" title="9、测试网络连通性"></a>9、测试网络连通性</h3><p>（1）ping：网络测试命令</p>
 <ul>
 <li>ping  选项  ip或域名</li>
 <li>-c ：后面跟数字，指定ping的次数</li>
 <li>如何禁止被ping：<code>echo &quot;1&quot; &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</code></li>
 </ul>
+<p>（2）telnet：探测远程端口</p>
+<ul>
+<li>用法：telnet  ip  端口</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/230633747.png?imageslim" alt="mark"></p>
+<p>退出探测：ctrl  +  “]”，quit</p>
 <h3 id="10、远程连接"><a href="#10、远程连接" class="headerlink" title="10、远程连接"></a>10、远程连接</h3><p>ssh：远程连接指定服务器</p>
 <ul>
 <li>ssh  用户名@ip</li>
@@ -419,19 +426,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -440,6 +435,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -455,6 +458,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
               </li>
              
@@ -463,19 +474,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,15 +490,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>
