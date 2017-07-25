@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>shell基础知识之一 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
+  <meta name="description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等    查看支持的shell：cat  /etc/shells 1234567[root@allen2 ~]# cat /">
 <meta name="keywords" content="shell,特殊符号">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell基础知识之一">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/28/shell基础知识1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
+<meta property="og:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等    查看支持的shell：cat  /etc/shells 1234567[root@allen2 ~]# cat /">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/155443234.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/160321239.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/162034834.png?imageslim">
@@ -23,10 +23,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/171211675.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172103785.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/172644219.png?imageslim">
-<meta property="og:updated_time" content="2017-06-30T03:29:30.197Z">
+<meta property="og:updated_time" content="2017-07-24T06:20:15.764Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell基础知识之一">
-<meta name="twitter:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等">
+<meta name="twitter:description" content="[TOC] 一、shell介绍 shell是一个命令解释器，提供用户和机器之间的交互   支持特定语法，比如逻辑判断，循环  每个用户都可以有自己特定的shell  centos7默认shell为bash（bourne  agin  shell）  还有zsh，ksh，csh等    查看支持的shell：cat  /etc/shells 1234567[root@allen2 ~]# cat /">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170628/155443234.png?imageslim">
   
   
@@ -178,6 +178,8 @@
 </li>
 </ul>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/160321239.png?imageslim" alt="mark"></p>
+<p>查看支持的shell：cat  /etc/shells</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@allen2 ~]# cat /etc/shells </div><div class="line">/bin/sh</div><div class="line">/bin/bash</div><div class="line">/sbin/nologin</div><div class="line">/usr/bin/sh</div><div class="line">/usr/bin/bash</div><div class="line">/usr/sbin/nologin</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <h2 id="二、命令历史"><a href="#二、命令历史" class="headerlink" title="二、命令历史"></a>二、命令历史</h2><p>我们每次输入的命令都是会保存在一个文件中，使用方向键可以查看我们输入过的命令。</p>
 <h3 id="1、查看命令历史的命令：history"><a href="#1、查看命令历史的命令：history" class="headerlink" title="1、查看命令历史的命令：history"></a>1、查看命令历史的命令：history</h3><p>history命令查看的是缓存中的命令历史</p>
@@ -190,8 +192,7 @@
 <h3 id="2、存放历史命令配置文件"><a href="#2、存放历史命令配置文件" class="headerlink" title="2、存放历史命令配置文件"></a>2、存放历史命令配置文件</h3><p>用户家目录下：<strong>~/.bash_history</strong></p>
 <p>~/.bash_history只保存正确退出的命令，默认最大保存1000条。</p>
 <p>history命令显示的命令历史与~/.bash_history一般不会同步，可以使用history -w强制保存</p>
-<p>3、如何修改命令历史保存数量</p>
-<p>（1）修改配置文件/etc/profile</p>
+<h3 id="3、如何修改命令历史保存数量"><a href="#3、如何修改命令历史保存数量" class="headerlink" title="3、如何修改命令历史保存数量"></a>3、如何修改命令历史保存数量</h3><p>（1）修改配置文件/etc/profile</p>
 <p>将HISTSIZE=1000修改为你想保存的数量</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170628/162034834.png?imageslim" alt="mark"></p>
 <p>（2）保存后，重新进入终端或者source一下/etc/profile</p>
@@ -225,9 +226,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# lsa  敲一下tab  lsattr</div></pre></td></tr></table></figure>
 <p>以上面lsa开头为例，敲一下tab键，就能将命令补全为lsattr</p>
 <p><strong>路径的补全方式与命令一致</strong></p>
-<p>（2）centos7补全命令参数    </p>
+<p>（2）<strong>centos7补全命令参数</strong>    </p>
 <ul>
-<li>需要安装bash-completion</li>
+<li>需要安装<strong>bash-completion</strong></li>
 <li>重新启动系统</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# systemctl res	\\敲2下tab显示res开头的参数</div><div class="line">rescue        reset-failed  restart</div></pre></td></tr></table></figure>
@@ -266,6 +267,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls [1-3].txt</div><div class="line">1.txt  2.txt  3.txt</div><div class="line">[root@allen1 test2]# ls [123].txt</div><div class="line">1.txt  2.txt  3.txt</div></pre></td></tr></table></figure>
 <p>（4）{}：代表范围中的一个字符，可用”,”分隔</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls &#123;1,2,a&#125;.txt</div><div class="line">1.txt  2.txt  a.txt</div></pre></td></tr></table></figure>
+<p>利用{}快速备份文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen2 ~]# cp 1.txt&#123;,.bak&#125;</div><div class="line">[root@allen2 ~]# ls</div><div class="line">1.txt  1.txt.bak  2.txt  abc  anaconda-ks.cfg  bcd  dir</div></pre></td></tr></table></figure>
 <h2 id="五、特殊符号之输入输出重定向"><a href="#五、特殊符号之输入输出重定向" class="headerlink" title="五、特殊符号之输入输出重定向"></a>五、特殊符号之输入输出重定向</h2><p>（1）标准输出重定向</p>
 <p>使用”&gt;”符号，将命令执行的标准输出内容重定向到指定文件，覆盖原文件内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test2]# ls -l 1.txt &gt;a.txt</div><div class="line">[root@allen1 test2]# cat a.txt</div><div class="line">-rw-r--r--. 1 root root 0 6月  28 20:23 1.txt</div></pre></td></tr></table></figure>
@@ -489,6 +492,42 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">LAMP架构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
@@ -501,19 +540,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,11 +552,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,43 +576,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

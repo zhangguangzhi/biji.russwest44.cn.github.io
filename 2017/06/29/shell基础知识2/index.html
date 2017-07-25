@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231905382.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231024643.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231528852.png?imageslim">
-<meta property="og:updated_time" content="2017-06-30T16:08:43.724Z">
+<meta property="og:updated_time" content="2017-07-24T06:30:58.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell基础知识之二">
 <meta name="twitter:description" content="shell基础知识之一 [TOC] 一、特殊符号之管道符管道符“|”：将前面命令的输出内容传递给后面的命令处理。 12345[root@allen1 ~]# lsanaconda-ks.cfg  d6z  dir2  file1  file2  file3  passwd  test  test1  test2  test3[root@allen1 ~]# ls |wc -l11\\前面ls命令列">
@@ -172,12 +172,13 @@
 <h3 id="2、后台命令恢复到前台运行：fg"><a href="#2、后台命令恢复到前台运行：fg" class="headerlink" title="2、后台命令恢复到前台运行：fg"></a>2、后台命令恢复到前台运行：fg</h3><p>fg    后台命令id号（不加id为最后一个）</p>
 <p>此时，命令会占用当前终端命令行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# fg 3</div><div class="line">sleep 1000</div></pre></td></tr></table></figure>
-<h3 id="3、将命令从前台放入后台：bg"><a href="#3、将命令从前台放入后台：bg" class="headerlink" title="3、将命令从前台放入后台：bg"></a>3、将命令从前台放入后台：bg</h3><p>bg    后台id（不加id为最后一个）</p>
+<h3 id="3、将后台暂停的命令在后台恢复运行：bg"><a href="#3、将后台暂停的命令在后台恢复运行：bg" class="headerlink" title="3、将后台暂停的命令在后台恢复运行：bg"></a>3、将后台暂停的命令在后台恢复运行：bg</h3><p>bg    后台id（不加id为最后一个）</p>
 <p>此时，如果命令运行有输出，不会占用终端命令行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# bg 3</div><div class="line">[3]+ sleep 1000 &amp;</div><div class="line">[root@allen1 ~]# jobs</div><div class="line">[3]-  运行中               sleep 1000 &amp;</div><div class="line">[4]+  已停止               sleep 2000</div></pre></td></tr></table></figure>
 <h3 id="4、将命令放入后台运行：-amp"><a href="#4、将命令放入后台运行：-amp" class="headerlink" title="4、将命令放入后台运行：&amp;"></a>4、将命令放入后台运行：&amp;</h3><p>&amp;：在需要放入后台执行的命令后面加上&amp;，只在本终端生效</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# jobs</div><div class="line">[4]+  已停止               sleep 2000</div><div class="line">[5]-  运行中               sleep 100 &amp;</div></pre></td></tr></table></figure>
 <h3 id="5、终止前台命令：Ctrl-c"><a href="#5、终止前台命令：Ctrl-c" class="headerlink" title="5、终止前台命令：Ctrl  +  c"></a>5、终止前台命令：Ctrl  +  c</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# fg 4</div><div class="line">sleep 2000</div><div class="line">^C</div></pre></td></tr></table></figure>
+<p>当我们遇到终端输入什么都不能操作时，使用ctrl  + q试试</p>
 <h3 id="6、jobs"><a href="#6、jobs" class="headerlink" title="6、jobs"></a>6、jobs</h3><p>jobs：查看后台运行命令</p>
 <p>只能显示当前终端下后台的命令，选项-l可以显示该命令的进程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# sleep 100 &amp;</div><div class="line">[1] 2830</div><div class="line">[root@allen1 ~]# jobs -l</div><div class="line">[1]+  2830 运行中               sleep 100 &amp;</div></pre></td></tr></table></figure>
@@ -439,6 +440,42 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">LAMP架构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
@@ -451,19 +488,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -471,11 +500,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,43 +524,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

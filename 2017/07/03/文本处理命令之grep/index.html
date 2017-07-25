@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/194920967.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/200353340.png?imageslim">
-<meta property="og:updated_time" content="2017-07-04T07:22:18.374Z">
+<meta property="og:updated_time" content="2017-07-24T06:58:26.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本处理命令之grep">
 <meta name="twitter:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
@@ -164,14 +164,14 @@
 <p>特殊字符含义：</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170703/194920967.png?imageslim" alt="mark"></p>
 <p>[字符]：表示匹配[ ]中限定的字符范围。[0-9]表示数字，[a-z]表示小写字母</p>
-<p>^：一般表示行以字符开头，在[ ]中表示范围取反</p>
+<p>^：一般表示行首以什么开头，在[ ]中表示范围取反</p>
 <p>$：行的结尾，^\$表示空行</p>
 <p>.：表示任意一个字符</p>
-<p>*：表示0个或多个前面字符，<strong>*不表示一个字符，表示的是在它前面字符的个数</strong></p>
+<p>*：表示<em>前面的字符有0个或多个，**</em>不表示一个字符，表示的是在它前面字符的个数**</p>
 <p>.*：任意字符</p>
 <p><strong>以下特殊符号需要脱义或者使用egrep（grep  -E）</strong></p>
 <p>{}：表示匹配的字符重复的次数</p>
-<p>()：表示一个整体，后面需要引用时，使用\n，n为数字</p>
+<p>()：表示一个整体，后面需要引用时，使用n，n为数字</p>
 <p>?：表示0个或1个前面字符</p>
 <p>+：表示一个或多个前面字符</p>
 <p>|：表示或者，字符串1|字符串2|字符串3</p>
@@ -438,6 +438,42 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">LAMP架构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
@@ -450,19 +486,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -470,11 +498,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -486,43 +522,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

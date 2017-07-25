@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="[TOC] 一、什么是sed，以及sed是如何工作的？1、sed是一个流编辑器，它可以对从标准输入流中得到数据进行处理，然后把处理以后得到的结果输出到标准输出，而标准输出通常关联到终端屏幕，因此处理后的结果也会显示到屏幕上。 2、sed的工作模式，当sed命令执行时，它会从输入文件中（或者标准输入）读取一行数据，并把这行数据复制一份保存在它内部的一个工作缓存中。sed命令把它的这个缓存叫做模式空间">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170704/165554790.png?imageslim">
-<meta property="og:updated_time" content="2017-07-09T08:56:06.929Z">
+<meta property="og:updated_time" content="2017-07-24T07:12:10.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本处理命令之sed">
 <meta name="twitter:description" content="[TOC] 一、什么是sed，以及sed是如何工作的？1、sed是一个流编辑器，它可以对从标准输入流中得到数据进行处理，然后把处理以后得到的结果输出到标准输出，而标准输出通常关联到终端屏幕，因此处理后的结果也会显示到屏幕上。 2、sed的工作模式，当sed命令执行时，它会从输入文件中（或者标准输入）读取一行数据，并把这行数据复制一份保存在它内部的一个工作缓存中。sed命令把它的这个缓存叫做模式空间">
@@ -167,7 +167,7 @@
 <p>-e：同时实现多个命令，每个编辑命令前加-e，可用于脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 sed]# sed -e &apos;/root/p&apos; -e &apos;/bus/p&apos;  -n  passwd</div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">operator:x:11:0:operator:/root:/sbin/nologin</div><div class="line">systemd-bus-proxy:x:999:997:systemd Bus Proxy:/:/sbin/nologin</div><div class="line">dbus:x:81:81:System message bus:/:/sbin/nologin</div></pre></td></tr></table></figure>
 <p>-r：使用特殊符号时，不用使用转义符，与grep的-E选项作用一致</p>
-<p>-i：直接读取修改文件的内容</p>
+<p>-i：直接读取修改文件的内容，在i后面加上.bak可以在修改之前将原文件备份为filename.bak</p>
 <p>-f：指定编辑命令脚本文件</p>
 <h3 id="3、如何选择操作的行"><a href="#3、如何选择操作的行" class="headerlink" title="3、如何选择操作的行"></a>3、如何选择操作的行</h3><p>（1）在sed编辑命令前指定操作的行</p>
 <p>#sed  ‘3d’  file                \\选择第三行</p>
@@ -191,13 +191,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#sed &apos;1i$a test&apos; passwd				#匹配到第1行，并在上方插入“$a test”</div><div class="line">#sed &apos;/root/i$a test&apos; passwd		#匹配到包含“root”的行，并在上方插入“$a test”</div><div class="line">#sed &apos;/^root/i$a test&apos; passwd		#匹配到以”root“开头的行，并在上方插入“$a test”</div><div class="line">#如何插入多行：</div><div class="line">sed &apos;1i$a test\n$b test&apos;   passwd	使用/n换行符可以插入多行</div></pre></td></tr></table></figure>
 <p>（4）a，在匹配到的行下方增加内容</p>
 <p>可匹配， ‘行数’      ‘/字符串/‘      ‘/正则表达式/‘</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#sed &apos;1a$a test&apos; passwd				#匹配到第1行，并在下方插入“$a test”</div><div class="line">#sed &apos;/root/a$a test&apos; passwd		#匹配到包含“root”的行，并在下方插入“$a test”</div><div class="line">#sed &apos;/^root/a$a test&apos; passwd		#匹配到以”root“开头的行，并在下方插入“$a test”</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#sed &apos;1a$a test&apos; passwd				#匹配到第1行，并在下方插入“$a test”</div><div class="line">#sed &apos;/root/a$a test&apos; passwd		#匹配到包含“root”的行，并在下方插入“$a test”</div><div class="line">#sed &apos;/^root/a$a test&apos; passwd		#匹配到以”root“开头的行，并在下方插入“$a test”</div><div class="line">#如何插入多行：</div><div class="line">sed &apos;1a$a test\n$b test&apos;   passwd	使用/n换行符可以插入多行</div></pre></td></tr></table></figure>
 <p>（5）I：匹配字符串时不区分大小写，需要写在p前面</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 grep]# sed -n &apos;/^j/Ip&apos; test2 </div><div class="line">Jesse Neal:408-233-8971:45 Rose Terrace, San Francisco, CA 92303:2/3/36:25000</div><div class="line">Jose Santiago:385-898-8357:38 Fife Way, Abilene, TX 39673:1/5/58:95600</div><div class="line">job</div><div class="line">[root@allen1 grep]# sed -n &apos;/^j/pI&apos; test2 </div><div class="line">sed：-e 表达式 #1，字符 6：命令后含有多余的字符</div></pre></td></tr></table></figure>
 <p>（6）s，替换匹配到的字符</p>
 <p><strong>可匹配， ‘/字符串/’   ‘/表达式/’</strong></p>
 <p>语法：s/被替换字符/替换字符/gi        被替换字符=A      替换字符=B</p>
-<p>​        多行替换：n,ns/A/B/g        n,$s/A/B/      %s/A/B/</p>
+<p>​        多行替换：n,ns/A/B/g        n,$s/A/B/g      %s/A/B/g</p>
 <p>​         /可以使用#，@替代，g表示全局替换，i表示不区分大小写。</p>
 <h3 id="5、编辑命令中“s”动作的使用"><a href="#5、编辑命令中“s”动作的使用" class="headerlink" title="5、编辑命令中“s”动作的使用"></a>5、编辑命令中“s”动作的使用</h3><p>（1）基本语法</p>
 <p><strong>sed   ‘/正则1/s/正则2/正则3/gi’   file</strong></p>
@@ -439,6 +439,42 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">LAMP架构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
@@ -451,19 +487,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -471,11 +499,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,43 +523,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常管理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>
