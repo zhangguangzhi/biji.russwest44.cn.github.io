@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>LAMP之Apache安装 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、安装Maria DB1、下载二进制安装包12cd /usr/local/srcwget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz 2、解压1tar -zcvf  mari">
+  <meta name="description" content="[TOC] 一、安装Maria DB1、下载二进制安装包12cd /usr/local/srcwget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz">
 <meta name="keywords" content="LAMP架构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LAMP之Apache安装">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/26/11.3、LAMP之Apache安装/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 一、安装Maria DB1、下载二进制安装包12cd /usr/local/srcwget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz 2、解压1tar -zcvf  mari">
+<meta property="og:description" content="[TOC] 一、安装Maria DB1、下载二进制安装包12cd /usr/local/srcwget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170726/232443943.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170726/232351011.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/000535536.png?imageslim">
@@ -22,10 +22,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/001239943.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/001614354.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/001634299.png?imageslim">
-<meta property="og:updated_time" content="2017-07-26T16:30:43.033Z">
+<meta property="og:updated_time" content="2017-07-26T16:32:45.668Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache安装">
-<meta name="twitter:description" content="[TOC] 一、安装Maria DB1、下载二进制安装包12cd /usr/local/srcwget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz 2、解压1tar -zcvf  mari">
+<meta name="twitter:description" content="[TOC] 一、安装Maria DB1、下载二进制安装包12cd /usr/local/srcwget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170726/232443943.png?imageslim">
   
   
@@ -164,6 +164,7 @@
       
         <p>[TOC]</p>
 <h2 id="一、安装Maria-DB"><a href="#一、安装Maria-DB" class="headerlink" title="一、安装Maria DB"></a>一、安装Maria DB</h2><h3 id="1、下载二进制安装包"><a href="#1、下载二进制安装包" class="headerlink" title="1、下载二进制安装包"></a>1、下载二进制安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="2、解压"><a href="#2、解压" class="headerlink" title="2、解压"></a>2、解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zcvf  mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
 <h3 id="3、重命名目录"><a href="#3、重命名目录" class="headerlink" title="3、重命名目录"></a>3、重命名目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv mariadb-10.2.6-linux-glibc_214-x86_64 /usr/local/mariadb</div></pre></td></tr></table></figure>
 <h3 id="4、创建用户"><a href="#4、创建用户" class="headerlink" title="4、创建用户"></a>4、创建用户</h3><p>useradd  mysql</p>
@@ -194,7 +195,7 @@
 <li>apr和apr-util是一个通用的函数库，它让httpd可以不关心底层的操作系统平台，可以很方便地移植（从linux移植到windows）</li>
 </ul>
 <h3 id="1、下载安装源码包"><a href="#1、下载安装源码包" class="headerlink" title="1、下载安装源码包"></a>1、下载安装源码包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget http://mirrors.cnnic.cn/apache/httpd/httpd-2.4.27.tar.gz</div><div class="line">wget http://mirrors.hust.edu.cn/apache/apr/apr-1.5.2.tar.gz</div><div class="line">wget http://mirrors.hust.edu.cn/apache/apr/apr-util-1.5.4.tar.gz</div></pre></td></tr></table></figure>
-<h2 id="2、安装apr"><a href="#2、安装apr" class="headerlink" title="2、安装apr"></a>2、安装apr</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">tar -zxvf apr-1.5.2.tar.gz</div><div class="line">cd apr-1.5.2/</div><div class="line">#下面是源码包安装步骤</div><div class="line">./configure -prefix=/usr/local/apr  &amp;&amp;  echo  $?</div><div class="line"></div><div class="line">make  &amp;&amp;  make install   &amp;&amp;  echo $?</div></pre></td></tr></table></figure>
+<h3 id="2、安装apr"><a href="#2、安装apr" class="headerlink" title="2、安装apr"></a>2、安装apr</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">tar -zxvf apr-1.5.2.tar.gz</div><div class="line">cd apr-1.5.2/</div><div class="line">#下面是源码包安装步骤</div><div class="line">./configure -prefix=/usr/local/apr  &amp;&amp;  echo  $?</div><div class="line"></div><div class="line">make  &amp;&amp;  make install   &amp;&amp;  echo $?</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/001009334.png?imageslim" alt="mark"></p>
 <h3 id="3、安装apr-util"><a href="#3、安装apr-util" class="headerlink" title="3、安装apr-util"></a>3、安装apr-util</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">tar -zxvf  apr-util-1.5.4.tar.gz</div><div class="line">cd apr-util-1.5.4/</div><div class="line">#下面是源码包安装步骤</div><div class="line">./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr   &amp;&amp;  echo  $?</div><div class="line"></div><div class="line">make &amp;&amp; make install   &amp;&amp;   echo  $?</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/001239943.png?imageslim" alt="mark"></p>

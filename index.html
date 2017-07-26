@@ -200,67 +200,9 @@
       
         <p>[TOC]</p>
 <h2 id="一、安装Maria-DB"><a href="#一、安装Maria-DB" class="headerlink" title="一、安装Maria DB"></a>一、安装Maria DB</h2><h3 id="1、下载二进制安装包"><a href="#1、下载二进制安装包" class="headerlink" title="1、下载二进制安装包"></a>1、下载二进制安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
-<h3 id="2、解压"><a href="#2、解压" class="headerlink" title="2、解压"></a>2、解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zcvf  mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
-<h3 id="3、重命名目录"><a href="#3、重命名目录" class="headerlink" title="3、重命名目录"></a>3、重命名目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv mariadb-10.2.6-linux-glibc_214-x86_64 /usr/local/mariadb</div></pre></td></tr></table></figure>
-<h3 id="4、创建用户"><a href="#4、创建用户" class="headerlink" title="4、创建用户"></a>4、创建用户</h3><p>useradd  mysql</p>
-<h3 id="5、创建数据目录"><a href="#5、创建数据目录" class="headerlink" title="5、创建数据目录"></a>5、创建数据目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir /data/mariadb</div></pre></td></tr></table></figure>
-<h3 id="6、初始化MariaDB"><a href="#6、初始化MariaDB" class="headerlink" title="6、初始化MariaDB"></a>6、初始化MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/mariadb</div><div class="line">./scripts/mysql_install_db --user=mysql --basedir=/usr/local/mariadb/ --datadir=/data/mariadb</div><div class="line">#需要指定basedir</div></pre></td></tr></table></figure>
-<p>使用echo $?查看是否成功</p>
-<h3 id="7、拷贝配置文件和启动脚本"><a href="#7、拷贝配置文件和启动脚本" class="headerlink" title="7、拷贝配置文件和启动脚本"></a>7、拷贝配置文件和启动脚本</h3><p>配置文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp support-files/my-small.cnf /usr/local/mariadb/my.cnf</div><div class="line">#可以在该配置文件中修改监听端口和socket文件位置，避免与MySQL冲突</div></pre></td></tr></table></figure>
-<p>启动脚本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp support-files/mysql.server /etc/init.d/mariadb</div></pre></td></tr></table></figure>
-<ul>
-<li>在该脚本中定义datadir和basedir的位置，同时可以定义一个变量conf=/usr/local/mariadb/my.cnf，并且在启动时自动加载配置文件–default-file=$conf</li>
-</ul>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170726/232443943.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170726/232351011.png?imageslim" alt="mark"></p>
-<h3 id="9、启动"><a href="#9、启动" class="headerlink" title="9、启动"></a>9、启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> /etc/init.d/mariadb start</div><div class="line">#使用ps  aux |grep &quot;mariadb&quot;查看是否启动成功</div><div class="line">[root@allen1 mariadb]# ps aux |grep &quot;mariadb&quot;</div><div class="line">root      6103  0.0  0.1 115380  1732 ?        S    23:48   0:00 /bin/sh /usr/local/mariadb//bin/mysqld_safe --defaults-file=/usr/local/mariadb//my.cnf --datadir=/data/mariadb/ --pid-file=/data/mariadb//allen1.pid</div><div class="line">mysql     6219  3.0  5.8 1125020 58772 ?       Sl   23:48   0:00 /usr/local/mariadb/bin/mysqld --defaults-file=/usr/local/mariadb//my.cnf --basedir=/usr/local/mariadb --datadir=/data/mariadb/ --plugin-dir=/usr/local/mariadb/lib/plugin --user=mysql --log-error=/data/mariadb//allen1.err --pid-file=/data/mariadb//allen1.pid --socket=/tmp/mysql.sock --port=3306</div><div class="line">root      6258  0.0  0.0 112664   976 pts/0    S+   23:48   0:00 grep --color=auto mariadb</div></pre></td></tr></table></figure>
-<h3 id="10、在启动脚本中定义配置文件"><a href="#10、在启动脚本中定义配置文件" class="headerlink" title="10、在启动脚本中定义配置文件"></a>10、在启动脚本中定义配置文件</h3><p>（1）增加一个变量conf=配置文件地址</p>
-<p>（2）找到“start”启动部分，加上–defaults-file=”$conf”</p>
-<h3 id="11、mariadb的默认配置文件区别"><a href="#11、mariadb的默认配置文件区别" class="headerlink" title="11、mariadb的默认配置文件区别"></a>11、mariadb的默认配置文件区别</h3><p>如图所示：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/000535536.png?imageslim" alt="mark"></p>
-<ul>
-<li>这些默认配置文件的主要区别在于其中buff和cache的值不同。MySQL也是有多个默认配置文件</li>
-</ul>
-<h2 id="二、安装Apache"><a href="#二、安装Apache" class="headerlink" title="二、安装Apache"></a>二、安装Apache</h2><ul>
-<li>Apache是一个基金会的名字，httpd才是我们要安装的软件包，早期它的名字就叫apache</li>
-<li>Apache官网<a href="http://www.apache.org" target="_blank" rel="external">www.apache.org</a></li>
-<li>本次安装除了安装httpd外，我们还进行apr和apr-util。</li>
-<li>apr和apr-util是一个通用的函数库，它让httpd可以不关心底层的操作系统平台，可以很方便地移植（从linux移植到windows）</li>
-</ul>
-<h3 id="1、下载安装源码包"><a href="#1、下载安装源码包" class="headerlink" title="1、下载安装源码包"></a>1、下载安装源码包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget http://mirrors.cnnic.cn/apache/httpd/httpd-2.4.27.tar.gz</div><div class="line">wget http://mirrors.hust.edu.cn/apache/apr/apr-1.5.2.tar.gz</div><div class="line">wget http://mirrors.hust.edu.cn/apache/apr/apr-util-1.5.4.tar.gz</div></pre></td></tr></table></figure>
-<h2 id="2、安装apr"><a href="#2、安装apr" class="headerlink" title="2、安装apr"></a>2、安装apr</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">tar -zxvf apr-1.5.2.tar.gz</div><div class="line">cd apr-1.5.2/</div><div class="line">#下面是源码包安装步骤</div><div class="line">./configure -prefix=/usr/local/apr  &amp;&amp;  echo  $?</div><div class="line"></div><div class="line">make  &amp;&amp;  make install   &amp;&amp;  echo $?</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/001009334.png?imageslim" alt="mark"></p>
-<h3 id="3、安装apr-util"><a href="#3、安装apr-util" class="headerlink" title="3、安装apr-util"></a>3、安装apr-util</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">tar -zxvf  apr-util-1.5.4.tar.gz</div><div class="line">cd apr-util-1.5.4/</div><div class="line">#下面是源码包安装步骤</div><div class="line">./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr   &amp;&amp;  echo  $?</div><div class="line"></div><div class="line">make &amp;&amp; make install   &amp;&amp;   echo  $?</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/001239943.png?imageslim" alt="mark"></p>
-<h3 id="4、安装httpd"><a href="#4、安装httpd" class="headerlink" title="4、安装httpd"></a>4、安装httpd</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">tar -zxvf  httpd-2.4.27.tar.gz</div><div class="line">cd httpd-2.4.27/</div><div class="line">#下面是源码包安装步骤</div><div class="line">./configure  --prefix=/usr/local/apache2.4 \</div><div class="line">--with-apr=/usr/local/apr \</div><div class="line">--with-apr-util=/usr/local/apr-util \</div><div class="line">--enable-so \</div><div class="line">--enable-mods-shared=most  \</div><div class="line">&amp;&amp;  echo  $?</div><div class="line"></div><div class="line">make  &amp;&amp; make install  &amp;&amp; echo $?</div></pre></td></tr></table></figure>
-<p>遇到以下错误：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/001614354.png?imageslim" alt="mark"></p>
-<p>根据提示，解决办法：yum  install  -y   pcre-devel</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/001634299.png?imageslim" alt="mark"></p>
-<p><strong>以上的安装步骤中都有echo  $?，是为了验证上一部操作是否成功执行</strong></p>
-<h3 id="5、启动httpd"><a href="#5、启动httpd" class="headerlink" title="5、启动httpd"></a>5、启动httpd</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/usr/local/apache2.4/bin/apachectl start</div><div class="line">ps  aux  |grep  &quot;httpd&quot;</div><div class="line">[root@allen1 httpd-2.4.27]# ps  aux  |grep  &quot;httpd&quot;</div><div class="line">root     37029  0.0  0.2  95476  2532 ?        Ss   00:20   0:00 /usr/local/apache2.4/bin/httpd -k start</div><div class="line">daemon   37030  0.0  0.4 382304  4428 ?        Sl   00:20   0:00 /usr/local/apache2.4/bin/httpd -k start</div><div class="line">daemon   37031  0.0  0.4 382304  4428 ?        Sl   00:20   0:00 /usr/local/apache2.4/bin/httpd -k start</div><div class="line">daemon   37032  0.0  0.4 382304  4428 ?        Sl   00:20   0:00 /usr/local/apache2.4/bin/httpd -k start</div><div class="line">root     37117  0.0  0.0 112664   976 pts/1    R+   00:21   0:00 grep --color=auto httpd</div></pre></td></tr></table></figure>
-<h3 id="6、httpd安装目录下子目录作用"><a href="#6、httpd安装目录下子目录作用" class="headerlink" title="6、httpd安装目录下子目录作用"></a>6、httpd安装目录下子目录作用</h3><ul>
-<li><p>bin：里面是一些执行文件以及脚本，例如启动httpd的文件。</p>
-</li>
-<li><p>conf：里面是一些配置文件，有httpd的主配置文件和虚拟主机配置文件</p>
-</li>
-<li><p>logs：里面保存的是访问日志和错误日志，以及PID文件</p>
-</li>
-<li><p>htdocs：里面默认保存的是欢迎主页</p>
-</li>
-<li><p>modules：里面保存的是httpd的动态模块文件，以.so结尾。</p>
-<p>使用/usr/local/apache2.4/bin/apachectl  -M可以查看加载模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@allen1 httpd-2.4.27]# /usr/local/apache2.4/bin/apachectl -M</div><div class="line">Loaded Modules:</div><div class="line"> core_module (static)</div><div class="line"> so_module (static)</div><div class="line"> http_module (static)</div><div class="line"> mpm_event_module (static)</div><div class="line"> authn_file_module (shared)</div><div class="line"> authn_core_module (shared)</div><div class="line"> authz_host_module (shared)</div><div class="line"> authz_groupfile_module (shared)</div><div class="line"> authz_user_module (shared)</div><div class="line">......</div><div class="line">#static表示静态模块，已经写入启动脚本</div><div class="line">#shared表示动态模块，保存在modules目录下</div></pre></td></tr></table></figure>
-<p>​</p>
-</li>
-</ul>
-<p>拓展：</p>
-<p><a href="https://yq.aliyun.com/articles/6298" target="_blank" rel="external">Apache，dso原理</a></p>
-<p><a href="http://man.chinaunix.net/newsoft/ApacheMenual_CN_2.2new/programs/apxs.html" target="_blank" rel="external">Apache-apxs拓展工具</a></p>
-<p><a href="http://www.cnblogs.com/fnng/archive/2012/11/20/2779977.html" target="_blank" rel="external">Apache的工作模式</a></p>
-
+        
+          <a class="article-more-a" href="/2017/07/26/11.3、LAMP之Apache安装/#more">more >></a>
+        
       
 
       
