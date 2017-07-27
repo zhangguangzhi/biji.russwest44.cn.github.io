@@ -6,23 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>日常管理之netstat,tcpdump,tshark | Hexo</title>
+  <title>LAMP之PHP安装 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接">
-<meta name="keywords" content="日常管理,系统监控,网络相关">
+  <meta name="description" content="[TOC] PHP官网：www.php.net 当前主流版本为5.6/7.1 该版本如何选用，7.1的性能较好。如果PHP程序支持7.1，尽量使用PHP7">
+<meta name="keywords" content="LAMP架构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="日常管理之netstat,tcpdump,tshark">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/11/10.5、日常管理之netstat-tcpdump/index.html">
+<meta property="og:title" content="LAMP之PHP安装">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/27/11.4、LAMP之PHP安装/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/221229566.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/221347897.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/222630041.png?imageslim">
-<meta property="og:updated_time" content="2017-07-24T07:52:34.696Z">
+<meta property="og:description" content="[TOC] PHP官网：www.php.net 当前主流版本为5.6/7.1 该版本如何选用，7.1的性能较好。如果PHP程序支持7.1，尽量使用PHP7">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215636186.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215704413.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215747702.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215814685.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215839794.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215909817.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215936765.png?imageslim">
+<meta property="og:updated_time" content="2017-07-27T14:08:57.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="日常管理之netstat,tcpdump,tshark">
-<meta name="twitter:description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/221229566.png?imageslim">
+<meta name="twitter:title" content="LAMP之PHP安装">
+<meta name="twitter:description" content="[TOC] PHP官网：www.php.net 当前主流版本为5.6/7.1 该版本如何选用，7.1的性能较好。如果PHP程序支持7.1，尽量使用PHP7">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215636186.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -138,20 +142,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-10.5、日常管理之netstat-tcpdump" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-11.4、LAMP之PHP安装" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      日常管理之netstat,tcpdump,tshark
+      LAMP之PHP安装
     </h1>
   
 
         
-        <a href="/2017/07/11/10.5、日常管理之netstat-tcpdump/" class="archive-article-date">
-  	<time datetime="2017-07-11T14:09:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
+        <a href="/2017/07/27/11.4、LAMP之PHP安装/" class="archive-article-date">
+  	<time datetime="2017-07-27T13:48:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
 </a>
         
       </header>
@@ -159,117 +163,73 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h2 id="一、查询网络状态"><a href="#一、查询网络状态" class="headerlink" title="一、查询网络状态"></a>一、查询网络状态</h2><p>netstat：查看当前网络连接</p>
+<p>PHP官网：www.php.net</p>
+<p>当前主流版本为5.6/7.1</p>
+<p>该版本如何选用，7.1的性能较好。如果PHP程序支持7.1，尽量使用PHP7</p>
 <a id="more"></a>
-<p>选项：</p>
-<p>-a (all)显示所有选项，默认不显示LISTEN相关</p>
-<p>-t (tcp)仅显示tcp相关选项</p>
-<p>-u (udp)仅显示udp相关选项</p>
-<p>-n 使用IP地址和端口号</p>
-<p>-l 仅列出有在 Listen (监听) 的服務状态</p>
-<p>-p 显示建立相关链接的程序名</p>
-<p>-r 显示路由信息，路由表</p>
-<p>提示：<strong>LISTEN和LISTENING的状态只有用-a或者-l才能看到</strong></p>
-<h3 id="1、查看监听端口（listen）"><a href="#1、查看监听端口（listen）" class="headerlink" title="1、查看监听端口（listen）"></a>1、查看监听端口（listen）</h3><p><code>netstat  -lnp</code></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170711/221229566.png?imageslim" alt="mark"></p>
-<p>常见端口号：</p>
-<p>ftp：20（数据传输），21（用于登录）</p>
-<p>ssh：22</p>
-<p>http：80</p>
-<p>DNS：53</p>
-<p>Telnet：23</p>
-<p>smtp：25（收件）</p>
-<p>pop3:110（收件）</p>
-<h3 id="2、查看端口的连接状态"><a href="#2、查看端口的连接状态" class="headerlink" title="2、查看端口的连接状态"></a>2、查看端口的连接状态</h3><p><code>netstat   -an</code></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170711/221347897.png?imageslim" alt="mark"></p>
-<p>LISTEN：监听</p>
-<p> ESTABLTSHED：已经建立链接正在通讯</p>
-<p>TIME_WAIT：传输完成  链接保持着</p>
-<h3 id="3、应用"><a href="#3、应用" class="headerlink" title="3、应用"></a>3、应用</h3><p>（1）查询某端口的并发</p>
-<p>netstat  -an|grep  ‘80’|grep -ic ‘establish’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# netstat  -an|grep  &apos;tcp&apos;|grep -ic &apos;establish&apos;</div><div class="line">1</div></pre></td></tr></table></figure>
-<p>（2）查询指定协议的连接状态</p>
-<p>netstat -an|awk  ‘/^tcp/{ip[$NF]++}END{for ( i in ip ) print i”\t”ip[i]}’</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# netstat -an|awk  &apos;/^tcp/&#123;ip[$NF]++&#125;END&#123;for ( i in ip ) print i&quot;\t&quot;ip[i]&#125;&apos;</div><div class="line">LISTEN	4</div><div class="line">ESTABLISHED	1</div></pre></td></tr></table></figure>
-<h3 id="4、tcp的三次握手与四次挥手"><a href="#4、tcp的三次握手与四次挥手" class="headerlink" title="4、tcp的三次握手与四次挥手"></a>4、tcp的三次握手与四次挥手</h3><h3 id="5、参考资料"><a href="#5、参考资料" class="headerlink" title="5、参考资料"></a>5、参考资料</h3><p><a href="https://linux.cn/article-2434-1.html" target="_blank" rel="external">netstat 的10个基本用法</a></p>
-<p><a href="http://blog.csdn.net/whuslei/article/details/6667471" target="_blank" rel="external">tcp的三次握手与四次挥手</a></p>
-<p><a href="http://www.cnblogs.com/visily/archive/2013/03/15/2961190.html" target="_blank" rel="external">tcp与udp</a></p>
-<p><a href="http://www.doc88.com/p-9913773324388.html" target="_blank" rel="external">用netstat查看网络状态详解</a></p>
-<h2 id="二、抓包工具tcpdump-tshark"><a href="#二、抓包工具tcpdump-tshark" class="headerlink" title="二、抓包工具tcpdump/tshark"></a>二、抓包工具tcpdump/tshark</h2><h3 id="1、什么是tcpdump"><a href="#1、什么是tcpdump" class="headerlink" title="1、什么是tcpdump"></a>1、什么是tcpdump</h3><p>监听流经一个本机网络接口上的数据，并输出分组内容的工具。tcpdump凭借强大的功能和灵活的截取策略，</p>
-<p>使其成为类UNIX系统下用于网络分析和问题排查的首选工具。</p>
-<h3 id="2、安装tcpdump"><a href="#2、安装tcpdump" class="headerlink" title="2、安装tcpdump"></a>2、安装tcpdump</h3><p>yum -y install tcpdump</p>
-<h3 id="3、tcpdump使用"><a href="#3、tcpdump使用" class="headerlink" title="3、tcpdump使用"></a>3、tcpdump使用</h3><p>流量偏大的时候，需要抓包，查看数据流向</p>
-<p>选项</p>
-<p>-nn：将数据流向中的域名与服务器转换为IP和端口</p>
-<p>-i   ：指定网卡</p>
-<p>-c  ：指定抓包次数</p>
-<p>-t  ：指定为TCP</p>
-<p>-u ：指定为UDP</p>
-<p>-w ：将数据流向写入文件，选项后跟保存位置。可以使用Ctrl+c停止抓包</p>
-<p>-r  ：查看数据包流向文件</p>
-<p>-s0：完整抓包</p>
-<p>-v  ：详细信息</p>
-<p>-X：以十六进制和ascii表显示数据包内容</p>
-<p>参数</p>
-<p>port：指定端口</p>
-<p>host：指定IP</p>
-<p>and：参数连接符</p>
-<p>net：指定网段</p>
-<p>src：源ip</p>
-<p>dst：目标ip</p>
-<p><code>tcpdump -nn  -c 50 -i ens33</code></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170711/222630041.png?imageslim" alt="mark"></p>
-<p>第一个：来源IP与端口</p>
-<p>第二个：目标IP与端口</p>
-<h3 id="5、tcpdump练习"><a href="#5、tcpdump练习" class="headerlink" title="5、tcpdump练习"></a>5、tcpdump练习</h3><p>1、抓取包含172.16.1.122的数据包  </p>
-<p># tcpdump -i eth0 -vnn host 172.16.1.122  </p>
-<p>2、抓取包含172.16.1.0/24网段的数据包  </p>
-<p># tcpdump -i eth0 -vnn net 172.16.1.0/24  </p>
-<p>3、抓取包含端口22的数据包  </p>
-<p># tcpdump -i eth0 -vnn port 22  </p>
-<p>4、抓取udp协议的数据包  </p>
-<p># tcpdump -i eth0 -vnn  -u</p>
-<p>5、抓取icmp协议的数据包  </p>
-<p># tcpdump -i eth0 -vnn icmp  </p>
-<p>6、抓取arp协议的数据包  </p>
-<p># tcpdump -i eth0 -vnn arp  </p>
-<p>7、抓取ip协议的数据包  </p>
-<p># tcpdump -i eth0 -vnn ip  </p>
-<p>8、抓取源ip是172.16.1.122数据包。  </p>
-<p># tcpdump -i eth0 -vnn src host 172.16.1.122  </p>
-<p>9、抓取目的ip是172.16.1.122数据包  </p>
-<p># tcpdump -i eth0 -vnn dst host 172.16.1.122  </p>
-<p>10、抓取源端口是22的数据包  </p>
-<p># tcpdump -i eth0 -vnn src port 22  </p>
-<p>11、抓取源ip是172.16.1.253且目的端口是22的数据包  </p>
-<p># tcpdump -i eth0 -vnn src host 172.16.1.253 and dst port 22  </p>
-<p>​                 </p>
-<p>12、抓取源ip是172.16.1.122或者包含端口是22的数据包  </p>
-<p># tcpdump -i eth0 -vnn src host 172.16.1.122 or port 22  </p>
-<p>13、抓取源ip是172.16.1.122且端口不是22的数据包  </p>
-<p># tcpdump -i eth0 -vnn src host 172.16.1.122 and not port 22  </p>
-<p>14、抓取源ip是172.161.2且目的端口是22，或源ip是172.16.1.65且目的端口是80的数据包。  </p>
-<p># tcpdump -i eth0 -vnn src host 172.161.2 and dst port 22   or  src host 172.16.1.65 and dst port 80  </p>
-<p>15、抓取源ip是172.16.1.59且目的端口是22，或源ip是172.16.1.68且目的端口是80的数据包。  </p>
-<p># tcpdump -i  eth0 -vnn ‘src host 172.16.1.59 and dst port 22’ or  ‘ src host 172.16.1.68 and dst port 80 ‘  </p>
-<p>16、把抓取的数据包记录存到/tmp/fill文件中，当抓取100个数据包后就退出程序。  </p>
-<p># tcpdump –i eth0 -vnn -w  /tmp/fil1 -c 100  </p>
-<p>17、从/tmp/fill记录中读取tcp协议的数据包  </p>
-<p># tcpdump –i eth0 -vnn -r  /tmp/fil1 tcp  </p>
-<p>18、从/tmp/fill记录中读取包含172.16.1.58的数据包  </p>
-<p># tcpdump –i eth0 -vnn -r  /tmp/fil1 host  172.16.1.58 </p>
-<p>参考资料：<a href="http://blog.csdn.net/runboying/article/details/7166378" target="_blank" rel="external">http://blog.csdn.net/runboying/article/details/7166378</a></p>
-<h3 id="6、tshark"><a href="#6、tshark" class="headerlink" title="6、tshark"></a>6、tshark</h3><p>安装：yum install -y wireshark</p>
-<p>使用：</p>
-<p>显示访问http请求的域名以及uri</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tshark -n -t a -R http.request -T fields -e &quot;frame.time&quot; -e &quot;ip.src&quot; -e &quot;http.host&quot; -e &quot;http.request.method&quot; -e &quot;http.request.uri&quot;</div></pre></td></tr></table></figure>
-<p>抓取mysql的查询</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tshark -n -i eth1 -R &apos;mysql.query&apos; -T fields -e &quot;ip.src&quot; -e &quot;mysql.query&quot;</div></pre></td></tr></table></figure>
-<p>抓取指定类型的MySQL查询     </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tshark -n -i eth1 -R &apos;mysql matches &quot;SELECT|INSERT|DELETE|UPDATE&quot;&apos; -T fields -e &quot;ip.src&quot; -e &quot;mysql.query&quot;</div></pre></td></tr></table></figure>
-<p>统计http的状态</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tshark -n -q -z http,stat, -z http,tree</div></pre></td></tr></table></figure>
-<p><a href="http://ask.apelearn.com/question/995" target="_blank" rel="external">tshark分析http请求</a></p>
+<h2 id="一、安装PHP5"><a href="#一、安装PHP5" class="headerlink" title="一、安装PHP5"></a>一、安装PHP5</h2><h3 id="1、下载PHP5"><a href="#1、下载PHP5" class="headerlink" title="1、下载PHP5"></a>1、下载PHP5</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget http://cn2.php.net/distributions/php-5.6.30.tar.gz</div></pre></td></tr></table></figure>
+<h3 id="2、解压"><a href="#2、解压" class="headerlink" title="2、解压"></a>2、解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar  -zxvf php-6.6.30.tar.gz</div><div class="line">cd php-5.6.30</div></pre></td></tr></table></figure>
+<h3 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h3><p>（1）编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache2.4/bin/apxs --with-config-file-path=/usr/local/php/etc  --with-mysql=/usr/local/mysql --with-pdo-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-iconv-dir --with-zlib-dir --with-bz2 --with-openssl --with-mcrypt --enable-soap --enable-gd-native-ttf --enable-mbstring --enable-sockets --enable-exif</div></pre></td></tr></table></figure>
+<ul>
+<li>编译中除了指定安装位置，还需要指定Apache和MySQL的相关位置，这也是为什么PHP需要在最后安装。因为PHP需要Apache和MySQL的支持</li>
+<li>依旧可以使用echo $?查询是否成功</li>
+</ul>
+<p>（2）安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make  &amp;&amp;  make  install  &amp;&amp; echo $?</div></pre></td></tr></table></figure>
+<p>（3）拷贝配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp php.ini-production  /usr/local/php/etc/php.ini</div></pre></td></tr></table></figure>
+<ul>
+<li><p>如何查看PHP安装时的编译参数以及配置php.ini的位置</p>
+<p><code>/usr/local/php/bin/php -i|less</code></p>
+</li>
+</ul>
+<p>（4）查询是否安装成功</p>
+<p>可以看Apache是否加载了php模块，即形成.so文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls /usr/local/apache2.4/modules/libphp5.so </div><div class="line">/usr/local/apache2.4/modules/libphp5.so</div></pre></td></tr></table></figure>
+<h3 id="4、编译时出现的错误"><a href="#4、编译时出现的错误" class="headerlink" title="4、编译时出现的错误"></a>4、编译时出现的错误</h3><p>（1）configure: error: xml2-config not found. Please check your libxml2 installation.</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215636186.png?imageslim" alt="mark"></p>
+<p>解决：yum  -y  install  libxml2-devel.x86_64</p>
+<p>（2）configure: error: Cannot find OpenSSL’s \<evp.h></evp.h></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215704413.png?imageslim" alt="mark"></p>
+<p>解决： install -y   openssl-devel.x86_64</p>
+<p>（3）configure: error: Please reinstall the BZip2 distribution</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215747702.png?imageslim" alt="mark"></p>
+<p>解决：yum  install -y bzip2-devel.x86_64</p>
+<p>（4）configure: error: jpeglib.h not found.</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215814685.png?imageslim" alt="mark"></p>
+<p>解决：yum  install -y libjpeg-turbo-devel.x86_64</p>
+<p>（5）configure: error: png.h not found.</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215839794.png?imageslim" alt="mark"></p>
+<p>解决：yum  install -y libpng.x86_64</p>
+<p>（6）configure: error: freetype-config not found.</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215909817.png?imageslim" alt="mark"></p>
+<p>解决：yum  install -y freetype-devel.x86_64</p>
+<p>（7）configure: error: mcrypt.h not found. Please reinstall libmcrypt.</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215936765.png?imageslim" alt="mark"></p>
+<p>解决：yum install -y libmcrypt-devel(需要先安装epel拓展源)</p>
+<h3 id="5、查询php加载模块"><a href="#5、查询php加载模块" class="headerlink" title="5、查询php加载模块"></a>5、查询php加载模块</h3><p>/usr/local/php/bin/php -m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~ ]# /usr/local/php/bin/php -m</div><div class="line">[PHP Modules]</div><div class="line">bz2</div><div class="line">Core</div><div class="line">ctype</div><div class="line">date</div><div class="line">dom</div><div class="line">ereg</div><div class="line">exif</div><div class="line">fileinfo</div><div class="line">filter</div><div class="line">gd</div><div class="line">hash</div><div class="line">.........</div></pre></td></tr></table></figure>
+<h2 id="二、安装PHP7"><a href="#二、安装PHP7" class="headerlink" title="二、安装PHP7"></a>二、安装PHP7</h2><h3 id="1、下载PHP7"><a href="#1、下载PHP7" class="headerlink" title="1、下载PHP7"></a>1、下载PHP7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget wget http://cn2.php.net/distributions/php-7.1.6.tar.bz2</div></pre></td></tr></table></figure>
+<h3 id="2、解压-1"><a href="#2、解压-1" class="headerlink" title="2、解压"></a>2、解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar zxf php-7.1.6.tar.bz2</div><div class="line"> cd php-7.1.6</div></pre></td></tr></table></figure>
+<h3 id="3、安装-1"><a href="#3、安装-1" class="headerlink" title="3、安装"></a>3、安装</h3><p>（1）编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/php7 --with-apxs2=/usr/local/apache2.4/bin/apxs --with-config-file-path=/usr/local/php7/etc  --with-pdo-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-iconv-dir --with-zlib-dir --with-bz2 --with-openssl --with-mcrypt --enable-soap --enable-gd-native-ttf --enable-mbstring --enable-sockets --enable-exif</div></pre></td></tr></table></figure>
+<ul>
+<li>编译中除了指定安装位置，还需要指定Apache和MySQL的相关位置，这也是为什么PHP需要在最后安装。因为PHP需要Apache和MySQL的支持</li>
+<li>依旧可以使用echo $?查询是否成功</li>
+</ul>
+<p>（2）安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make  &amp;&amp;  make  install  &amp;&amp; echo $?</div></pre></td></tr></table></figure>
+<p>（3）拷贝配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp php.ini-production  /usr/local/php7/etc/php.ini</div></pre></td></tr></table></figure>
+<ul>
+<li><p>如何查看PHP安装时的编译参数以及配置php.ini的位置</p>
+<p><code>/usr/local/php/bin/php -i|less</code></p>
+</li>
+</ul>
+<p>拓展：</p>
+<p><a href="http://blog.csdn.net/u013785951/article/details/60876816" target="_blank" rel="external">php中mysql,mysqli,mysqlnd,pdo到底是什么</a></p>
+<p><a href="http://ask.apelearn.com/question/1295" target="_blank" rel="external">查看Nginx、apache、MySQL和PHP的编译参数</a></p>
 
       
 
@@ -283,15 +243,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络相关</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">LAMP架构</a>
         		</li>
       		
 		</ul>
@@ -347,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/11/10.5、日常管理之netstat-tcpdump/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/27/11.4、LAMP之PHP安装/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -361,18 +313,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/12/10.6、日常管理之网络管理相关命令/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          日常管理之网络管理相关
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/07/11/10.4、日常管理之ps命令/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">日常管理之ps命令</div>
+    <a href="/2017/07/26/11.3、LAMP之Apache安装/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LAMP之Apache安装</div>
       <i class="icon-circle-right"></i>
     </a>
   
