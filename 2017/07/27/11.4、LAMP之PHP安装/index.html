@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215839794.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215909817.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215936765.png?imageslim">
-<meta property="og:updated_time" content="2017-07-27T14:08:57.974Z">
+<meta property="og:updated_time" content="2017-07-30T08:42:04.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之PHP安装">
 <meta name="twitter:description" content="[TOC] PHP官网：www.php.net 当前主流版本为5.6/7.1 该版本如何选用，7.1的性能较好。如果PHP程序支持7.1，尽量使用PHP7">
@@ -175,16 +175,16 @@
 <li>编译中除了指定安装位置，还需要指定Apache和MySQL的相关位置，这也是为什么PHP需要在最后安装。因为PHP需要Apache和MySQL的支持</li>
 <li>依旧可以使用echo $?查询是否成功</li>
 </ul>
-<p>（2）安装</p>
+<p>（3）安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make  &amp;&amp;  make  install  &amp;&amp; echo $?</div></pre></td></tr></table></figure>
-<p>（3）拷贝配置文件</p>
+<p>（4）拷贝配置文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp php.ini-production  /usr/local/php/etc/php.ini</div></pre></td></tr></table></figure>
 <ul>
 <li><p>如何查看PHP安装时的编译参数以及配置php.ini的位置</p>
 <p><code>/usr/local/php/bin/php -i|less</code></p>
 </li>
 </ul>
-<p>（4）查询是否安装成功</p>
+<p>（5）查询是否安装成功</p>
 <p>可以看Apache是否加载了php模块，即形成.so文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls /usr/local/apache2.4/modules/libphp5.so </div><div class="line">/usr/local/apache2.4/modules/libphp5.so</div></pre></td></tr></table></figure>
 <h3 id="4、编译时出现的错误"><a href="#4、编译时出现的错误" class="headerlink" title="4、编译时出现的错误"></a>4、编译时出现的错误</h3><p>（1）configure: error: xml2-config not found. Please check your libxml2 installation.</p>
@@ -201,17 +201,17 @@
 <p>解决：yum  install -y libjpeg-turbo-devel.x86_64</p>
 <p>（5）configure: error: png.h not found.</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215839794.png?imageslim" alt="mark"></p>
-<p>解决：yum  install -y libpng.x86_64</p>
+<p>解决：yum  install -y libpng-devel</p>
 <p>（6）configure: error: freetype-config not found.</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215909817.png?imageslim" alt="mark"></p>
 <p>解决：yum  install -y freetype-devel.x86_64</p>
 <p>（7）configure: error: mcrypt.h not found. Please reinstall libmcrypt.</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215936765.png?imageslim" alt="mark"></p>
-<p>解决：yum install -y libmcrypt-devel(需要先安装epel拓展源)</p>
+<p>解决：yum install -y libmcrypt-devel(需要先安装epel-release拓展源)</p>
 <h3 id="5、查询php加载模块"><a href="#5、查询php加载模块" class="headerlink" title="5、查询php加载模块"></a>5、查询php加载模块</h3><p>/usr/local/php/bin/php -m</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~ ]# /usr/local/php/bin/php -m</div><div class="line">[PHP Modules]</div><div class="line">bz2</div><div class="line">Core</div><div class="line">ctype</div><div class="line">date</div><div class="line">dom</div><div class="line">ereg</div><div class="line">exif</div><div class="line">fileinfo</div><div class="line">filter</div><div class="line">gd</div><div class="line">hash</div><div class="line">.........</div></pre></td></tr></table></figure>
-<h2 id="二、安装PHP7"><a href="#二、安装PHP7" class="headerlink" title="二、安装PHP7"></a>二、安装PHP7</h2><h3 id="1、下载PHP7"><a href="#1、下载PHP7" class="headerlink" title="1、下载PHP7"></a>1、下载PHP7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget wget http://cn2.php.net/distributions/php-7.1.6.tar.bz2</div></pre></td></tr></table></figure>
-<h3 id="2、解压-1"><a href="#2、解压-1" class="headerlink" title="2、解压"></a>2、解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar zxf php-7.1.6.tar.bz2</div><div class="line"> cd php-7.1.6</div></pre></td></tr></table></figure>
+<h2 id="二、安装PHP7"><a href="#二、安装PHP7" class="headerlink" title="二、安装PHP7"></a>二、安装PHP7</h2><h3 id="1、下载PHP7"><a href="#1、下载PHP7" class="headerlink" title="1、下载PHP7"></a>1、下载PHP7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget  http://cn2.php.net/distributions/php-7.1.6.tar.bz2</div></pre></td></tr></table></figure>
+<h3 id="2、解压-1"><a href="#2、解压-1" class="headerlink" title="2、解压"></a>2、解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -jxvf php-7.1.6.tar.bz2</div><div class="line">cd php-7.1.6</div></pre></td></tr></table></figure>
 <h3 id="3、安装-1"><a href="#3、安装-1" class="headerlink" title="3、安装"></a>3、安装</h3><p>（1）编译</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/php7 --with-apxs2=/usr/local/apache2.4/bin/apxs --with-config-file-path=/usr/local/php7/etc  --with-pdo-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-iconv-dir --with-zlib-dir --with-bz2 --with-openssl --with-mcrypt --enable-soap --enable-gd-native-ttf --enable-mbstring --enable-sockets --enable-exif</div></pre></td></tr></table></figure>
 <ul>
@@ -313,7 +313,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/28/11-5、LAMP之配置httpd支持php解析/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/07/28/11.5、LAMP之配置httpd支持php解析/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -440,23 +440,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">LAMP架构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,6 +460,18 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">LAMP架构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
@@ -476,15 +480,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,19 +492,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,6 +513,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
