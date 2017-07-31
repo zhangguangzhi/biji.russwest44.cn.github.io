@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>LAMP之Apache域名跳转 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名  一、作用一个站点难免会有多个域名，而多个域名总得有一个主次 使用次域名访问，最后跳到主域名上，改过程为域名跳转 301是一个状态码。除了301还有302">
+  <meta name="description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名">
 <meta name="keywords" content="LAMP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LAMP之Apache域名跳转">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/31/11.8、LAMP之Apache域名跳转/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名  一、作用一个站点难免会有多个域名，而多个域名总得有一个主次 使用次域名访问，最后跳到主域名上，改过程为域名跳转 301是一个状态码。除了301还有302">
+<meta property="og:description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/172152079.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/172927626.png?imageslim">
-<meta property="og:updated_time" content="2017-07-31T14:49:35.011Z">
+<meta property="og:updated_time" content="2017-07-31T15:28:11.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache域名跳转">
-<meta name="twitter:description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名  一、作用一个站点难免会有多个域名，而多个域名总得有一个主次 使用次域名访问，最后跳到主域名上，改过程为域名跳转 301是一个状态码。除了301还有302">
+<meta name="twitter:description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/172152079.png?imageslim">
   
   
@@ -166,6 +166,7 @@
 <li>跳转状态码301,302</li>
 <li>虚拟主机需要定义次域名为别名</li>
 </ul>
+<a id="more"></a>
 <h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>一个站点难免会有多个域名，而多个域名总得有一个主次</p>
 <p>使用次域名访问，最后跳到主域名上，改过程为域名跳转</p>
 <p>301是一个状态码。除了301还有302</p>

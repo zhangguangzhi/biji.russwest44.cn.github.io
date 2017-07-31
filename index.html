@@ -274,24 +274,9 @@
 <li>跳转状态码301,302</li>
 <li>虚拟主机需要定义次域名为别名</li>
 </ul>
-<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>一个站点难免会有多个域名，而多个域名总得有一个主次</p>
-<p>使用次域名访问，最后跳到主域名上，改过程为域名跳转</p>
-<p>301是一个状态码。除了301还有302</p>
-<h2 id="二、设置域名跳转"><a href="#二、设置域名跳转" class="headerlink" title="二、设置域名跳转"></a>二、设置域名跳转</h2><p>需求：站点主域名为111.com，次域名为www.example.com 2111.com。访问次域名时跳转到主域名。</p>
-<h3 id="1、修改虚拟主机配置文件"><a href="#1、修改虚拟主机配置文件" class="headerlink" title="1、修改虚拟主机配置文件"></a>1、修改虚拟主机配置文件</h3><p>虚拟主机配置文件： /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
-<p>在对应的虚拟主机配置文件中加入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#使用mod_rewrite.c模块</div><div class="line">&lt;IfModule mod_rewrite.c&gt;</div><div class="line">#表示模块引擎打开</div><div class="line">   RewriteEngine on</div><div class="line">#设置主域名，!表示取反，不是该域名的都执行下面的规则</div><div class="line">   RewriteCond %&#123;HTTP_HOST&#125; !^111.com$</div><div class="line">#规则，设置跳转后域名与跳转状态</div><div class="line">   RewriteRule  ^/(.*)$  http://111.com/$1  [R=301,L]</div><div class="line">&lt;/IfModule&gt;</div></pre></td></tr></table></figure>
-<h3 id="2、检查mod-rewrite-c模块是否加载"><a href="#2、检查mod-rewrite-c模块是否加载" class="headerlink" title="2、检查mod_rewrite.c模块是否加载"></a>2、检查mod_rewrite.c模块是否加载</h3><p>（1）检查是否加载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 111.com]# /usr/local/apache2.4/bin/apachectl -M |grep &quot;rewrite&quot;</div><div class="line"> rewrite_module (shared)</div></pre></td></tr></table></figure>
-<p>（2）未加载如何解决</p>
-<p>编辑Apache主配置文件httpd.conf，找到”rewrite_module“所在行，取消注释</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/172152079.png?imageslim" alt="mark"></p>
-<h3 id="3、检查重载配置文件"><a href="#3、检查重载配置文件" class="headerlink" title="3、检查重载配置文件"></a>3、检查重载配置文件</h3><p>检查，重载配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 111.com]# /usr/local/apache2.4/bin/apachectl  -t</div><div class="line">Syntax OK</div><div class="line">[root@allen1 111.com]# /usr/local/apache2.4/bin/apachectl  graceful</div></pre></td></tr></table></figure>
-<h3 id="4、测试"><a href="#4、测试" class="headerlink" title="4、测试"></a>4、测试</h3><p>使用curl测试，测试结果为301</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/172927626.png?imageslim" alt="mark"></p>
-<p>301为永久跳转，302为临时跳转</p>
-
+        
+          <a class="article-more-a" href="/2017/07/31/11.8、LAMP之Apache域名跳转/#more">more >></a>
+        
       
 
       
