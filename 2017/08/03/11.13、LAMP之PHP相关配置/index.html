@@ -6,14 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Archives: 2017/7 | Hexo</title>
+  <title>LAMP之PHP相关配置 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/archives/2017/07/page/2/index.html">
+  <meta name="description" content="一、PHP配置文件位置查询php配置文件：/usr/local/php/etc/php.ini 1、/usr/local/php/bin/php -i |head12/usr/local/php/bin/php -i |head       Loaded Configuration File =&amp;gt; /usr/local/php/etc/php.ini">
+<meta name="keywords" content="LAMP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LAMP之PHP相关配置">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/03/11.13、LAMP之PHP相关配置/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、PHP配置文件位置查询php配置文件：/usr/local/php/etc/php.ini 1、/usr/local/php/bin/php -i |head12/usr/local/php/bin/php -i |head       Loaded Configuration File =&amp;gt; /usr/local/php/etc/php.ini">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/201747086.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/202042378.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/202211742.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/202233123.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/202351532.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/203153225.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/203609785.png?imageslim">
+<meta property="og:updated_time" content="2017-08-03T12:40:33.666Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="LAMP之PHP相关配置">
+<meta name="twitter:description" content="一、PHP配置文件位置查询php配置文件：/usr/local/php/etc/php.ini 1、/usr/local/php/bin/php -i |head12/usr/local/php/bin/php -i |head       Loaded Configuration File =&amp;gt; /usr/local/php/etc/php.ini">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/201747086.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,465 +142,185 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-11.13、LAMP之PHP相关配置" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LAMP之PHP相关配置
+    </h1>
+  
+
+        
+        <a href="/2017/08/03/11.13、LAMP之PHP相关配置/" class="archive-article-date">
+  	<time datetime="2017-08-03T12:12:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、PHP配置文件位置查询"><a href="#一、PHP配置文件位置查询" class="headerlink" title="一、PHP配置文件位置查询"></a>一、PHP配置文件位置查询</h2><p>php配置文件：/usr/local/php/etc/php.ini</p>
+<h3 id="1、-usr-local-php-bin-php-i-head"><a href="#1、-usr-local-php-bin-php-i-head" class="headerlink" title="1、/usr/local/php/bin/php -i |head"></a>1、/usr/local/php/bin/php -i |head</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/usr/local/php/bin/php -i |head       </div><div class="line">Loaded Configuration File =&gt; /usr/local/php/etc/php.ini</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/201747086.png?imageslim" alt="mark"></p>
+<a id="more"></a>
+<h3 id="2、查看phpinfo函数"><a href="#2、查看phpinfo函数" class="headerlink" title="2、查看phpinfo函数"></a>2、查看phpinfo函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">phpinfo();</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/202042378.png?imageslim" alt="mark"></p>
+<h3 id="3、Apache指定php配置文件php-ini的位置"><a href="#3、Apache指定php配置文件php-ini的位置" class="headerlink" title="3、Apache指定php配置文件php.ini的位置"></a>3、Apache指定php配置文件php.ini的位置</h3><p>（1）复制一个相同版本的php的配置文件到该默认加载文件夹下，那么此时该配置文件中的配置就会被应用。</p>
+<p>（2）指定一个现存的php.ini位置。具体方法如下：</p>
+<p>在httpd.conf文件最后一行添加PHPIniDir /usr/local/php/lib/php.ini </p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/202211742.png?imageslim" alt="mark"></p>
+<p>配置好后，重新加载Apache配置文件。</p>
+<p>查看php的info函数，如下图</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/202233123.png?imageslim" alt="mark"></p>
+<h2 id="二、常用配置"><a href="#二、常用配置" class="headerlink" title="二、常用配置"></a>二、常用配置</h2><h3 id="1、禁止某些函数"><a href="#1、禁止某些函数" class="headerlink" title="1、禁止某些函数"></a>1、禁止某些函数</h3><p>配置disable_function    </p>
+<p>修改配置文件：</p>
+<p>#vim /usr/local/php/etc/php.ini</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">disable_function = eval,assert,popen,passthru,escapeshellarg,escapeshellcmd,passthru,exec,system,chroot,scandir,chgrp,chown,escapeshellcmd,escapeshellarg,shell_exec,proc_get_staatus,ini_restore,dl,pfsockopen,openlog,syslog,readlink,symlink,leak,popepassthru,stream_socket_server,popen,porc_open,proc_close</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/202351532.png?imageslim" alt="mark"></p>
+<h3 id="2、配置error-log"><a href="#2、配置error-log" class="headerlink" title="2、配置error_log"></a>2、配置error_log</h3><p>修改配置文件：</p>
+<p>#vim /usr/local/php/etc/php.ini</p>
+<p>加入或者修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">display_error = off</div><div class="line">log_errors = on</div><div class="line">error_log = /usr/local/php/logs/php_errors.log</div><div class="line">error_reporting = E_ALL | E_STRICT</div></pre></td></tr></table></figure>
+<ul>
+<li>display_error = off，设置不输出php的错误内容</li>
+<li>log_errors = on，将错误内容记录到日志</li>
+<li>error_log = /usr/local/php/logs/php_errors.log，错误日志位置</li>
+<li>error_reporting = E_ALL | E_STRICT，错误日志级别</li>
+<li>首先要把错误不在浏览器显示，第二打开错误日志开关，然后指定错误日志路径，最后定义错误日志的级别。配置完成后需要重启Apache，才会生效。</li>
+<li><a href="http://note.youdao.com/noteshare?id=d6b196066dcd7da761cd9d75dab5f12a&amp;sub=B4B6E0B93FC6434388E9AF386C01ED98" target="_blank" rel="external">php的错误日志级别 error_report</a></li>
+</ul>
+<p>/usr/local/php/logs/该目录一开始是不存在的，为了避免权限问题无法自动生成，我们可以先创建该目录，并且修改权限为777</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># mkdir /usr/local/php/logs</div><div class="line"># touch  /usr/local/php/logs/php_errors.log       </div><div class="line"># chmod  777 /usr/local/php/logs/php_errors.log</div></pre></td></tr></table></figure>
+<h3 id="3、限定php访问目录"><a href="#3、限定php访问目录" class="headerlink" title="3、限定php访问目录"></a>3、限定php访问目录</h3><p>配置open_basedir</p>
+<p>（1）作用：将执行php的用户限定在指定的路径下，通过权限缩小达到安全目的。</p>
+<p>（2）修改配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/pap/etc/php.ini</div></pre></td></tr></table></figure>
+<p>加入或者修改</p>
+<p>open_basedir = /dir1:/dir2</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/203153225.png?imageslim" alt="mark"></p>
+<ul>
+<li>设置限定目录，/tmp/一般为缓存临时文件写入</li>
+<li>/dir1/，/dir2/为我们允许的php可以访问的两个目录，也可以是多个，使用“：”分隔</li>
+</ul>
+<p>（3）使用Apache限定目录</p>
+<p>除了可以在php.ini中设置，也可以在Apache的配置文件中定义，因为一个Apache下可能有多个站点，我们要针对不同的站点限定不同的open_basedir，配置如下：</p>
+<p>#vim 虚拟主机配置文件，加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/apache2.4/conf/extra/httpd-vhosts.conf</div><div class="line">php_admin_value open_basedir &quot;/dir1/:/dir2/&quot;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/203609785.png?imageslim" alt="mark"></p>
+<p><a href="http://legolas.blog.51cto.com/2682485/493917" target="_blank" rel="external">php.ini配置详解</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/19/10.12、日常管理之日志查看/" class="archive-article-date">
-  	<time datetime="2017-07-19T12:12:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/19/10.12、日常管理之日志查看/">日常管理之日志查看</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/03/11.13、LAMP之PHP相关配置/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/18/10.11、日常管理之rsync同步/" class="archive-article-date">
-  	<time datetime="2017-07-18T11:10:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-18</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/18/10.11、日常管理之rsync同步/">日常管理之rsync同步</a>
-    </h1>
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录Linux的学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/03/11.12、LAMP之Apache禁止解析PHP，禁止user_agent/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Apache禁止解析PHP，禁止指定user_agent</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">rsync</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/17/10.10、日常管理之服务管理/" class="archive-article-date">
-  	<time datetime="2017-07-17T10:48:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/17/10.10、日常管理之服务管理/">日常管理之服务管理</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/17/10.9、日常管理之任务计划/" class="archive-article-date">
-  	<time datetime="2017-07-17T09:24:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/17/10.9、日常管理之任务计划/">日常管理之任务计划</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/14/10.8、日常管理之Linux防火墙2/" class="archive-article-date">
-  	<time datetime="2017-07-14T12:38:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/14/10.8、日常管理之Linux防火墙2/">日常管理之Linux防火墙firewall</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">firewall</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/12/10.7、日常管理之Linux防火墙1/" class="archive-article-date">
-  	<time datetime="2017-07-12T13:24:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/12/10.7、日常管理之Linux防火墙1/">日常管理之Linux防火墙selinux，iptables</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">防火墙</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iptables</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/12/10.6、日常管理之网络管理相关命令/" class="archive-article-date">
-  	<time datetime="2017-07-12T12:19:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/12/10.6、日常管理之网络管理相关命令/">日常管理之网络管理相关</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络相关</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/11/10.5、日常管理之netstat-tcpdump/" class="archive-article-date">
-  	<time datetime="2017-07-11T14:09:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/11/10.5、日常管理之netstat-tcpdump/">日常管理之netstat,tcpdump,tshark</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络相关</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/11/10.4、日常管理之ps命令/" class="archive-article-date">
-  	<time datetime="2017-07-11T14:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/11/10.4、日常管理之ps命令/">日常管理之ps命令</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/11/10.3、日常管理之iostat,iotop,free/" class="archive-article-date">
-  	<time datetime="2017-07-11T13:13:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/11/10.3、日常管理之iostat,iotop,free/">日常管理之iostat，iotop，free</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2017/07/">&laquo; Prev</a><a class="page-number" href="/archives/2017/07/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2017/07/page/3/">3</a><a class="page-number" href="/archives/2017/07/page/4/">4</a><a class="extend next" rel="next" href="/archives/2017/07/page/3/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -611,8 +344,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
