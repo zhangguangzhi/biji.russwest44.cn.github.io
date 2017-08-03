@@ -6,23 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>日常管理之网络管理相关 | Hexo</title>
+  <title>LAMP之Apache配置防盗链 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 1、ifconfigifconfig：查看网卡IP（ip  add也是可以查看） 安装：yum  install  -y   net-tools">
-<meta name="keywords" content="日常管理,系统监控,网络相关">
+  <meta name="description" content="[TOC] 一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。 二、配置防盗链1、修改虚拟主机配置">
+<meta name="keywords" content="LAMP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="日常管理之网络管理相关">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/12/10.6、日常管理之网络管理相关命令/index.html">
+<meta property="og:title" content="LAMP之Apache配置防盗链">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/02/11.10、LAMP之Apache配置防盗链/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 1、ifconfigifconfig：查看网卡IP（ip  add也是可以查看） 安装：yum  install  -y   net-tools">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/151926337.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/202627464.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/230633747.png?imageslim">
-<meta property="og:updated_time" content="2017-07-19T15:07:27.924Z">
+<meta property="og:description" content="[TOC] 一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。 二、配置防盗链1、修改虚拟主机配置">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/191935077.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/192359166.png?imageslim">
+<meta property="og:updated_time" content="2017-08-02T11:24:07.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="日常管理之网络管理相关">
-<meta name="twitter:description" content="[TOC] 1、ifconfigifconfig：查看网卡IP（ip  add也是可以查看） 安装：yum  install  -y   net-tools">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/151926337.png?imageslim">
+<meta name="twitter:title" content="LAMP之Apache配置防盗链">
+<meta name="twitter:description" content="[TOC] 一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。 二、配置防盗链1、修改虚拟主机配置">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/191935077.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -138,20 +137,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-10.6、日常管理之网络管理相关命令" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-11.10、LAMP之Apache配置防盗链" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      日常管理之网络管理相关
+      LAMP之Apache配置防盗链
     </h1>
   
 
         
-        <a href="/2017/07/12/10.6、日常管理之网络管理相关命令/" class="archive-article-date">
-  	<time datetime="2017-07-12T12:19:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-12</time>
+        <a href="/2017/08/02/11.10、LAMP之Apache配置防盗链/" class="archive-article-date">
+  	<time datetime="2017-08-02T11:14:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-02</time>
 </a>
         
       </header>
@@ -159,55 +158,17 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="1、ifconfig"><a href="#1、ifconfig" class="headerlink" title="1、ifconfig"></a>1、ifconfig</h3><p>ifconfig：查看网卡IP（ip  add也是可以查看）</p>
-<p>安装：yum  install  -y   net-tools</p>
-<a id="more"></a>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170712/151926337.png?imageslim" alt="mark"></p>
+<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。</p>
+<h2 id="二、配置防盗链"><a href="#二、配置防盗链" class="headerlink" title="二、配置防盗链"></a>二、配置防盗链</h2><h3 id="1、修改虚拟主机配置文件"><a href="#1、修改虚拟主机配置文件" class="headerlink" title="1、修改虚拟主机配置文件"></a>1、修改虚拟主机配置文件</h3><p>vim  /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
+<p>加入以下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">SetEnvIfNoCase Referer &quot;^http://.*\.allen\.com&quot; local_ref</div><div class="line">SetEnvIfNoCase Referer &quot;.*\.zhangguangzhi\.com&quot; local_ref</div><div class="line">SetEnvIfNoCase Referer &quot;^$&quot; local_ref</div><div class="line">&lt;filesmatch &quot;\.(txt|doc|mp3|zip|rar|jpg|gif|png)&quot;&gt;</div><div class="line">Order Allow,Deny</div><div class="line">Allow from env=local_ref</div><div class="line">&lt;/filesmatch&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170802/191935077.png?imageslim" alt="mark"></p>
 <ul>
-<li>-a：查看所有网卡，包括无IP或者未启动的网卡</li>
-<li>使用ifconfig临时设置网卡IP：<code>ifconfig   网卡   ip  netmask 255.255.255.0</code></li>
+<li>上图中的referer白名单是：allen.com，zhangguangzhi.com，空白（即直接输入）</li>
 </ul>
-<h3 id="2、ifup-ifdown"><a href="#2、ifup-ifdown" class="headerlink" title="2、ifup/ifdown"></a>2、ifup/ifdown</h3><p>ifup/down：后面跟网卡名称，启动和关闭网卡</p>
-<h3 id="3、增加虚拟网卡"><a href="#3、增加虚拟网卡" class="headerlink" title="3、增加虚拟网卡"></a>3、增加虚拟网卡</h3><p>（1）创建网卡配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 network-scripts]# cd /etc/sysconfig/network-scripts/</div><div class="line">[root@allen1 network-scripts]# cp ifcfg-ens33 ifcfg-ens33\:0</div></pre></td></tr></table></figure>
-<p>（2）修改配置文件中的NAME，DEVICE，自定义ip</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170712/202627464.png?imageslim" alt="mark"></p>
-<p>（3）保存，启动网卡</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 network-scripts]# ifup  ens33:0</div><div class="line">[root@allen1 network-scripts]# ifconfig </div><div class="line">ens33:0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</div><div class="line">        inet 192.168.205.140  netmask 255.255.255.0  broadcast 192.168.205.255</div><div class="line">        ether 00:0c:29:c6:8e:55  txqueuelen 1000  (Ethernet)</div></pre></td></tr></table></figure>
-<h3 id="4、测试网卡是否连接网线"><a href="#4、测试网卡是否连接网线" class="headerlink" title="4、测试网卡是否连接网线"></a>4、测试网卡是否连接网线</h3><p>mii-tool：后面跟网卡名称，查看网卡是否插入网线（ethtool也用相同作用）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 network-scripts]# mii-tool  ens33</div><div class="line">ens33: negotiated 1000baseT-FD flow-control, link ok</div><div class="line">#显示OK代表插入网线，NO表示未插入网线</div></pre></td></tr></table></figure>
-<h3 id="5、设置hostname"><a href="#5、设置hostname" class="headerlink" title="5、设置hostname"></a>5、设置hostname</h3><p>hostnamectl  set-hostname：后面跟主机名，表示修改主机名。</p>
-<p>修改后需要重新进入系统或者bash才能生效</p>
-<p>配置文件为/etc/hostname</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 network-scripts]# cat /etc/hostname </div><div class="line">allen1</div></pre></td></tr></table></figure>
-<h3 id="6、设置DNS"><a href="#6、设置DNS" class="headerlink" title="6、设置DNS"></a>6、设置DNS</h3><p>DNS配置文件：/etc/resolv.conf</p>
-<p>如果网卡配置文件设置了DNS，以网卡配置文件为主</p>
-<h3 id="7、本地DNS解析文件"><a href="#7、本地DNS解析文件" class="headerlink" title="7、本地DNS解析文件"></a>7、本地DNS解析文件</h3><p>在/etc/hosts中可设置，IP与域名的对应解析</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 network-scripts]# cat  /etc/hosts</div><div class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</div><div class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</div></pre></td></tr></table></figure>
-<ul>
-<li>IP可以对应多个域名</li>
-<li>域名无法对应多个IP</li>
-</ul>
-<h3 id="8、查看网关"><a href="#8、查看网关" class="headerlink" title="8、查看网关"></a>8、查看网关</h3><p>route：查看路由列表，可以查看网关</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 network-scripts]# route -n</div><div class="line">Kernel IP routing table</div><div class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</div><div class="line">0.0.0.0         192.168.205.2   0.0.0.0         UG    100    0        0 ens33</div><div class="line">192.168.205.0   0.0.0.0         255.255.255.0   U     100    0        0 ens33</div></pre></td></tr></table></figure>
-<p>设置网关：<code>route add default gw 网关</code></p>
-<h3 id="9、测试网络连通性"><a href="#9、测试网络连通性" class="headerlink" title="9、测试网络连通性"></a>9、测试网络连通性</h3><p>（1）ping：网络测试命令</p>
-<ul>
-<li>ping  选项  ip或域名</li>
-<li>-c ：后面跟数字，指定ping的次数</li>
-<li>如何禁止被ping：<code>echo &quot;1&quot; &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</code></li>
-</ul>
-<p>（2）telnet：探测远程端口</p>
-<ul>
-<li>用法：telnet  ip  端口</li>
-</ul>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170719/230633747.png?imageslim" alt="mark"></p>
-<p>退出探测：ctrl  +  “]”，quit</p>
-<h3 id="10、远程连接"><a href="#10、远程连接" class="headerlink" title="10、远程连接"></a>10、远程连接</h3><p>ssh：远程连接指定服务器</p>
-<ul>
-<li>ssh  用户名@ip</li>
-<li>指定端口：ssh  -p  端口</li>
-</ul>
+<h3 id="2、检查重载配置文件，测试"><a href="#2、检查重载配置文件，测试" class="headerlink" title="2、检查重载配置文件，测试"></a>2、检查重载配置文件，测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test]# /usr/local/apache2.4/bin/apachectl -t</div><div class="line">Syntax OK</div><div class="line">[root@allen1 test]# /usr/local/apache2.4/bin/apachectl graceful</div></pre></td></tr></table></figure>
+<p>测试：直接使用curl测试，-e可以指定referer（注意格式），不是白名单域名会显示状态码403</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170802/192359166.png?imageslim" alt="mark"></p>
 
       
 
@@ -221,15 +182,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络相关</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
         		</li>
       		
 		</ul>
@@ -285,7 +238,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/12/10.6、日常管理之网络管理相关命令/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/02/11.10、LAMP之Apache配置防盗链/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -299,18 +252,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/12/10.7、日常管理之Linux防火墙1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/02/11.11、LAMP之Apache访问控制/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          日常管理之Linux防火墙selinux，iptables
+          LAMP之Apache访问控制
         
       </div>
     </a>
   
   
-    <a href="/2017/07/11/10.5、日常管理之netstat-tcpdump/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">日常管理之netstat,tcpdump,tshark</div>
+    <a href="/2017/07/31/11.9、LAMP之Apache日志管理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LAMP之Apache日志管理</div>
       <i class="icon-circle-right"></i>
     </a>
   
