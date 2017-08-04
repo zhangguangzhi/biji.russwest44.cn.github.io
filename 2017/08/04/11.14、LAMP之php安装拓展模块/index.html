@@ -6,27 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LAMP之PHP安装 | Hexo</title>
+  <title>LAMP之php安装拓展模块 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] PHP官网：www.php.net 当前主流版本为5.6/7.1 该版本如何选用，7.1的性能较好。如果PHP程序支持7.1，尽量使用PHP7">
+  <meta name="description" content="[TOC] 一、作用当我们编译完成php后，有一些模块没有。这个时候我们可以重新编译php，加上配置参数。 或者，直接编译出一个独立的模块文件，然后让php去调用。">
 <meta name="keywords" content="LAMP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LAMP之PHP安装">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/27/11.4、LAMP之PHP安装/index.html">
+<meta property="og:title" content="LAMP之php安装拓展模块">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/04/11.14、LAMP之php安装拓展模块/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] PHP官网：www.php.net 当前主流版本为5.6/7.1 该版本如何选用，7.1的性能较好。如果PHP程序支持7.1，尽量使用PHP7">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215636186.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215704413.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215747702.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215814685.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215839794.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215909817.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215936765.png?imageslim">
-<meta property="og:updated_time" content="2017-07-31T15:30:30.961Z">
+<meta property="og:description" content="[TOC] 一、作用当我们编译完成php后，有一些模块没有。这个时候我们可以重新编译php，加上配置参数。 或者，直接编译出一个独立的模块文件，然后让php去调用。">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/111518971.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/111631489.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/113022598.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/113448276.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/113929678.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/114053470.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/114509439.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/121036600.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/121013565.png?imageslim">
+<meta property="og:updated_time" content="2017-08-04T04:10:43.247Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LAMP之PHP安装">
-<meta name="twitter:description" content="[TOC] PHP官网：www.php.net 当前主流版本为5.6/7.1 该版本如何选用，7.1的性能较好。如果PHP程序支持7.1，尽量使用PHP7">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/215636186.png?imageslim">
+<meta name="twitter:title" content="LAMP之php安装拓展模块">
+<meta name="twitter:description" content="[TOC] 一、作用当我们编译完成php后，有一些模块没有。这个时候我们可以重新编译php，加上配置参数。 或者，直接编译出一个独立的模块文件，然后让php去调用。">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/111518971.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -142,20 +144,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-11.4、LAMP之PHP安装" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-11.14、LAMP之php安装拓展模块" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      LAMP之PHP安装
+      LAMP之php安装拓展模块
     </h1>
   
 
         
-        <a href="/2017/07/27/11.4、LAMP之PHP安装/" class="archive-article-date">
-  	<time datetime="2017-07-27T13:48:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
+        <a href="/2017/08/04/11.14、LAMP之php安装拓展模块/" class="archive-article-date">
+  	<time datetime="2017-08-04T03:06:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
 </a>
         
       </header>
@@ -163,73 +165,60 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<p>PHP官网：www.php.net</p>
-<p>当前主流版本为5.6/7.1</p>
-<p>该版本如何选用，7.1的性能较好。如果PHP程序支持7.1，尽量使用PHP7</p>
+<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>当我们编译完成php后，有一些模块没有。这个时候我们可以重新编译php，加上配置参数。</p>
+<p>或者，直接编译出一个独立的模块文件，然后让php去调用。</p>
 <a id="more"></a>
-<h2 id="一、安装PHP5"><a href="#一、安装PHP5" class="headerlink" title="一、安装PHP5"></a>一、安装PHP5</h2><h3 id="1、下载PHP5"><a href="#1、下载PHP5" class="headerlink" title="1、下载PHP5"></a>1、下载PHP5</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget http://cn2.php.net/distributions/php-5.6.30.tar.gz</div></pre></td></tr></table></figure>
-<h3 id="2、解压"><a href="#2、解压" class="headerlink" title="2、解压"></a>2、解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar  -zxvf php-6.6.30.tar.gz</div><div class="line">cd php-5.6.30</div></pre></td></tr></table></figure>
-<h3 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h3><p>（1）编译</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/php --with-apxs2=/usr/local/apache2.4/bin/apxs --with-config-file-path=/usr/local/php/etc  --with-mysql=/usr/local/mysql --with-pdo-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-iconv-dir --with-zlib-dir --with-bz2 --with-openssl --with-mcrypt --enable-soap --enable-gd-native-ttf --enable-mbstring --enable-sockets --enable-exif</div></pre></td></tr></table></figure>
+<h2 id="二、安装方法"><a href="#二、安装方法" class="headerlink" title="二、安装方法"></a>二、安装方法</h2><h3 id="1、PHP源码包已有模块安装"><a href="#1、PHP源码包已有模块安装" class="headerlink" title="1、PHP源码包已有模块安装"></a>1、PHP源码包已有模块安装</h3><p>安装curl模块</p>
+<p>（1）准备工作</p>
+<p>进入PHP源码包目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src/</div></pre></td></tr></table></figure>
+<p>进入模块源码目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd  ext/</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170804/111518971.png?imageslim" alt="mark"></p>
+<p>进入我们准备安装的模块目录curl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd  curl/</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170804/111631489.png?imageslim" alt="mark"></p>
+<p>（2）编译安装模块</p>
+<p>①使用php的phpize工具生成congfigure文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/usr/local/php/bin/phpize</div><div class="line">#提示一下错误，&quot;Cannot find autoconf&quot;</div><div class="line">#解决办法为安装autoconf，安装后重新执行命令</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170804/113022598.png?imageslim" alt="mark"></p>
+<p>②使用configure进行编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure  --with-php-config=/usr/local/php/bin/php-config</div></pre></td></tr></table></figure>
+<p>出现错误：configure: error: Please reinstall the libcurl distribution -</p>
+<p>​    easy.h should be in <curl-dir>/include/curl/</curl-dir></p>
+<p>解决：yum -y install curl-devel</p>
+<p>解决后重新执行编译命令。</p>
+<p>③make &amp;&amp; make install </p>
+<p>（3）PHP调用模块</p>
+<p>完成编译安装后，会在/usr/local/src/php-5.6.30/ext/curl/modules/curl.so 下生成一个模块文件curl.so。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170804/113448276.png?imageslim" alt="mark"></p>
 <ul>
-<li>编译中除了指定安装位置，还需要指定Apache和MySQL的相关位置，这也是为什么PHP需要在最后安装。因为PHP需要Apache和MySQL的支持</li>
-<li>依旧可以使用echo $?查询是否成功</li>
+<li>我们需要将这个文件拷贝至PHP的extension_dir下（不修改默认位置可不用拷贝）</li>
+<li>如何查看extension_dir：/usr/local/php/bin/php -i |grep ‘extension_dir’</li>
+<li>extension_dir默认位置：/usr/local/php/lib/php/extensions/no-debug-zts-20131226/</li>
+<li>如何修改extension_dir位置：编辑php配置文件/usr/local/php/etc/php.ini，修改extension_dir = 指定路径</li>
 </ul>
-<p>（3）安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make  &amp;&amp;  make  install  &amp;&amp; echo $?</div></pre></td></tr></table></figure>
-<p>（4）拷贝配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp php.ini-production  /usr/local/php/etc/php.ini</div></pre></td></tr></table></figure>
-<ul>
-<li><p>如何查看PHP安装时的编译参数以及配置php.ini的位置</p>
-<p><code>/usr/local/php/bin/php -i|less</code></p>
-</li>
-</ul>
-<p>（5）查询是否安装成功</p>
-<p>可以看Apache是否加载了php模块，即形成.so文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# ls /usr/local/apache2.4/modules/libphp5.so </div><div class="line">/usr/local/apache2.4/modules/libphp5.so</div></pre></td></tr></table></figure>
-<h3 id="4、编译时出现的错误"><a href="#4、编译时出现的错误" class="headerlink" title="4、编译时出现的错误"></a>4、编译时出现的错误</h3><p>（1）configure: error: xml2-config not found. Please check your libxml2 installation.</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215636186.png?imageslim" alt="mark"></p>
-<p>解决：yum  -y  install  libxml2-devel.x86_64</p>
-<p>（2）configure: error: Cannot find OpenSSL’s \<evp.h></evp.h></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215704413.png?imageslim" alt="mark"></p>
-<p>解决： install -y   openssl-devel.x86_64</p>
-<p>（3）configure: error: Please reinstall the BZip2 distribution</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215747702.png?imageslim" alt="mark"></p>
-<p>解决：yum  install -y bzip2-devel.x86_64</p>
-<p>（4）configure: error: jpeglib.h not found.</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215814685.png?imageslim" alt="mark"></p>
-<p>解决：yum  install -y libjpeg-turbo-devel.x86_64</p>
-<p>（5）configure: error: png.h not found.</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215839794.png?imageslim" alt="mark"></p>
-<p>解决：yum  install -y libpng-devel</p>
-<p>（6）configure: error: freetype-config not found.</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215909817.png?imageslim" alt="mark"></p>
-<p>解决：yum  install -y freetype-devel.x86_64</p>
-<p>（7）configure: error: mcrypt.h not found. Please reinstall libmcrypt.</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/215936765.png?imageslim" alt="mark"></p>
-<p>解决：yum install -y libmcrypt-devel(需要先安装epel-release拓展源)</p>
-<h3 id="5、查询php加载模块"><a href="#5、查询php加载模块" class="headerlink" title="5、查询php加载模块"></a>5、查询php加载模块</h3><p>/usr/local/php/bin/php -m</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~ ]# /usr/local/php/bin/php -m</div><div class="line">[PHP Modules]</div><div class="line">bz2</div><div class="line">Core</div><div class="line">ctype</div><div class="line">date</div><div class="line">dom</div><div class="line">ereg</div><div class="line">exif</div><div class="line">fileinfo</div><div class="line">filter</div><div class="line">gd</div><div class="line">hash</div><div class="line">.........</div></pre></td></tr></table></figure>
-<h2 id="二、安装PHP7"><a href="#二、安装PHP7" class="headerlink" title="二、安装PHP7"></a>二、安装PHP7</h2><h3 id="1、下载PHP7"><a href="#1、下载PHP7" class="headerlink" title="1、下载PHP7"></a>1、下载PHP7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget  http://cn2.php.net/distributions/php-7.1.6.tar.bz2</div></pre></td></tr></table></figure>
-<h3 id="2、解压-1"><a href="#2、解压-1" class="headerlink" title="2、解压"></a>2、解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -jxvf php-7.1.6.tar.bz2</div><div class="line">cd php-7.1.6</div></pre></td></tr></table></figure>
-<h3 id="3、安装-1"><a href="#3、安装-1" class="headerlink" title="3、安装"></a>3、安装</h3><p>（1）编译</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/php7 --with-apxs2=/usr/local/apache2.4/bin/apxs --with-config-file-path=/usr/local/php7/etc  --with-pdo-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-iconv-dir --with-zlib-dir --with-bz2 --with-openssl --with-mcrypt --enable-soap --enable-gd-native-ttf --enable-mbstring --enable-sockets --enable-exif</div></pre></td></tr></table></figure>
-<ul>
-<li>编译中除了指定安装位置，还需要指定Apache和MySQL的相关位置，这也是为什么PHP需要在最后安装。因为PHP需要Apache和MySQL的支持</li>
-<li>依旧可以使用echo $?查询是否成功</li>
-</ul>
-<p>（2）安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make  &amp;&amp;  make  install  &amp;&amp; echo $?</div></pre></td></tr></table></figure>
-<p>（3）拷贝配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp php.ini-production  /usr/local/php7/etc/php.ini</div></pre></td></tr></table></figure>
-<ul>
-<li><p>如何查看PHP安装时的编译参数以及配置php.ini的位置</p>
-<p><code>/usr/local/php/bin/php -i|less</code></p>
-</li>
-</ul>
-<p>拓展：</p>
-<p><a href="http://blog.csdn.net/u013785951/article/details/60876816" target="_blank" rel="external">php中mysql,mysqli,mysqlnd,pdo到底是什么</a></p>
-<p><a href="http://ask.apelearn.com/question/1295" target="_blank" rel="external">查看Nginx、apache、MySQL和PHP的编译参数</a></p>
+<p>使用PHP调用模块，修改PHP配置文件php.ini，修改并加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extension = curl.so</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170804/113929678.png?imageslim" alt="mark"></p>
+<p>验证是否成功添加</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170804/114053470.png?imageslim" alt="mark"></p>
+<h3 id="2、模块源码包安装"><a href="#2、模块源码包安装" class="headerlink" title="2、模块源码包安装"></a>2、模块源码包安装</h3><p>安装redis模块</p>
+<p>（1）下载redis</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src/</div><div class="line">wget https://codeload.github.com/phpredis/phpredis/zip/develop </div><div class="line">mv develop phpredis-develop.zip</div><div class="line">unzip phpredis-develop.zip</div><div class="line">cd phpredis-develop</div></pre></td></tr></table></figure>
+<p>（2）生成configure文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/local/php/bin/phpize</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170804/114509439.png?imageslim" alt="mark"></p>
+<p>（3）编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --with-php-config=/usr/local/php/bin/php-config</div></pre></td></tr></table></figure>
+<p>（4）安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<p>（5）php调用模块</p>
+<p>编辑配置文件php.ini，加入以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extension = redis.so</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170804/121036600.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170804/121013565.png?imageslim" alt="mark"></p>
+<p>（6）重启httpd服务才能生效</p>
 
       
 
@@ -299,7 +288,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/27/11.4、LAMP之PHP安装/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/04/11.14、LAMP之php安装拓展模块/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -313,18 +302,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/28/11.5、LAMP之配置httpd支持php解析/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          LAMP之配置httpd支持php解析
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/07/26/11.3、LAMP之Apache安装/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LAMP之Apache安装</div>
+    <a href="/2017/08/03/11.13、LAMP之PHP相关配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LAMP之PHP相关配置</div>
       <i class="icon-circle-right"></i>
     </a>
   
