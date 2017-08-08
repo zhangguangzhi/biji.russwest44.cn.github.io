@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170726/232443943.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170726/232351011.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/000535536.png?imageslim">
-<meta property="og:updated_time" content="2017-07-31T15:31:07.367Z">
+<meta property="og:updated_time" content="2017-08-07T06:26:11.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之安装MySQL">
 <meta name="twitter:description" content="MySQL的几个常用安装包：rpm，源码，二进制免编译 二进制免编译包：软件先进行编译，再打包压缩。好处在于不用花时间编译配置。二进制包区分平台，使用uname  -a查看平台，X86为64位，i686为32位。">
@@ -183,7 +183,7 @@
 <li>该步骤创建的目录为MySQL数据存放目录</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/</div></pre></td></tr></table></figure>
-<h3 id="6、初始化MySQL"><a href="#6、初始化MySQL" class="headerlink" title="6、初始化MySQL"></a>6、初始化MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mysql]# cd /usr/local/mysql</div><div class="line">[root@allen1 mysql]# ./scripts/mysql_install_db --user=mysql  --datedir=/data/mysql</div></pre></td></tr></table></figure>
+<h3 id="6、初始化MySQL"><a href="#6、初始化MySQL" class="headerlink" title="6、初始化MySQL"></a>6、初始化MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mysql]# cd /usr/local/mysql</div><div class="line">[root@allen1 mysql]# ./scripts/mysql_install_db --user=mysql  --datadir=/data/mysql</div></pre></td></tr></table></figure>
 <ul>
 <li>-user=MySQL使用用户</li>
 <li>-datadir=MySQL数据存放目录</li>
@@ -480,6 +480,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
@@ -512,11 +516,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,10 +533,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>

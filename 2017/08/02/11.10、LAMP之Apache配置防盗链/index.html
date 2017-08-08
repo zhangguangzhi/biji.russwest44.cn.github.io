@@ -8,20 +8,21 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>LAMP之Apache配置防盗链 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。 二、配置防盗链1、修改虚拟主机配置">
+  <meta name="description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问，只用img可以访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际">
 <meta name="keywords" content="LAMP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LAMP之Apache配置防盗链">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/02/11.10、LAMP之Apache配置防盗链/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。 二、配置防盗链1、修改虚拟主机配置">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/191935077.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/192359166.png?imageslim">
-<meta property="og:updated_time" content="2017-08-02T11:24:07.974Z">
+<meta property="og:description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问，只用img可以访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/101325031.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/101538716.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/105440309.png?imageslim">
+<meta property="og:updated_time" content="2017-08-08T02:54:46.376Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache配置防盗链">
-<meta name="twitter:description" content="[TOC] 一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。 二、配置防盗链1、修改虚拟主机配置">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/191935077.png?imageslim">
+<meta name="twitter:description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问，只用img可以访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/101325031.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -158,17 +159,35 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
+<p>重点：</p>
+<ul>
+<li><p>SetEnvIfNoCase Referer “^<a href="http://.*\.allen\.com$" target="_blank" rel="external">http://.*\.allen\.com$</a>“ local_ref </p>
+<p>将referer的具体值赋予变量local_ref ，env为空白值</p>
+</li>
+<li><p>使用访问控制限制图片类型的访问，只用img可以访问</p>
+</li>
+</ul>
 <h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。</p>
+<a id="more"></a>
 <h2 id="二、配置防盗链"><a href="#二、配置防盗链" class="headerlink" title="二、配置防盗链"></a>二、配置防盗链</h2><h3 id="1、修改虚拟主机配置文件"><a href="#1、修改虚拟主机配置文件" class="headerlink" title="1、修改虚拟主机配置文件"></a>1、修改虚拟主机配置文件</h3><p>vim  /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
 <p>加入以下配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">SetEnvIfNoCase Referer &quot;^http://.*\.allen\.com&quot; local_ref</div><div class="line">SetEnvIfNoCase Referer &quot;.*\.zhangguangzhi\.com&quot; local_ref</div><div class="line">SetEnvIfNoCase Referer &quot;^$&quot; local_ref</div><div class="line">&lt;filesmatch &quot;\.(txt|doc|mp3|zip|rar|jpg|gif|png)&quot;&gt;</div><div class="line">Order Allow,Deny</div><div class="line">Allow from env=local_ref</div><div class="line">&lt;/filesmatch&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170802/191935077.png?imageslim" alt="mark"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#定义local_ref的值为referer</div><div class="line">Setenvifnocase  Referer  &quot;http://111.com&quot; local_ref</div><div class="line">Setenvifnocase  Referer  &quot;^$&quot;  local_ref</div><div class="line">#访问控制</div><div class="line">&lt;FilesMatch &quot;\.(gif|jpg|png)&quot;&gt;</div><div class="line">    order  deny,allow</div><div class="line">    deny from all</div><div class="line">    allow from env=local_ref</div><div class="line">&lt;/FilesMatch&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170808/101325031.png?imageslim" alt="mark"></p>
 <ul>
-<li>上图中的referer白名单是：allen.com，zhangguangzhi.com，空白（即直接输入）</li>
+<li>上图中的referer白名单是：111.com，空白行（即直接输入）</li>
 </ul>
 <h3 id="2、检查重载配置文件，测试"><a href="#2、检查重载配置文件，测试" class="headerlink" title="2、检查重载配置文件，测试"></a>2、检查重载配置文件，测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test]# /usr/local/apache2.4/bin/apachectl -t</div><div class="line">Syntax OK</div><div class="line">[root@allen1 test]# /usr/local/apache2.4/bin/apachectl graceful</div></pre></td></tr></table></figure>
 <p>测试：直接使用curl测试，-e可以指定referer（注意格式），不是白名单域名会显示状态码403</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170802/192359166.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170808/101538716.png?imageslim" alt="mark"></p>
+<h2 id="三、利用rewrite模块"><a href="#三、利用rewrite模块" class="headerlink" title="三、利用rewrite模块"></a>三、利用rewrite模块</h2><p>我们还可以使用rewrite模块对个别网站进行防盗链</p>
+<h3 id="1、修改主机配置文件"><a href="#1、修改主机配置文件" class="headerlink" title="1、修改主机配置文件"></a>1、修改主机配置文件</h3><p>vim /usr/local/apache2.4/conf/extra/httpd-vhosts.conf</p>
+<p>加入以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#rewrite配置防盗链</div><div class="line">&lt;Ifmodule mod_rewrite.c&gt;</div><div class="line">	RewriteEngine on</div><div class="line">	#设置Rewrite规则，REFERER为baidu.com，qq.com</div><div class="line">	RewriteCond  %&#123;HTTP_REFERER&#125; .*\.baidu\.com  [NC,OR]</div><div class="line">	RewriteCond  %&#123;HTTP_REFERER&#125; .*\.qq\.com  [NC]</div><div class="line">	#设置Rewrite执行规则，当REFERER访问指定文件时，跳转到指定页面。</div><div class="line">	RewriteRule  .*\.(jpg|jpeg|gif|png|rar|zip|txt|ace|torrent|gz|swf)$  http://www.111.com/404.png [R,NC,L]</div><div class="line">&lt;/IFmodule&gt;</div></pre></td></tr></table></figure>
+<p>2、检查重载配置文件，测试</p>
+<p>（1）检查重新加载配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test]# /usr/local/apache2.4/bin/apachectl -t</div><div class="line">Syntax OK</div><div class="line">[root@allen1 test]# /usr/local/apache2.4/bin/apachectl graceful</div></pre></td></tr></table></figure>
+<p>（2）测试</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170808/105440309.png?imageslim" alt="mark"></p>
 
       
 
@@ -407,6 +426,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
@@ -439,11 +462,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,10 +479,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>

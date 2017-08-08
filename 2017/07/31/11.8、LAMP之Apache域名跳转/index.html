@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/172152079.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/172927626.png?imageslim">
-<meta property="og:updated_time" content="2017-07-31T15:28:11.172Z">
+<meta property="og:updated_time" content="2017-08-08T12:38:53.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache域名跳转">
 <meta name="twitter:description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名">
@@ -167,9 +167,8 @@
 <li>虚拟主机需要定义次域名为别名</li>
 </ul>
 <a id="more"></a>
-<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>一个站点难免会有多个域名，而多个域名总得有一个主次</p>
-<p>使用次域名访问，最后跳到主域名上，改过程为域名跳转</p>
-<p>301是一个状态码。除了301还有302</p>
+<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>（1）一个站点有多个域名会对SEO有影响，说白了就是百度搜索关键词的排名会收到影响，如果把多个域名全部跳转到指定的一个域名，这样以这个域名为中心，就可以吧权重集中在这个域名上，这样搜索关键词的排名也就靠前。</p>
+<p>（2）如果之前的某个域名不再使用了，但是搜索引擎还保留着之前老域名的连接，这以为着用户可能会搜到我们的网站并且点击老域名，固需要把老域名做个跳转跳到新域名。</p>
 <h2 id="二、设置域名跳转"><a href="#二、设置域名跳转" class="headerlink" title="二、设置域名跳转"></a>二、设置域名跳转</h2><p>需求：站点主域名为111.com，次域名为www.example.com 2111.com。访问次域名时跳转到主域名。</p>
 <h3 id="1、修改虚拟主机配置文件"><a href="#1、修改虚拟主机配置文件" class="headerlink" title="1、修改虚拟主机配置文件"></a>1、修改虚拟主机配置文件</h3><p>虚拟主机配置文件： /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
 <p>在对应的虚拟主机配置文件中加入</p>
@@ -184,6 +183,7 @@
 <h3 id="4、测试"><a href="#4、测试" class="headerlink" title="4、测试"></a>4、测试</h3><p>使用curl测试，测试结果为301</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/172927626.png?imageslim" alt="mark"></p>
 <p>301为永久跳转，302为临时跳转</p>
+<p><a href="http://note.youdao.com/share/?id=0161eba78b2aab8843e0866bdd9470ea&amp;type=note#/" target="_blank" rel="external">Apache的rewrite规则</a></p>
 
       
 
@@ -422,6 +422,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
@@ -454,11 +458,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -471,10 +475,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>

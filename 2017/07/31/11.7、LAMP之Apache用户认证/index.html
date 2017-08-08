@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/164641444.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/170032806.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/170133861.png?imageslim">
-<meta property="og:updated_time" content="2017-07-31T09:03:17.574Z">
+<meta property="og:updated_time" content="2017-08-08T03:21:43.742Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache用户认证">
 <meta name="twitter:description" content="[TOC] Apache用户认证重点：  Apache使用\匹配目录，使用\匹配文件。 密码文件的创建">
@@ -201,16 +201,20 @@
 <h2 id="三、针对文件设置用户认证"><a href="#三、针对文件设置用户认证" class="headerlink" title="三、针对文件设置用户认证"></a>三、针对文件设置用户认证</h2><p>需求：加入现在网站根目录下的admin.php是我们的管理后台，我们要给它加上一层用户认证。</p>
 <h3 id="1、修改配置文件"><a href="#1、修改配置文件" class="headerlink" title="1、修改配置文件"></a>1、修改配置文件</h3><p>修改虚拟主机配置文件：  /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
 <p>在配置文件中加入如下配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#因为是针对文件，所以使用&lt;FilesMatch&gt;，后面跟文件</div><div class="line">&lt;Directory  /data/wwwroot/111.com&gt;</div><div class="line">#表示开启认证</div><div class="line">	AllowOverride AuthConfig</div><div class="line">#提示信息，可自定义</div><div class="line">	AuthName &quot;111.com user&quot;</div><div class="line">#认证类型，使用Basic即可</div><div class="line">	AuthType  Basic</div><div class="line">#认证密码文件位置</div><div class="line">	AuthUserFile  /data/wwwroot/.htpasswd</div><div class="line">#指定需要认证的用户为全部可用用户</div><div class="line">	require valid-user</div><div class="line">&lt;/Directory&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#因为是针对文件，所以使用&lt;FilesMatch&gt;，后面跟文件</div><div class="line">&lt;FilesMatch admin.php&gt;</div><div class="line">#表示开启认证</div><div class="line">	AllowOverride AuthConfig</div><div class="line">#提示信息，可自定义</div><div class="line">	AuthName &quot;111.com user&quot;</div><div class="line">#认证类型，使用Basic即可</div><div class="line">	AuthType  Basic</div><div class="line">#认证密码文件位置</div><div class="line">	AuthUserFile  /data/wwwroot/.htpasswd</div><div class="line">#指定需要认证的用户为全部可用用户</div><div class="line">	require valid-user</div><div class="line">&lt;/FilesMatch&gt;</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/164318591.png?imageslim" alt="mark"></p>
 <h3 id="2、创建用户密码文件-1"><a href="#2、创建用户密码文件-1" class="headerlink" title="2、创建用户密码文件"></a>2、创建用户密码文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/local/apache2.4/bin/htpasswd  -m /data/wwwroot/.htpasswd  allen1</div></pre></td></tr></table></figure>
 <h3 id="3、检查重载配置文件并测试"><a href="#3、检查重载配置文件并测试" class="headerlink" title="3、检查重载配置文件并测试"></a>3、检查重载配置文件并测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# /usr/local/apache2.4/bin/apachectl  -t</div><div class="line">Syntax OK</div><div class="line">[root@allen1 ~]# /usr/local/apache2.4/bin/apachectl  graceful</div></pre></td></tr></table></figure>
 <h3 id="4、测试-1"><a href="#4、测试-1" class="headerlink" title="4、测试"></a>4、测试</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/164641444.png?imageslim" alt="mark"></p>
-<h2 id="四、Apache如何匹配文件"><a href="#四、Apache如何匹配文件" class="headerlink" title="四、Apache如何匹配文件"></a>四、Apache如何匹配文件</h2><p>由上面设置用户认证时，可以得知。<strong>Apache使用\<directory>匹配目录，使用\<filesmatch>匹配文件。</filesmatch></directory></strong>但是，需要注意的是直接使用\<filesmatch>的话，只能匹配网站根目录下的文件。如果需要匹配非根目录下的文件，有一下两种方法。</filesmatch></p>
+<ul>
+<li>使用FilesMatch匹配的话，如果没有指定目录。那么网址中带有admin.php的链接都需要验证</li>
+</ul>
+<h2 id="四、Apache如何匹配文件"><a href="#四、Apache如何匹配文件" class="headerlink" title="四、Apache如何匹配文件"></a>四、Apache如何匹配文件</h2><p>由上面设置用户认证时，可以得知。<strong>Apache使用\<directory>匹配目录，使用\<filesmatch>匹配文件。</filesmatch></directory></strong>但是，需要注意的是直接使用\<filesmatch>的话，会匹配所有根目录下的同名文件（包括子目录）。如果需要匹配指定文件，有以下两种方法。</filesmatch></p>
 <p>（1）直接使用\<directory>，后面个文件</directory></p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/170032806.png?imageslim" alt="mark"></p>
-<p>（2）先使用\<directory>指定非根目录，再使用\<filesmatch>匹配文件</filesmatch></directory></p>
+<p>（2）先使用\<directory>指定目录，再使用\<filesmatch>匹配文件</filesmatch></directory></p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/170133861.png?imageslim" alt="mark"></p>
+<p>拓展：<a href="http://ask.apelearn.com/question/5370" target="_blank" rel="external">apache设置php开启段标签</a></p>
 
       
 
@@ -449,6 +453,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
@@ -481,11 +489,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,10 +506,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>

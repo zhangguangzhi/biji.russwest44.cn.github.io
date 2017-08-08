@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170801/213835117.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/104120115.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/104701943.png?imageslim">
-<meta property="og:updated_time" content="2017-08-02T02:47:17.897Z">
+<meta property="og:updated_time" content="2017-08-08T03:25:58.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache日志管理">
 <meta name="twitter:description" content="[TOC] 设置Apache访问日志格式1、Apache访问日志位置由虚拟主机配置文件定义：   路径是相对于Apache安装目录，所以访问日志为/usr/local/apache2.4/abc.com-access_log common为访问日志记录格式">
@@ -206,7 +206,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 111.com]# /usr/local/apache2.4/bin/apachectl  -t</div><div class="line">Syntax OK</div><div class="line">[root@allen1 111.com]# /usr/local/apache2.4/bin/apachectl  graceful</div></pre></td></tr></table></figure>
 <h1 id="设置访问日志不记录指定文件类型日志"><a href="#设置访问日志不记录指定文件类型日志" class="headerlink" title="设置访问日志不记录指定文件类型日志"></a>设置访问日志不记录指定文件类型日志</h1><h2 id="一、如何查看页面元素"><a href="#一、如何查看页面元素" class="headerlink" title="一、如何查看页面元素"></a>一、如何查看页面元素</h2><p>使用chrome浏览器，使用F12，选择network。刷新网页就可以看到页面元素。</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170801/093057547.png?imageslim" alt="mark"></p>
-<h2 id="二、设置访问日志不记录指定文件类型日志"><a href="#二、设置访问日志不记录指定文件类型日志" class="headerlink" title="二、设置访问日志不记录指定文件类型日志"></a>二、设置访问日志不记录指定文件类型日志</h2><h3 id="1、作用"><a href="#1、作用" class="headerlink" title="1、作用"></a>1、作用</h3><p>刚刚查询到的所有元素都会记录到访问日志中，如果一个站点的访问量特别大，那么访问日志就会很多，但有一些访问日志我们其实是可以忽略掉的的，比如网站的图片，还有js，ccs等静态对象。而这些文件往往是巨量的，通过修改配置文件可以设置不记录这些文件类型。</p>
+<h2 id="二、设置访问日志不记录指定文件类型日志"><a href="#二、设置访问日志不记录指定文件类型日志" class="headerlink" title="二、设置访问日志不记录指定文件类型日志"></a>二、设置访问日志不记录指定文件类型日志</h2><p>重点：</p>
+<ul>
+<li><p>setenvif  request_uri  “.<em>\.gif$”  img</em></p>
+<p>将request_uri的值为 “.*\.gif$” ，赋予变量img，env为空白值</p>
+</li>
+<li><p>记录日志时取反env=!img</p>
+</li>
+</ul>
+<h3 id="1、作用"><a href="#1、作用" class="headerlink" title="1、作用"></a>1、作用</h3><p>刚刚查询到的所有元素都会记录到访问日志中，如果一个站点的访问量特别大，那么访问日志就会很多，但有一些访问日志我们其实是可以忽略掉的的，比如网站的图片，还有js，ccs等静态对象。而这些文件往往是巨量的，通过修改配置文件可以设置不记录这些文件类型。</p>
 <h3 id="2、修改相应虚拟主机配置文件"><a href="#2、修改相应虚拟主机配置文件" class="headerlink" title="2、修改相应虚拟主机配置文件"></a>2、修改相应虚拟主机配置文件</h3><p>虚拟主机配置文件：/usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
 <p>加入以下配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">SetEnvIf Request_URI &quot;.*\.gif$&quot; img</div><div class="line">SetEnvIf Request_URI &quot;.*\.jpg$&quot; img</div><div class="line">SetEnvIf Request_URI &quot;.*\.png$&quot; img</div><div class="line">SetEnvIf Request_URI &quot;.*\.bmp$&quot; img</div><div class="line">SetEnvIf Request_URI &quot;.*\.swf$&quot; img</div><div class="line">SetEnvIf Request_URI &quot;.*\.js$&quot; img</div><div class="line">SetEnvIf Request_URI &quot;.*\.css$&quot; img</div><div class="line">#并且在配置日志的时候加一个标记env=!img</div></pre></td></tr></table></figure>
@@ -225,7 +233,15 @@
 <li>只记录了访问jpg1的日志。</li>
 <li>其他静态文件也是不会记录的。</li>
 </ul>
-<h1 id="访问日志切割"><a href="#访问日志切割" class="headerlink" title="访问日志切割"></a>访问日志切割</h1><h2 id="一、目的"><a href="#一、目的" class="headerlink" title="一、目的"></a>一、目的</h2><p>这里的日志指的的访问日志每访问一次网站，就会记录若干日志。前提是配置了日志</p>
+<h1 id="访问日志切割"><a href="#访问日志切割" class="headerlink" title="访问日志切割"></a>访问日志切割</h1><p>重点：</p>
+<ul>
+<li>选择合适的日志记录格式</li>
+</ul>
+<ul>
+<li>使用“|/usr/local/apache2.4/bin/rotatelogs -l ”</li>
+<li>添加时间戳，并且设置切割间隔为一天</li>
+</ul>
+<h2 id="一、目的"><a href="#一、目的" class="headerlink" title="一、目的"></a>一、目的</h2><p>这里的日志指的的访问日志每访问一次网站，就会记录若干日志。前提是配置了日志</p>
 <p>如果不去切割日志，会造成日志过大无法查看。所以需要使日志按照我们的需求进行归档。然后添加任务计划，在指定的时间删除之前的日志文件</p>
 <h2 id="二、设置日志切割"><a href="#二、设置日志切割" class="headerlink" title="二、设置日志切割"></a>二、设置日志切割</h2><h3 id="1、设置Apache收集日志"><a href="#1、设置Apache收集日志" class="headerlink" title="1、设置Apache收集日志"></a>1、设置Apache收集日志</h3><p>#vim /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
 <p>如下图所示，设置Apache收集日志</p>
@@ -238,7 +254,13 @@
 <li>上面为两行，注意不要写成多余两行。Errorlog是错误日志，Customlog是访问日志。最前面的竖线其实就是管道符，意思是将产生的日志交给rotatelogs这个工具，这个工具是Apache自带的切割日志的工具。-l的作用是校准时区为UTC，也就是北京时间。最后面的86400，单位为秒，所以正好是一天，那么日志会每天切割一次。而最后面的combined为日志格式。</li>
 </ul>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170801/213835117.png?imageslim" alt="mark"></p>
-<h3 id="4、检查重载配置文件"><a href="#4、检查重载配置文件" class="headerlink" title="4、检查重载配置文件"></a>4、检查重载配置文件</h3><h1 id="Apache静态元素过期时间"><a href="#Apache静态元素过期时间" class="headerlink" title="Apache静态元素过期时间"></a>Apache静态元素过期时间</h1><h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>这里的静态文件指的是图片，js，css等文件，用户访问一个站点，其实大多数元素都是图片，js，css等，这些静态文件其实是会被客户端的浏览器缓存到本地电脑的，目的就是为了下次再请求时不再去服务器上下载，这样就加快了速度，提高用户体验、</p>
+<h3 id="4、检查重载配置文件"><a href="#4、检查重载配置文件" class="headerlink" title="4、检查重载配置文件"></a>4、检查重载配置文件</h3><h1 id="Apache静态元素过期时间"><a href="#Apache静态元素过期时间" class="headerlink" title="Apache静态元素过期时间"></a>Apache静态元素过期时间</h1><p>重点：</p>
+<ul>
+<li>使用模块mod_expires.c</li>
+<li>打开功能语句为ExpiresActive on</li>
+<li>ExpiresByType设置静态元素类型</li>
+</ul>
+<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>这里的静态文件指的是图片，js，css等文件，用户访问一个站点，其实大多数元素都是图片，js，css等，这些静态文件其实是会被客户端的浏览器缓存到本地电脑的，目的就是为了下次再请求时不再去服务器上下载，这样就加快了速度，提高用户体验、</p>
 <p>但这些静态文件总不能一直缓存，它总有一些时效性，我们需要配置它的过期时间。</p>
 <h2 id="二、设置静态元素过期时间"><a href="#二、设置静态元素过期时间" class="headerlink" title="二、设置静态元素过期时间"></a>二、设置静态元素过期时间</h2><h3 id="1、修改虚拟主机配置文件"><a href="#1、修改虚拟主机配置文件" class="headerlink" title="1、修改虚拟主机配置文件"></a>1、修改虚拟主机配置文件</h3><p>vim  /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
 <p>加入以下配置：</p>
@@ -255,6 +277,11 @@
 <h3 id="3、检查重载配置文件、测试"><a href="#3、检查重载配置文件、测试" class="headerlink" title="3、检查重载配置文件、测试"></a>3、检查重载配置文件、测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# /usr/local/apache2.4/bin/apachectl -t</div><div class="line">Syntax OK</div><div class="line">[root@allen1 ~]# /usr/local/apache2.4/bin/apachectl graceful</div></pre></td></tr></table></figure>
 <p>使用curl访问一个静态文件，会显示该文件的保存时间</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170802/104701943.png?imageslim" alt="mark"></p>
+<p>拓展：</p>
+<p><a href="http://ask.apelearn.com/question/960" target="_blank" rel="external">apache 日志中记录代理IP以及真实客户端IP</a></p>
+<p><a href="http://ask.apelearn.com/question/981" target="_blank" rel="external">apache只记录指定URI的日志</a></p>
+<p><a href="http://ask.apelearn.com/question/1037" target="_blank" rel="external">apache日志记录客户端请求的域名</a></p>
+<p><a href="http://ask.apelearn.com/question/566" target="_blank" rel="external">apache 日志切割问题</a></p>
 
       
 
@@ -493,6 +520,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
@@ -525,11 +556,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -542,10 +573,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>

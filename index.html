@@ -178,6 +178,462 @@
 
 
   
+    <article id="post-LAMP之httpd-conf配置文件详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/08/LAMP之httpd-conf配置文件详解/">LAMP之httpd.conf配置文件详解</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/08/LAMP之httpd-conf配置文件详解/" class="archive-article-date">
+  	<time datetime="2017-08-08T12:26:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ServerRoot “/export/servers/apache2”        #安装apache的家目录</p>
+<p>Listen 80        ##默认监听的端口是80</p>
+<p>PidFile /export/servers/apache2/logs/httpd.pid</p>
+<p>LoadModule authn_file_module modules/mod_authn_file.so        #加载的模块</p>
+<p>User admin            ##一般默认设置为admin</p>
+<p>Group admin        ##一般默认设置为admin</p>
+        
+          <a class="article-more-a" href="/2017/08/08/LAMP之httpd-conf配置文件详解/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/08/LAMP之httpd-conf配置文件详解/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-LAMP之Apache三种工作模式比较" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/08/LAMP之Apache三种工作模式比较/">LAMP之Apache三种工作模式比较</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/08/LAMP之Apache三种工作模式比较/" class="archive-article-date">
+  	<time datetime="2017-08-08T12:19:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转载阿铭Linux公众号。</p>
+<p>[TOC]</p>
+<ul>
+<li>查看你的httpd使用了哪种模式：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/local/apache2/bin/httpd -V |grep &apos;Server MPM&apos;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用哪种模式，需要在编译的时候指定</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--with-mpm=prefork|worker|event</div></pre></td></tr></table></figure>
+<ul>
+<li>当然也可以编译的时候，让三者都支持：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--enable-mpms-shared=all</div></pre></td></tr></table></figure>
+<p> 然后在配置文件中，修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LoadModule mpm_worker_module modules/mpd_mpm_worker.so</div></pre></td></tr></table></figure>
+<p><strong>2.2版本默认为worker，2.4版本默认为event</strong></p>
+        
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache三种工作模式比较/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache三种工作模式比较/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-LAMP之Apache开启压缩功能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/08/LAMP之Apache开启压缩功能/">LAMP之Apache开启压缩功能</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/08/LAMP之Apache开启压缩功能/" class="archive-article-date">
+  	<time datetime="2017-08-08T11:52:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h3><p>这里的压缩并不是对网站的图片压缩，而是对普通的静态文件，诸如html, js, css 等元素压缩。不要小看这个压缩功能，如果一个网站的请求量很大的话，这样可以节省海量带宽，在我国带宽资源非常昂贵，所以小小的一个压缩功能可以为企业节省不少的成本呢！<br>
+        
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache开启压缩功能/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache开启压缩功能/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-LAMP之Apache拓展模块安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/08/LAMP之Apache拓展模块安装/">LAMP之Apache拓展模块安装</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/08/LAMP之Apache拓展模块安装/" class="archive-article-date">
+  	<time datetime="2017-08-08T09:59:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><p>这个用到了apache的扩展工具  apxs</p>
+<p>在使用这个功能之前，请先确认是否已经加载了 mod_so 模块，方法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/local/apache2/bin/httpd -l</div></pre></td></tr></table></figure>
+<p>在列出的内容中，如果有 mod_so 那么说明已经加载了该模块。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170808/180051628.png?imageslim" alt="mark"></p>
+        
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache拓展模块安装/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache拓展模块安装/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-LAMP之Apache禁止trace或track，防止xss攻击" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/08/LAMP之Apache禁止trace或track，防止xss攻击/">LAMP之Apache禁止trace或track，防止xss攻击</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/08/LAMP之Apache禁止trace或track，防止xss攻击/" class="archive-article-date">
+  	<time datetime="2017-08-08T07:05:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>TRACE和TRACK是用来调试web服务器连接的HTTP方式。</p>
+<p>支持该方式的服务器存在跨站脚本漏洞，通常在描述各种浏览器缺陷的时候，把”Cross-Site-Tracing”简称为XST。<br>攻击者可以利用此漏洞欺骗合法用户并得到他们的私人信息。</p>
+        
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache禁止trace或track，防止xss攻击/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache禁止trace或track，防止xss攻击/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-LAMP之Apache的keepalive和keepalive-timeout" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/08/LAMP之Apache的keepalive和keepalive-timeout/">LAMP之Apache的keepalive和keepalive timeout</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/08/LAMP之Apache的keepalive和keepalive-timeout/" class="archive-article-date">
+  	<time datetime="2017-08-08T06:55:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在APACHE的httpd.conf中，KeepAlive指的是保持连接活跃，类似于Mysql的永久连接。换一句话说，如果将KeepAlive设置为On，那么来自同一客户端的请求就不需要再一次连接，避免每次请求都要新建一个连接而加重服务器的负担。    </p>
+        
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache的keepalive和keepalive-timeout/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache的keepalive和keepalive-timeout/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-LAMP之Apache设置自定义header" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/08/LAMP之Apache设置自定义header/">LAMP之Apache设置自定义header</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/08/LAMP之Apache设置自定义header/" class="archive-article-date">
+  	<time datetime="2017-08-08T06:32:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h3><p>我们的负载均衡集群中有很多台web服务器，当其中一台出现问题时，访问慢时。我们需要查找那一台服务器出现问题，如果全部遍历的话会很耗费时间。我们可以在每台web服务器上设置header，当我们使用curl测试，就可以快速定位那台服务器出现问题。</p>
+        
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache设置自定义header/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/08/LAMP之Apache设置自定义header/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-11.14、LAMP之php安装拓展模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -261,7 +717,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、PHP配置文件位置查询"><a href="#一、PHP配置文件位置查询" class="headerlink" title="一、PHP配置文件位置查询"></a>一、PHP配置文件位置查询</h2><p>php配置文件：/usr/local/php/etc/php.ini</p>
+        <p>[TOC]</p>
+<h2 id="一、PHP配置文件位置查询"><a href="#一、PHP配置文件位置查询" class="headerlink" title="一、PHP配置文件位置查询"></a>一、PHP配置文件位置查询</h2><p>php配置文件：/usr/local/php/etc/php.ini</p>
 <h3 id="1、-usr-local-php-bin-php-i-head"><a href="#1、-usr-local-php-bin-php-i-head" class="headerlink" title="1、/usr/local/php/bin/php -i |head"></a>1、/usr/local/php/bin/php -i |head</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/usr/local/php/bin/php -i |head       </div><div class="line">Loaded Configuration File =&gt; /usr/local/php/etc/php.ini</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/201747086.png?imageslim" alt="mark"></p>
         
@@ -290,467 +747,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/08/03/11.13、LAMP之PHP相关配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-11.12、LAMP之Apache禁止解析PHP，禁止user_agent" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/03/11.12、LAMP之Apache禁止解析PHP，禁止user_agent/">Apache禁止解析PHP，禁止指定user_agent</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/03/11.12、LAMP之Apache禁止解析PHP，禁止user_agent/" class="archive-article-date">
-  	<time datetime="2017-08-03T11:47:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h1 id="Apache禁止解析PHP"><a href="#Apache禁止解析PHP" class="headerlink" title="Apache禁止解析PHP"></a>Apache禁止解析PHP</h1><h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>某个目录禁止解析PHP，是很有用的。特别是能够上传文件的目录。做网站安全的时候，这用的很多，比如某个目录可以上传文件，为了防止上传的文件有木马，所以我们禁止这个目录下面的访问解析PHP</p>
-        
-          <a class="article-more-a" href="/2017/08/03/11.12、LAMP之Apache禁止解析PHP，禁止user_agent/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/03/11.12、LAMP之Apache禁止解析PHP，禁止user_agent/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-11.11、LAMP之Apache访问控制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/02/11.11、LAMP之Apache访问控制/">LAMP之Apache访问控制</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/02/11.11、LAMP之Apache访问控制/" class="archive-article-date">
-  	<time datetime="2017-08-02T12:14:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h2 id="一、访问控制的作用"><a href="#一、访问控制的作用" class="headerlink" title="一、访问控制的作用"></a>一、访问控制的作用</h2><p>发现来源IP有非法请求，或有些目录只能特定IP访问时，这个时候就可以采用访问控制。</p>
-        
-          <a class="article-more-a" href="/2017/08/02/11.11、LAMP之Apache访问控制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/02/11.11、LAMP之Apache访问控制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-11.10、LAMP之Apache配置防盗链" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/02/11.10、LAMP之Apache配置防盗链/">LAMP之Apache配置防盗链</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/02/11.10、LAMP之Apache配置防盗链/" class="archive-article-date">
-  	<time datetime="2017-08-02T11:14:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。</p>
-<h2 id="二、配置防盗链"><a href="#二、配置防盗链" class="headerlink" title="二、配置防盗链"></a>二、配置防盗链</h2><h3 id="1、修改虚拟主机配置文件"><a href="#1、修改虚拟主机配置文件" class="headerlink" title="1、修改虚拟主机配置文件"></a>1、修改虚拟主机配置文件</h3><p>vim  /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
-<p>加入以下配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">SetEnvIfNoCase Referer &quot;^http://.*\.allen\.com&quot; local_ref</div><div class="line">SetEnvIfNoCase Referer &quot;.*\.zhangguangzhi\.com&quot; local_ref</div><div class="line">SetEnvIfNoCase Referer &quot;^$&quot; local_ref</div><div class="line">&lt;filesmatch &quot;\.(txt|doc|mp3|zip|rar|jpg|gif|png)&quot;&gt;</div><div class="line">Order Allow,Deny</div><div class="line">Allow from env=local_ref</div><div class="line">&lt;/filesmatch&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170802/191935077.png?imageslim" alt="mark"></p>
-<ul>
-<li>上图中的referer白名单是：allen.com，zhangguangzhi.com，空白（即直接输入）</li>
-</ul>
-<h3 id="2、检查重载配置文件，测试"><a href="#2、检查重载配置文件，测试" class="headerlink" title="2、检查重载配置文件，测试"></a>2、检查重载配置文件，测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 test]# /usr/local/apache2.4/bin/apachectl -t</div><div class="line">Syntax OK</div><div class="line">[root@allen1 test]# /usr/local/apache2.4/bin/apachectl graceful</div></pre></td></tr></table></figure>
-<p>测试：直接使用curl测试，-e可以指定referer（注意格式），不是白名单域名会显示状态码403</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170802/192359166.png?imageslim" alt="mark"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/02/11.10、LAMP之Apache配置防盗链/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-11.9、LAMP之Apache日志管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/31/11.9、LAMP之Apache日志管理/">LAMP之Apache日志管理</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/31/11.9、LAMP之Apache日志管理/" class="archive-article-date">
-  	<time datetime="2017-07-31T14:49:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h1 id="设置Apache访问日志格式"><a href="#设置Apache访问日志格式" class="headerlink" title="设置Apache访问日志格式"></a>设置Apache访问日志格式</h1><h2 id="1、Apache访问日志位置"><a href="#1、Apache访问日志位置" class="headerlink" title="1、Apache访问日志位置"></a>1、Apache访问日志位置</h2><p>由虚拟主机配置文件定义：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/232337887.png?imageslim" alt="mark"></p>
-<ul>
-<li>路径是相对于Apache安装目录，所以访问日志为/usr/local/apache2.4/abc.com-access_log</li>
-<li>common为访问日志记录格式</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/07/31/11.9、LAMP之Apache日志管理/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/31/11.9、LAMP之Apache日志管理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-11.8、LAMP之Apache域名跳转" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/31/11.8、LAMP之Apache域名跳转/">LAMP之Apache域名跳转</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/31/11.8、LAMP之Apache域名跳转/" class="archive-article-date">
-  	<time datetime="2017-07-31T09:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h1 id="LAMP之Apache域名跳转"><a href="#LAMP之Apache域名跳转" class="headerlink" title="LAMP之Apache域名跳转"></a>LAMP之Apache域名跳转</h1><p>重点：</p>
-<ul>
-<li>rewrite模块是否加载</li>
-<li>rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确）</li>
-<li>确认跳转主域名</li>
-<li>跳转状态码301,302</li>
-<li>虚拟主机需要定义次域名为别名</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/07/31/11.8、LAMP之Apache域名跳转/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/31/11.8、LAMP之Apache域名跳转/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-11.7、LAMP之Apache用户认证" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/31/11.7、LAMP之Apache用户认证/">LAMP之Apache用户认证</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/31/11.7、LAMP之Apache用户认证/" class="archive-article-date">
-  	<time datetime="2017-07-31T08:07:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h1 id="Apache用户认证"><a href="#Apache用户认证" class="headerlink" title="Apache用户认证"></a>Apache用户认证</h1><p>重点：</p>
-<ul>
-<li>Apache使用\<directory>匹配目录，使用\<filesmatch>匹配文件。</filesmatch></directory></li>
-<li>密码文件的创建</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/07/31/11.7、LAMP之Apache用户认证/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/31/11.7、LAMP之Apache用户认证/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-11.6、LAMP之Apache默认虚拟主机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/28/11.6、LAMP之Apache默认虚拟主机/">LAMP之Apache默认虚拟主机</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/28/11.6、LAMP之Apache默认虚拟主机/" class="archive-article-date">
-  	<time datetime="2017-07-28T12:46:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h2 id="一、Windows的hosts文件"><a href="#一、Windows的hosts文件" class="headerlink" title="一、Windows的hosts文件"></a>一、Windows的hosts文件</h2><p>hosts文件路径：C:\Windows\System32\drivers\etc\hosts</p>
-<p>在该文件中可添加DNS解析</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170728/210631615.png?imageslim" alt="mark"></p>
-<p>修改之后，当我们访问www.abc.com和www.111.com时就会解析到我们的Linux服务器（192.168.205.137）</p>
-        
-          <a class="article-more-a" href="/2017/07/28/11.6、LAMP之Apache默认虚拟主机/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/28/11.6、LAMP之Apache默认虚拟主机/">展开全文 >></a>
         </p>
       
 
@@ -897,6 +893,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
@@ -929,11 +929,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -946,10 +946,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>
