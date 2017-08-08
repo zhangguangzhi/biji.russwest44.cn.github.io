@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170801/213835117.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/104120115.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170802/104701943.png?imageslim">
-<meta property="og:updated_time" content="2017-08-08T03:25:58.848Z">
+<meta property="og:updated_time" content="2017-08-08T12:44:09.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache日志管理">
 <meta name="twitter:description" content="[TOC] 设置Apache访问日志格式1、Apache访问日志位置由虚拟主机配置文件定义：   路径是相对于Apache安装目录，所以访问日志为/usr/local/apache2.4/abc.com-access_log common为访问日志记录格式">
@@ -277,6 +277,7 @@
 <h3 id="3、检查重载配置文件、测试"><a href="#3、检查重载配置文件、测试" class="headerlink" title="3、检查重载配置文件、测试"></a>3、检查重载配置文件、测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# /usr/local/apache2.4/bin/apachectl -t</div><div class="line">Syntax OK</div><div class="line">[root@allen1 ~]# /usr/local/apache2.4/bin/apachectl graceful</div></pre></td></tr></table></figure>
 <p>使用curl访问一个静态文件，会显示该文件的保存时间</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170802/104701943.png?imageslim" alt="mark"></p>
+<h3 id="4、使用模块mod-headers"><a href="#4、使用模块mod-headers" class="headerlink" title="4、使用模块mod_headers"></a>4、使用模块mod_headers</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;ifmodule mod_headers.c&gt;  </div><div class="line"># htm,html,txt类的文件缓存一个小时  </div><div class="line">&lt;filesmatch &quot;\.(html|htm|txt)$&quot;&gt;  </div><div class="line">header set cache-control &quot;max-age=3600&quot;  </div><div class="line">&lt;/filesmatch&gt;  </div><div class="line"># css, js, swf类的文件缓存一个星期  </div><div class="line">&lt;filesmatch &quot;\.(css|js|swf)$&quot;&gt;  </div><div class="line">header set cache-control &quot;max-age=604800&quot;  </div><div class="line">&lt;/filesmatch&gt;  </div><div class="line"># jpg,gif,jpeg,png,ico,flv,pdf等文件缓存一年  </div><div class="line">&lt;filesmatch &quot;\.(ico|gif|jpg|jpeg|png|flv|pdf)$&quot;&gt;  </div><div class="line">header set cache-control &quot;max-age=29030400&quot;  </div><div class="line">&lt;/filesmatch&gt;  </div><div class="line">&lt;/ifmodule&gt;</div></pre></td></tr></table></figure>
 <p>拓展：</p>
 <p><a href="http://ask.apelearn.com/question/960" target="_blank" rel="external">apache 日志中记录代理IP以及真实客户端IP</a></p>
 <p><a href="http://ask.apelearn.com/question/981" target="_blank" rel="external">apache只记录指定URI的日志</a></p>
