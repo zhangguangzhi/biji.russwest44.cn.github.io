@@ -6,18 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LAMP之Apache的keepalive和keepalive timeout | Hexo</title>
+  <title>LAMP之Apache的keepalive和keepalivetimeout | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="在APACHE的httpd.conf中，KeepAlive指的是保持连接活跃，类似于Mysql的永久连接。换一句话说，如果将KeepAlive设置为On，那么来自同一客户端的请求就不需要再一次连接，避免每次请求都要新建一个连接而加重服务器的负担。">
 <meta name="keywords" content="LAMP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LAMP之Apache的keepalive和keepalive timeout">
+<meta property="og:title" content="LAMP之Apache的keepalive和keepalivetimeout">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/08/LAMP之Apache的keepalive和keepalive-timeout/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="在APACHE的httpd.conf中，KeepAlive指的是保持连接活跃，类似于Mysql的永久连接。换一句话说，如果将KeepAlive设置为On，那么来自同一客户端的请求就不需要再一次连接，避免每次请求都要新建一个连接而加重服务器的负担。">
-<meta property="og:updated_time" content="2017-08-08T12:39:36.096Z">
+<meta property="og:updated_time" content="2017-08-08T12:51:36.167Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LAMP之Apache的keepalive和keepalive timeout">
+<meta name="twitter:title" content="LAMP之Apache的keepalive和keepalivetimeout">
 <meta name="twitter:description" content="在APACHE的httpd.conf中，KeepAlive指的是保持连接活跃，类似于Mysql的永久连接。换一句话说，如果将KeepAlive设置为On，那么来自同一客户端的请求就不需要再一次连接，避免每次请求都要新建一个连接而加重服务器的负担。">
   
   
@@ -141,7 +141,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      LAMP之Apache的keepalive和keepalive timeout
+      LAMP之Apache的keepalive和keepalivetimeout
     </h1>
   
 
@@ -156,6 +156,7 @@
       
         <p>在APACHE的httpd.conf中，KeepAlive指的是保持连接活跃，类似于Mysql的永久连接。换一句话说，如果将KeepAlive设置为On，那么来自同一客户端的请求就不需要再一次连接，避免每次请求都要新建一个连接而加重服务器的负担。    </p>
 <a id="more"></a> 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">KeepAlive On ###在一次连接中传递多个HTTP请求</div><div class="line"></div><div class="line">MaxKeepAliveRequests 100 ###为一次连接可以进行的HTTP请求的最大请求次数</div><div class="line"></div><div class="line">KeepAliveTimeout 15 ###测试一次连接中的多次请求传输之间的时间，如果服务器已经完成了一次请求，但一直没有接收到客户程序的下一次请求，在间隔超过了这个参数设置的值之后，服务器就断开连接。</div></pre></td></tr></table></figure>
 <p>KeepAlive的连接活跃时间当然是受KeepAliveTimeOut限制的。如果第二次请求和第一次请求之间超过KeepAliveTimeOut的时间的话，第一次连接就会中断，再新建第二个连接。    </p>
 <p>所以，一般情况下，图片较多的网站应该把KeepAlive设为On。但是KeepAliveTimeOut应该设置为多少秒就是一个值得讨论的问题了。    </p>
 <p>如果KeepAliveTimeOut设置的时间过短，例如设置为1秒，那么APACHE就会频繁的建立新连接，当然会耗费不少的资源；反过来，如果KeepAliveTimeOut设置的时间过长，例如设置为300秒，那么APACHE中肯定有很多无用的连接会占用服务器的资源，也不是一件好事。    </p>
@@ -385,6 +386,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
@@ -397,35 +402,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -437,7 +414,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -445,7 +434,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,6 +455,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>

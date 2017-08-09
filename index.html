@@ -178,6 +178,389 @@
 
 
   
+    <article id="post-12.3、LNMP之安装nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/09/12.3、LNMP之安装nginx/">LNMP之安装nginx</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/09/12.3、LNMP之安装nginx/" class="archive-article-date">
+  	<time datetime="2017-08-09T08:06:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、nginx介绍"><a href="#一、nginx介绍" class="headerlink" title="一、nginx介绍"></a>一、nginx介绍</h3><h4 id="1-1、简介"><a href="#1-1、简介" class="headerlink" title="1.1、简介"></a>1.1、简介</h4><p>Nginx（发音同engine x）是一款由俄罗斯程序员Igor Sysoev所开发轻量级的网页服务器、反向代理服务器以及电子邮件（IMAP/POP3）代理服务器。起初是供俄国大型的门户网站及搜索引擎Rambler（俄语：Рамблер）使用。传统上基于进程或线程模型架构的web服务通过每进程或每线程处理并发连接请求，这势必会在网络和I/O操作时产生阻塞，其另一个必然结果则是对内存或CPU的利用率低下。生成一个新的进程/线程需要事先备好其运行时环境，这包括为其分配堆内存和栈内存，以及为其创建新的执行上下文等。这些操作都需要占用CPU，而且过多的进程/线程还会带来线程抖动或频繁的上下文切换，系统性能也会由此进一步下降。另一种高性能web服务器/web服务器反向代理：Nginx（Engine X），nginx的主要着眼点就是其高性能以及对物理计算资源的高密度利用，因此其采用了不同的架构模型。受启发于多种操作系统设计中基于“事件”的高级处理机制，<strong>nginx采用了模块化、事件驱动、异步、单线程及非阻塞的架构，并大量采用了多路复用及事件通知机制。</strong>在nginx中，连接请求由为数不多的几个仅包含一个线程的进程worker以高效的回环(run-loop)机制进行处理，而每个worker可以并行处理数千个的并发连接及请求。</p>
+<h4 id="1-2、nginx工作原理"><a href="#1-2、nginx工作原理" class="headerlink" title="1.2、nginx工作原理"></a>1.2、nginx工作原理</h4><p>Nginx会按需同时运行多个进程：一个主进程(master)和几个工作进程(worker)，配置了缓存时还会有缓存加载器进程(cache loader)和缓存管理器进程(cache manager)等。所有进程均是仅含有一个线程，并主要通过“共享内存”的机制实现进程间通信。主进程以root用户身份运行，而worker、cache loader和cache manager均应以非特权用户身份运行。</p>
+<p>主进程主要完成如下工作：</p>
+<ul>
+<li>读取并验正配置信息；</li>
+<li>创建、绑定及关闭套接字；</li>
+<li>启动、终止及维护worker进程的个数；</li>
+<li>无须中止服务而重新配置工作特性；</li>
+<li>控制非中断式程序升级，启用新的二进制程序并在需要时回滚至老版本；</li>
+<li>重新打开日志文件；</li>
+<li>编译嵌入式perl脚本；</li>
+<li>worker进程主要完成的任务包括：</li>
+<li>接收、传入并处理来自客户端的连接；</li>
+<li>提供反向代理及过滤功能；</li>
+<li>nginx任何能完成的其它任务；</li>
+</ul>
+<p>注：如果负载以CPU密集型应用为主，如SSL或压缩应用，则worker数应与CPU数相同；如果负载以IO密集型为主，如响应大量内容给客户端，则worker数应该为CPU个数的1.5或2倍。</p>
+<h4 id="1-3、nginx的结构组成"><a href="#1-3、nginx的结构组成" class="headerlink" title="1.3、nginx的结构组成"></a>1.3、nginx的结构组成</h4><p>Nginx的代码是由一个核心和一系列的模块组成, 核心主要用于提供Web Server的基本功能，以及Web和Mail反向代理的功能；还用于启用网络协议，创建必要的运行时环境以及确保不同的模块之间平滑地进行交互。不过，大多跟协议相关的功能和某应用特有的功能都是由nginx的模块实现的。这些功能模块大致可以分为事件模块、阶段性处理器、输出过滤器、变量处理器、协议、upstream和负载均衡几个类别，这些共同组成了nginx的http功能。事件模块主要用于提供OS独立的(不同操作系统的事件机制有所不同)事件通知机制如kqueue或epoll等。协议模块则负责实现nginx通过http、tls/ssl、smtp、pop3以及imap与对应的客户端建立会话。在Nginx内部，进程间的通信是通过模块的pipeline或chain实现的；换句话说，每一个功能或操作都由一个模块来实现。例如，压缩、通过FastCGI或uwsgi协议与upstream服务器通信，以及与memcached建立会话等。</p>
+<h4 id="1-4、nginx应用场景"><a href="#1-4、nginx应用场景" class="headerlink" title="1.4、nginx应用场景"></a>1.4、nginx应用场景</h4><ul>
+<li>web服务</li>
+<li>反向代理</li>
+<li>负载均衡</li>
+</ul>
+<h4 id="1-5、为什么选择nginx"><a href="#1-5、为什么选择nginx" class="headerlink" title="1.5、为什么选择nginx"></a>1.5、为什么选择nginx</h4><ul>
+<li>在高连接并发的情况下，Nginx是Apache服务器不错的替代品: Nginx在美国是做虚拟主机生意的老板们经常选择的软件平台之一. 能够支持高达 50,000 个并发连接数的响应, 感谢Nginx为我们选择了 epoll and kqueue 作为开发模型。</li>
+<li>Nginx作为负载均衡服务器: Nginx 既可以在内部直接支持 Rails 和 PHP 程序对外进行服务, 也可以支持作为 HTTP代理 服务器对外进行服务. Nginx采用C进行编写, 不论是系统资源开销还是CPU使用效率都比 Perlbal 要好很多。</li>
+<li>作为邮件代理服务器: Nginx 同时也是一个非常优秀的邮件代理服务器（最早开发这个产品的目的之一也是作为邮件代理服务器）, Last.fm 描述了成功并且美妙的使用经验.</li>
+<li>Nginx 安装非常的简单 , 配置文件非常简洁（还能够支持perl语法）,Bugs 非常少的服务器: Nginx 启动特别容易, 并且几乎可以做到7*24不间断运行，即使运行数个月也不需要重新启动. 你还能够 不间断服务的情况下进行软件版本的升级 。</li>
+<li>Nginx 的诞生主要解决C10K问题</li>
+</ul>
+<p><a href="http://www.toxingwang.com/linux-unix/linux-basic/1712.html" target="_blank" rel="external">参考资料</a></p>
+<h3 id="二、安装nginx"><a href="#二、安装nginx" class="headerlink" title="二、安装nginx"></a>二、安装nginx</h3><p>2.1、下载nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://nginx.org/download/nginx-1.12.1.tar.gz</div></pre></td></tr></table></figure>
+<p>2.2、解压安装nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tar -zxvf nginx-1.12.1.tar.gz</div><div class="line">cd nginx-1.12.1/</div><div class="line">./configure --prefix=/usr/local/nginx</div><div class="line"> make &amp;&amp;  make install</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170809/165515876.png?imageslim" alt="mark"></p>
+<p>2.3、nginx启动脚本</p>
+<p>/etc/init.d/nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">vim  /etc/init.d/nginx</div><div class="line">#写入以下内容</div><div class="line">#!/bin/bash</div><div class="line"># chkconfig: - 30 21</div><div class="line"># description: http service.</div><div class="line"># Source Function Library</div><div class="line">. /etc/init.d/functions</div><div class="line"># Nginx Settings</div><div class="line">NGINX_SBIN=&quot;/usr/local/nginx/sbin/nginx&quot;</div><div class="line">NGINX_CONF=&quot;/usr/local/nginx/conf/nginx.conf&quot;</div><div class="line">NGINX_PID=&quot;/usr/local/nginx/logs/nginx.pid&quot;</div><div class="line">RETVAL=0</div><div class="line">prog=&quot;Nginx&quot;</div><div class="line">start() </div><div class="line">&#123;</div><div class="line">    echo -n $&quot;Starting $prog: &quot;</div><div class="line">    mkdir -p /dev/shm/nginx_temp</div><div class="line">    daemon $NGINX_SBIN -c $NGINX_CONF</div><div class="line">    RETVAL=$?</div><div class="line">    echo</div><div class="line">    return $RETVAL</div><div class="line">&#125;</div><div class="line">stop() </div><div class="line">&#123;</div><div class="line">    echo -n $&quot;Stopping $prog: &quot;</div><div class="line">    killproc -p $NGINX_PID $NGINX_SBIN -TERM</div><div class="line">    rm -rf /dev/shm/nginx_temp</div><div class="line">    RETVAL=$?</div><div class="line">    echo</div><div class="line">    return $RETVAL</div><div class="line">&#125;</div><div class="line">reload()</div><div class="line">&#123;</div><div class="line">    echo -n $&quot;Reloading $prog: &quot;</div><div class="line">    killproc -p $NGINX_PID $NGINX_SBIN -HUP</div><div class="line">    RETVAL=$?</div><div class="line">    echo</div><div class="line">    return $RETVAL</div><div class="line">&#125;</div><div class="line">restart()</div><div class="line">&#123;</div><div class="line">    stop</div><div class="line">    start</div><div class="line">&#125;</div><div class="line">configtest()</div><div class="line">&#123;</div><div class="line">    $NGINX_SBIN -c $NGINX_CONF -t</div><div class="line">    return 0</div><div class="line">&#125;</div><div class="line">case &quot;$1&quot; in</div><div class="line">  start)</div><div class="line">        start</div><div class="line">        ;;</div><div class="line">  stop)</div><div class="line">        stop</div><div class="line">        ;;</div><div class="line">  reload)</div><div class="line">        reload</div><div class="line">        ;;</div><div class="line">  restart)</div><div class="line">        restart</div><div class="line">        ;;</div><div class="line">  configtest)</div><div class="line">        configtest</div><div class="line">        ;;</div><div class="line">  *)</div><div class="line">        echo $&quot;Usage: $0 &#123;start|stop|reload|restart|configtest&#125;&quot;</div><div class="line">        RETVAL=1</div><div class="line">esac</div><div class="line">exit $RETVAL</div></pre></td></tr></table></figure>
+<p>2.4、nginx配置文件</p>
+<p>/usr/local/nginx/conf/nginx.conf，原来的配置文件注释的信息太多，所以我们需要一个更简洁的配置文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">mv /usr/local/nginx/conf/nginx.conf   /usr/local/nginx/conf/nginx.conf.bak</div><div class="line">vim  /usr/local/nginx/conf/nginx.conf</div><div class="line">#写入以下内容</div><div class="line">user nobody nobody;</div><div class="line">worker_processes 2;</div><div class="line">error_log /usr/local/nginx/logs/nginx_error.log crit;</div><div class="line">pid /usr/local/nginx/logs/nginx.pid;</div><div class="line">worker_rlimit_nofile 51200;</div><div class="line">events</div><div class="line">&#123;</div><div class="line">    use epoll;</div><div class="line">    worker_connections 6000;</div><div class="line">&#125;</div><div class="line">http</div><div class="line">&#123;</div><div class="line">    include mime.types;</div><div class="line">    default_type application/octet-stream;</div><div class="line">    server_names_hash_bucket_size 3526;</div><div class="line">    server_names_hash_max_size 4096;</div><div class="line">    log_format combined_realip &apos;$remote_addr $http_x_forwarded_for [$time_local]&apos;</div><div class="line">    &apos; $host &quot;$request_uri&quot; $status&apos;</div><div class="line">    &apos; &quot;$http_referer&quot; &quot;$http_user_agent&quot;&apos;;</div><div class="line">    sendfile on;</div><div class="line">    tcp_nopush on;</div><div class="line">    keepalive_timeout 30;</div><div class="line">    client_header_timeout 3m;</div><div class="line">    client_body_timeout 3m;</div><div class="line">    send_timeout 3m;</div><div class="line">    connection_pool_size 256;</div><div class="line">    client_header_buffer_size 1k;</div><div class="line">    large_client_header_buffers 8 4k;</div><div class="line">    request_pool_size 4k;</div><div class="line">    output_buffers 4 32k;</div><div class="line">    postpone_output 1460;</div><div class="line">    client_max_body_size 10m;</div><div class="line">    client_body_buffer_size 256k;</div><div class="line">    client_body_temp_path /usr/local/nginx/client_body_temp;</div><div class="line">    proxy_temp_path /usr/local/nginx/proxy_temp;</div><div class="line">    fastcgi_temp_path /usr/local/nginx/fastcgi_temp;</div><div class="line">    fastcgi_intercept_errors on;</div><div class="line">    tcp_nodelay on;</div><div class="line">    gzip on;</div><div class="line">    gzip_min_length 1k;</div><div class="line">    gzip_buffers 4 8k;</div><div class="line">    gzip_comp_level 5;</div><div class="line">    gzip_http_version 1.1;</div><div class="line">    gzip_types text/plain application/x-javascript text/css text/htm </div><div class="line">    application/xml;</div><div class="line">    server</div><div class="line">    &#123;</div><div class="line">        listen 80;</div><div class="line">        server_name localhost;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root /usr/local/nginx/html;</div><div class="line">        location ~ \.php$ </div><div class="line">        &#123;</div><div class="line">            include fastcgi_params;</div><div class="line">            fastcgi_pass unix:/tmp/php-fcgi.sock;</div><div class="line">            fastcgi_index index.php;</div><div class="line">            fastcgi_param SCRIPT_FILENAME /usr/local/nginx/html$fastcgi_script_name;</div><div class="line">        &#125;    </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.5、设置nginx自启动以及启动</p>
+<p>设置nginx自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chmod  755  /etc/init.d/nginx</div><div class="line">chkconfig --add  nginx</div><div class="line">chkconfig  nginx  on</div></pre></td></tr></table></figure>
+<p>启动nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#检查配置文件是否错误</div><div class="line">/usr/local/nginx/sbin/nginx -t</div><div class="line">/etc/init.d/nginx  start</div><div class="line">netstat -lntp |grep 80</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170809/170422874.png?imageslim" alt="mark"></p>
+<p><a href="http://note.youdao.com/noteshare?id=005c900318dfac2c2f1dc6ab183a3ce0&amp;sub=DEC510B8E97F4EC691A358591F810658" target="_blank" rel="external">nginx配置文件详解</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/09/12.3、LNMP之安装nginx/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-12.2、LNMP之安装mysql和php-fpm" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/09/12.2、LNMP之安装mysql和php-fpm/">LNMP之安装mysql和php-fpm</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/09/12.2、LNMP之安装mysql和php-fpm/" class="archive-article-date">
+  	<time datetime="2017-08-09T07:35:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、安装mysql"><a href="#一、安装mysql" class="headerlink" title="一、安装mysql"></a>一、安装mysql</h3><p>安装mysql与LAMP架构基本上一致，安装步骤如下：</p>
+<p>1.1、 下载mysql二进制免编译安装包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz</div></pre></td></tr></table></figure>
+<p>1.2、创建mysql用户和数据目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">useradd mysql</div><div class="line"> mkdir /data/</div></pre></td></tr></table></figure>
+<p>1.3、解压免编译安装包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar zxvf mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz</div><div class="line">mv mysql-5.6.35-linux-glibc2.5-x86_64 /usr/local/mysql</div></pre></td></tr></table></figure>
+<p>1.4、初始化数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/mysql</div><div class="line">./scripts/mysql_install_db --user=mysql --datadir=/data/mysql</div></pre></td></tr></table></figure>
+<p>1.5、拷贝启动脚本和配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp support-files/my-default.cnf  /etc/my.cnf </div><div class="line"> cp support-files/mysql.server /etc/init.d/mysqld</div></pre></td></tr></table></figure>
+<p>1.6、定义basedir和datadir</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vi /etc/init.d/mysqld</div><div class="line">basedir=/usr/local/mysql</div><div class="line">datadir=/data/mysql</div></pre></td></tr></table></figure>
+<p>1.7、启动mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/mysqld start</div></pre></td></tr></table></figure>
+<h3 id="二、安装php-fpm"><a href="#二、安装php-fpm" class="headerlink" title="二、安装php-fpm"></a>二、安装php-fpm</h3><p>nginx与php通信需要通过FastCGI，而为了更好的管理FastCGI，我们需要在安装php的同时安装php-fpm插件。</p>
+<p>2.1、下载php安装包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://cn2.php.net/distributions/php-5.6.30.tar.gz</div><div class="line">tar zxf php-5.6.30.tar.gz</div></pre></td></tr></table></figure>
+<p>2.2、创建php-fpm用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">useradd -s /sbin/nologin php-fpm</div><div class="line">cd php-5.6.30</div></pre></td></tr></table></figure>
+<p>2.3、编译./configure</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/php-fpm --with-config-file-path=/usr/local/php-fpm/etc --enable-fpm --with-fpm-user=php-fpm </div><div class="line">--with-fpm-group=php-fpm --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-pdo-mysql=/usr/local/mysql --with-mysql-sock=/tmp/mysql.sock --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-iconv-dir --with-zlib-dir --with-mcrypt --enable-soap --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-exif --with-pear --with-curl  --with-openssl</div></pre></td></tr></table></figure>
+<ul>
+<li>–enable-fpm表示安装php-fpm插件</li>
+</ul>
+<p>2.4、安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make  &amp;&amp;  make install</div></pre></td></tr></table></figure>
+<p>2.5、配置文件</p>
+<p>拷贝php主配置文件php.ini，默认有两个配置文件模板，php.ini-production为生产环境使用，php.ini-development为开发环境使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp php.ini-production /usr/local/php-fpm/etc/php.ini</div></pre></td></tr></table></figure>
+<p>创建php-fpm配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/php/etc/php-fpm.conf</div><div class="line">#写入一下内容</div><div class="line">[global]</div><div class="line">pid = /usr/local/php/var/run/php-fpm.pid</div><div class="line">error_log = /usr/local/php/var/log/php-fpm.log</div><div class="line">[www]</div><div class="line">listen = /tmp/php-fcgi.sock             #监听形式为ip:port或者sock文件。名称可以自定义                </div><div class="line">user = php-fpm</div><div class="line">group = php-fpm</div><div class="line">listen.owner = nobody</div><div class="line">listen.group = nobody</div><div class="line">pm = dynamic</div><div class="line">pm.max_children = 50</div><div class="line">pm.start_servers = 20</div><div class="line">pm.min_spare_servers = 5</div><div class="line">pm.max_spare_servers = 35</div><div class="line">pm.max_requests = 500</div><div class="line">rlimit_files = 1024</div><div class="line">slowlog = /tmp/www_slow.log</div><div class="line">request_slowlog_timeout = 1</div></pre></td></tr></table></figure>
+<p>2.6、启动脚本</p>
+<p>拷贝启动脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm</div></pre></td></tr></table></figure>
+<p>2.7、设置开机启动以及启动php-fpm</p>
+<p>设置开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chmod 755 /etc/init.d/php-fpm</div><div class="line"> chkconfig --add php-fpm</div><div class="line"> chkconfig php-fpm on</div></pre></td></tr></table></figure>
+<p>2.8、启动php-fpm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service php-fpm  start</div><div class="line">ps  aux |grep &quot;php-fpm&quot;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170809/155254673.png?imageslim" alt="mark"></p>
+<h3 id="三、php-fpm-conf配置文件详解"><a href="#三、php-fpm-conf配置文件详解" class="headerlink" title="三、php-fpm.conf配置文件详解"></a>三、php-fpm.conf配置文件详解</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170809/155428497.png?imageslim" alt="mark"></p>
+<p>global部分为全局配置，指定pid，错误日志存放位置</p>
+<p><strong>[www]</strong></p>
+<ul>
+<li>是一个pool，我们还可以写第二个pool。第一个pool与第二个pool不一样的地方，首先是pool的name要不一样，比如叫[www2]。第二，是listen也要不一样，比如可以listen = /tmp/php-fcgi2.sock。而且user和group也可以和[www]的不一样。</li>
+</ul>
+<p><strong>listen</strong></p>
+<ul>
+<li>监听形式为ip:port或者sock文件。名称可以自定义        </li>
+</ul>
+<p><strong>listen.mode</strong></p>
+<ul>
+<li>定义生成的sock文件的属主和属组，如果没有这个参数，那么nginx调用sock文件是没有权限，可能或出现502错误。</li>
+</ul>
+<p><strong>pm = dynamic</strong></p>
+<ul>
+<li>表示以动态的形式启动，在php5.3版本以后它可以支持动态和静态，如果是pm=static时。下面的配置 只有pm.max_children生效。</li>
+</ul>
+<p><strong>pm.max_children = 50</strong></p>
+<ul>
+<li>表示启动几个ph-fom的子进程，如果是dynamic，下面的配置会生效。pm.max_children表示最大可以启动几个子进程。</li>
+</ul>
+<p><strong>pm.start_servers = 20</strong></p>
+<ul>
+<li>表示一开始启动几个子进程</li>
+</ul>
+<p><strong>pm.min_spare_servers = 5</strong></p>
+<ul>
+<li>表示当php-fpm空闲时最少要有几个子进程，即如果空闲进程小于此值，则创建新的子进程。</li>
+</ul>
+<p><strong>pm.max_spare_servers = 35</strong></p>
+<ul>
+<li>表示当php-fpm空闲时最多有几个子进程，即如果空闲进程大于此值，则会进行清理。</li>
+</ul>
+<p><strong>pm.max_requests = 500</strong></p>
+<ul>
+<li>表示一个子进程最多可以接受多少个请求，比如设置为500，那么一个进程受理500个请求后就会自动销毁。</li>
+</ul>
+<p><strong>rlimit_files = 1024</strong></p>
+<ul>
+<li>表示每个子进程打开的多少个文件句柄（文件描述）。</li>
+</ul>
+<p><strong>slowlog = /tmp/www_slow.log</strong></p>
+<ul>
+<li>慢查询日志存放路径</li>
+</ul>
+<p><strong>request_slowlog_timeout = 1</strong></p>
+<ul>
+<li>与上方配置一起用，记录慢查询。</li>
+</ul>
+<p>使用/usr/local/php-fpm/sbin/php-fpm -t可以检查php-fpm的配置文件是否正确。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/09/12.2、LNMP之安装mysql和php-fpm/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-12.1、LNMP之LNMP简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/09/12.1、LNMP之LNMP简介/">LNMP之LNMP简介</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/09/12.1、LNMP之LNMP简介/" class="archive-article-date">
+  	<time datetime="2017-08-09T05:19:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h4 id="一、LNMP"><a href="#一、LNMP" class="headerlink" title="一、LNMP"></a>一、LNMP</h4><h4 id="1、LNMP简介"><a href="#1、LNMP简介" class="headerlink" title="1、LNMP简介"></a>1、LNMP简介</h4><p>LNMP和LAMP的不同在于使用的web服务器不同，LNMP中的N是指使用nginx（类似Apache的一种web服务器）。目前这种环境的应用非常多。nginx设计的初衷是提供一种快速，高效，多并发的web服务软件。在<strong>静态页面（html，js，css等）</strong>的处理上，nginx较Apache更胜一筹；但在动态页面的处理上，nginx并不比Apache有优势，但是目前还是有很多爱好者对nginx比较热衷。随着nginx技术的逐渐承受，它在web服务软件领域的地位也会越来越高。</p>
+<h4 id="2、LNMP是如何工作"><a href="#2、LNMP是如何工作" class="headerlink" title="2、LNMP是如何工作"></a>2、LNMP是如何工作</h4><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170809/153424665.png?imageslim" alt="mark"></p>
+<ul>
+<li>php在LNMP环境中是作为独立服务存在的，服务名为php-fpm</li>
+<li>Nginx不支持对外部程序的直接调用或者解析，所有的外部程序（包括PHP）必须通过FastCGI接口来调用。FastCGI接口在Linux下是socket（这个socket可以是文件socket，也可以是ip socket）。</li>
+<li>静态文件由nginx处理，动态请求经过nginx后给php-fpm处理。php-fpm是管理FastCGI的一个管理器，它作为PHP的插件存在。（其它管理器有PHP-CGI，Spawn-FCGI）</li>
+<li>FastCGI是一个可伸缩地、高速地在HTTP server和动态脚本语言间通信的接口（像是一个常驻(long-live)型的CGI，它可以一直执行着。）。多数流行的HTTP server都支持FastCGI，包括Apache、Nginx和lighttpd等。同时，FastCGI也被许多脚本语言支持，其中就有PHP。</li>
+</ul>
+<h4 id="3、nginx支持比Apache高并发原因"><a href="#3、nginx支持比Apache高并发原因" class="headerlink" title="3、nginx支持比Apache高并发原因"></a>3、nginx支持比Apache高并发原因</h4><p>3.1、I/O模型</p>
+<p>Apache使用select模型（阻塞型）：</p>
+<ul>
+<li>单个进程能够 监视的文件描述符的数量存在最大限制</li>
+<li>select()所维护的 存储大量文件描述符的数据结构 ，随着文件描述符数量的增长，其在用户态和内核的地址空间的复制所引发的开销也会线性增长</li>
+<li>由于网络响应时间的延迟使得大量TCP连接处于非活跃状态，但调用select()还是会对 所有的socket进行一次线性扫描 ，会造成一定的开销</li>
+</ul>
+<p>nginx使用epoll模型（异步非阻塞）：</p>
+<ul>
+<li>基于事件的就绪通知方式 ，select/poll方式，进程只有在调用一定的方法后，内核才会对所有监视的文件描述符进行扫描，而epoll事件通过epoll_ctl()注册一个文件描述符，一旦某个文件描述符就绪时，内核会采用类似call back的回调机制，迅速激活这个文件描述符，epoll_wait()便会得到通知</li>
+<li>调用一次epoll_wait()获得就绪文件描述符时，返回的并不是实际的描述符，而是一个代表就绪描述符数量的值，拿到这些值去epoll指定的一个数组中依次取得相应数量的文件描述符即可，这里使用内存映射（mmap）技术， 避免了复制大量文件描述符带来的开销</li>
+<li>给socket注册某个回调函数，避免轮询</li>
+<li>简单来说epoll是select的升级版，单进程管理的文件描述符没有最大限制。但epoll只有linux平台可使用。作为跨平台的Apache没有使用。</li>
+</ul>
+<p>3.2、工作原理</p>
+<p>Apache：perfork和worker都会创建多个进程或线程，而每个进程或线程都会为其分配cpu和内存等资源，并发过大会榨干服务器资源。</p>
+<p>nginx：不会为每一个web请求创建新的进程，而是限定主进程的工作进程数量，每个进程只生成一个线程，每一个工作进程可以处理数千个并发的请求。它通过一个线程来异步非阻塞的完成了这些工作（epoll）。</p>
+<h4 id="4、Apache和Nginx比较"><a href="#4、Apache和Nginx比较" class="headerlink" title="4、Apache和Nginx比较"></a>4、Apache和Nginx比较</h4><p>4.1、功能对比</p>
+<ul>
+<li>Nginx和Apache一样，都是HTTP服务器软件，在功能实现上都采用模块化结构设计，都支持通用的语言接口，如PHP、Perl、Python等，同时还支持正向和反向代理、虚拟主机、URL重写、压缩传输、SSL加密传输等。</li>
+<li>在功能实现上，Apache的所有模块都支持动、静态编译，而Nginx模块都是静态编译的，</li>
+<li>对FastCGI的支持，Apache对Fcgi的支持不好，而Nginx对Fcgi的支持非常好；</li>
+<li>在处理连接方式上，Nginx支持epoll，而Apache却不支持；</li>
+<li>在空间使用上，Nginx安装包仅仅只有几百K，和Nginx比起来Apache绝对是庞然大物。</li>
+</ul>
+<p>4.2、Nginx相对apache的优点</p>
+<ul>
+<li>轻量级，同样起web 服务，比apache 占用更少的内存及资源</li>
+<li>静态处理，Nginx 静态处理性能比 Apache 高 3倍以上</li>
+<li>抗并发，nginx 处理请求是异步非阻塞的，而apache则是阻塞型的，在高并发下nginx 能保持低资源低消耗高性能。在Apache+PHP（prefork）模式下，如果PHP处理慢或者前端压力很大的情况下，很容易出现Apache进程数飙升，从而拒绝服务的现象。</li>
+<li>高度模块化的设计，编写模块相对简单</li>
+<li>社区活跃，各种高性能模块出品迅速啊</li>
+</ul>
+<p>4.3、apache相对nginx的优点</p>
+<ul>
+<li>rewrite，比nginx 的rewrite 强大</li>
+<li>模块超多，基本想到的都可以找到</li>
+<li>少bug，nginx的bug相对较多</li>
+<li>超稳定</li>
+<li>Apache对PHP支持比较简单，Nginx需要配合其他后端用</li>
+</ul>
+<p>4.4、选择Nginx的优势所在</p>
+<ul>
+<li>作为Web服务器: Nginx处理静态文件、索引文件，自动索引的效率非常高。</li>
+<li>作为代理服务器，Nginx可以实现无缓存的反向代理加速，提高网站运行速度。</li>
+<li>作为负载均衡服务器，Nginx既可以在内部直接支持Rails和PHP，也可以支持HTTP代理服务器对外进行服务，同时还支持简单的容错和利用算法进行负载均衡。</li>
+<li>在性能方面，Nginx是专门为性能优化而开发的，在实现上非常注重效率。它采用内核Poll模型(epoll and kqueue )，可以支持更多的并发连接，最大可以支持对50 000个并发连接数的响应，而且只占用很低的内存资源。</li>
+<li>在稳定性方面，Nginx采取了分阶段资源分配技术，使得CPU与内存的占用率非常低。Nginx官方表示，Nginx保持10 000个没有活动的连接，而这些连接只占用2.5MB内存，因此，类似DOS这样的攻击对Nginx来说基本上是没有任何作用的。</li>
+<li>在高可用性方面，Nginx支持热部署，启动速度特别迅速，因此可以在不间断服务的情况下，对软件版本或者配置进行升级，即使运行数月也无需重新启动，几乎可以做到7×24小时不间断地运行。</li>
+</ul>
+<p>4.5、同时使用Nginx和Apache</p>
+<p>由于Nginx和Apache各自的优势，现在很多人选择了让两者在服务器中共存。在服务器端让Nginx在前，Apache在后。由Nginx做负载均衡和反向代理，并且处理静态文件，讲动态请求（如PHP应用）交给Apache去处理。</p>
+<p>参考：</p>
+<p><a href="http://www.toxingwang.com/linux-unix/linux-basic/1712.html" target="_blank" rel="external">Nginx为什么比Apache Httpd高效</a></p>
+<p><a href="https://www.server110.com/nginx/201402/6543.html" target="_blank" rel="external">Apache和Nginx运行原理解析</a></p>
+<p><a href="https://wenku.baidu.com/view/887de969561252d380eb6e92.html" target="_blank" rel="external">mod_php和mod_fastcgi和php-fpm的介绍</a></p>
+<p><a href="http://www.nowamagic.net/librarys/veda/detail/1319/" target="_blank" rel="external">CGI，FastCGI，PHP-CGI与PHP-FPM介绍</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/09/12.1、LNMP之LNMP简介/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-LAMP之httpd-conf配置文件详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -518,7 +901,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/08/LAMP之Apache的keepalive和keepalive-timeout/">LAMP之Apache的keepalive和keepalive timeout</a>
+      <a class="article-title" href="/2017/08/08/LAMP之Apache的keepalive和keepalive-timeout/">LAMP之Apache的keepalive和keepalivetimeout</a>
     </h1>
   
 
@@ -572,198 +955,9 @@
 
 
   
-    <article id="post-LAMP之Apache设置自定义header" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/08/LAMP之Apache设置自定义header/">LAMP之Apache设置自定义header</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/08/LAMP之Apache设置自定义header/" class="archive-article-date">
-  	<time datetime="2017-08-08T06:32:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h3><p>我们的负载均衡集群中有很多台web服务器，当其中一台出现问题时，访问慢时。我们需要查找那一台服务器出现问题，如果全部遍历的话会很耗费时间。我们可以在每台web服务器上设置header，当我们使用curl测试，就可以快速定位那台服务器出现问题。</p>
-        
-          <a class="article-more-a" href="/2017/08/08/LAMP之Apache设置自定义header/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/08/LAMP之Apache设置自定义header/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-11.14、LAMP之php安装拓展模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/04/11.14、LAMP之php安装拓展模块/">LAMP之php安装拓展模块</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/04/11.14、LAMP之php安装拓展模块/" class="archive-article-date">
-  	<time datetime="2017-08-04T03:06:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>当我们编译完成php后，有一些模块没有。这个时候我们可以重新编译php，加上配置参数。</p>
-<p>或者，直接编译出一个独立的模块文件，然后让php去调用。</p>
-        
-          <a class="article-more-a" href="/2017/08/04/11.14、LAMP之php安装拓展模块/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/04/11.14、LAMP之php安装拓展模块/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-11.13、LAMP之PHP相关配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/03/11.13、LAMP之PHP相关配置/">LAMP之PHP相关配置</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/03/11.13、LAMP之PHP相关配置/" class="archive-article-date">
-  	<time datetime="2017-08-03T12:12:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h2 id="一、PHP配置文件位置查询"><a href="#一、PHP配置文件位置查询" class="headerlink" title="一、PHP配置文件位置查询"></a>一、PHP配置文件位置查询</h2><p>php配置文件：/usr/local/php/etc/php.ini</p>
-<h3 id="1、-usr-local-php-bin-php-i-head"><a href="#1、-usr-local-php-bin-php-i-head" class="headerlink" title="1、/usr/local/php/bin/php -i |head"></a>1、/usr/local/php/bin/php -i |head</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/usr/local/php/bin/php -i |head       </div><div class="line">Loaded Configuration File =&gt; /usr/local/php/etc/php.ini</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/201747086.png?imageslim" alt="mark"></p>
-        
-          <a class="article-more-a" href="/2017/08/03/11.13、LAMP之PHP相关配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/03/11.13、LAMP之PHP相关配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -877,6 +1071,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
@@ -889,35 +1087,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -929,7 +1099,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -937,7 +1119,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -946,6 +1140,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>
