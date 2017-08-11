@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/151926337.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170712/202627464.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/230633747.png?imageslim">
-<meta property="og:updated_time" content="2017-07-19T15:07:27.924Z">
+<meta property="og:updated_time" content="2017-08-11T02:42:00.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之网络管理相关">
 <meta name="twitter:description" content="[TOC] 1、ifconfigifconfig：查看网卡IP（ip  add也是可以查看） 安装：yum  install  -y   net-tools">
@@ -329,6 +329,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、ifconfig"><span class="toc-number">1.</span> <span class="toc-text">1、ifconfig</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、ifup-ifdown"><span class="toc-number">2.</span> <span class="toc-text">2、ifup/ifdown</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、增加虚拟网卡"><span class="toc-number">3.</span> <span class="toc-text">3、增加虚拟网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、测试网卡是否连接网线"><span class="toc-number">4.</span> <span class="toc-text">4、测试网卡是否连接网线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、设置hostname"><span class="toc-number">5.</span> <span class="toc-text">5、设置hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、设置DNS"><span class="toc-number">6.</span> <span class="toc-text">6、设置DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、本地DNS解析文件"><span class="toc-number">7.</span> <span class="toc-text">7、本地DNS解析文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、查看网关"><span class="toc-number">8.</span> <span class="toc-text">8、查看网关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9、测试网络连通性"><span class="toc-number">9.</span> <span class="toc-text">9、测试网络连通性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10、远程连接"><span class="toc-number">10.</span> <span class="toc-text">10、远程连接</span></a></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] 一、安装mysql安装mysql与LAMP架构基本上一致，安装步骤如下： 1.1、 下载mysql二进制免编译安装包 12cd /usr/local/srcwget http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170809/155254673.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170809/155428497.png?imageslim">
-<meta property="og:updated_time" content="2017-08-10T02:51:33.795Z">
+<meta property="og:updated_time" content="2017-08-11T02:36:53.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之安装mysql和php-fpm">
 <meta name="twitter:description" content="[TOC] 一、安装mysql安装mysql与LAMP架构基本上一致，安装步骤如下： 1.1、 下载mysql二进制免编译安装包 12cd /usr/local/srcwget http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz">
@@ -364,6 +364,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、安装mysql"><span class="toc-number">1.</span> <span class="toc-text">一、安装mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装php-fpm"><span class="toc-number">2.</span> <span class="toc-text">二、安装php-fpm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、php-fpm-conf配置文件详解"><span class="toc-number">3.</span> <span class="toc-text">三、php-fpm.conf配置文件详解</span></a></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

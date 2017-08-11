@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170726/232443943.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170726/232351011.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/000535536.png?imageslim">
-<meta property="og:updated_time" content="2017-08-07T06:26:11.121Z">
+<meta property="og:updated_time" content="2017-08-11T02:39:13.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之安装MySQL">
 <meta name="twitter:description" content="MySQL的几个常用安装包：rpm，源码，二进制免编译 二进制免编译包：软件先进行编译，再打包压缩。好处在于不用花时间编译配置。二进制包区分平台，使用uname  -a查看平台，X86为64位，i686为32位。">
@@ -164,6 +164,7 @@
 <p>二进制免编译包：软件先进行编译，再打包压缩。好处在于不用花时间编译配置。二进制包区分平台，使用uname  -a查看平台，X86为64位，i686为32位。</p>
 <a id="more"></a>
 <p>[TOC]</p>
+<p>安装mysql</p>
 <h3 id="1、下载MySQL二进制包"><a href="#1、下载MySQL二进制包" class="headerlink" title="1、下载MySQL二进制包"></a>1、下载MySQL二进制包</h3><p>软件包一般都是上官网查找，然后得到下载地址</p>
 <p>wget <a href="http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz" target="_blank" rel="external">http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz</a></p>
 <h3 id="2、解压MySQL二进制包"><a href="#2、解压MySQL二进制包" class="headerlink" title="2、解压MySQL二进制包"></a>2、解压MySQL二进制包</h3><ul>
@@ -216,14 +217,21 @@
 <p>（3）kill与killall的区别</p>
 <p><code>kill  PID</code>也是可以结束进程的，但是有些服务是由多个进程支持。例如，MySQL服务就有多个进程，MySQL在写数据时，如果一个进程被kill了，那么还在内存未写入的数据就会丢失。而使用<code>killall  服务名</code>，会等待内存的数据写入磁盘后在结束所有服务进程。</p>
 <p><strong>如果使用<code>killall  mysql</code>还是杀不死进程，这个时候不要使用-9强制杀死，因为数据量大，所以这个时候我们只能等待。等数据处理完之后，进程自动会被kill掉。</strong></p>
-<h2 id="二、安装Maria-DB"><a href="#二、安装Maria-DB" class="headerlink" title="二、安装Maria DB"></a>二、安装Maria DB</h2><h3 id="1、下载二进制安装包"><a href="#1、下载二进制安装包" class="headerlink" title="1、下载二进制安装包"></a>1、下载二进制安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
-<h3 id="2、解压"><a href="#2、解压" class="headerlink" title="2、解压"></a>2、解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zcvf  mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
-<h3 id="3、重命名目录-1"><a href="#3、重命名目录-1" class="headerlink" title="3、重命名目录"></a>3、重命名目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv mariadb-10.2.6-linux-glibc_214-x86_64 /usr/local/mariadb</div></pre></td></tr></table></figure>
-<h3 id="4、创建用户-1"><a href="#4、创建用户-1" class="headerlink" title="4、创建用户"></a>4、创建用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd  mysql</div></pre></td></tr></table></figure>
-<h3 id="5、创建数据目录"><a href="#5、创建数据目录" class="headerlink" title="5、创建数据目录"></a>5、创建数据目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir /data/mariadb</div></pre></td></tr></table></figure>
-<h3 id="6、初始化MariaDB"><a href="#6、初始化MariaDB" class="headerlink" title="6、初始化MariaDB"></a>6、初始化MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/mariadb</div><div class="line">./scripts/mysql_install_db --user=mysql --basedir=/usr/local/mariadb/ --datadir=/data/mariadb</div><div class="line">#需要指定basedir</div></pre></td></tr></table></figure>
+<h2 id="安装Maria-DB"><a href="#安装Maria-DB" class="headerlink" title="安装Maria DB"></a>安装Maria DB</h2><p>1、下载二进制安装包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
+<p>2、解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zcvf  mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
+<p>3、重命名目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv mariadb-10.2.6-linux-glibc_214-x86_64 /usr/local/mariadb</div></pre></td></tr></table></figure>
+<p>4、创建用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd  mysql</div></pre></td></tr></table></figure>
+<p>5、创建数据目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir /data/mariadb</div></pre></td></tr></table></figure>
+<p>6、初始化MariaDB</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/mariadb</div><div class="line">./scripts/mysql_install_db --user=mysql --basedir=/usr/local/mariadb/ --datadir=/data/mariadb</div><div class="line">#需要指定basedir</div></pre></td></tr></table></figure>
 <p>使用echo $?查看是否成功</p>
-<h3 id="7、拷贝配置文件和启动脚本-1"><a href="#7、拷贝配置文件和启动脚本-1" class="headerlink" title="7、拷贝配置文件和启动脚本"></a>7、拷贝配置文件和启动脚本</h3><p>配置文件：</p>
+<p>7、拷贝配置文件和启动脚本</p>
+<p>配置文件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cp support-files/my-small.cnf /usr/local/mariadb/my.cnf</div><div class="line">cp support-files/my-small.cnf  /etc/my.cnf</div><div class="line">#可以在该配置文件中修改监听端口和socket文件位置，避免与MySQL冲突</div></pre></td></tr></table></figure>
 <p>启动脚本：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp support-files/mysql.server /etc/init.d/mariadb</div></pre></td></tr></table></figure>
@@ -232,10 +240,13 @@
 </ul>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170726/232443943.png?imageslim" alt="mark"></p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170726/232351011.png?imageslim" alt="mark"></p>
-<h3 id="9、启动"><a href="#9、启动" class="headerlink" title="9、启动"></a>9、启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> /etc/init.d/mariadb start</div><div class="line">#使用ps  aux |grep &quot;mariadb&quot;查看是否启动成功</div><div class="line">[root@allen1 mariadb]# ps aux |grep &quot;mariadb&quot;</div><div class="line">root      6103  0.0  0.1 115380  1732 ?        S    23:48   0:00 /bin/sh /usr/local/mariadb//bin/mysqld_safe --defaults-file=/usr/local/mariadb//my.cnf --datadir=/data/mariadb/ --pid-file=/data/mariadb//allen1.pid</div><div class="line">mysql     6219  3.0  5.8 1125020 58772 ?       Sl   23:48   0:00 /usr/local/mariadb/bin/mysqld --defaults-file=/usr/local/mariadb//my.cnf --basedir=/usr/local/mariadb --datadir=/data/mariadb/ --plugin-dir=/usr/local/mariadb/lib/plugin --user=mysql --log-error=/data/mariadb//allen1.err --pid-file=/data/mariadb//allen1.pid --socket=/tmp/mysql.sock --port=3306</div><div class="line">root      6258  0.0  0.0 112664   976 pts/0    S+   23:48   0:00 grep --color=auto mariadb</div></pre></td></tr></table></figure>
-<h3 id="10、在启动脚本中定义配置文件"><a href="#10、在启动脚本中定义配置文件" class="headerlink" title="10、在启动脚本中定义配置文件"></a>10、在启动脚本中定义配置文件</h3><p>（1）增加一个变量conf=配置文件地址</p>
+<p>8、启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> /etc/init.d/mariadb start</div><div class="line">#使用ps  aux |grep &quot;mariadb&quot;查看是否启动成功</div><div class="line">[root@allen1 mariadb]# ps aux |grep &quot;mariadb&quot;</div><div class="line">root      6103  0.0  0.1 115380  1732 ?        S    23:48   0:00 /bin/sh /usr/local/mariadb//bin/mysqld_safe --defaults-file=/usr/local/mariadb//my.cnf --datadir=/data/mariadb/ --pid-file=/data/mariadb//allen1.pid</div><div class="line">mysql     6219  3.0  5.8 1125020 58772 ?       Sl   23:48   0:00 /usr/local/mariadb/bin/mysqld --defaults-file=/usr/local/mariadb//my.cnf --basedir=/usr/local/mariadb --datadir=/data/mariadb/ --plugin-dir=/usr/local/mariadb/lib/plugin --user=mysql --log-error=/data/mariadb//allen1.err --pid-file=/data/mariadb//allen1.pid --socket=/tmp/mysql.sock --port=3306</div><div class="line">root      6258  0.0  0.0 112664   976 pts/0    S+   23:48   0:00 grep --color=auto mariadb</div></pre></td></tr></table></figure>
+<p>9、在启动脚本中定义配置文件</p>
+<p>（1）增加一个变量conf=配置文件地址</p>
 <p>（2）找到“start”启动部分，加上–defaults-file=”$conf”</p>
-<h3 id="11、mariadb的默认配置文件区别"><a href="#11、mariadb的默认配置文件区别" class="headerlink" title="11、mariadb的默认配置文件区别"></a>11、mariadb的默认配置文件区别</h3><p>如图所示：</p>
+<p>10、mariadb的默认配置文件区别</p>
+<p>如图所示：</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/000535536.png?imageslim" alt="mark"></p>
 <ul>
 <li>这些默认配置文件的主要区别在于其中buff和cache的值不同。MySQL也是有多个默认配置文件</li>
@@ -355,6 +366,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、下载MySQL二进制包"><span class="toc-number">1.</span> <span class="toc-text">1、下载MySQL二进制包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、解压MySQL二进制包"><span class="toc-number">2.</span> <span class="toc-text">2、解压MySQL二进制包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、重命名目录"><span class="toc-number">3.</span> <span class="toc-text">3、重命名目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、创建用户"><span class="toc-number">4.</span> <span class="toc-text">4、创建用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、创建目录"><span class="toc-number">5.</span> <span class="toc-text">5、创建目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、初始化MySQL"><span class="toc-number">6.</span> <span class="toc-text">6、初始化MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、拷贝配置文件和启动脚本"><span class="toc-number">7.</span> <span class="toc-text">7、拷贝配置文件和启动脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、修改启动脚本中的datadir和basedir"><span class="toc-number">8.</span> <span class="toc-text">8、修改启动脚本中的datadir和basedir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9、将MySQL加入服务列表及开机启动"><span class="toc-number">9.</span> <span class="toc-text">9、将MySQL加入服务列表及开机启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10、启动MySQL"><span class="toc-number">10.</span> <span class="toc-text">10、启动MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11、关闭MySQL"><span class="toc-number">11.</span> <span class="toc-text">11、关闭MySQL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Maria-DB"><span class="toc-number"></span> <span class="toc-text">安装Maria DB</span></a>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

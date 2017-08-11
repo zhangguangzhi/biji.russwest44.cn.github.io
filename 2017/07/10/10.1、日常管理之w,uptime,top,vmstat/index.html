@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] 一、w命令使用1、w命令输出详情w：查看系统负载以及登录详情 123456[root@allen1 ~]# w 21:24:33 up  1:01,  3 users,  load average: 0.02, 0.02, 0.05USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHATroot     tt">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170710/213317948.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170710/213729116.png?imageslim">
-<meta property="og:updated_time" content="2017-07-24T07:28:07.603Z">
+<meta property="og:updated_time" content="2017-08-11T02:41:34.265Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之系统监控w,uptime,vmstat,top">
 <meta name="twitter:description" content="[TOC] 一、w命令使用1、w命令输出详情w：查看系统负载以及登录详情 123456[root@allen1 ~]# w 21:24:33 up  1:01,  3 users,  load average: 0.02, 0.02, 0.05USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHATroot     tt">
@@ -345,6 +345,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、w命令使用"><span class="toc-number">1.</span> <span class="toc-text">一、w命令使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、w命令输出详情"><span class="toc-number">1.1.</span> <span class="toc-text">1、w命令输出详情</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、如何查看逻辑cpu个数"><span class="toc-number">1.2.</span> <span class="toc-text">2、如何查看逻辑cpu个数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、直接查看系统负载uptime"><span class="toc-number">2.</span> <span class="toc-text">二、直接查看系统负载uptime</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、监控系统状态vmstat"><span class="toc-number">3.</span> <span class="toc-text">三、监控系统状态vmstat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、监控系统状态top"><span class="toc-number">4.</span> <span class="toc-text">四、监控系统状态top</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、用法"><span class="toc-number">4.1.</span> <span class="toc-text">1、用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、top内部命令"><span class="toc-number">4.2.</span> <span class="toc-text">2、top内部命令</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

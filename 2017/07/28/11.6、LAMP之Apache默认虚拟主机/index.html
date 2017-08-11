@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170728/211124970.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170728/211810733.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170728/212118421.png?imageslim">
-<meta property="og:updated_time" content="2017-07-31T15:30:59.292Z">
+<meta property="og:updated_time" content="2017-08-11T02:39:59.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache默认虚拟主机">
 <meta name="twitter:description" content="[TOC] 一、Windows的hosts文件hosts文件路径：C:\Windows\System32\drivers\etc\hosts 在该文件中可添加DNS解析  修改之后，当我们访问www.abc.com和www.111.com时就会解析到我们的Linux服务器（192.168.205.137）">
@@ -316,6 +316,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Windows的hosts文件"><span class="toc-number">1.</span> <span class="toc-text">一、Windows的hosts文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#二、httpd的默认虚拟主机"><span class="toc-number">1.1.</span> <span class="toc-text">二、httpd的默认虚拟主机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、管理多个虚拟主机"><span class="toc-number">2.</span> <span class="toc-text">三、管理多个虚拟主机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、修改httpd主配置文件"><span class="toc-number">2.1.</span> <span class="toc-text">1、修改httpd主配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、虚拟主机配置文件"><span class="toc-number">2.2.</span> <span class="toc-text">2、虚拟主机配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、添加自定义虚拟主机"><span class="toc-number">2.3.</span> <span class="toc-text">3、添加自定义虚拟主机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、测试"><span class="toc-number">2.4.</span> <span class="toc-text">4、测试</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/114509439.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/121036600.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170804/121013565.png?imageslim">
-<meta property="og:updated_time" content="2017-08-04T04:10:43.247Z">
+<meta property="og:updated_time" content="2017-08-11T02:37:14.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之php安装拓展模块">
 <meta name="twitter:description" content="[TOC] 一、作用当我们编译完成php后，有一些模块没有。这个时候我们可以重新编译php，加上配置参数。 或者，直接编译出一个独立的模块文件，然后让php去调用。">
@@ -332,6 +332,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、作用"><span class="toc-number">1.</span> <span class="toc-text">一、作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、安装方法"><span class="toc-number">2.</span> <span class="toc-text">二、安装方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、PHP源码包已有模块安装"><span class="toc-number">2.1.</span> <span class="toc-text">1、PHP源码包已有模块安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、模块源码包安装"><span class="toc-number">2.2.</span> <span class="toc-text">2、模块源码包安装</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

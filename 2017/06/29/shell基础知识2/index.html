@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231905382.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231024643.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170629/231528852.png?imageslim">
-<meta property="og:updated_time" content="2017-07-24T06:30:58.017Z">
+<meta property="og:updated_time" content="2017-08-11T02:45:31.028Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell基础知识之二">
 <meta name="twitter:description" content="shell基础知识之一 [TOC] 一、特殊符号之管道符管道符“|”：将前面命令的输出内容传递给后面的命令处理。 12345[root@allen1 ~]# lsanaconda-ks.cfg  d6z  dir2  file1  file2  file3  passwd  test  test1  test2  test3[root@allen1 ~]# ls |wc -l11\\前面ls命令列">
@@ -351,6 +351,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、特殊符号之管道符"><span class="toc-number">1.</span> <span class="toc-text">一、特殊符号之管道符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、作业控制"><span class="toc-number">2.</span> <span class="toc-text">二、作业控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、暂停当前命令并放入后台：Ctrl-z"><span class="toc-number">2.1.</span> <span class="toc-text">1、暂停当前命令并放入后台：Ctrl  +  z</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、后台命令恢复到前台运行：fg"><span class="toc-number">2.2.</span> <span class="toc-text">2、后台命令恢复到前台运行：fg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、将后台暂停的命令在后台恢复运行：bg"><span class="toc-number">2.3.</span> <span class="toc-text">3、将后台暂停的命令在后台恢复运行：bg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、将命令放入后台运行：-amp"><span class="toc-number">2.4.</span> <span class="toc-text">4、将命令放入后台运行：&</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、终止前台命令：Ctrl-c"><span class="toc-number">2.5.</span> <span class="toc-text">5、终止前台命令：Ctrl  +  c</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、jobs"><span class="toc-number">2.6.</span> <span class="toc-text">6、jobs</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、shell变量"><span class="toc-number">3.</span> <span class="toc-text">三、shell变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、查看shell变量"><span class="toc-number">3.1.</span> <span class="toc-text">1、查看shell变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、自定义变量"><span class="toc-number">3.2.</span> <span class="toc-text">2、自定义变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、设置全局变量"><span class="toc-number">3.3.</span> <span class="toc-text">3、设置全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、其他用户如何使用自定义变量"><span class="toc-number">3.4.</span> <span class="toc-text">4、其他用户如何使用自定义变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、取消变量赋值"><span class="toc-number">3.5.</span> <span class="toc-text">5、取消变量赋值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、环境变量配置文件"><span class="toc-number">4.</span> <span class="toc-text">四、环境变量配置文件</span></a></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] 一、作用我们的负载均衡集群中有很多台web服务器，当其中一台出现问题时，访问慢时。我们需要查找那一台服务器出现问题，如果全部遍历的话会很耗费时间。我们可以在每台web服务器上设置header，当我们使用curl测试，就可以快速定位那台服务器出现问题。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/145324071.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/145424802.png?imageslim">
-<meta property="og:updated_time" content="2017-08-08T12:40:19.511Z">
+<meta property="og:updated_time" content="2017-08-11T02:43:53.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache设置自定义header">
 <meta name="twitter:description" content="[TOC] 一、作用我们的负载均衡集群中有很多台web服务器，当其中一台出现问题时，访问慢时。我们需要查找那一台服务器出现问题，如果全部遍历的话会很耗费时间。我们可以在每台web服务器上设置header，当我们使用curl测试，就可以快速定位那台服务器出现问题。">
@@ -291,6 +291,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、作用"><span class="toc-number">1.</span> <span class="toc-text">一、作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、虚拟主机设置header"><span class="toc-number">2.</span> <span class="toc-text">二、虚拟主机设置header</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、检查模块mod-headers是否加载"><span class="toc-number">2.1.</span> <span class="toc-text">1、检查模块mod_headers是否加载</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、修改虚拟主机配置文件"><span class="toc-number">3.</span> <span class="toc-text">2、修改虚拟主机配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、测试"><span class="toc-number">4.</span> <span class="toc-text">3、测试</span></a></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="[TOC] 一、LNMP1、LNMP简介LNMP和LAMP的不同在于使用的web服务器不同，LNMP中的N是指使用nginx（类似Apache的一种web服务器）。目前这种环境的应用非常多。nginx设计的初衷是提供一种快速，高效，多并发的web服务软件。在静态页面（html，js，css等）的处理上，nginx较Apache更胜一筹；但在动态页面的处理上，nginx并不比Apache有优势，但是">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170809/153424665.png?imageslim">
-<meta property="og:updated_time" content="2017-08-10T02:51:19.721Z">
+<meta property="og:updated_time" content="2017-08-11T02:37:02.447Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之LNMP简介">
 <meta name="twitter:description" content="[TOC] 一、LNMP1、LNMP简介LNMP和LAMP的不同在于使用的web服务器不同，LNMP中的N是指使用nginx（类似Apache的一种web服务器）。目前这种环境的应用非常多。nginx设计的初衷是提供一种快速，高效，多并发的web服务软件。在静态页面（html，js，css等）的处理上，nginx较Apache更胜一筹；但在动态页面的处理上，nginx并不比Apache有优势，但是">
@@ -336,6 +336,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、LNMP"><span class="toc-number">1.</span> <span class="toc-text">一、LNMP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1、LNMP简介"><span class="toc-number">2.</span> <span class="toc-text">1、LNMP简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、LNMP是如何工作"><span class="toc-number">3.</span> <span class="toc-text">2、LNMP是如何工作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、nginx支持比Apache高并发原因"><span class="toc-number">4.</span> <span class="toc-text">3、nginx支持比Apache高并发原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、Apache和Nginx比较"><span class="toc-number">5.</span> <span class="toc-text">4、Apache和Nginx比较</span></a></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

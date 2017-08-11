@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/194920967.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/200353340.png?imageslim">
-<meta property="og:updated_time" content="2017-07-24T06:58:26.136Z">
+<meta property="og:updated_time" content="2017-08-11T02:44:35.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本处理命令之grep">
 <meta name="twitter:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
@@ -349,6 +349,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、正则表达式"><span class="toc-number">1.</span> <span class="toc-text">一、正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、grep用法"><span class="toc-number">2.</span> <span class="toc-text">二、grep用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、格式"><span class="toc-number">2.1.</span> <span class="toc-text">1、格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、选项作用"><span class="toc-number">2.2.</span> <span class="toc-text">2、选项作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、grep应用实例"><span class="toc-number">3.</span> <span class="toc-text">三、grep应用实例</span></a></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

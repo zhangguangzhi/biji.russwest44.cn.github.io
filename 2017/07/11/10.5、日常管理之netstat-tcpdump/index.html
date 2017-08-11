@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/221229566.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/221347897.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/222630041.png?imageslim">
-<meta property="og:updated_time" content="2017-07-24T07:52:34.696Z">
+<meta property="og:updated_time" content="2017-08-11T02:41:15.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之netstat,tcpdump,tshark">
 <meta name="twitter:description" content="[TOC] 一、查询网络状态netstat：查看当前网络连接">
@@ -391,6 +391,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、查询网络状态"><span class="toc-number">1.</span> <span class="toc-text">一、查询网络状态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、查看监听端口（listen）"><span class="toc-number">1.1.</span> <span class="toc-text">1、查看监听端口（listen）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、查看端口的连接状态"><span class="toc-number">1.2.</span> <span class="toc-text">2、查看端口的连接状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、应用"><span class="toc-number">1.3.</span> <span class="toc-text">3、应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、tcp的三次握手与四次挥手"><span class="toc-number">1.4.</span> <span class="toc-text">4、tcp的三次握手与四次挥手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、参考资料"><span class="toc-number">1.5.</span> <span class="toc-text">5、参考资料</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、抓包工具tcpdump-tshark"><span class="toc-number">2.</span> <span class="toc-text">二、抓包工具tcpdump/tshark</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、什么是tcpdump"><span class="toc-number">2.1.</span> <span class="toc-text">1、什么是tcpdump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、安装tcpdump"><span class="toc-number">2.2.</span> <span class="toc-text">2、安装tcpdump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、tcpdump使用"><span class="toc-number">2.3.</span> <span class="toc-text">3、tcpdump使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、tcpdump练习"><span class="toc-number">2.4.</span> <span class="toc-text">5、tcpdump练习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、tshark"><span class="toc-number">2.5.</span> <span class="toc-text">6、tshark</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

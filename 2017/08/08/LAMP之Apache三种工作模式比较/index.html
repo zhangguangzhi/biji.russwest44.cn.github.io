@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6SCCAOhpnmD9F9ZKE7dWDbr1Rrwn3JKRYQeKGibVlXFd4kdwCicMK5csjA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6Sn5onUwxUKkhLDNvZwlNia4ON7SYRUhx7Lib2yuvnvn4wMey7PNDkmDicg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6SmGZIvUSSXhsfDRybjicyb5cUJIU8HE9t4CRongylicZQ5vAFr9ZzK1KQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
-<meta property="og:updated_time" content="2017-08-08T12:40:08.700Z">
+<meta property="og:updated_time" content="2017-08-11T02:44:08.579Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache三种工作模式比较">
 <meta name="twitter:description" content="转载阿铭Linux公众号。 [TOC]  查看你的httpd使用了哪种模式：  1/usr/local/apache2/bin/httpd -V |grep &amp;apos;Server MPM&amp;apos;  使用哪种模式，需要在编译的时候指定  1--with-mpm=prefork|worker|event  当然也可以编译的时候，让三者都支持：  1--enable-mpms-shared=al">
@@ -304,6 +304,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、prefork"><span class="toc-number">1.</span> <span class="toc-text">1、prefork</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、worker"><span class="toc-number">2.</span> <span class="toc-text">2、worker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、event"><span class="toc-number">3.</span> <span class="toc-text">3、event</span></a></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

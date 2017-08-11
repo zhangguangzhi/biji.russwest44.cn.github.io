@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/110353561.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/110410321.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/110424940.png?imageslim">
-<meta property="og:updated_time" content="2017-08-08T06:31:12.616Z">
+<meta property="og:updated_time" content="2017-08-11T02:37:43.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache访问控制">
 <meta name="twitter:description" content="[TOC] 一、访问控制的作用发现来源IP有非法请求，或有些目录只能特定IP访问时，这个时候就可以采用访问控制。">
@@ -319,6 +319,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、访问控制的作用"><span class="toc-number">1.</span> <span class="toc-text">一、访问控制的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、语法"><span class="toc-number">2.</span> <span class="toc-text">二、语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、应用"><span class="toc-number">3.</span> <span class="toc-text">三、应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、"><span class="toc-number">3.1.</span> <span class="toc-text">1、</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、"><span class="toc-number">3.2.</span> <span class="toc-text">2、</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

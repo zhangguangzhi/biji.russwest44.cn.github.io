@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/101325031.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/101538716.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/105440309.png?imageslim">
-<meta property="og:updated_time" content="2017-08-08T02:54:46.376Z">
+<meta property="og:updated_time" content="2017-08-11T02:37:51.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache配置防盗链">
 <meta name="twitter:description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问，只用img可以访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际">
@@ -301,6 +301,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、作用"><span class="toc-number">1.</span> <span class="toc-text">一、作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、配置防盗链"><span class="toc-number">2.</span> <span class="toc-text">二、配置防盗链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、修改虚拟主机配置文件"><span class="toc-number">2.1.</span> <span class="toc-text">1、修改虚拟主机配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、检查重载配置文件，测试"><span class="toc-number">2.2.</span> <span class="toc-text">2、检查重载配置文件，测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、利用rewrite模块"><span class="toc-number">3.</span> <span class="toc-text">三、利用rewrite模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、修改主机配置文件"><span class="toc-number">3.1.</span> <span class="toc-text">1、修改主机配置文件</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

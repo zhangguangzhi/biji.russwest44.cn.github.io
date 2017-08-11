@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="[TOC] 一、iostat/iotop1、iostat查看磁盘io，即读写能力 1234567891011[root@allen1 ~]# iostat  -xLinux 3.10.0-514.el7.x86_64 (allen1) 	2017年07月11日 	_x86_64_	(1 CPU)avg-cpu:  %user   %nice %system %iowait  %steal   %i">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170711/211554642.png?imageslim">
-<meta property="og:updated_time" content="2017-07-17T12:55:40.645Z">
+<meta property="og:updated_time" content="2017-08-11T02:41:22.765Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之iostat，iotop，free">
 <meta name="twitter:description" content="[TOC] 一、iostat/iotop1、iostat查看磁盘io，即读写能力 1234567891011[root@allen1 ~]# iostat  -xLinux 3.10.0-514.el7.x86_64 (allen1) 	2017年07月11日 	_x86_64_	(1 CPU)avg-cpu:  %user   %nice %system %iowait  %steal   %i">
@@ -311,6 +311,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、iostat-iotop"><span class="toc-number">1.</span> <span class="toc-text">一、iostat/iotop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、iostat"><span class="toc-number">1.1.</span> <span class="toc-text">1、iostat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、iotop"><span class="toc-number">1.2.</span> <span class="toc-text">2、iotop</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、free"><span class="toc-number">2.</span> <span class="toc-text">二、free</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、用法"><span class="toc-number">2.1.</span> <span class="toc-text">1、用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、使用适合单位查看"><span class="toc-number">2.2.</span> <span class="toc-text">2、使用适合单位查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、持续观察内存使用情况"><span class="toc-number">2.3.</span> <span class="toc-text">3、持续观察内存使用情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、预设更新次数，与-s合用，"><span class="toc-number">2.4.</span> <span class="toc-text">4、预设更新次数，与-s合用，</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

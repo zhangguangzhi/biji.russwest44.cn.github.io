@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] 一、计划任务服务—crond1、crond的作用在日常管理中，我们可能需要经常执行以下任务：  每分钟需要执行一个命令检查系统运行状态 每天凌晨需要对过去一个服务数据进行统计 每个星期需要把日志文件被封 每个月需要把数据库进行备份  使用crond服务可以轻松解决以上需求。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170717/173334518.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170717/174049085.png?imageslim">
-<meta property="og:updated_time" content="2017-07-20T02:23:04.255Z">
+<meta property="og:updated_time" content="2017-08-11T02:42:05.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之任务计划">
 <meta name="twitter:description" content="[TOC] 一、计划任务服务—crond1、crond的作用在日常管理中，我们可能需要经常执行以下任务：  每分钟需要执行一个命令检查系统运行状态 每天凌晨需要对过去一个服务数据进行统计 每个星期需要把日志文件被封 每个月需要把数据库进行备份  使用crond服务可以轻松解决以上需求。">
@@ -335,6 +335,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、计划任务服务—crond"><span class="toc-number">1.</span> <span class="toc-text">一、计划任务服务—crond</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、crond的作用"><span class="toc-number">1.1.</span> <span class="toc-text">1、crond的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、启动crond"><span class="toc-number">1.2.</span> <span class="toc-text">2、启动crond</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、crond的使用"><span class="toc-number">2.</span> <span class="toc-text">二、crond的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、crontab"><span class="toc-number">2.1.</span> <span class="toc-text">1、crontab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、crond配置文件"><span class="toc-number">2.2.</span> <span class="toc-text">2、crond配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、计划任务配置格式"><span class="toc-number">2.3.</span> <span class="toc-text">3、计划任务配置格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、crontab工具的使用"><span class="toc-number">2.4.</span> <span class="toc-text">4、crontab工具的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、cronttab的日志"><span class="toc-number">2.5.</span> <span class="toc-text">5、cronttab的日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、crontab常见错误"><span class="toc-number">2.6.</span> <span class="toc-text">6、crontab常见错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、如何备份用户cron计划"><span class="toc-number">2.7.</span> <span class="toc-text">7、如何备份用户cron计划</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 

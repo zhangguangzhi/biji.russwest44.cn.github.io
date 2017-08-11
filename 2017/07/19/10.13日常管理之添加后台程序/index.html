@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/234603111.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/234835024.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/235033409.png?imageslim">
-<meta property="og:updated_time" content="2017-07-24T08:12:14.992Z">
+<meta property="og:updated_time" content="2017-08-11T02:41:37.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之添加后台程序（screen使用）">
 <meta name="twitter:description" content="我们可以使用“&amp;amp;”，将该符号放在命令的后面，可以将命令放入后台执行。但是，如果退出了该终端，那么这个命令很有可能也会退出，所以我们可使用以下两种方法">
@@ -297,6 +297,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、nohup"><span class="toc-number">1.</span> <span class="toc-text">一、nohup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、screen"><span class="toc-number">2.</span> <span class="toc-text">二、screen</span></a></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 
