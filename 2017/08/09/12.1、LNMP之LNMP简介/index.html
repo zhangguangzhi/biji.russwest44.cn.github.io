@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="[TOC] 一、LNMP1、LNMP简介LNMP和LAMP的不同在于使用的web服务器不同，LNMP中的N是指使用nginx（类似Apache的一种web服务器）。目前这种环境的应用非常多。nginx设计的初衷是提供一种快速，高效，多并发的web服务软件。在静态页面（html，js，css等）的处理上，nginx较Apache更胜一筹；但在动态页面的处理上，nginx并不比Apache有优势，但是">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170809/153424665.png?imageslim">
-<meta property="og:updated_time" content="2017-08-11T02:37:02.447Z">
+<meta property="og:updated_time" content="2017-08-11T02:55:32.918Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之LNMP简介">
 <meta name="twitter:description" content="[TOC] 一、LNMP1、LNMP简介LNMP和LAMP的不同在于使用的web服务器不同，LNMP中的N是指使用nginx（类似Apache的一种web服务器）。目前这种环境的应用非常多。nginx设计的初衷是提供一种快速，高效，多并发的web服务软件。在静态页面（html，js，css等）的处理上，nginx较Apache更胜一筹；但在动态页面的处理上，nginx并不比Apache有优势，但是">
@@ -167,7 +167,7 @@
 <li>FastCGI是一个可伸缩地、高速地在HTTP server和动态脚本语言间通信的接口（像是一个常驻(long-live)型的CGI，它可以一直执行着。）。多数流行的HTTP server都支持FastCGI，包括Apache、Nginx和lighttpd等。同时，FastCGI也被许多脚本语言支持，其中就有PHP。</li>
 </ul>
 <h4 id="3、nginx支持比Apache高并发原因"><a href="#3、nginx支持比Apache高并发原因" class="headerlink" title="3、nginx支持比Apache高并发原因"></a>3、nginx支持比Apache高并发原因</h4><p>3.1、I/O模型</p>
-<p>Apache使用select模型（阻塞型）：</p>
+<p>Apache2.4之前使用select模型（阻塞型）：</p>
 <ul>
 <li>单个进程能够 监视的文件描述符的数量存在最大限制</li>
 <li>select()所维护的 存储大量文件描述符的数据结构 ，随着文件描述符数量的增长，其在用户态和内核的地址空间的复制所引发的开销也会线性增长</li>
@@ -460,19 +460,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -488,7 +484,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,7 +504,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,7 +516,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,19 +528,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,6 +541,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>
