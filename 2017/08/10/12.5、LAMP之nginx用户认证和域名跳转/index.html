@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>LAMP之nginx用户认证和域名跳转 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] nginx用户认证对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。  使用location匹配相应的目录或者目录 密码文件需要使用htpasswd生成 添加配置文件时不要忘记语句后面的分号;  1、创建新的虚拟机主机我们现在只有一台默认虚拟主机，所以我们需要创建新的虚拟主机来进行实验 123456789vim /usr/local">
+  <meta name="description" content="[TOC] nginx用户认证对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。  使用location匹配相应的目录或者目录 密码文件需要使用htpasswd生成 添加配置文件时不要忘记语句后面的分号;">
 <meta name="keywords" content="LNMP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LAMP之nginx用户认证和域名跳转">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/10/12.5、LAMP之nginx用户认证和域名跳转/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] nginx用户认证对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。  使用location匹配相应的目录或者目录 密码文件需要使用htpasswd生成 添加配置文件时不要忘记语句后面的分号;  1、创建新的虚拟机主机我们现在只有一台默认虚拟主机，所以我们需要创建新的虚拟主机来进行实验 123456789vim /usr/local">
+<meta property="og:description" content="[TOC] nginx用户认证对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。  使用location匹配相应的目录或者目录 密码文件需要使用htpasswd生成 添加配置文件时不要忘记语句后面的分号;">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/171521541.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/172043153.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/172300180.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/173604299.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/174520690.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/174640706.png?imageslim">
-<meta property="og:updated_time" content="2017-08-10T09:58:38.388Z">
+<meta property="og:updated_time" content="2017-08-11T02:29:22.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之nginx用户认证和域名跳转">
-<meta name="twitter:description" content="[TOC] nginx用户认证对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。  使用location匹配相应的目录或者目录 密码文件需要使用htpasswd生成 添加配置文件时不要忘记语句后面的分号;  1、创建新的虚拟机主机我们现在只有一台默认虚拟主机，所以我们需要创建新的虚拟主机来进行实验 123456789vim /usr/local">
+<meta name="twitter:description" content="[TOC] nginx用户认证对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。  使用location匹配相应的目录或者目录 密码文件需要使用htpasswd生成 添加配置文件时不要忘记语句后面的分号;">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/171521541.png?imageslim">
   
   
@@ -168,6 +168,7 @@
 <li>密码文件需要使用htpasswd生成</li>
 <li>添加配置文件时不要忘记语句后面的分号;</li>
 </ul>
+<a id="more"></a>
 <h3 id="1、创建新的虚拟机主机"><a href="#1、创建新的虚拟机主机" class="headerlink" title="1、创建新的虚拟机主机"></a>1、创建新的虚拟机主机</h3><p>我们现在只有一台默认虚拟主机，所以我们需要创建新的虚拟主机来进行实验</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/nginx/conf/vhost/test.com.conf</div><div class="line">#创建虚拟主机配置文件，必须以.conf结尾，写入以下内容：</div><div class="line">server </div><div class="line">&#123;</div><div class="line">    listen 80;</div><div class="line">    server_name  www.test.com;</div><div class="line">    index  index.html  index.htm  index.php;</div><div class="line">    root  /data/wwwroot/test.com;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>创建根目录以及index.html</p>

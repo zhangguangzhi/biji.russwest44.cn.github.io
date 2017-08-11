@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170809/170422874.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/150035717.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/150621007.png?imageslim">
-<meta property="og:updated_time" content="2017-08-10T07:06:53.638Z">
+<meta property="og:updated_time" content="2017-08-10T16:30:53.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之安装nginx">
 <meta name="twitter:description" content="[TOC] 一、nginx介绍1.1、简介Nginx（发音同engine x）是一款由俄罗斯程序员Igor Sysoev所开发轻量级的网页服务器、反向代理服务器以及电子邮件（IMAP/POP3）代理服务器。起初是供俄国大型的门户网站及搜索引擎Rambler（俄语：Рамблер）使用。传统上基于进程或线程模型架构的web服务通过每进程或每线程处理并发连接请求，这势必会在网络和I/O操作时产生阻塞，">
@@ -215,6 +215,10 @@
 <h3 id="三、nginx解析PHP"><a href="#三、nginx解析PHP" class="headerlink" title="三、nginx解析PHP"></a>三、nginx解析PHP</h3><p>（1）检查配置文件nginx.conf是否有解析PHP的配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">cat  /usr/local/conf/nginx.conf</div><div class="line">.......</div><div class="line">    gzip_http_version 1.1;</div><div class="line">    gzip_types text/plain application/x-javascript text/css text/htm</div><div class="line">    application/xml;</div><div class="line">    server</div><div class="line">    &#123;</div><div class="line">        listen 80;</div><div class="line">        server_name localhost;</div><div class="line">        index index.html index.htm index.php;</div><div class="line">        root /usr/local/nginx/html;</div><div class="line">        location ~ \.php$</div><div class="line">        &#123;</div><div class="line">            include fastcgi_params;</div><div class="line">            fastcgi_pass unix:/tmp/php-fcgi.sock;</div><div class="line">            #fastcgi_pass 127.0.0.0.1:9000</div><div class="line">            fastcgi_index index.php;</div><div class="line">            fastcgi_param SCRIPT_FILENAME /usr/local/nginx/html$fastcgi_script_name;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170810/150035717.png?imageslim" alt="mark"></p>
+<ul>
+<li>fastcgi_pass要与php-fpm设置的一致</li>
+<li>fastcgi_param定义的是php文件在那，/usr/local/nginx/html应该是$document_root的值，应该和root定义的位置一样，否则访问php文件时会出现“File not found.”</li>
+</ul>
 <p>（2）测试PHP解析</p>
 <p>创建测试文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/nginx/html/test.php</div><div class="line">&lt;?php</div><div class="line">echo  &quot;this is nginx tset&quot;;</div></pre></td></tr></table></figure>
