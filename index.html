@@ -181,6 +181,367 @@
         <!-- 目录内容结束 -->
 
   
+    <article id="post-12.9、LNMP之nginx代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/14/12.9、LNMP之nginx代理/">LNMP之nginx代理</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/14/12.9、LNMP之nginx代理/" class="archive-article-date">
+  	<time datetime="2017-08-14T13:55:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h3><p>1.1、例如你现在访问google访问不了，因为被防火墙挡住了。 但是你的美国服务器可以访问。而你又可以直接访问美国服务器，所以你可以在美国服务器上做一个代理，你访问google的时候，不直接访问google真实服务器，而是先访问美国的代理服务器，然后代理服务器帮你去访问google，等代理服务器拿到结果后，它再把结果返给你。这样最终你也可以访问google了。</p>
+<p>咱们访问国外一个网站，访问不到，但是可以通过一个国外的服务器去访问。 相当于架了一个桥梁，代理就是这个桥梁。</p>
+<p>1.2、一家公司有很多台服务器，为了节省成本，不能为所有服务器都分配公网IP，而如果一个没有公网IP的服务器需要提供web服务，就可以通过代理来实现。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170814/220240209.png?imageslim" alt="mark"></p>
+<h3 id="二、设置nginx代理"><a href="#二、设置nginx代理" class="headerlink" title="二、设置nginx代理"></a>二、设置nginx代理</h3><p>2.1、新建新的虚拟主机配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">vim   /usr/local/nginx/conf/vhost/proxy.conf</div><div class="line">server</div><div class="line">&#123;</div><div class="line">    listen 80;</div><div class="line">    server_name ask.apelearn.com;</div><div class="line"></div><div class="line">    location /</div><div class="line">    &#123;</div><div class="line">        proxy_pass      http://121.201.9.155/;</div><div class="line">        proxy_set_header Host   $host;</div><div class="line">        proxy_set_header X-Real-IP      $remote_addr;</div><div class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170814/220609098.png?imageslim" alt="mark"></p>
+<ul>
+<li>域名需要填写要代理的域名</li>
+<li>proxy_pass后面定义该域名的IP</li>
+<li>proxy_set_neader  Host  $host;这一句必须有，否则代理不成功</li>
+</ul>
+<p>2.2、检查重载配置文件，测试</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170814/221438025.png?imageslim" alt="mark"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">lNMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/14/12.9、LNMP之nginx代理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-12.8、LNMP之PHP解析，nginx防盗链，常见502错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/14/12.8、LNMP之PHP解析，nginx防盗链，常见502错误/">LNMP之PHP解析，nginx防盗链，常见502错误</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/14/12.8、LNMP之PHP解析，nginx防盗链，常见502错误/" class="archive-article-date">
+  	<time datetime="2017-08-14T04:43:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、nginx防盗链"><a href="#一、nginx防盗链" class="headerlink" title="一、nginx防盗链"></a>一、nginx防盗链</h3><p>nginx配置防盗链原理与httpd一样，也是利用referer。</p>
+<p>location具有特定的匹配规则，我们在配置防盗链和过期时间，不记录日志时会有部分重合，所以需要将两部分组合在一起</p>
+        
+          <a class="article-more-a" href="/2017/08/14/12.8、LNMP之PHP解析，nginx防盗链，常见502错误/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/14/12.8、LNMP之PHP解析，nginx防盗链，常见502错误/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-12.7、LNMP之nginx访问控制（限制IP，禁止USER-AGENT）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/14/12.7、LNMP之nginx访问控制（限制IP，禁止USER-AGENT）/">LNMP之nginx访问控制（限制IP，禁止USER_AGENT）</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/14/12.7、LNMP之nginx访问控制（限制IP，禁止USER-AGENT）/" class="archive-article-date">
+  	<time datetime="2017-08-14T02:51:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>nginx和httpd一样，也需要限制某些IP不能访问域名或者只允许某系IP访问。配置和httpd很像，但是更加简洁。</p>
+        
+          <a class="article-more-a" href="/2017/08/14/12.7、LNMP之nginx访问控制（限制IP，禁止USER-AGENT）/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/14/12.7、LNMP之nginx访问控制（限制IP，禁止USER-AGENT）/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-TCP的三次握手和四次挥手" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/12/TCP的三次握手和四次挥手/">TCP的三次握手和四次挥手</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/12/TCP的三次握手和四次挥手/" class="archive-article-date">
+  	<time datetime="2017-08-12T08:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、两军问题"><a href="#一、两军问题" class="headerlink" title="一、两军问题"></a>一、两军问题</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170812/165557883.png?imageslim" alt="mark"></p>
+<p>如上图所示，白军驻扎在沟渠里，蓝军则分散在沟渠两边。白军比任何一支蓝军都更为强大，但是蓝军若能同时合力进攻则能够打败白军。他们不能够远程的沟通，只能派遣通信兵穿过沟渠去通知对方蓝军协商进攻时间。</p>
+<p>B1的蓝军派遣通讯兵去通知B2的蓝军，约定攻击时间。当B1派出通讯兵后，他并不能确定通讯兵将信息传递给了B2，所以他不敢进攻，需要B2的回执信息。当B2接收到通讯兵的攻击时间信息时，他也需要给B1一个信息回执，同意攻击时间，但是B2也不确定B1是否能收到回执，所以他也不敢进攻，需要B1给他一个回执，确认攻击时间。但是当B1发送回执后，也不会知道B2是否收到了这样一个回执，所以B1还会期待一个B2的回执。这就是两军问题。</p>
+<p>在这个系统中永远需要存在一个回执，这对于两方来说都并不一定能够达成十足的确信。更要命的是，我们还没有考虑，通信兵的信息还有可能被篡改。由此可见，经典情形下两军问题是不可解的，并不存在一个能使蓝军一定胜利的通信协议。</p>
+<p>两军问题作为现代通信系统中必须解决的问题，我们尚不能将之完全解决，这意味着你我传输信息时仍然可能出现丢失、监听或篡改的情况。但我们能不能通过一种相对可靠的方式来解决大部分情形呢？TCP协议的三次握手就是对该问题的一个折衷解决方案。(当B1收到B2的回执后，再给B2发送回执，并在约定时间发起进攻。）</p>
+<h3 id="二、TCP的三次握手过程"><a href="#二、TCP的三次握手过程" class="headerlink" title="二、TCP的三次握手过程"></a>二、TCP的三次握手过程</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170812/171851417.png?imageslim" alt="mark"></p>
+<ol>
+<li>第一次握手：建立连接。客户端发送连接请求报文段，将<code>SYN</code>位置为1，<code>Sequence Number</code>为x；然后，客户端进入<code>SYN_SEND</code>状态，等待服务器的确认；</li>
+<li>第二次握手：服务器收到<code>SYN</code>报文段。服务器收到客户端的<code>SYN</code>报文段，需要对这个<code>SYN</code>报文段进行确认，设置<code>Acknowledgment Number</code>为x+1(<code>Sequence Number</code>+1)；同时，自己自己还要发送<code>SYN</code>请求信息，将<code>SYN</code>位置为1，<code>Sequence Number</code>为y；服务器端将上述所有信息放到一个报文段（即<code>SYN+ACK</code>报文段）中，一并发送给客户端，此时服务器进入<code>SYN_RCVD</code>状态；</li>
+<li>第三次握手：客户端收到服务器的<code>SYN+ACK</code>报文段。然后将<code>Acknowledgment Number</code>设置为y+1，向服务器发送<code>ACK</code>报文段，这个报文段发送完毕以后，客户端和服务器端都进入<code>ESTABLISHED</code>状态，完成TCP三次握手。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">A向B发起SYN请求，“你听得到我说话吗？”</div><div class="line">B（listen）接收到请求，并且回应A。“我听得到你说话，你能听到我说话吗？”</div><div class="line">A收到回应后，在此发送请求。“我可以听到你说话”</div><div class="line">A和B就能说话了。</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">状态</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">LISTEN</td>
+<td>服务端打开一个socket进行监听</td>
+</tr>
+<tr>
+<td style="text-align:center">SYN_SEND</td>
+<td>客户端发送连接请求后等待匹配的连接请求</td>
+</tr>
+<tr>
+<td style="text-align:center">SYN_RCVD</td>
+<td>服务端收到客户端请求确认后，再发送一个连接后等待对连接请求的确认</td>
+</tr>
+<tr>
+<td style="text-align:center">ESTABLISHED</td>
+<td>代表服务端和客户端已经建立连接，可以传输数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="三、TCP的四次挥手过程"><a href="#三、TCP的四次挥手过程" class="headerlink" title="三、TCP的四次挥手过程"></a>三、TCP的四次挥手过程</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170812/173525781.png?imageslim" alt="mark"></p>
+<ol>
+<li><p>第一次挥手：主机1（可以是客户端，也可以是服务器端），设置<code>Sequence Number</code>和<code>Acknowledgment Number</code>，向主机2发送一个<code>FIN</code>报文段；此时，主机1进入<code>FIN_WAIT_1</code>状态；这表示主机1没有数据要发送给主机2了；</p>
+</li>
+<li><p>第二次挥手：主机2收到了主机1发送的<code>FIN</code>报文段，向主机1回一个<code>ACK</code>报文段，进入CLOSE_WAIT，<code>Acknowledgment Number</code>为<code>Sequence Number</code>加1；主机1进入<code>FIN_WAIT_2</code>状态；主机2告诉主机1，我“同意”你的关闭请求；</p>
+</li>
+<li><p>第三次挥手：主机2向主机1发送<code>FIN</code>报文段，请求关闭连接，同时主机2进入<code>LAST_ACK</code>状态；</p>
+</li>
+<li><p>第四次挥手：主机1收到主机2发送的<code>FIN</code>报文段，向主机2发送<code>ACK</code>报文段，然后主机1进入<code>TIME_WAIT</code>状态；主机2收到主机1的<code>ACK</code>报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">A调用close()函数，向B发送FIN请求，“我要关闭连接了”。</div><div class="line">B接收到A的FIN请求，并发送ACK给A，“我知道要关闭了，但是我还需要点时间处理”</div><div class="line">此时，A接收到FIN请求，但是并没有回应</div><div class="line">B利用时间调用close()函数，并发送FIN，“我已经关闭了”</div><div class="line">A接收到FIN后，发送ACK。“我知道你关闭了，我也要关闭了”</div><div class="line">等待一定时间后，A也关闭连接。TCP连接全部关闭。</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIN_WAIT_1</td>
+<td>主动关闭端发送连接中断FIN请求后，等待响应。</td>
+</tr>
+<tr>
+<td>CLOSE_WAIT</td>
+<td>被动关闭端接收FIN请求后，发送ACK回应FIN请求，等待主动关闭端确认</td>
+</tr>
+<tr>
+<td>FIN_WAIT_2</td>
+<td>主动关闭端接收到ACK后，就会进入连接中断请求确认状态</td>
+</tr>
+<tr>
+<td>LAST_ACK</td>
+<td>被动关闭方调用close()，并向主动关闭方发送连接中断的确认</td>
+</tr>
+<tr>
+<td>TIME_WAIT</td>
+<td>接收被动关闭端的FIN后，并发送ACK返回，回应被动关闭端的FIN，并进入关闭倒计时</td>
+</tr>
+<tr>
+<td>CLOSING</td>
+<td>比较少见，等待主动关闭端对连接中断的确认</td>
+</tr>
+<tr>
+<td>CLOSED</td>
+<td>连接关闭</td>
+</tr>
+</tbody>
+</table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络相关</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/12/TCP的三次握手和四次挥手/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-12.6、LNMP之nginx访问日志管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -513,285 +874,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-12.1、LNMP之LNMP简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/09/12.1、LNMP之LNMP简介/">LNMP之LNMP简介</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/09/12.1、LNMP之LNMP简介/" class="archive-article-date">
-  	<time datetime="2017-08-09T05:19:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h4 id="一、LNMP"><a href="#一、LNMP" class="headerlink" title="一、LNMP"></a>一、LNMP</h4><h4 id="1、LNMP简介"><a href="#1、LNMP简介" class="headerlink" title="1、LNMP简介"></a>1、LNMP简介</h4><p>LNMP和LAMP的不同在于使用的web服务器不同，LNMP中的N是指使用nginx（类似Apache的一种web服务器）。目前这种环境的应用非常多。nginx设计的初衷是提供一种快速，高效，多并发的web服务软件。在<strong>静态页面（html，js，css等）</strong>的处理上，nginx较Apache更胜一筹；但在动态页面的处理上，nginx并不比Apache有优势，但是目前还是有很多爱好者对nginx比较热衷。随着nginx技术的逐渐承受，它在web服务软件领域的地位也会越来越高。</p>
-        
-          <a class="article-more-a" href="/2017/08/09/12.1、LNMP之LNMP简介/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/09/12.1、LNMP之LNMP简介/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-LAMP之httpd-conf配置文件详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/08/LAMP之httpd-conf配置文件详解/">LAMP之httpd.conf配置文件详解</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/08/LAMP之httpd-conf配置文件详解/" class="archive-article-date">
-  	<time datetime="2017-08-08T12:26:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ServerRoot “/export/servers/apache2”        #安装apache的家目录</p>
-<p>Listen 80        ##默认监听的端口是80</p>
-<p>PidFile /export/servers/apache2/logs/httpd.pid</p>
-<p>LoadModule authn_file_module modules/mod_authn_file.so        #加载的模块</p>
-<p>User admin            ##一般默认设置为admin</p>
-<p>Group admin        ##一般默认设置为admin</p>
-        
-          <a class="article-more-a" href="/2017/08/08/LAMP之httpd-conf配置文件详解/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/08/LAMP之httpd-conf配置文件详解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-LAMP之Apache三种工作模式比较" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/08/LAMP之Apache三种工作模式比较/">LAMP之Apache三种工作模式比较</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/08/LAMP之Apache三种工作模式比较/" class="archive-article-date">
-  	<time datetime="2017-08-08T12:19:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>转载阿铭Linux公众号。</p>
-<p>[TOC]</p>
-<ul>
-<li>查看你的httpd使用了哪种模式：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/local/apache2/bin/httpd -V |grep &apos;Server MPM&apos;</div></pre></td></tr></table></figure>
-<ul>
-<li>使用哪种模式，需要在编译的时候指定</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--with-mpm=prefork|worker|event</div></pre></td></tr></table></figure>
-<ul>
-<li>当然也可以编译的时候，让三者都支持：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--enable-mpms-shared=all</div></pre></td></tr></table></figure>
-<p> 然后在配置文件中，修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LoadModule mpm_worker_module modules/mpd_mpm_worker.so</div></pre></td></tr></table></figure>
-<p><strong>2.2版本默认为worker，2.4版本默认为event</strong></p>
-        
-          <a class="article-more-a" href="/2017/08/08/LAMP之Apache三种工作模式比较/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/08/LAMP之Apache三种工作模式比较/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-LAMP之Apache开启压缩功能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/08/LAMP之Apache开启压缩功能/">LAMP之Apache开启压缩功能</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/08/LAMP之Apache开启压缩功能/" class="archive-article-date">
-  	<time datetime="2017-08-08T11:52:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h3><p>这里的压缩并不是对网站的图片压缩，而是对普通的静态文件，诸如html, js, css 等元素压缩。不要小看这个压缩功能，如果一个网站的请求量很大的话，这样可以节省海量带宽，在我国带宽资源非常昂贵，所以小小的一个压缩功能可以为企业节省不少的成本呢！<br>
-        
-          <a class="article-more-a" href="/2017/08/08/LAMP之Apache开启压缩功能/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/08/LAMP之Apache开启压缩功能/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -896,19 +978,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -920,7 +994,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -928,19 +1010,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">正则</a>
+                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -956,19 +1034,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -980,7 +1046,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
             
             <div class="clearfix"></div>
