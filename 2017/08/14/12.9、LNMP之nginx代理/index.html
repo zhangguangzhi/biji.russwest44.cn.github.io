@@ -6,22 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LNMP之nginx代理 | Hexo</title>
+  <title>LNMP之nginx代理和负载均衡 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、作用1.1、例如你现在访问google访问不了，因为被防火墙挡住了。 但是你的美国服务器可以访问。而你又可以直接访问美国服务器，所以你可以在美国服务器上做一个代理，你访问google的时候，不直接访问google真实服务器，而是先访问美国的代理服务器，然后代理服务器帮你去访问google，等代理服务器拿到结果后，它再把结果返给你。这样最终你也可以访问google了。 咱们访问国外一">
+  <meta name="description" content="[TOC] 设置nginx代理1、作用1.1、例如你现在访问google访问不了，因为被防火墙挡住了。 但是你的美国服务器可以访问。而你又可以直接访问美国服务器，所以你可以在美国服务器上做一个代理，你访问google的时候，不直接访问google真实服务器，而是先访问美国的代理服务器，然后代理服务器帮你去访问google，等代理服务器拿到结果后，它再把结果返给你。这样最终你也可以访问google了">
 <meta name="keywords" content="lNMP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LNMP之nginx代理">
+<meta property="og:title" content="LNMP之nginx代理和负载均衡">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/14/12.9、LNMP之nginx代理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 一、作用1.1、例如你现在访问google访问不了，因为被防火墙挡住了。 但是你的美国服务器可以访问。而你又可以直接访问美国服务器，所以你可以在美国服务器上做一个代理，你访问google的时候，不直接访问google真实服务器，而是先访问美国的代理服务器，然后代理服务器帮你去访问google，等代理服务器拿到结果后，它再把结果返给你。这样最终你也可以访问google了。 咱们访问国外一">
+<meta property="og:description" content="[TOC] 设置nginx代理1、作用1.1、例如你现在访问google访问不了，因为被防火墙挡住了。 但是你的美国服务器可以访问。而你又可以直接访问美国服务器，所以你可以在美国服务器上做一个代理，你访问google的时候，不直接访问google真实服务器，而是先访问美国的代理服务器，然后代理服务器帮你去访问google，等代理服务器拿到结果后，它再把结果返给你。这样最终你也可以访问google了">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/220240209.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/220609098.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/221438025.png?imageslim">
-<meta property="og:updated_time" content="2017-08-14T14:15:02.375Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/153849231.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/144730243.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/150835298.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/151433324.png?imageslim">
+<meta property="og:updated_time" content="2017-08-15T07:40:32.434Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LNMP之nginx代理">
-<meta name="twitter:description" content="[TOC] 一、作用1.1、例如你现在访问google访问不了，因为被防火墙挡住了。 但是你的美国服务器可以访问。而你又可以直接访问美国服务器，所以你可以在美国服务器上做一个代理，你访问google的时候，不直接访问google真实服务器，而是先访问美国的代理服务器，然后代理服务器帮你去访问google，等代理服务器拿到结果后，它再把结果返给你。这样最终你也可以访问google了。 咱们访问国外一">
+<meta name="twitter:title" content="LNMP之nginx代理和负载均衡">
+<meta name="twitter:description" content="[TOC] 设置nginx代理1、作用1.1、例如你现在访问google访问不了，因为被防火墙挡住了。 但是你的美国服务器可以访问。而你又可以直接访问美国服务器，所以你可以在美国服务器上做一个代理，你访问google的时候，不直接访问google真实服务器，而是先访问美国的代理服务器，然后代理服务器帮你去访问google，等代理服务器拿到结果后，它再把结果返给你。这样最终你也可以访问google了">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/220240209.png?imageslim">
   
   
@@ -145,7 +149,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      LNMP之nginx代理
+      LNMP之nginx代理和负载均衡
     </h1>
   
 
@@ -159,11 +163,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h3><p>1.1、例如你现在访问google访问不了，因为被防火墙挡住了。 但是你的美国服务器可以访问。而你又可以直接访问美国服务器，所以你可以在美国服务器上做一个代理，你访问google的时候，不直接访问google真实服务器，而是先访问美国的代理服务器，然后代理服务器帮你去访问google，等代理服务器拿到结果后，它再把结果返给你。这样最终你也可以访问google了。</p>
+<h3 id="设置nginx代理"><a href="#设置nginx代理" class="headerlink" title="设置nginx代理"></a>设置nginx代理</h3><h4 id="1、作用"><a href="#1、作用" class="headerlink" title="1、作用"></a>1、作用</h4><p>1.1、例如你现在访问google访问不了，因为被防火墙挡住了。 但是你的美国服务器可以访问。而你又可以直接访问美国服务器，所以你可以在美国服务器上做一个代理，你访问google的时候，不直接访问google真实服务器，而是先访问美国的代理服务器，然后代理服务器帮你去访问google，等代理服务器拿到结果后，它再把结果返给你。这样最终你也可以访问google了。</p>
+<a id="more"></a>
 <p>咱们访问国外一个网站，访问不到，但是可以通过一个国外的服务器去访问。 相当于架了一个桥梁，代理就是这个桥梁。</p>
 <p>1.2、一家公司有很多台服务器，为了节省成本，不能为所有服务器都分配公网IP，而如果一个没有公网IP的服务器需要提供web服务，就可以通过代理来实现。</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170814/220240209.png?imageslim" alt="mark"></p>
-<h3 id="二、设置nginx代理"><a href="#二、设置nginx代理" class="headerlink" title="二、设置nginx代理"></a>二、设置nginx代理</h3><p>2.1、新建新的虚拟主机配置文件</p>
+<h4 id="2、设置nginx代理"><a href="#2、设置nginx代理" class="headerlink" title="2、设置nginx代理"></a>2、设置nginx代理</h4><p>2.1、新建新的虚拟主机配置文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">vim   /usr/local/nginx/conf/vhost/proxy.conf</div><div class="line">server</div><div class="line">&#123;</div><div class="line">    listen 80;</div><div class="line">    server_name ask.apelearn.com;</div><div class="line"></div><div class="line">    location /</div><div class="line">    &#123;</div><div class="line">        proxy_pass      http://121.201.9.155/;</div><div class="line">        proxy_set_header Host   $host;</div><div class="line">        proxy_set_header X-Real-IP      $remote_addr;</div><div class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170814/220609098.png?imageslim" alt="mark"></p>
 <ul>
@@ -173,6 +178,72 @@
 </ul>
 <p>2.2、检查重载配置文件，测试</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170814/221438025.png?imageslim" alt="mark"></p>
+<h3 id="设置负载均衡"><a href="#设置负载均衡" class="headerlink" title="设置负载均衡"></a>设置负载均衡</h3><h4 id="1、作用-1"><a href="#1、作用-1" class="headerlink" title="1、作用"></a>1、作用</h4><p>负载均衡建立在现有网络结构智商，它提供一种有效透明的方法拓展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力，提高网络的灵活性和可用性。英文名称为Load Balance（LB），其意思就是分摊到多个操作单元上进行执行，例如web服务器、ftp服务器、企业关键应用服务器和其它关键人物服务器等，从而共同完成工作人物。</p>
+<p>例如，一个站点开始访问量并不高，后面随着业务的开展。访问量升高，导致服务器无法承担，这个时候我们存了直接更换更好的服务器，还可以增加一样的服务器搭建负载均衡。从而保证高可用。</p>
+<p>常用负载均衡：硬件有F5、netscale，软件有nginx、lvs、keepalive</p>
+<p>nginx的负载均衡可以看做是代理功能的升级。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/153849231.png?imageslim" alt="mark"></p>
+<ul>
+<li>代理服务器接受用户的请求，根据算法将请求转发给后端服务器，真正提供服务的是后端服务器</li>
+<li>虽然图上只有3个后端服务器，但实际上我们可以根据需求添加</li>
+</ul>
+<h4 id="2、nginx设置负载均衡"><a href="#2、nginx设置负载均衡" class="headerlink" title="2、nginx设置负载均衡"></a>2、nginx设置负载均衡</h4><p>2.1、准备工作</p>
+<p>本机192.168.205.137作为负载均衡中的代理服务器</p>
+<p>使用dig（bind-utils），得到qq.com的IP。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/144730243.png?imageslim" alt="mark"></p>
+<ul>
+<li>假设125.39.240.113和61.135.157.156是我们后端真实web服务器的IP</li>
+</ul>
+<p>2.2、新建虚拟主机配置文件</p>
+<p>新建一个load.conf</p>
+<p>写入以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"># vim /usr/local/nginx/conf/vhost/load.conf </div><div class="line"></div><div class="line">upstream  qq</div><div class="line">&#123;</div><div class="line">    ip_hash;</div><div class="line">    server 61.135.157.156:80;</div><div class="line">    server 125.39.240.113:80;</div><div class="line">&#125;</div><div class="line">server</div><div class="line">&#123;</div><div class="line">    listen 80;</div><div class="line">    server_name  www.qq.com;</div><div class="line">    location /</div><div class="line">    &#123;</div><div class="line">        proxy_pass      http://qq;</div><div class="line">        proxy_set_header Host   $host;</div><div class="line">        proxy_set_header X-Real-IP      $remote_addr;</div><div class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/150835298.png?imageslim" alt="mark"></p>
+<ul>
+<li>相比简单的nginx代理，多了一个upstream配置，因为proxy_pass后面不支持多个IP。所以，我们需要在upstream中定义多个IP</li>
+<li>upstream中设置后端真实服务器的IP，并且定义了一个名称，该名称与proxy_pass后的一致。</li>
+</ul>
+<p>2.3、检查重载配置文件测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# /usr/local/nginx/sbin/nginx  -t</div><div class="line">nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok</div><div class="line">nginx: configuration file /usr/local/nginx/conf/nginx.conf test is successful</div><div class="line">[root@allen1 ~]# /usr/local/nginx/sbin/nginx  -s reload</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/151433324.png?imageslim" alt="mark"></p>
+<p>2.4、nginx的负载均衡算法</p>
+<ul>
+<li>轮询（默认）</li>
+<li>weight 权重轮询</li>
+<li>ip_hash  每个请求按访问ip的hash结果分配，这样来自同一个ip的请求固定到后台的一段服务器上，有效的解决动态网页存在的session共享问题</li>
+<li>fair 根据服务器的相应时间短来进行负载，需要安装nginx的upstream_fair模块</li>
+<li>url_hash 根据url的hash结果分配，同一个url定向到同一后台服务器，提高缓存服务器的效率，需要安装nginx的hash包</li>
+</ul>
+<p>2.5、后端服务的状态</p>
+<ul>
+<li>down， 表示server暂时不参与负载均衡</li>
+<li>backup 备份机器</li>
+<li>max_fails：应许请求失败的次数，默认为1，当超过最大次数是，返回proxy_next_upstream模块定义的错误</li>
+<li>fail_timeout：经历了max_fails次失败后， 暂停服务的时间，max_fails可以和fail_timeout一起使用</li>
+</ul>
+<p>2.6、配置语句</p>
+<ul>
+<li><p>proxy_next_upstream</p>
+<p>语法： proxy_next_upstream [error|timeout|invalid_header|http_500|http_502|http_503|http_504|http_404|off]</p>
+<p>确定在何种情况下请求将转发到下一个服务器。转发请求只发生在没有数据传递到客户端的过程中。max_fails 允许请求失败的次数默认为1。当超过最大次数时，返回proxy_next_upstream 模块定义的错误</p>
+</li>
+<li><p>proxy_connect_timeout</p>
+<p>后端服务器连接的超时时间_发起握手等候响应超时时间</p>
+</li>
+</ul>
+<ul>
+<li><p>proxy_read_timeout</p>
+<p>连接成功后<em>等候后端服务器响应时间</em>其实已经进入后端的排队之中等候处理（也可以说是后端服务器处理请求的时间）</p>
+</li>
+<li><p>proxy_send_timeout</p>
+<p>后端服务器数据回传时间_就是在规定时间之内后端服务器必须传完所有的数据</p>
+</li>
+<li><p>proxy_pass</p>
+<p>这个指令设置被代理服务器的地址和被映射的URI</p>
+</li>
+</ul>
+<p><a href="http://ask.apelearn.com/question/920" target="_blank" rel="external">nginx代理–根据访问的目录来区分后端的web</a></p>
+<p><a href="http://ask.apelearn.com/question/1049" target="_blank" rel="external">nginx针对请求的uri来代理</a></p>
 
       
 
@@ -256,11 +327,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/15/12.10、LNMP之nginx配置SSL/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          LNMP之nginx配置SSL
         
       </div>
     </a>
@@ -294,7 +365,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、作用"><span class="toc-number">1.</span> <span class="toc-text">一、作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、设置nginx代理"><span class="toc-number">2.</span> <span class="toc-text">二、设置nginx代理</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置nginx代理"><span class="toc-number">1.</span> <span class="toc-text">设置nginx代理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、作用"><span class="toc-number">1.1.</span> <span class="toc-text">1、作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、设置nginx代理"><span class="toc-number">1.2.</span> <span class="toc-text">2、设置nginx代理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置负载均衡"><span class="toc-number">2.</span> <span class="toc-text">设置负载均衡</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、作用-1"><span class="toc-number">2.1.</span> <span class="toc-text">1、作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、nginx设置负载均衡"><span class="toc-number">2.2.</span> <span class="toc-text">2、nginx设置负载均衡</span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
@@ -418,6 +489,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
               </li>
              
@@ -426,15 +501,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -446,10 +517,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
@@ -458,27 +525,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -490,15 +537,39 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
               </li>
             
             <div class="clearfix"></div>

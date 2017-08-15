@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LAMP之Apache禁止trace或track，防止xss攻击 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="TRACE和TRACK是用来调试web服务器连接的HTTP方式。 支持该方式的服务器存在跨站脚本漏洞，通常在描述各种浏览器缺陷的时候，把”Cross-Site-Tracing”简称为XST。攻击者可以利用此漏洞欺骗合法用户并得到他们的私人信息。">
-<meta name="keywords" content="LAMP">
-<meta property="og:type" content="article">
-<meta property="og:title" content="LAMP之Apache禁止trace或track，防止xss攻击">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/08/LAMP之Apache禁止trace或track，防止xss攻击/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://zhangguangzhi.github.io/page/7/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="TRACE和TRACK是用来调试web服务器连接的HTTP方式。 支持该方式的服务器存在跨站脚本漏洞，通常在描述各种浏览器缺陷的时候，把”Cross-Site-Tracing”简称为XST。攻击者可以利用此漏洞欺骗合法用户并得到他们的私人信息。">
-<meta property="og:updated_time" content="2017-08-08T12:39:48.088Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LAMP之Apache禁止trace或track，防止xss攻击">
-<meta name="twitter:description" content="TRACE和TRACK是用来调试web服务器连接的HTTP方式。 支持该方式的服务器存在跨站脚本漏洞，通常在描述各种浏览器缺陷的时候，把”Cross-Site-Tracing”简称为XST。攻击者可以利用此漏洞欺骗合法用户并得到他们的私人信息。">
+<meta name="twitter:title" content="Hexo">
   
   
     <link rel="icon" href="/favicon.png">
@@ -134,33 +129,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-LAMP之Apache禁止trace或track，防止xss攻击" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-安装与卸载软件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      LAMP之Apache禁止trace或track，防止xss攻击
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/26/安装与卸载软件/">linux安装与卸载软件</a>
     </h1>
   
 
         
-        <a href="/2017/08/08/LAMP之Apache禁止trace或track，防止xss攻击/" class="archive-article-date">
-  	<time datetime="2017-08-08T07:05:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
+        <a href="/2017/06/26/安装与卸载软件/" class="archive-article-date">
+  	<time datetime="2017-06-26T04:33:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>TRACE和TRACK是用来调试web服务器连接的HTTP方式。</p>
-<p>支持该方式的服务器存在跨站脚本漏洞，通常在描述各种浏览器缺陷的时候，把”Cross-Site-Tracing”简称为XST。<br>攻击者可以利用此漏洞欺骗合法用户并得到他们的私人信息。</p>
-<a id="more"></a> 
-<p>(1)<strong>禁用</strong>trace可以使用rewrite模块来实现，具体代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;Ifmodule  mod_rewrite.c&gt;</div><div class="line">	RewriteEngine  on</div><div class="line">	Rewritecond  %&#123;REQUEST_METHOD&#125; ^TRACE  [NC]</div><div class="line">	RewriteRule  .*  -  [F]</div><div class="line">&lt;/Ifmodule&gt;</div></pre></td></tr></table></figure>
-<p>(2)或者直接在Apache的配置文件中配置相应参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TraceEnable off</div></pre></td></tr></table></figure>
+        <p>[TOC]</p>
+<h2 id="一、安装软件包的三种方法"><a href="#一、安装软件包的三种方法" class="headerlink" title="一、安装软件包的三种方法"></a>一、安装软件包的三种方法</h2><h3 id="1、rpm工具"><a href="#1、rpm工具" class="headerlink" title="1、rpm工具"></a>1、rpm工具</h3><p>rpm：红帽子公司包管理系统。</p>
+<p>优点：管理简单，安装速度快</p>
+<p>缺点：功能不如源码包灵活，安装时rpm可能需要安装其他依赖包</p>
+<h3 id="2、yum工具"><a href="#2、yum工具" class="headerlink" title="2、yum工具"></a>2、yum工具</h3><p>yum是Python开发的工具，具体也是安装rpm包，会自动安装依赖包。</p>
+<h3 id="3、源码包"><a href="#3、源码包" class="headerlink" title="3、源码包"></a>3、源码包</h3><p>可以看到源代码，需要使用编译器编译成可执行文件。</p>
+<p>优点：开源，自由选择所需功能，稳定，效率高</p>
+<p>缺点：安装步骤较多，安装时间较长，报错时新手解决难度大</p>
+        
+          <a class="article-more-a" href="/2017/06/26/安装与卸载软件/#more">more >></a>
+        
       
 
       
@@ -173,7 +174,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">yum</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rpm</a>
         		</li>
       		
 		</ul>
@@ -182,99 +191,31 @@
       
 
       
-
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/26/安装与卸载软件/">展开全文 >></a>
+        </p>
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/08/LAMP之Apache禁止trace或track，防止xss攻击/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-  
-<nav id="article-nav">
-  
-    <a href="/2017/08/08/LAMP之Apache拓展模块安装/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          LAMP之Apache拓展模块安装
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/08/08/LAMP之Apache的keepalive和keepalive-timeout/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LAMP之Apache的keepalive和keepalivetimeout</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
 
 
-
-
-
-  
-  
-  
-
-  
-
-  
 
 <!-- 目录内容 -->
              
         <!-- 目录内容结束 -->
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    </nav>
+  
+
 
           </div>
         </div>
@@ -295,8 +236,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

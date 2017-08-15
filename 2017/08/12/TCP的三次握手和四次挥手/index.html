@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>TCP的三次握手和四次挥手 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、两军问题 如上图所示，白军驻扎在沟渠里，蓝军则分散在沟渠两边。白军比任何一支蓝军都更为强大，但是蓝军若能同时合力进攻则能够打败白军。他们不能够远程的沟通，只能派遣通信兵穿过沟渠去通知对方蓝军协商进攻时间。 B1的蓝军派遣通讯兵去通知B2的蓝军，约定攻击时间。当B1派出通讯兵后，他并不能确定通讯兵将信息传递给了B2，所以他不敢进攻，需要B2的回执信息。当B2接收到通讯兵的攻击时间信息">
+  <meta name="description" content="[TOC] 一、两军问题 如上图所示，白军驻扎在沟渠里，蓝军则分散在沟渠两边。白军比任何一支蓝军都更为强大，但是蓝军若能同时合力进攻则能够打败白军。他们不能够远程的沟通，只能派遣通信兵穿过沟渠去通知对方蓝军协商进攻时间。">
 <meta name="keywords" content="日常管理,网络相关">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCP的三次握手和四次挥手">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/12/TCP的三次握手和四次挥手/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 一、两军问题 如上图所示，白军驻扎在沟渠里，蓝军则分散在沟渠两边。白军比任何一支蓝军都更为强大，但是蓝军若能同时合力进攻则能够打败白军。他们不能够远程的沟通，只能派遣通信兵穿过沟渠去通知对方蓝军协商进攻时间。 B1的蓝军派遣通讯兵去通知B2的蓝军，约定攻击时间。当B1派出通讯兵后，他并不能确定通讯兵将信息传递给了B2，所以他不敢进攻，需要B2的回执信息。当B2接收到通讯兵的攻击时间信息">
+<meta property="og:description" content="[TOC] 一、两军问题 如上图所示，白军驻扎在沟渠里，蓝军则分散在沟渠两边。白军比任何一支蓝军都更为强大，但是蓝军若能同时合力进攻则能够打败白军。他们不能够远程的沟通，只能派遣通信兵穿过沟渠去通知对方蓝军协商进攻时间。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170812/165557883.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170812/171851417.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170812/173525781.png?imageslim">
-<meta property="og:updated_time" content="2017-08-12T10:06:09.857Z">
+<meta property="og:updated_time" content="2017-08-14T14:18:58.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP的三次握手和四次挥手">
-<meta name="twitter:description" content="[TOC] 一、两军问题 如上图所示，白军驻扎在沟渠里，蓝军则分散在沟渠两边。白军比任何一支蓝军都更为强大，但是蓝军若能同时合力进攻则能够打败白军。他们不能够远程的沟通，只能派遣通信兵穿过沟渠去通知对方蓝军协商进攻时间。 B1的蓝军派遣通讯兵去通知B2的蓝军，约定攻击时间。当B1派出通讯兵后，他并不能确定通讯兵将信息传递给了B2，所以他不敢进攻，需要B2的回执信息。当B2接收到通讯兵的攻击时间信息">
+<meta name="twitter:description" content="[TOC] 一、两军问题 如上图所示，白军驻扎在沟渠里，蓝军则分散在沟渠两边。白军比任何一支蓝军都更为强大，但是蓝军若能同时合力进攻则能够打败白军。他们不能够远程的沟通，只能派遣通信兵穿过沟渠去通知对方蓝军协商进攻时间。">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170812/165557883.png?imageslim">
   
   
@@ -161,6 +161,7 @@
         <p>[TOC]</p>
 <h3 id="一、两军问题"><a href="#一、两军问题" class="headerlink" title="一、两军问题"></a>一、两军问题</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170812/165557883.png?imageslim" alt="mark"></p>
 <p>如上图所示，白军驻扎在沟渠里，蓝军则分散在沟渠两边。白军比任何一支蓝军都更为强大，但是蓝军若能同时合力进攻则能够打败白军。他们不能够远程的沟通，只能派遣通信兵穿过沟渠去通知对方蓝军协商进攻时间。</p>
+<a id="more"></a>
 <p>B1的蓝军派遣通讯兵去通知B2的蓝军，约定攻击时间。当B1派出通讯兵后，他并不能确定通讯兵将信息传递给了B2，所以他不敢进攻，需要B2的回执信息。当B2接收到通讯兵的攻击时间信息时，他也需要给B1一个信息回执，同意攻击时间，但是B2也不确定B1是否能收到回执，所以他也不敢进攻，需要B1给他一个回执，确认攻击时间。但是当B1发送回执后，也不会知道B2是否收到了这样一个回执，所以B1还会期待一个B2的回执。这就是两军问题。</p>
 <p>在这个系统中永远需要存在一个回执，这对于两方来说都并不一定能够达成十足的确信。更要命的是，我们还没有考虑，通信兵的信息还有可能被篡改。由此可见，经典情形下两军问题是不可解的，并不存在一个能使蓝军一定胜利的通信协议。</p>
 <p>两军问题作为现代通信系统中必须解决的问题，我们尚不能将之完全解决，这意味着你我传输信息时仍然可能出现丢失、监听或篡改的情况。但我们能不能通过一种相对可靠的方式来解决大部分情形呢？TCP协议的三次握手就是对该问题的一个折衷解决方案。(当B1收到B2的回执后，再给B2发送回执，并在约定时间发起进攻。）</p>
@@ -472,6 +473,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
               </li>
              
@@ -480,15 +485,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,10 +501,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
@@ -512,27 +509,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,15 +521,39 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
               </li>
             
             <div class="clearfix"></div>
