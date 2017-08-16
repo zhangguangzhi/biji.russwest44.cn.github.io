@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] 一、安装mysql安装mysql与LAMP架构基本上一致，安装步骤如下： 1.1、 下载mysql二进制免编译安装包 12cd /usr/local/srcwget http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170809/155254673.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170809/155428497.png?imageslim">
-<meta property="og:updated_time" content="2017-08-11T02:36:53.529Z">
+<meta property="og:updated_time" content="2017-08-16T10:27:10.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之安装mysql和php-fpm">
 <meta name="twitter:description" content="[TOC] 一、安装mysql安装mysql与LAMP架构基本上一致，安装步骤如下： 1.1、 下载mysql二进制免编译安装包 12cd /usr/local/srcwget http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz">
@@ -190,7 +190,7 @@
 <p>拷贝php主配置文件php.ini，默认有两个配置文件模板，php.ini-production为生产环境使用，php.ini-development为开发环境使用。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp php.ini-production /usr/local/php-fpm/etc/php.ini</div></pre></td></tr></table></figure>
 <p>创建php-fpm配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/php/etc/php-fpm.conf</div><div class="line">#写入一下内容</div><div class="line">[global]</div><div class="line">pid = /usr/local/php/var/run/php-fpm.pid</div><div class="line">error_log = /usr/local/php/var/log/php-fpm.log</div><div class="line">[www]</div><div class="line">listen = /tmp/php-fcgi.sock             #监听形式为ip:port或者sock文件。名称可以自定义                </div><div class="line">user = php-fpm</div><div class="line">group = php-fpm</div><div class="line">listen.owner = nobody</div><div class="line">listen.group = nobody</div><div class="line">pm = dynamic</div><div class="line">pm.max_children = 50</div><div class="line">pm.start_servers = 20</div><div class="line">pm.min_spare_servers = 5</div><div class="line">pm.max_spare_servers = 35</div><div class="line">pm.max_requests = 500</div><div class="line">rlimit_files = 1024</div><div class="line">slowlog = /tmp/www_slow.log</div><div class="line">request_slowlog_timeout = 1</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/php/etc/php-fpm.conf</div><div class="line">#写入一下内容</div><div class="line">[global]</div><div class="line">pid = /usr/local/php/var/run/php-fpm.pid</div><div class="line">error_log = /usr/local/php/var/log/php-fpm.log</div><div class="line">[www]</div><div class="line">listen = /tmp/php-fcgi.sock             #监听形式为ip:port或者sock文件。名称可以自定义            </div><div class="line">user = php-fpm</div><div class="line">group = php-fpm</div><div class="line">listen.owner = nobody</div><div class="line">listen.group = nobody</div><div class="line">pm = dynamic</div><div class="line">pm.max_children = 50</div><div class="line">pm.start_servers = 20</div><div class="line">pm.min_spare_servers = 5</div><div class="line">pm.max_spare_servers = 35</div><div class="line">pm.max_requests = 500</div><div class="line">rlimit_files = 1024</div><div class="line">slowlog = /tmp/www_slow.log</div><div class="line">request_slowlog_timeout = 1</div></pre></td></tr></table></figure>
 <p>2.6、启动脚本</p>
 <p>拷贝启动脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm</div></pre></td></tr></table></figure>
@@ -204,7 +204,7 @@
 <p>global部分为全局配置，指定pid，错误日志存放位置</p>
 <p><strong>[www]</strong></p>
 <ul>
-<li>是一个pool，我们还可以写第二个pool。第一个pool与第二个pool不一样的地方，首先是pool的name要不一样，比如叫[www2]。第二，是listen也要不一样，比如可以listen = /tmp/php-fcgi2.sock。而且user和group也可以和[www]的不一样。</li>
+<li>是一个pool，我们还可以写第二个pool。第一个pool与第二个pool不一样的地方，首先是pool的name要不一样，比如叫[www2]。第二是listen也要不一样，比如可以listen = /tmp/php-fcgi2.sock。而且user和group也可以和[www]的不一样。</li>
 </ul>
 <p><strong>listen</strong></p>
 <ul>
@@ -220,7 +220,7 @@
 </ul>
 <p><strong>pm.max_children = 50</strong></p>
 <ul>
-<li>表示启动几个ph-fom的子进程，如果是dynamic，下面的配置会生效。pm.max_children表示最大可以启动几个子进程。</li>
+<li>表示启动几个php-fpm的子进程，如果是dynamic，下面的配置会生效。pm.max_children表示最大可以启动几个子进程。</li>
 </ul>
 <p><strong>pm.start_servers = 20</strong></p>
 <ul>
@@ -496,7 +496,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,14 +513,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,11 +528,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,31 +540,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,6 +557,26 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>
