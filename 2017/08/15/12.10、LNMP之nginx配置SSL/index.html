@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>LNMP之nginx配置SSL | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。">
+  <meta name="description" content="使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。">
 <meta name="keywords" content="LNMP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LNMP之nginx配置SSL">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/15/12.10、LNMP之nginx配置SSL/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。">
+<meta property="og:description" content="使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/155430120.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/161303707.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/160927076.png?imageslim">
@@ -22,10 +22,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/161803575.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/162045311.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170816/164050492.png?imageslim">
-<meta property="og:updated_time" content="2017-08-16T08:41:37.227Z">
+<meta property="og:updated_time" content="2017-08-19T02:21:12.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之nginx配置SSL">
-<meta name="twitter:description" content="[TOC] 使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。">
+<meta name="twitter:description" content="使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/155430120.png?imageslim">
   
   
@@ -162,8 +162,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<h4 id="使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。"><a href="#使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。" class="headerlink" title="使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。"></a>使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。</h4><a id="more"></a>
+        <p>使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。</p>
+<a id="more"></a>
 <h3 id="1、HTTPS通信过程"><a href="#1、HTTPS通信过程" class="headerlink" title="1、HTTPS通信过程"></a>1、HTTPS通信过程</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/155430120.png?imageslim" alt="mark"></p>
 <p>（1） 浏览器发送一个https的请求给服务器；</p>
 <p>（2） 服务器要有一套数字证书，可以自己制作（但使用自己制作的证书，浏览器访问的时候会提示不信任），也可以向组织申请，区别就是自己颁发的证书需要客户端验证通过，才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面，这套证书其实就是一对公钥和私钥；</p>
@@ -319,7 +319,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。"><span class="toc-number">1.</span> <span class="toc-text">使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、HTTPS通信过程"><span class="toc-number"></span> <span class="toc-text">1、HTTPS通信过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、nginx配置SSL"><span class="toc-number"></span> <span class="toc-text">2、nginx配置SSL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、安装相关工具"><span class="toc-number">1.</span> <span class="toc-text">2.1、安装相关工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、生成SSL证书（私钥和公钥）"><span class="toc-number">2.</span> <span class="toc-text">2.2、生成SSL证书（私钥和公钥）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、nginx配置SSL"><span class="toc-number">3.</span> <span class="toc-text">2.3、nginx配置SSL</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、HTTPS通信过程"><span class="toc-number">1.</span> <span class="toc-text">1、HTTPS通信过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、nginx配置SSL"><span class="toc-number">2.</span> <span class="toc-text">2、nginx配置SSL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、安装相关工具"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、安装相关工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、生成SSL证书（私钥和公钥）"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、生成SSL证书（私钥和公钥）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、nginx配置SSL"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、nginx配置SSL</span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
@@ -439,19 +439,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -475,10 +475,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
@@ -487,23 +483,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -515,15 +503,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] 一、安装mysql安装mysql与LAMP架构基本上一致，安装步骤如下： 1.1、 下载mysql二进制免编译安装包 12cd /usr/local/srcwget http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170809/155254673.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170809/155428497.png?imageslim">
-<meta property="og:updated_time" content="2017-08-16T10:27:10.987Z">
+<meta property="og:updated_time" content="2017-08-19T02:25:50.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之安装mysql和php-fpm">
 <meta name="twitter:description" content="[TOC] 一、安装mysql安装mysql与LAMP架构基本上一致，安装步骤如下： 1.1、 下载mysql二进制免编译安装包 12cd /usr/local/srcwget http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz">
@@ -179,18 +179,20 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://cn2.php.net/distributions/php-5.6.30.tar.gz</div><div class="line">tar zxf php-5.6.30.tar.gz</div></pre></td></tr></table></figure>
 <p>2.2、创建php-fpm用户</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">useradd -s /sbin/nologin php-fpm</div><div class="line">cd php-5.6.30</div></pre></td></tr></table></figure>
-<p>2.3、编译./configure</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/php-fpm --with-config-file-path=/usr/local/php-fpm/etc --enable-fpm --with-fpm-user=php-fpm </div><div class="line">--with-fpm-group=php-fpm --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-pdo-mysql=/usr/local/mysql --with-mysql-sock=/tmp/mysql.sock --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-iconv-dir --with-zlib-dir --with-mcrypt --enable-soap --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-exif --with-pear --with-curl  --with-openssl</div></pre></td></tr></table></figure>
+<p>2.3、安装编译PHP所需</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install  -y  libxml2-devel  openssl-devel  bzip2-devel  libjpeg-devel  libpng-devel  freetype-devel   epel-release   libmcrypt-devel</div></pre></td></tr></table></figure>
+<p>2.4、编译./configure</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/php-fpm --with-config-file-path=/usr/local/php-fpm/etc --enable-fpm --with-fpm-user=php-fpm --with-fpm-group=php-fpm --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-pdo-mysql=/usr/local/mysql --with-mysql-sock=/tmp/mysql.sock --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir --with-iconv-dir --with-zlib-dir --with-mcrypt --enable-soap --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-exif --with-pear --with-curl  --with-openssl</div></pre></td></tr></table></figure>
 <ul>
 <li>–enable-fpm表示安装php-fpm插件</li>
 </ul>
-<p>2.4、安装</p>
+<p>2.3、安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make  &amp;&amp;  make install</div></pre></td></tr></table></figure>
 <p>2.5、配置文件</p>
 <p>拷贝php主配置文件php.ini，默认有两个配置文件模板，php.ini-production为生产环境使用，php.ini-development为开发环境使用。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp php.ini-production /usr/local/php-fpm/etc/php.ini</div></pre></td></tr></table></figure>
 <p>创建php-fpm配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/php/etc/php-fpm.conf</div><div class="line">#写入一下内容</div><div class="line">[global]</div><div class="line">pid = /usr/local/php/var/run/php-fpm.pid</div><div class="line">error_log = /usr/local/php/var/log/php-fpm.log</div><div class="line">[www]</div><div class="line">listen = /tmp/php-fcgi.sock             #监听形式为ip:port或者sock文件。名称可以自定义            </div><div class="line">user = php-fpm</div><div class="line">group = php-fpm</div><div class="line">listen.owner = nobody</div><div class="line">listen.group = nobody</div><div class="line">pm = dynamic</div><div class="line">pm.max_children = 50</div><div class="line">pm.start_servers = 20</div><div class="line">pm.min_spare_servers = 5</div><div class="line">pm.max_spare_servers = 35</div><div class="line">pm.max_requests = 500</div><div class="line">rlimit_files = 1024</div><div class="line">slowlog = /tmp/www_slow.log</div><div class="line">request_slowlog_timeout = 1</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/php/etc/php-fpm.conf</div><div class="line">#写入一下内容</div><div class="line">[global]</div><div class="line">pid = /usr/local/php-fpm/var/run/php-fpm.pid</div><div class="line">error_log = /usr/local/php-fpm/var/log/php-fpm.log</div><div class="line">[www]</div><div class="line">listen = /tmp/php-fcgi.sock             #监听形式为ip:port或者sock文件。名称可以自定义            </div><div class="line">user = php-fpm</div><div class="line">group = php-fpm</div><div class="line">listen.owner = nobody</div><div class="line">listen.group = nobody</div><div class="line">pm = dynamic</div><div class="line">pm.max_children = 50</div><div class="line">pm.start_servers = 20</div><div class="line">pm.min_spare_servers = 5</div><div class="line">pm.max_spare_servers = 35</div><div class="line">pm.max_requests = 500</div><div class="line">rlimit_files = 1024</div><div class="line">slowlog = /tmp/www_slow.log</div><div class="line">request_slowlog_timeout = 1</div></pre></td></tr></table></figure>
 <p>2.6、启动脚本</p>
 <p>拷贝启动脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm</div></pre></td></tr></table></figure>
@@ -492,19 +494,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,10 +530,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
@@ -540,23 +538,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,15 +558,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>
