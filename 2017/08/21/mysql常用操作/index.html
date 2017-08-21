@@ -6,14 +6,39 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Archives: 2017 | Hexo</title>
+  <title>mysql常用操作 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://zhangguangzhi.github.io/archives/2017/page/4/index.html">
+  <meta name="description" content="[TOC] 因为mysql的执行脚本并没有在PATH中，所以我们可以将/usr/local/mysql/bin/加入变量PATH中，这样我们就能直接使用mysql的相关命令。 12export PATH=$PATH:/usr/local/mysql/bin/#如果需要开机执行，可以将上述命令加入/etc/profile">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql常用操作">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/21/mysql常用操作/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] 因为mysql的执行脚本并没有在PATH中，所以我们可以将/usr/local/mysql/bin/加入变量PATH中，这样我们就能直接使用mysql的相关命令。 12export PATH=$PATH:/usr/local/mysql/bin/#如果需要开机执行，可以将上述命令加入/etc/profile">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/195213601.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/195656408.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/195739121.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/200945880.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/201610725.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/202304445.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/205821136.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/204445624.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/210125609.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/210343813.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/211222873.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/211638080.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/212520101.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/212551271.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/211807487.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/211850020.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/212101835.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/212233468.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/212910010.png?imageslim">
+<meta property="og:updated_time" content="2017-08-21T13:29:53.488Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="mysql常用操作">
+<meta name="twitter:description" content="[TOC] 因为mysql的执行脚本并没有在PATH中，所以我们可以将/usr/local/mysql/bin/加入变量PATH中，这样我们就能直接使用mysql的相关命令。 12export PATH=$PATH:/usr/local/mysql/bin/#如果需要开机执行，可以将上述命令加入/etc/profile">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170821/195213601.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,423 +154,295 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mysql常用操作" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mysql常用操作
+    </h1>
+  
+
+        
+        <a href="/2017/08/21/mysql常用操作/" class="archive-article-date">
+  	<time datetime="2017-08-21T11:39:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-21</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>因为mysql的执行脚本并没有在PATH中，所以我们可以将/usr/local/mysql/bin/加入变量PATH中，这样我们就能直接使用mysql的相关命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export PATH=$PATH:/usr/local/mysql/bin/</div><div class="line">#如果需要开机执行，可以将上述命令加入/etc/profile</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="一、设置mysql数据库root的密码"><a href="#一、设置mysql数据库root的密码" class="headerlink" title="一、设置mysql数据库root的密码"></a>一、设置mysql数据库root的密码</h3><p>首先，mysql安装后是没有设置超级管理员root的密码的，这样并不安全，所以我们需要设置一下。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/195213601.png?imageslim" alt="mark"></p>
+<ul>
+<li>-u表示指定用户。可以看到我们登录root时是不用密码的。</li>
+</ul>
+<p>1.1、设置mysql数据库root的密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysqladmin  -uroot  password  &apos;123456&apos;</div><div class="line">Warning: Using a password on the command line interface can be insecure.</div></pre></td></tr></table></figure>
+<ul>
+<li>mysqladmin命令用于设置密码</li>
+<li>-u指定用户</li>
+<li>password为设置函数，’123456’为设置的密码（这里只是为了演示才设置如此简单的密码。），命令下方warning的意思时这样设置密码会暴露密码。</li>
+</ul>
+<p>1.2、使用设置的密码登录mysql</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/195656408.png?imageslim" alt="mark"></p>
+<ul>
+<li>设置密码后已经无法直接使用root登录了</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/195739121.png?imageslim" alt="mark"></p>
+<ul>
+<li>-p表示指定密码，可以在后面指定（不能带空格，但是不安全）。也可以直接回车交互输入。</li>
+</ul>
+<h3 id="二、如何重置mysql使用用户密码"><a href="#二、如何重置mysql使用用户密码" class="headerlink" title="二、如何重置mysql使用用户密码"></a>二、如何重置mysql使用用户密码</h3><p>这里，我们使用root来举例。有时，我们设置的密码比较复杂记不住了。我们可以使用以下方法来重置</p>
+<p>2.1、修改mysql配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim  /etc/my.cnf</div><div class="line">#在[mysqld]配置里加入以下内容</div><div class="line">skip-grant</div></pre></td></tr></table></figure>
+<ul>
+<li>skip-grant表示取消登录认证</li>
+</ul>
+<p><strong>重新启动mysql</strong>，神奇的事情发生。登录mysql不用密码也是可以的</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/200945880.png?imageslim" alt="mark"></p>
+<p>2.2、修改root的密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#切换到mysql数据库</div><div class="line">use mysql;</div><div class="line">#因为mysql用户的密码是保存在数据库mysql中的user表中，所以我们需要修改这个表的内容</div><div class="line">update user set password=password(&apos;allen&apos;) where user=&apos;root&apos;;</div></pre></td></tr></table></figure>
+<ul>
+<li>password( )是mysql的一个函数</li>
+<li>修改语句为，在user表中找到用户为root，将值使用password()函数设置为allen</li>
+</ul>
+<p>2.3、使用新的root密码登录</p>
+<p>首先取消登录免验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim  /etc/my.cnf</div><div class="line">#将skip-grant注释或者删除</div></pre></td></tr></table></figure>
+<p><strong>重新启动mysql</strong>后，使用root登录就需要密码了。</p>
+<p>使用新的root密码登录</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/201610725.png?imageslim" alt="mark"></p>
+<h3 id="三、连接mysql"><a href="#三、连接mysql" class="headerlink" title="三、连接mysql"></a>三、连接mysql</h3><p>主要还是php连接mysql，MySQL服务启动时，不仅会监听IP：Port，还会监听一个socket，我们安装的MySQL是监听在/tmp/mysql.sock。</p>
+<p>如果php是在本地，那么php和MySQL通信可以通过socket通信。</p>
+<p>如果是远程，就需要通过tcp/ip来通讯（需要在连接机器上安装一个mysql客户端）。</p>
+<p>在Linux命令行下，我们可以通过如下的方法来连接MySQL服务器</p>
+<h4 id="3-1、通过tcp-ip的方式"><a href="#3-1、通过tcp-ip的方式" class="headerlink" title="3.1、通过tcp/ip的方式"></a>3.1、通过tcp/ip的方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -p密码 -h127.0.0.1  -P3306</div></pre></td></tr></table></figure>
+<ul>
+<li>-h指定ip（127.0.0.1为本机），如果是远程机器，则后面跟远程服务器的IP</li>
+<li>-P指定端口，默认为3306，如果是其他端口，需要使用-P指定</li>
+</ul>
+<p>连接远程机器时，可能出现未授权的情况，错误提示为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# mysql -uroot -h192.168.205.138  -P3306</div><div class="line">ERROR 2003 (HY000): Can&apos;t connect to MySQL server on &apos;192.168.205.138&apos; (113)</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/202304445.png?imageslim" alt="mark"></p>
+<p>解决办法：</p>
+<p>在远程服务器登录mysql，再进行授权。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">授权语句：grant all on . to &apos;root&apos;@&apos;需要连接机器ip&apos; identified by &apos;连接密码&apos; ;    #连接密码是验证密码</div></pre></td></tr></table></figure>
+<ul>
+<li>注意防火墙</li>
+</ul>
+<p>刷新权限：flush  privileges;</p>
+<p>查看是否成功授权</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/205821136.png?imageslim" alt="mark"></p>
+<p>成功登录</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/204445624.png?imageslim" alt="mark"></p>
+<h4 id="3-2、通过socket方式-端口"><a href="#3-2、通过socket方式-端口" class="headerlink" title="3.2、通过socket方式/端口"></a>3.2、通过socket方式/端口</h4><p>这种方式只适合连接本机的MySQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -S /tmp/mysql.sock -p密码</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/210125609.png?imageslim" alt="mark"></p>
+<ul>
+<li>使用-S指定sock文件</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/210343813.png?imageslim" alt="mark"></p>
+<ul>
+<li>使用-P指定端口</li>
+</ul>
+<p>四、mysql常用命令</p>
+<p>4.1、创建库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#创建库：create database  库名;</div><div class="line">#查看所有库：show  databases;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/211222873.png?imageslim" alt="mark"></p>
+<p>4.2、创建表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#首先需要进入指定库：use  库名;</div><div class="line">#创建表：create table tb1 (`id` int(4),`name` char(40)) ENGINE=MyISAM DEFAULT CHARSET=utf8;</div><div class="line">#查看所有表：show tables；</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/211638080.png?imageslim" alt="mark"></p>
+<ul>
+<li>id与name需加反引号，int表示id的字段为最多4位数字，char表示name的字段最多为40个字符</li>
+</ul>
+<p>4.3、查看创建表的语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; show create table tb\G;      #tb表示表名</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/212520101.png?imageslim" alt="mark"></p>
+<ul>
+<li>\G表示整齐输出</li>
+</ul>
+<p>4.4、查看表的字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; desc tb1;    #tb1为表名</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/212551271.png?imageslim" alt="mark"></p>
+<p>4.5、查看表的行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from tb1;    #tb1为表名</div></pre></td></tr></table></figure>
+<p>4.6、查看当前数据库版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select  version();</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/211807487.png?imageslim" alt="mark"></p>
+<p>4.7、查看数据库状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show status;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/211850020.png?imageslim" alt="mark"></p>
+<p>4.8、查看各个参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#查看所有参数：show variables\G; </div><div class="line">#使用通配符查找参数：show variables like &apos;max_connect%&apos;;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/212101835.png?imageslim" alt="mark"></p>
+<ul>
+<li>这些参数都可以在mysql配置文件中设置</li>
+<li>%为通配符</li>
+</ul>
+<p>4.9、修改参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#临时生效：set global max_connect_errors=1000;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/212233468.png?imageslim" alt="mark"></p>
+<ul>
+<li>该修改只是临时生效，永久生效需要修改mysql配置文件</li>
+</ul>
+<p>4.10、查看连接队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; show processlist; </div><div class="line">&gt; show full processlist;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170821/212910010.png?imageslim" alt="mark"></p>
+<ul>
+<li>下面的显示队列命令显示的内容更全面</li>
+</ul>
+<p>拓展：</p>
+<p><a href="http://ask.apelearn.com/question/7289" target="_blank" rel="external">mysql5.7之root密码更改</a></p>
+<p><a href="https://www.pureweber.com/article/myisam-vs-innodb/" target="_blank" rel="external">MySQL存储引擎MyISAM与InnoDB的优劣</a></p>
+<p><a href="https://blog.linuxeye.cn/379.html" target="_blank" rel="external">mysql配置详解</a></p>
+<p><a href="http://ask.apelearn.com/question/5758" target="_blank" rel="external">mysql调优思路</a></p>
+<p><a href="http://ask.apelearn.com/question/11281" target="_blank" rel="external">实际mysql调优</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/31/11.7、LAMP之Apache用户认证/" class="archive-article-date">
-  	<time datetime="2017-07-31T08:07:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/31/11.7、LAMP之Apache用户认证/">LAMP之Apache用户认证</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/21/mysql常用操作/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/28/11.6、LAMP之Apache默认虚拟主机/" class="archive-article-date">
-  	<time datetime="2017-07-28T12:46:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/28/11.6、LAMP之Apache默认虚拟主机/">LAMP之Apache默认虚拟主机</a>
-    </h1>
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录Linux的学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/20/LNMP之搭建cms/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LNMP之搭建cms</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/28/11.5、LAMP之配置httpd支持php解析/" class="archive-article-date">
-  	<time datetime="2017-07-28T11:56:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/28/11.5、LAMP之配置httpd支持php解析/">LAMP之配置httpd支持php解析</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/27/11.4、LAMP之PHP安装/" class="archive-article-date">
-  	<time datetime="2017-07-27T13:48:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/27/11.4、LAMP之PHP安装/">LAMP之PHP安装</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/26/11.3、LAMP之Apache安装/" class="archive-article-date">
-  	<time datetime="2017-07-26T15:11:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/26/11.3、LAMP之Apache安装/">LAMP之Apache安装</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/25/11.2、LAMP之安装MySQL/" class="archive-article-date">
-  	<time datetime="2017-07-25T14:03:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/25/11.2、LAMP之安装MySQL/">LAMP之安装MySQL</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/25/11.1、LANMP之LAMp简介/" class="archive-article-date">
-  	<time datetime="2017-07-25T12:27:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/25/11.1、LANMP之LAMp简介/">LANMP之LAMP简介</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/19/10.13日常管理之添加后台程序/" class="archive-article-date">
-  	<time datetime="2017-07-19T15:25:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/19/10.13日常管理之添加后台程序/">日常管理之添加后台程序（screen使用）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/19/10.12、日常管理之日志查看/" class="archive-article-date">
-  	<time datetime="2017-07-19T12:12:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/19/10.12、日常管理之日志查看/">日常管理之日志查看</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/18/10.11、日常管理之rsync同步/" class="archive-article-date">
-  	<time datetime="2017-07-18T11:10:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/18/10.11、日常管理之rsync同步/">日常管理之rsync同步</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">rsync</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2017/page/3/">&laquo; Prev</a><a class="page-number" href="/archives/2017/">1</a><a class="page-number" href="/archives/2017/page/2/">2</a><a class="page-number" href="/archives/2017/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/2017/page/5/">5</a><a class="page-number" href="/archives/2017/page/6/">6</a><a class="page-number" href="/archives/2017/page/7/">7</a><a class="extend next" rel="next" href="/archives/2017/page/5/">Next &raquo;</a>
-    </nav>
-  
-
+<!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、设置mysql数据库root的密码"><span class="toc-number">1.</span> <span class="toc-text">一、设置mysql数据库root的密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、如何重置mysql使用用户密码"><span class="toc-number">2.</span> <span class="toc-text">二、如何重置mysql使用用户密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、连接mysql"><span class="toc-number">3.</span> <span class="toc-text">三、连接mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、通过tcp-ip的方式"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、通过tcp/ip的方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、通过socket方式-端口"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、通过socket方式/端口</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
+             
+        <!-- 目录内容结束 -->
 
           </div>
         </div>
@@ -567,8 +464,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

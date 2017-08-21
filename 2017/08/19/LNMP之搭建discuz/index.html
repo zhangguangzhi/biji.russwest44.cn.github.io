@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>LNMP之搭建discuz | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 1、实验环境nginx：nginx/1.12.1  php：5.6.30  mysql：5.6.35  实验环境如上，具体搭建省略。 实验域名为：test2.com 2、安装discuz2.1、下载discuz12cd  /data/wwwroot/discuz.com/wget wget  http://download.comsenz.com/DiscuzX/3.2/Discuz_">
+  <meta name="description" content="[TOC] 1、实验环境nginx：nginx/1.12.1  php：5.6.30  mysql：5.6.35  实验环境如上，具体搭建省略。 实验域名为：test2.com">
 <meta name="keywords" content="LNMP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LNMP之搭建discuz">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/19/LNMP之搭建discuz/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 1、实验环境nginx：nginx/1.12.1  php：5.6.30  mysql：5.6.35  实验环境如上，具体搭建省略。 实验域名为：test2.com 2、安装discuz2.1、下载discuz12cd  /data/wwwroot/discuz.com/wget wget  http://download.comsenz.com/DiscuzX/3.2/Discuz_">
+<meta property="og:description" content="[TOC] 1、实验环境nginx：nginx/1.12.1  php：5.6.30  mysql：5.6.35  实验环境如上，具体搭建省略。 实验域名为：test2.com">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/144513227.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/144555856.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/144645042.png?imageslim">
@@ -25,10 +25,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/154226269.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/154319657.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/154429742.png?imageslim">
-<meta property="og:updated_time" content="2017-08-19T08:47:30.183Z">
+<meta property="og:updated_time" content="2017-08-21T12:54:23.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之搭建discuz">
-<meta name="twitter:description" content="[TOC] 1、实验环境nginx：nginx/1.12.1  php：5.6.30  mysql：5.6.35  实验环境如上，具体搭建省略。 实验域名为：test2.com 2、安装discuz2.1、下载discuz12cd  /data/wwwroot/discuz.com/wget wget  http://download.comsenz.com/DiscuzX/3.2/Discuz_">
+<meta name="twitter:description" content="[TOC] 1、实验环境nginx：nginx/1.12.1  php：5.6.30  mysql：5.6.35  实验环境如上，具体搭建省略。 实验域名为：test2.com">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/144513227.png?imageslim">
   
   
@@ -174,13 +174,14 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/144645042.png?imageslim" alt="mark"></p>
 <p>实验环境如上，具体搭建省略。</p>
 <p>实验域名为：test2.com</p>
+<a id="more"></a>
 <h3 id="2、安装discuz"><a href="#2、安装discuz" class="headerlink" title="2、安装discuz"></a>2、安装discuz</h3><h4 id="2-1、下载discuz"><a href="#2-1、下载discuz" class="headerlink" title="2.1、下载discuz"></a>2.1、下载discuz</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /data/wwwroot/discuz.com/</div><div class="line">wget wget  http://download.comsenz.com/DiscuzX/3.2/Discuz_X3.2_SC_GBK.zip</div></pre></td></tr></table></figure>
 <h4 id="2-2、解压discuz"><a href="#2-2、解压discuz" class="headerlink" title="2.2、解压discuz"></a>2.2、解压discuz</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">unzip Discuz_X3.2_SC_GBK.zip</div><div class="line">mv  upload/* ./</div><div class="line">rm -rf Discuz_X3.2_SC_GBK.zip readme/  utility/  upload/</div></pre></td></tr></table></figure>
-<h4 id="2-3、创建WordPress所需数据库和授权用户"><a href="#2-3、创建WordPress所需数据库和授权用户" class="headerlink" title="2.3、创建WordPress所需数据库和授权用户"></a>2.3、创建WordPress所需数据库和授权用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/usr/localmysql/bin/mysql</div><div class="line">#discuz为数据库名</div><div class="line">create  database discuz;</div><div class="line">grant all on discuz.* to &apos;allen1&apos;@&apos;localhost&apos; identified by &apos;123456&apos;;</div></pre></td></tr></table></figure>
+<h4 id="2-3、创建discuz所需数据库和授权用户"><a href="#2-3、创建discuz所需数据库和授权用户" class="headerlink" title="2.3、创建discuz所需数据库和授权用户"></a>2.3、创建discuz所需数据库和授权用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/usr/local/mysql/bin/mysql</div><div class="line">#discuz为数据库名</div><div class="line">create  database discuz;</div><div class="line">grant all on discuz.* to &apos;allen1&apos;@&apos;localhost&apos; identified by &apos;123456&apos;;</div></pre></td></tr></table></figure>
 <ul>
 <li>all：指定所有权限</li>
 <li>discuz.*：指定数据库及库里文件</li>
-<li>‘allen’@’localhost’：用户和IP</li>
+<li>‘allen1’@’localhost’：用户和IP</li>
 <li>identified by ‘123456’：密码</li>
 </ul>
 <h4 id="2-4、开始安装discuz"><a href="#2-4、开始安装discuz" class="headerlink" title="2.4、开始安装discuz"></a>2.4、开始安装discuz</h4><p>2.4.1、同意协议</p>
@@ -288,11 +289,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/20/LNMP之搭建cms/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          LNMP之搭建cms
         
       </div>
     </a>
@@ -326,7 +327,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、实验环境"><span class="toc-number">1.</span> <span class="toc-text">1、实验环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、安装discuz"><span class="toc-number">2.</span> <span class="toc-text">2、安装discuz</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、下载discuz"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、下载discuz</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、解压discuz"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、解压discuz</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、创建WordPress所需数据库和授权用户"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、创建WordPress所需数据库和授权用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、开始安装discuz"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、开始安装discuz</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、登录discuz"><span class="toc-number">3.</span> <span class="toc-text">3、登录discuz</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、实验环境"><span class="toc-number">1.</span> <span class="toc-text">1、实验环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、安装discuz"><span class="toc-number">2.</span> <span class="toc-text">2、安装discuz</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、下载discuz"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、下载discuz</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、解压discuz"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、解压discuz</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、创建discuz所需数据库和授权用户"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、创建discuz所需数据库和授权用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、开始安装discuz"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、开始安装discuz</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、登录discuz"><span class="toc-number">3.</span> <span class="toc-text">3、登录discuz</span></a></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
@@ -482,11 +483,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">正则</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,26 +496,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -530,7 +511,31 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>
