@@ -6,22 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>文本处理命令之grep | Hexo</title>
+  <title>innobackex工具备份mysql数据 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
-<meta name="keywords" content="grep,正则,文本处理">
+  <meta name="description" content="xtrbackup只能用于备份innodb引擎的数据库，而innobackex 既可以备份innodb引擎的数据库，也可以备份myisam引擎的数据库。备份时也可分为全量备份和增量备份">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文本处理命令之grep">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/03/文本处理命令之grep/index.html">
+<meta property="og:title" content="innobackex工具备份mysql数据">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/23/innobackex工具备份mysql数据/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/194920967.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/200353340.png?imageslim">
-<meta property="og:updated_time" content="2017-08-11T02:44:35.990Z">
+<meta property="og:description" content="xtrbackup只能用于备份innodb引擎的数据库，而innobackex 既可以备份innodb引擎的数据库，也可以备份myisam引擎的数据库。备份时也可分为全量备份和增量备份">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102430977.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102225364.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102125940.png?imageslim">
+<meta property="og:updated_time" content="2017-08-23T02:53:07.076Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文本处理命令之grep">
-<meta name="twitter:description" content="[TOC] grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170703/194920967.png?imageslim">
+<meta name="twitter:title" content="innobackex工具备份mysql数据">
+<meta name="twitter:description" content="xtrbackup只能用于备份innodb引擎的数据库，而innobackex 既可以备份innodb引擎的数据库，也可以备份myisam引擎的数据库。备份时也可分为全量备份和增量备份">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102430977.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -137,98 +138,70 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-文本处理命令之grep" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-innobackex工具备份mysql数据" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      文本处理命令之grep
+      innobackex工具备份mysql数据
     </h1>
   
 
         
-        <a href="/2017/07/03/文本处理命令之grep/" class="archive-article-date">
-  	<time datetime="2017-07-03T11:44:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
+        <a href="/2017/08/23/innobackex工具备份mysql数据/" class="archive-article-date">
+  	<time datetime="2017-08-23T02:07:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<p>grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。</p>
+        <p>xtrbackup只能用于备份innodb引擎的数据库，而innobackex 既可以备份innodb引擎的数据库，也可以备份myisam引擎的数据库。备份时也可分为全量备份和增量备份</p>
 <a id="more"></a>
-<h2 id="一、正则表达式"><a href="#一、正则表达式" class="headerlink" title="一、正则表达式"></a>一、正则表达式</h2><p><strong>正则表达式：</strong>某个字符串集合的精确表达，由普通字符和特殊字符构成，普通字符包括大小写字母，数字及空格和下划线，而特殊字符对正则表达式来说具有特殊的含义，它会被扩展用来匹配普通字符。正式因为使用了这些特殊字符，才使得我们不用明确一一指定普通字符的不同组合。</p>
-<p>特殊字符含义：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170703/194920967.png?imageslim" alt="mark"></p>
-<p>[字符]：表示匹配[ ]中限定的字符范围。[0-9]表示数字，[a-z]表示小写字母</p>
-<p>^：一般表示行首以什么开头，在[ ]中表示范围取反</p>
-<p>$：行的结尾，^\$表示空行</p>
-<p>.：表示任意一个字符</p>
-<p>*：表示<em>前面的字符有0个或多个，**</em>不表示一个字符，表示的是在它前面字符的个数**</p>
-<p>.*：任意字符</p>
-<p><strong>以下特殊符号需要脱义或者使用egrep（grep  -E）</strong></p>
-<p>{}：表示匹配的字符重复的次数</p>
-<p>()：表示一个整体，后面需要引用时，使用n，n为数字</p>
-<p>?：表示0个或1个前面字符</p>
-<p>+：表示一个或多个前面字符</p>
-<p>|：表示或者，字符串1|字符串2|字符串3</p>
-<h2 id="二、grep用法"><a href="#二、grep用法" class="headerlink" title="二、grep用法"></a>二、grep用法</h2><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170703/200353340.png?imageslim" alt="mark"></p>
-<h3 id="1、格式"><a href="#1、格式" class="headerlink" title="1、格式"></a>1、格式</h3><p><code>grep  选项  “字符串（正则表达式）”  文件名</code></p>
-<h3 id="2、选项作用"><a href="#2、选项作用" class="headerlink" title="2、选项作用"></a>2、选项作用</h3><p>-n    打印行号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep  -n &quot;root&quot; passwd </div><div class="line">1:root:x:0:0:root:/root:/bin/bash</div><div class="line">10:operator:x:11:0:operator:/root:/sbin/nologin</div></pre></td></tr></table></figure>
-<p>-c    统计符合要求的行数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep  -c &quot;root&quot; passwd </div><div class="line">2</div></pre></td></tr></table></figure>
-<p>-v    打印不符合要求的行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# cat passwd |wc -l </div><div class="line">27</div><div class="line">[root@allen1 ~]# grep  -vc &quot;root&quot; passwd </div><div class="line">25</div></pre></td></tr></table></figure>
-<p>-i     忽略大小写</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep  -i &quot;root&quot; passwd </div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">operator:x:11:0:operator:/root:/sbin/nologin</div><div class="line">ROOT</div><div class="line">Root</div><div class="line">rooT</div></pre></td></tr></table></figure>
-<p>-w   精确匹配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep   &quot;12&quot; passwd </div><div class="line">123</div><div class="line">12</div><div class="line">124</div><div class="line">[root@allen1 ~]# grep  -w &quot;12&quot; passwd </div><div class="line">12</div></pre></td></tr></table></figure>
-<p>-r    匹配目录下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep -r &quot;root&quot; ./</div><div class="line">./d6z/1.txt:#                       reboot. Useful when non-root dump target is specified.</div><div class="line">./d6z/1.txt:#sshkey /root/.ssh/kdump_id_rsa</div><div class="line">./d6z/1.txt:log_group = root</div><div class="line">./d6z/1.txt:action_mail_acct = root</div><div class="line">./d6z/1.txt:# use chroot = yes</div><div class="line">匹配到二进制文件 ./d6z/test2.tar</div><div class="line">./passwd:root:x:0:0:root:/root:/bin/bash</div><div class="line">./passwd:operator:x:11:0:operator:/root:/sbin/nologin</div><div class="line">.......</div><div class="line">#在一个目录下，过滤所有*.php文档中含有eval的行：grep -r --include=&quot;*.php&quot; &apos;eval&apos; /data/</div></pre></td></tr></table></figure>
-<p>-q    安静模式，即不输出内容，用于shell脚本判断</p>
-<p>-E    使用特殊符号是不需要使用脱义符，类似egrep</p>
-<p>-l     匹配多个文件时，输出只打印符合条件的文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# grep -lr &quot;root&quot; ./</div><div class="line">./.bash_history</div><div class="line">./.ssh/id_rsa.pub</div><div class="line">./test1/split.aa</div><div class="line">./test1/split.ab</div><div class="line">./test1/split.ac</div><div class="line">./test1/split.ad</div><div class="line">./test1/split.ae</div><div class="line">.....</div></pre></td></tr></table></figure>
-<p>-ABC  后面跟数字，显示匹配到的行的上下n行</p>
-<p>A：所在行以及下面n行</p>
-<p>B：所在行以及上面n行</p>
-<p>C：所在行以及上下n行</p>
-<h2 id="三、grep应用实例"><a href="#三、grep应用实例" class="headerlink" title="三、grep应用实例"></a>三、grep应用实例</h2><p>grep -n ‘root’ /etc/passwd </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#匹配包含root的行并显示行号</div><div class="line">[root@allen1 ~]# grep -n &quot;root&quot; passwd</div><div class="line">1:root:x:0:0:root:/root:/bin/bash</div><div class="line">10:operator:x:11:0:operator:/root:/sbin/nologin</div></pre></td></tr></table></figure>
-<p>grep -nv ‘nologin’ /etc/passwd</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#显示匹配不包含nologin的行，并显示行号</div><div class="line">[root@allen1 ~]# grep -nv &apos;nologin&apos; passwd</div><div class="line">1:root:x:0:0:root:/root:/bin/bash</div><div class="line">6:sync:x:5:0:sync:/sbin:/bin/sync</div><div class="line">7:shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown</div><div class="line">8:halt:x:7:0:halt:/sbin:/sbin/halt</div><div class="line">22:user2:x:1010:1002::/home/user2:/bin/bash</div><div class="line">.......</div></pre></td></tr></table></figure>
-<p>grep  ‘[0-9]’ /etc/inittab </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#匹配包含数字的行</div><div class="line">[root@allen1 ~]# grep &apos;[0-9]&apos; /etc/inittab </div><div class="line"># multi-user.target: analogous to runlevel 3</div><div class="line"># graphical.target: analogous to runlevel 5</div></pre></td></tr></table></figure>
-<p>grep -v ‘[0-9]’/etc/inittab </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#匹配包含数字的行，但是显示不包含数字的行</div><div class="line">[root@allen1 ~]# grep -v &apos;[0-9]&apos; /etc/inittab </div><div class="line"># inittab is no longer used when using systemd.</div><div class="line">#</div><div class="line"># ADDING CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.</div><div class="line">#</div><div class="line"># Ctrl-Alt-Delete is handled by /usr/lib/systemd/system/ctrl-alt-del.target</div><div class="line">#</div><div class="line"># systemd uses &apos;targets&apos; instead of runlevels. By default, there are two main targets:</div><div class="line">.......</div></pre></td></tr></table></figure>
-<p>grep  -v   ‘^#’   /etc/inittab </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#匹配空行，但是显示不是空行的行</div><div class="line">[root@allen1 ~]# grep -v &apos;[0-9]&apos; /etc/inittab </div><div class="line"># inittab is no longer used when using systemd.</div><div class="line">#</div><div class="line"># ADDING CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.</div><div class="line">#</div><div class="line"># Ctrl-Alt-Delete is handled by /usr/lib/systemd/system/ctrl-alt-del.target</div><div class="line">.......</div></pre></td></tr></table></figure>
-<p>grep   -v   ‘^#’   /etc/inittab|grep -v  ‘^$’ </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#首先显示不以“#”开头的行，在显示不是空行的行</div><div class="line">[root@allen1 ~]# grep -v &apos;^#&apos; /etc/inittab |grep -v &apos;^$&apos;</div><div class="line">hello</div></pre></td></tr></table></figure>
-<p>grep   ‘^[^a-zA-Z]‘   test.txt </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#匹配以非字母开头的行</div><div class="line">[root@allen1 ~]# grep  &apos;^[^a-zA-Z]&apos;  test.txt </div><div class="line">23ss</div><div class="line">1d22dwsa</div></pre></td></tr></table></figure>
-<p>grep ‘r.o’ test.txt </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#匹配包含ro之间有任意一个字符的行</div><div class="line">[root@allen1 ~]# grep  &apos;r.o&apos; test.txt </div><div class="line">roo</div><div class="line">r.o</div><div class="line">r?o</div><div class="line">r1o</div></pre></td></tr></table></figure>
-<p>grep  ‘oo*’   test.txt </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#匹配一个o或者多个o的行</div><div class="line">[root@allen1 ~]# grep  &apos;oo*&apos; test.txt </div><div class="line">roo</div><div class="line">r.o</div><div class="line">r?o</div><div class="line">r1o</div><div class="line">r22o</div><div class="line">ooo</div><div class="line">o</div><div class="line">ooooooo</div></pre></td></tr></table></figure>
-<p>grep   ‘.*’   test.txt </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#匹配任意内容</div><div class="line">[root@allen1 ~]# grep &apos;.*&apos; test.txt </div><div class="line">aa22</div><div class="line">23ss</div><div class="line">1d22dwsa</div><div class="line">a132</div><div class="line">roo</div><div class="line">r.o</div><div class="line">r?o</div><div class="line">r1o</div><div class="line">r22o</div><div class="line">ooo</div><div class="line">o</div><div class="line">ooooooo</div></pre></td></tr></table></figure>
-<p>grep   -E  ‘o{2}‘  test.txt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#匹配含有两个o的行</div><div class="line">[root@allen1 ~]# grep  &apos;o&#123;2&#125;&apos; test.txt  -E</div><div class="line">roo</div><div class="line">ooo</div></pre></td></tr></table></figure>
-<p>egrep   ‘o{2}’     test.txt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#与上方例子左右一致</div></pre></td></tr></table></figure>
-<p>egrep   ‘o+’   test.txt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#匹配至少1个o或者多个o的行</div><div class="line">[root@allen1 ~]# egrep &apos;o+&apos; test.txt </div><div class="line">roo</div><div class="line">r.o</div><div class="line">r?o</div><div class="line">r1o</div><div class="line">r22o</div><div class="line">ooo</div><div class="line">o</div><div class="line">ooooooo</div></pre></td></tr></table></figure>
-<p>egrep   ‘oo?’   /etc/passwd </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#匹配一个o或者两个o的行</div><div class="line">[root@allen1 ~]# egrep &apos;oo?&apos; test.txt </div><div class="line">roo</div><div class="line">r.o</div><div class="line">r?o</div></pre></td></tr></table></figure>
-<p>egrep   ‘root|nologin’   /etc/passwd </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">匹配包含“root”或者“nologin”的行</div><div class="line">[root@allen1 ~]# egrep  &apos;root|nologin&apos; passwd </div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">bin:x:1:1:bin:/bin:/sbin/nologin</div><div class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</div><div class="line">adm:x:3:4:adm:/var/adm:/sbin/nologin</div><div class="line">lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin</div><div class="line">mail:x:8:12:mail:/var/spool/mail:/sbin/nologin</div></pre></td></tr></table></figure>
-<p>egrep ‘(oo){2}’ /etc/passwd</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#匹配包含两个oo的行</div><div class="line">[root@allen1 ~]# egrep  &apos;oo&#123;2&#125;&apos; passwd</div><div class="line">oooooo</div><div class="line">oooooooo</div></pre></td></tr></table></figure>
+<p>[TOC]</p>
+<h3 id="一、安装innobackex"><a href="#一、安装innobackex" class="headerlink" title="一、安装innobackex"></a>一、安装innobackex</h3><p>1.1、安装yum拓展源percona-release</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpm -ivh http://www.percona.com/downloads/percona-release/redhat/0.1-3/percona-release-0.1-3.noarch.rpm</div></pre></td></tr></table></figure>
+<p>1.2、安装percona-xtrabackup</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install percona-xtrabackup</div></pre></td></tr></table></figure>
+<h3 id="二、开始全量备份mysql"><a href="#二、开始全量备份mysql" class="headerlink" title="二、开始全量备份mysql"></a>二、开始全量备份mysql</h3><p>2.1、创建并授权备份用户</p>
+<p>我们可以直接授权all权限，但是不符合安全原则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot  -pallen</div><div class="line">&gt; grant reload,lock tables,replication client on *.* to &apos;backupuser&apos;@&apos;localhost&apos;  identified  by  &apos;allen&apos; ;</div><div class="line">&gt; flush  privilege；</div></pre></td></tr></table></figure>
+<ul>
+<li>权限为reload,lock tables,replication client。</li>
+</ul>
+<p>2.2、创建备份保存目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/backup</div></pre></td></tr></table></figure>
+<p>2.3、备份mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex   --defaults-file=/etc/my.cnf  --user=backuser  --password=&apos;allen&apos;    -S /tmp/mysql.sock  /data/mysqlbackup</div></pre></td></tr></table></figure>
+<ul>
+<li><p>–defaults-file=/etc/my.cnf指定配置文件位置是为了获得datadir位置</p>
+</li>
+<li><p>备份完成后，会在指定的保存目录中生成一个目录，该目录的名称为备份完成时的时间格式。该目录名称也是恢复时的apply-log。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/102430977.png?imageslim" alt="mark"></p>
+</li>
+</ul>
+<p>备份时出现的错误：</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/102225364.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/102125940.png?imageslim" alt="mark"></p>
+<h3 id="三、开始恢复mysql"><a href="#三、开始恢复mysql" class="headerlink" title="三、开始恢复mysql"></a>三、开始恢复mysql</h3><p>模拟故障，此时mysql的数据损毁。而之前我们已经全量备份。</p>
+<p>3.1、停止mysql服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/mysqld  stop</div><div class="line">ps aux |grep &quot;mysqld&quot;</div><div class="line">#不允许mysql进程存在</div></pre></td></tr></table></figure>
+<p>3.2、删除mysql原有数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv /data/mysql  /data/mysql.bak</div></pre></td></tr></table></figure>
+<p>3.3、恢复mysql</p>
+<p>首先，需要初始化(初始化的叫法不够严谨)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --use-memory=512  --apply-log  /备份的时间目录/</div><div class="line">innobackex  --use-memory=512  --apply-log  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
+<ul>
+<li>–use-memory=512指定备份时使用的内存</li>
+</ul>
+<p>初始化完成后，进行恢复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --defaults-file=/etc/my.cnf  --copy-back  /备份的时间目录/</div><div class="line">innobackex  --defaults-file=/etc/my.cnf  --copy-back  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
+<ul>
+<li>使用–copy-back参数恢复</li>
+</ul>
+
       
 
       
@@ -241,15 +214,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grep</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -305,7 +270,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/03/文本处理命令之grep/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/23/innobackex工具备份mysql数据/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -319,18 +284,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          在shell脚本中调用另一个脚本的三种不同方法
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/06/30/shell基础知识3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">shell基础知识之三</div>
+    <a href="/2017/08/21/13.1、mysql常用操作/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql常用操作</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -357,7 +322,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、正则表达式"><span class="toc-number">1.</span> <span class="toc-text">一、正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、grep用法"><span class="toc-number">2.</span> <span class="toc-text">二、grep用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、格式"><span class="toc-number">2.1.</span> <span class="toc-text">1、格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、选项作用"><span class="toc-number">2.2.</span> <span class="toc-text">2、选项作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、grep应用实例"><span class="toc-number">3.</span> <span class="toc-text">三、grep应用实例</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、安装innobackex"><span class="toc-number">1.</span> <span class="toc-text">一、安装innobackex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、开始全量备份mysql"><span class="toc-number">2.</span> <span class="toc-text">二、开始全量备份mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、开始恢复mysql"><span class="toc-number">3.</span> <span class="toc-text">三、开始恢复mysql</span></a></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
