@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102430977.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102225364.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102125940.png?imageslim">
-<meta property="og:updated_time" content="2017-08-23T02:53:07.076Z">
+<meta property="og:updated_time" content="2017-08-23T03:09:15.882Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="innobackex工具备份mysql数据">
 <meta name="twitter:description" content="xtrbackup只能用于备份innodb引擎的数据库，而innobackex 既可以备份innodb引擎的数据库，也可以备份myisam引擎的数据库。备份时也可分为全量备份和增量备份">
@@ -189,15 +189,15 @@
 <p>3.1、停止mysql服务</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/mysqld  stop</div><div class="line">ps aux |grep &quot;mysqld&quot;</div><div class="line">#不允许mysql进程存在</div></pre></td></tr></table></figure>
 <p>3.2、删除mysql原有数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv /data/mysql  /data/mysql.bak</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mv /data/mysql  /data/mysql.bak</div><div class="line">mkdir /data/mysql  </div><div class="line">chown mysql:mysql  /data/mysql</div></pre></td></tr></table></figure>
 <p>3.3、恢复mysql</p>
 <p>首先，需要初始化(初始化的叫法不够严谨)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --use-memory=512  --apply-log  /备份的时间目录/</div><div class="line">innobackex  --use-memory=512  --apply-log  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --use-memory=512M  --apply-log  /备份的时间目录/</div><div class="line"># innobackex  --use-memory=512M  --apply-log  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
 <ul>
-<li>–use-memory=512指定备份时使用的内存</li>
+<li>–use-memory=512M指定备份时使用的内存为512M</li>
 </ul>
 <p>初始化完成后，进行恢复</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --defaults-file=/etc/my.cnf  --copy-back  /备份的时间目录/</div><div class="line">innobackex  --defaults-file=/etc/my.cnf  --copy-back  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --defaults-file=/etc/my.cnf  --copy-back  /备份的时间目录/</div><div class="line">#innobackupex  --defaults-file=/etc/my.cnf  --copy-back  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
 <ul>
 <li>使用–copy-back参数恢复</li>
 </ul>
