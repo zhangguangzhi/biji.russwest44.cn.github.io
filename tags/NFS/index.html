@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LAMP之httpd.conf配置文件详解 | Hexo</title>
+  <title>Tag: NFS | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ServerRoot “/export/servers/apache2”        #安装apache的家目录 Listen 80        ##默认监听的端口是80 PidFile /export/servers/apache2/logs/httpd.pid LoadModule authn_file_module modules/mod_authn_file.so        #加载">
-<meta name="keywords" content="LAMP">
-<meta property="og:type" content="article">
-<meta property="og:title" content="LAMP之httpd.conf配置文件详解">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/08/LAMP之httpd-conf配置文件详解/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://zhangguangzhi.github.io/tags/NFS/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ServerRoot “/export/servers/apache2”        #安装apache的家目录 Listen 80        ##默认监听的端口是80 PidFile /export/servers/apache2/logs/httpd.pid LoadModule authn_file_module modules/mod_authn_file.so        #加载">
-<meta property="og:updated_time" content="2017-08-08T12:40:48.207Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LAMP之httpd.conf配置文件详解">
-<meta name="twitter:description" content="ServerRoot “/export/servers/apache2”        #安装apache的家目录 Listen 80        ##默认监听的端口是80 PidFile /export/servers/apache2/logs/httpd.pid LoadModule authn_file_module modules/mod_authn_file.so        #加载">
+<meta name="twitter:title" content="Hexo">
   
   
     <link rel="icon" href="/favicon.png">
@@ -134,217 +129,61 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-LAMP之httpd-conf配置文件详解" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      LAMP之httpd.conf配置文件详解
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/08/23/14、NFS服务配置/" class="archive-article-date">
+  	<time datetime="2017-08-23T06:23:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-23</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/08/23/14、NFS服务配置/">NFS服务配置</a>
     </h1>
   
 
-        
-        <a href="/2017/08/08/LAMP之httpd-conf配置文件详解/" class="archive-article-date">
-  	<time datetime="2017-08-08T12:26:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ServerRoot “/export/servers/apache2”        #安装apache的家目录</p>
-<p>Listen 80        ##默认监听的端口是80</p>
-<p>PidFile /export/servers/apache2/logs/httpd.pid</p>
-<p>LoadModule authn_file_module modules/mod_authn_file.so        #加载的模块</p>
-<p>User admin            ##一般默认设置为admin</p>
-<p>Group admin        ##一般默认设置为admin</p>
-<a id="more"></a> 
-<p>DocumentRoot “/export/servers/apache2/htdocs”    ##设置你的项目文件路径</p>
-<p>ServerAdmin you@example.com           #当服务器报错是，返回客户端，让联系管理员</p>
-<p>ServerName localhost:80        ##服务器的名字：端口</p>
-<p>AddType application/x-httpd-php .php          #让.php文本文件格式也能运行php程序。</p>
-<p>1 \<directory></directory></p>
-<p>​     Options FollowSymLinks</p>
-<p>​     AllowOverride None</p>
-<p>​     Order deny,allow</p>
-<p>​     Allow from all</p>
-<p> \</p>
-<p>#Options：配置在特定目录使用哪些特性，常用的值和基本含义如下：</p>
-<p>#ExecCGI: 在该目录下允许执行CGI脚本。</p>
-<p>#FollowSymLinks: 在该目录下允许文件系统使用符号连接。</p>
-<p>#Indexes: 当用户访问该目录时，如果用户找不到DirectoryIndex指定的主页文件(例如#index.html),则返回该目录下的文件列表给用户。</p>
-<p>#SymLinksIfOwnerMatch: 当使用符号连接时，只有当符号连接的文件拥有者与实际文件拥有者相同时才可以访问.</p>
-<p>Includes 允许服务器端包含。</p>
-<p>IncludesNOEXEC 允许服务器端包含，但禁用#exec命令和#exec CGI。但仍可以从ScriptAliase目录使用#include 虚拟CGI脚本。</p>
-<p>比如说，没有任何+和-符号：</p>
-<ol>
-<li>\<directory web="" docs=""></directory></li>
-<li>Options Indexes FollowSymLinks</li>
-<li>\</li>
-<li>​</li>
-<li>\<directory web="" docs="" spec=""></directory></li>
-<li>Options Includes</li>
-<li>\</li>
-</ol>
-<p>则只有  Includes  设置到/web/docs/spec目录上。</p>
-<p>然而如果第二个  Options  指令使用了+和-符号：</p>
-<ol>
-<li>\<directory web="" docs=""></directory></li>
-<li>Options Indexes FollowSymLinks</li>
-<li>\</li>
-<li>​</li>
-<li>\<directory web="" docs="" spec=""></directory></li>
-<li>Options +Includes -Indexes</li>
-<li>\</li>
-</ol>
-<p>那么就会有  FollowSymLinks  和  Includes  设置到/web/docs/spec目录上。</p>
-<p>#AllowOverride：允许存在于.htaccess文件中的指令类型(.htaccess文件名是可以改变的，其文件名由AccessFileName指令决定)：</p>
-<p>#None: 当AllowOverride被设置为None时。不搜索该目录下的.htaccess文件（可以减小服务器开销）。</p>
-<p>#All: 在.htaccess文件中可以使用所有的指令。</p>
-<p>Order：控制在访问时Allow和Deny两个访问规则哪个优先：</p>
-<p>Allow：允许访问的主机列表(可用域名或子网，例如：Allow from 192.168.0.0/16)。</p>
-<p>Deny：拒绝访问的主机列表。</p>
-<p>Apache服务器可以针对目录进行文档的访问控制，然而访问控制可以通过两种方式来实现，一个是在设置文件 httpd.conf（或access.conf）中针对每个目录进行设置</p>
-<p>Timeout 300                ##客户程序和服务器连接的超时间隔</p>
-<p>KeepAlive On                ###在一次连接中传递多个HTTP请求</p>
-<p>MaxKeepAliveRequests 100        ###为一次连接可以进行的HTTP请求的最大请求次数</p>
-<p>KeepAliveTimeout 15        ###测试一次连接中的多次请求传输之间的时间，如果服务器已经完成了一次请求，但一直没有接收到客户程序的下一次请求，在间隔超过了这个参数设置的值之后，服务器就断开连接。</p>
-<p>ErrorLog logs/error_log #日志的保存位置</p>
-<p>LogLevel warn    ##日志级别        debug日志界别，日志就比较多</p>
-<p>日志的缺省格式有如下几种：</p>
-<p>LogFormat “%h %l %u %t “%r” %&gt;s %b “%{Referer}i” “%{User-Agent}i”” combined</p>
-<p>LogFormat “%h %l %u %t “%r” %&gt;s %b” common #common为日志格式名称</p>
-<p>LogFormat “%{Referer}i -&gt; %U” referer</p>
-<p>LogFormat “%{User-agent}i” agent</p>
-<p>CustomLog logs/access_log common</p>
-<p>格式中的各个参数如下：</p>
-<p>%h –客户端的ip地址或主机名</p>
-<p>%l –The 这是由客户端 identd 判断的RFC 1413身份，输出中的符号 “-“ 表示此处信息无效。</p>
-<p>%u –由HTTP认证系统得到的访问该网页的客户名。有认证时才有效，输出中的符号 “-“ 表示此处信息无效。</p>
-<p>%t –服务器完成对请求的处理时的时间。</p>
-<p>“%r” –引号中是客户发出的包含了许多有用信息的请求内容。</p>
-<p>%&gt;s –这个是服务器返回给客户端的状态码。</p>
-<p>%b –最后这项是返回给客户端的不包括响应头的字节数。</p>
-<p>“%{Referer}i” –此项指明了该请求是从被哪个网页提交过来的。</p>
-<p>“%{User-Agent}i” –此项是客户浏览器提供的浏览器识别信息。</p>
-<p><a href="http://ask.apelearn.com/question/1051" target="_blank" rel="external">apache options参数</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NFS</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/08/LAMP之httpd-conf配置文件详解/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/08/09/12.1、LNMP之LNMP简介/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          LNMP之LNMP简介
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/08/08/LAMP之Apache三种工作模式比较/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LAMP之Apache三种工作模式比较</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
+    
 
-  
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
 
           </div>
         </div>
@@ -366,9 +205,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

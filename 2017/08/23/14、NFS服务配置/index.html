@@ -6,19 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LAMP之httpd.conf配置文件详解 | Hexo</title>
+  <title>NFS服务配置 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ServerRoot “/export/servers/apache2”        #安装apache的家目录 Listen 80        ##默认监听的端口是80 PidFile /export/servers/apache2/logs/httpd.pid LoadModule authn_file_module modules/mod_authn_file.so        #加载">
-<meta name="keywords" content="LAMP">
+  <meta name="description" content="[TOC] 一、NFS介绍NFS是Network File System的缩写，NFS最早由Sun公司开发，分2,3,4三个版本，2和3由Sun起草开发，4.0开始Netapp公司参与并主导开发，最新为4.1版本 1.1、什么是NFSnfs的主要功能是通过网路让不同的机器系统之间可以彼此共享文件和目录。nfs服务器可以允许nfs客户端将远端nfs服务器的共享目录挂载到本地的nfs客户端中。在本地的">
+<meta name="keywords" content="NFS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LAMP之httpd.conf配置文件详解">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/08/LAMP之httpd-conf配置文件详解/index.html">
+<meta property="og:title" content="NFS服务配置">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/23/14、NFS服务配置/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ServerRoot “/export/servers/apache2”        #安装apache的家目录 Listen 80        ##默认监听的端口是80 PidFile /export/servers/apache2/logs/httpd.pid LoadModule authn_file_module modules/mod_authn_file.so        #加载">
-<meta property="og:updated_time" content="2017-08-08T12:40:48.207Z">
+<meta property="og:description" content="[TOC] 一、NFS介绍NFS是Network File System的缩写，NFS最早由Sun公司开发，分2,3,4三个版本，2和3由Sun起草开发，4.0开始Netapp公司参与并主导开发，最新为4.1版本 1.1、什么是NFSnfs的主要功能是通过网路让不同的机器系统之间可以彼此共享文件和目录。nfs服务器可以允许nfs客户端将远端nfs服务器的共享目录挂载到本地的nfs客户端中。在本地的">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/145705592.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/150536097.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/151654199.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/151909620.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/154055311.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/154336639.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/154846007.png?imageslim">
+<meta property="og:updated_time" content="2017-08-23T08:08:15.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LAMP之httpd.conf配置文件详解">
-<meta name="twitter:description" content="ServerRoot “/export/servers/apache2”        #安装apache的家目录 Listen 80        ##默认监听的端口是80 PidFile /export/servers/apache2/logs/httpd.pid LoadModule authn_file_module modules/mod_authn_file.so        #加载">
+<meta name="twitter:title" content="NFS服务配置">
+<meta name="twitter:description" content="[TOC] 一、NFS介绍NFS是Network File System的缩写，NFS最早由Sun公司开发，分2,3,4三个版本，2和3由Sun起草开发，4.0开始Netapp公司参与并主导开发，最新为4.1版本 1.1、什么是NFSnfs的主要功能是通过网路让不同的机器系统之间可以彼此共享文件和目录。nfs服务器可以允许nfs客户端将远端nfs服务器的共享目录挂载到本地的nfs客户端中。在本地的">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/145705592.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -134,102 +142,115 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-LAMP之httpd-conf配置文件详解" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-14、NFS服务配置" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      LAMP之httpd.conf配置文件详解
+      NFS服务配置
     </h1>
   
 
         
-        <a href="/2017/08/08/LAMP之httpd-conf配置文件详解/" class="archive-article-date">
-  	<time datetime="2017-08-08T12:26:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-08</time>
+        <a href="/2017/08/23/14、NFS服务配置/" class="archive-article-date">
+  	<time datetime="2017-08-23T06:23:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>ServerRoot “/export/servers/apache2”        #安装apache的家目录</p>
-<p>Listen 80        ##默认监听的端口是80</p>
-<p>PidFile /export/servers/apache2/logs/httpd.pid</p>
-<p>LoadModule authn_file_module modules/mod_authn_file.so        #加载的模块</p>
-<p>User admin            ##一般默认设置为admin</p>
-<p>Group admin        ##一般默认设置为admin</p>
-<a id="more"></a> 
-<p>DocumentRoot “/export/servers/apache2/htdocs”    ##设置你的项目文件路径</p>
-<p>ServerAdmin you@example.com           #当服务器报错是，返回客户端，让联系管理员</p>
-<p>ServerName localhost:80        ##服务器的名字：端口</p>
-<p>AddType application/x-httpd-php .php          #让.php文本文件格式也能运行php程序。</p>
-<p>1 \<directory></directory></p>
-<p>​     Options FollowSymLinks</p>
-<p>​     AllowOverride None</p>
-<p>​     Order deny,allow</p>
-<p>​     Allow from all</p>
-<p> \</p>
-<p>#Options：配置在特定目录使用哪些特性，常用的值和基本含义如下：</p>
-<p>#ExecCGI: 在该目录下允许执行CGI脚本。</p>
-<p>#FollowSymLinks: 在该目录下允许文件系统使用符号连接。</p>
-<p>#Indexes: 当用户访问该目录时，如果用户找不到DirectoryIndex指定的主页文件(例如#index.html),则返回该目录下的文件列表给用户。</p>
-<p>#SymLinksIfOwnerMatch: 当使用符号连接时，只有当符号连接的文件拥有者与实际文件拥有者相同时才可以访问.</p>
-<p>Includes 允许服务器端包含。</p>
-<p>IncludesNOEXEC 允许服务器端包含，但禁用#exec命令和#exec CGI。但仍可以从ScriptAliase目录使用#include 虚拟CGI脚本。</p>
-<p>比如说，没有任何+和-符号：</p>
-<ol>
-<li>\<directory web="" docs=""></directory></li>
-<li>Options Indexes FollowSymLinks</li>
-<li>\</li>
-<li>​</li>
-<li>\<directory web="" docs="" spec=""></directory></li>
-<li>Options Includes</li>
-<li>\</li>
-</ol>
-<p>则只有  Includes  设置到/web/docs/spec目录上。</p>
-<p>然而如果第二个  Options  指令使用了+和-符号：</p>
-<ol>
-<li>\<directory web="" docs=""></directory></li>
-<li>Options Indexes FollowSymLinks</li>
-<li>\</li>
-<li>​</li>
-<li>\<directory web="" docs="" spec=""></directory></li>
-<li>Options +Includes -Indexes</li>
-<li>\</li>
-</ol>
-<p>那么就会有  FollowSymLinks  和  Includes  设置到/web/docs/spec目录上。</p>
-<p>#AllowOverride：允许存在于.htaccess文件中的指令类型(.htaccess文件名是可以改变的，其文件名由AccessFileName指令决定)：</p>
-<p>#None: 当AllowOverride被设置为None时。不搜索该目录下的.htaccess文件（可以减小服务器开销）。</p>
-<p>#All: 在.htaccess文件中可以使用所有的指令。</p>
-<p>Order：控制在访问时Allow和Deny两个访问规则哪个优先：</p>
-<p>Allow：允许访问的主机列表(可用域名或子网，例如：Allow from 192.168.0.0/16)。</p>
-<p>Deny：拒绝访问的主机列表。</p>
-<p>Apache服务器可以针对目录进行文档的访问控制，然而访问控制可以通过两种方式来实现，一个是在设置文件 httpd.conf（或access.conf）中针对每个目录进行设置</p>
-<p>Timeout 300                ##客户程序和服务器连接的超时间隔</p>
-<p>KeepAlive On                ###在一次连接中传递多个HTTP请求</p>
-<p>MaxKeepAliveRequests 100        ###为一次连接可以进行的HTTP请求的最大请求次数</p>
-<p>KeepAliveTimeout 15        ###测试一次连接中的多次请求传输之间的时间，如果服务器已经完成了一次请求，但一直没有接收到客户程序的下一次请求，在间隔超过了这个参数设置的值之后，服务器就断开连接。</p>
-<p>ErrorLog logs/error_log #日志的保存位置</p>
-<p>LogLevel warn    ##日志级别        debug日志界别，日志就比较多</p>
-<p>日志的缺省格式有如下几种：</p>
-<p>LogFormat “%h %l %u %t “%r” %&gt;s %b “%{Referer}i” “%{User-Agent}i”” combined</p>
-<p>LogFormat “%h %l %u %t “%r” %&gt;s %b” common #common为日志格式名称</p>
-<p>LogFormat “%{Referer}i -&gt; %U” referer</p>
-<p>LogFormat “%{User-agent}i” agent</p>
-<p>CustomLog logs/access_log common</p>
-<p>格式中的各个参数如下：</p>
-<p>%h –客户端的ip地址或主机名</p>
-<p>%l –The 这是由客户端 identd 判断的RFC 1413身份，输出中的符号 “-“ 表示此处信息无效。</p>
-<p>%u –由HTTP认证系统得到的访问该网页的客户名。有认证时才有效，输出中的符号 “-“ 表示此处信息无效。</p>
-<p>%t –服务器完成对请求的处理时的时间。</p>
-<p>“%r” –引号中是客户发出的包含了许多有用信息的请求内容。</p>
-<p>%&gt;s –这个是服务器返回给客户端的状态码。</p>
-<p>%b –最后这项是返回给客户端的不包括响应头的字节数。</p>
-<p>“%{Referer}i” –此项指明了该请求是从被哪个网页提交过来的。</p>
-<p>“%{User-Agent}i” –此项是客户浏览器提供的浏览器识别信息。</p>
-<p><a href="http://ask.apelearn.com/question/1051" target="_blank" rel="external">apache options参数</a></p>
+        <p>[TOC]</p>
+<h3 id="一、NFS介绍"><a href="#一、NFS介绍" class="headerlink" title="一、NFS介绍"></a>一、NFS介绍</h3><p>NFS是Network File System的缩写，NFS最早由Sun公司开发，分2,3,4三个版本，2和3由Sun起草开发，4.0开始Netapp公司参与并主导开发，最新为4.1版本</p>
+<h4 id="1-1、什么是NFS"><a href="#1-1、什么是NFS" class="headerlink" title="1.1、什么是NFS"></a>1.1、什么是NFS</h4><p>nfs的主要功能是通过网路让不同的机器系统之间可以彼此共享文件和目录。nfs服务器可以允许nfs客户端将远端nfs服务器的共享目录挂载到本地的nfs客户端中。在本地的nfs客户端看来，nfs服务器共享的目录就好像自己的磁盘分区和目录一样。而nfs一般用来存储共享视频，图片等静态数据。所以，<strong>nfs就是通过网络共享目录，让网络上的其他服务器能够挂载访问共享目录内的数据（视频，图片等静态文件）。</strong></p>
+<h4 id="1-2、NFS的原理"><a href="#1-2、NFS的原理" class="headerlink" title="1.2、NFS的原理"></a>1.2、NFS的原理</h4><p>NFS数据传输基于RPC协议，RPC为Remote Procedure Call的简写。</p>
+<p>NFS服务时没有固定端口的，该服务的端口有rpc服务管理。</p>
+<p>1.2.1、rpc和nfs</p>
+<p>rpc就是用来统一管理NFS端口的服务，并且同一对外的端口为111。NFS服务端开启NFS服务时，需要先启动rpc，再启动NFS服务，这样NFS才能够到RPC去注册端口信息。客户端的RPC可以通过向服务端的RPC请求获取服务端的NFS端口信息。当获取到了NFS端口信息后，就会以实际端口进行数据的传输。（由于NFS端口为随机的。）</p>
+<p><strong>客户端通过RPC请求服务端的端口，服务端根据NFS注册的端口返回请求</strong></p>
+<p>1.2.2、RPC和NFS如何通讯</p>
+<p>首先当NFS启动后，就会随机的使用一些端口，然后NFS就会向RPC去注册这些端口。RPC就会记录下这些端口。并且RPC会开机111端口，等待客户端RPC的请求，如果客户端有请求，那服务端的RPC就会将记录的NFS端口信息告知客户端。</p>
+<ul>
+<li>由于NFS需要先在RPC注册端口，所以RPC服务需要先启动。而且当RPC服务重启后，NFS之前注册的端口失效，也需要重启</li>
+</ul>
+<p><strong>NFS首先在RPC注册端口，当客户端请求时返回端口</strong></p>
+<p>1.2.3、客户端NFS和服务端NFS通讯过程</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/145705592.png?imageslim" alt="mark"></p>
+<ul>
+<li><p>1、首先服务器端启动RPC服务，并开启111端口</p>
+<p>2、启动NFS服务，并向RPC注册端口信息</p>
+<p>3、客户端启动RPC，向服务端的RPC服务请求服务端的NFS端口</p>
+<p>4、服务端的RPC服务反馈NFS端口信息给客户端。</p>
+<p>5、客户端通过获取的NFS端口来建立和服务端的NFS连接并进行数据的传输。</p>
+</li>
+</ul>
+<h4 id="1-3、NFS的应用场景"><a href="#1-3、NFS的应用场景" class="headerlink" title="1.3、NFS的应用场景"></a>1.3、NFS的应用场景</h4><p>假如有3台机器A、B和C，它们需要访问同一个目录，而且目录中都是图片。传统的做法是将这些图片都分别放到A、B、C中，若使用NFS，只需要把图片放在A上，然后A共享给B和C即可。访问B和C时，是通过网络的方式去访问A上共享的那个目录。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/150536097.png?imageslim" alt="mark"></p>
+<h4 id="1-4、NFS的优缺点"><a href="#1-4、NFS的优缺点" class="headerlink" title="1.4、NFS的优缺点"></a>1.4、NFS的优缺点</h4><p>1.4.1、优点</p>
+<ul>
+<li>简单容易掌握</li>
+</ul>
+<ul>
+<li>方便快速部署简单维护容易</li>
+<li>可靠—从软件层面上看，数据可靠性高，经久耐用</li>
+</ul>
+<p>1.4.2、缺点（局限性）</p>
+<ul>
+<li>数据只有一份，当服务端宕机，那么就会导致访问不到。</li>
+<li>在高并发的场合，NFS效率性能有限（一般几千万以下pv的网站不是瓶颈，除非网站架构太差。）</li>
+<li>服务器共享文件的客户端认证是基于IP和主机名的安全性一般（但用于内网则问题不大）</li>
+<li>NFS数据是明文的，对数据完整性不做验证（一般是存放于内网，提供内网的服务器使用。所以安全性相对不是一个问题）</li>
+<li>多机器挂载服务器时，连接管理维护麻烦。尤其NFS服务端出问题后，所有客户端都挂掉状态（可使用autofs自动挂载解决。）</li>
+</ul>
+<h3 id="二、配置NFS"><a href="#二、配置NFS" class="headerlink" title="二、配置NFS"></a>二、配置NFS</h3><p>实验环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">服务端：192.168.205.137		#需要安装rpcbind和nfs-utils</div><div class="line">客户端：192.168.205.138		#安装rpcbind</div></pre></td></tr></table></figure>
+<h4 id="2-1、安装所需要软件包"><a href="#2-1、安装所需要软件包" class="headerlink" title="2.1、安装所需要软件包"></a>2.1、安装所需要软件包</h4><p>RPC服务安装的包为：centos5（包括5）之前为portmap，centos5之后为rpcbind</p>
+<p>NFS服务的安装包为：nfs-utils</p>
+<p><strong>因为安装nfs-utils时会自动安装rpcbind，所以我们只安装nfs-utils即可</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y nfs-utils</div></pre></td></tr></table></figure>
+<h4 id="2-2、服务端共享目录"><a href="#2-2、服务端共享目录" class="headerlink" title="2.2、服务端共享目录"></a>2.2、服务端共享目录</h4><p>2.2.1、编辑配置文件</p>
+<p>配置文件为：/etc/exports</p>
+<p>配置格式为<code>共享目录  客户端IP(参数1,参数2,参数.......)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim /etc/exports</div><div class="line">#加入以下内容</div><div class="line">/home/nfstestdir   192.168.205.0/24(rw,sync,all_squash,anonuid=1000,anongid=1000)</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/151654199.png?imageslim" alt="mark"></p>
+<ul>
+<li><p>客户端ip与(参数)之间无空格</p>
+</li>
+<li><p>配置参数</p>
+<p>| 配置参数            | 说明                                       |<br>| ————— | —————————————- |<br>| rw              | 允许读写                                     |<br>| ro              | 只允许读                                     |<br>| sync            | 同步模式，内存数据实时写入磁盘，影响性能                     |<br>| async           | 非同步模式，数据有丢失风险                            |<br>| no_root_squash  | 客户端挂载NFS共享目录后，root用户不受约束，权限很大。（相当于该共享目录已经是客户端的了） |<br>| root_squash     | 与上面选项相对，客户端上的root用户收到约束，被限定成某个普通用户       |<br>| all_squash      | 客户端上所有用户在使用NFS共享目录时都被限定为一个普通用户           |<br>| anonuid/anongid | 和上面几个选项搭配使用，定义被限定用户的uid和gid              |</p>
+</li>
+</ul>
+<p>2.2.2、创建共享目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  /home/nfstestdir</div><div class="line">chmod 777 /home/nfstestdir</div></pre></td></tr></table></figure>
+<p>/var/lib/nfs/rmtab记录共享目录被挂载情况</p>
+<p>/var/lib/nfs/etab记录设置了那些目录共享以及配置参数</p>
+<h4 id="2-3、启动服务"><a href="#2-3、启动服务" class="headerlink" title="2.3、启动服务"></a>2.3、启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#先启动rpcbind，再启动nfs</div><div class="line"># rpcinfo  -p可以查看rpcbind启动信息</div><div class="line">systemctl  start rpcbind</div><div class="line">systemctl  start nfs</div><div class="line">#设置服务开启不启动</div><div class="line">systemctl  enable rpcbind</div><div class="line">systemctl  enable nfs</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/151909620.png?imageslim" alt="mark"></p>
+<h4 id="2-4、客户端挂载"><a href="#2-4、客户端挂载" class="headerlink" title="2.4、客户端挂载"></a>2.4、客户端挂载</h4><p>2.4.1、安装nfs-utils</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install  -y nfs-utils</div></pre></td></tr></table></figure>
+<p>2.4.2、查看服务端是否共享成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">showmount -e 192.168.205.137</div></pre></td></tr></table></figure>
+<ul>
+<li><p>出现以下错误，是防火墙的问题</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/154055311.png?imageslim" alt="mark"></p>
+</li>
+</ul>
+<p>2.4.3、挂载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mount -t nfs 192.168.205.137:/home/nfstestdir /mnt</div><div class="line">df -h</div></pre></td></tr></table></figure>
+<ul>
+<li>-t表示指定挂载类型</li>
+<li>挂载点必须存在</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/154336639.png?imageslim" alt="mark"></p>
+<h4 id="2-5、测试配置参数"><a href="#2-5、测试配置参数" class="headerlink" title="2.5、测试配置参数"></a>2.5、测试配置参数</h4><p>客户端创建测试文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">touch /mnt/test.txt</div><div class="line">ls -l /mnt/test.txt</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/154846007.png?imageslim" alt="mark"></p>
+<ul>
+<li>测试文件的属主和属组跟我们设置的配置参数一致</li>
+</ul>
+<p>参考：<a href="http://atong.blog.51cto.com/2393905/1343950" target="_blank" rel="external">NFS原理</a></p>
 
       
 
@@ -243,7 +264,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NFS</a>
         		</li>
       		
 		</ul>
@@ -299,7 +320,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/08/LAMP之httpd-conf配置文件详解/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/23/14、NFS服务配置/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -313,18 +334,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/09/12.1、LNMP之LNMP简介/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          LNMP之LNMP简介
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/08/08/LAMP之Apache三种工作模式比较/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LAMP之Apache三种工作模式比较</div>
+    <a href="/2017/08/23/innobackex工具备份mysql数据/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">innobackex工具备份mysql数据</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -343,6 +364,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、NFS介绍"><span class="toc-number">1.</span> <span class="toc-text">一、NFS介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1、什么是NFS"><span class="toc-number">1.1.</span> <span class="toc-text">1.1、什么是NFS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2、NFS的原理"><span class="toc-number">1.2.</span> <span class="toc-text">1.2、NFS的原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3、NFS的应用场景"><span class="toc-number">1.3.</span> <span class="toc-text">1.3、NFS的应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4、NFS的优缺点"><span class="toc-number">1.4.</span> <span class="toc-text">1.4、NFS的优缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、配置NFS"><span class="toc-number">2.</span> <span class="toc-text">二、配置NFS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、安装所需要软件包"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、安装所需要软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、服务端共享目录"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、服务端共享目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、启动服务"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、启动服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、客户端挂载"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、客户端挂载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5、测试配置参数"><span class="toc-number">2.5.</span> <span class="toc-text">2.5、测试配置参数</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 
