@@ -188,7 +188,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/25/15、ftp服务配置/">15ftp服务配置</a>
+      <a class="article-title" href="/2017/08/25/15、ftp服务配置/">ftp服务配置</a>
     </h1>
   
 
@@ -204,82 +204,9 @@
         <p>[TOC]</p>
 <p>ftp是file transfer protocol（文件传输协议）的英文简写形式，用于在因特网上控制文件的双向传输。它同时也是一个应用程序，用户可以通过它把自己的PC机与世界各地所有运行ftp协议的服务器相连，以访问服务器上的大量程序和信息。</p>
 <p>ftp的主要作用就是让用户所连接一个远程计算机（这些计算机上运行着ftp服务器程序），并查看远程计算机中的文件，然后把文件从远程计算机复制到本地计算机，或把本地计算机的文件传送到远程计算机。ftp方便传输数据，所以个人用户很多，但是企业应用较少，主要原因还是安全问题。</p>
-<h3 id="一、使用vsftpd搭建ftp服务"><a href="#一、使用vsftpd搭建ftp服务" class="headerlink" title="一、使用vsftpd搭建ftp服务"></a>一、使用vsftpd搭建ftp服务</h3><p>1.1安装vsftpd</p>
-<p>直接使用yum工具安装vsftpd包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install -y vsftpd db4-utils</div></pre></td></tr></table></figure>
-<ul>
-<li>db4-utils是用来生成密码库文件</li>
-</ul>
-<p>1.2、建立虚拟账号</p>
-<p>vsftpd默认可以支持系统账号登录，但是有安全隐患。所以我们可以创建虚拟账号登录</p>
-<p>1.2.1、建立与虚拟账号相关联的系统账号</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd  -s  /sbin/nologin  virftp</div></pre></td></tr></table></figure>
-<p>1.2.2、创建虚拟账户登录文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#创建虚拟账户登录信息文件</div><div class="line">vim  /etc/vsftpd/vsftpd_login</div><div class="line">#写入以下内容</div><div class="line">test1</div><div class="line">123456</div><div class="line">test2</div><div class="line">asdfgh</div><div class="line">#修改文件权限</div><div class="line">chmod  600  /etc/vsftpd/vsftpd_login</div><div class="line">#生成密码库文件</div><div class="line">db_load -T -t  hash -f /etc/vsftpd/vsftpd_login   /etc/vsftpd/vsftpd_login.db</div></pre></td></tr></table></figure>
-<ul>
-<li>奇数行为用户名，偶数行为密码。主要行尾空格</li>
-<li>应为vsftpd使用的密码文件不是明文的，需要生成对应库文件</li>
-</ul>
-<p>1.2.3、创建用户对应配置文件</p>
-<p>创建配置文件存放目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir /etc/vsftpd/vsftpd_user_conf</div><div class="line">cd   /etc/vsftpd/vsftpd_user_conf</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#创建用户配置文件</div><div class="line">vim  test1</div><div class="line">#写入以下内容</div><div class="line">local_root=/home/virftp/test1</div><div class="line">anonymous_enable=NO</div><div class="line">write_enable=YES</div><div class="line">local_umask=022</div><div class="line">anon_upload_enable=NO</div><div class="line">anon_mkdir_write_enable=NO</div><div class="line">idle_session_timeout=600</div><div class="line">data_connection_timeout=120</div><div class="line">max_clients=10</div><div class="line">#test2配置文件与test1大致一样，修改local_root即可</div></pre></td></tr></table></figure>
-<ul>
-<li>local_root指定虚拟用户家目录</li>
-<li>anonymous_enable是否允许匿名用户登录</li>
-<li>write_enable是否允许创建</li>
-<li>local_umask创建后的文件umask</li>
-<li>anon_upload_enable是否允许匿名用户上传</li>
-<li>anon_mkdir_write_enable匿名用户是否可写</li>
-<li>idle_session_timeout链接超时时间</li>
-<li>data_connection_timeout文件传输超时时间</li>
-<li>max_clients最大链接数</li>
-<li>配置文件的名称应该与密码文件中的用户名一致</li>
-</ul>
-<p>1.2.4、创建认证文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /etc/pam.d/vsftpd </div><div class="line">#在最前面加上</div><div class="line">auth sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login</div><div class="line">account sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login</div></pre></td></tr></table></figure>
-<p>1.3、修改全局配置文件/etc/vsftpd/vsftpd.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">vim /etc/vsftpd/vsftpd.conf</div><div class="line">#将anonymous_enable=YES 改为 anonymous_enable=NO</div><div class="line">#将#anon_upload_enable=YES 改为 anon_upload_enable=NO </div><div class="line">#将#anon_mkdir_write_enable=YES 改为 anon_mkdir_write_enable=NO</div><div class="line">#再增加如下内容</div><div class="line">chroot_local_user=YES</div><div class="line">guest_enable=YES</div><div class="line">guest_username=virftp</div><div class="line">virtual_use_local_privs=YES</div><div class="line">user_config_dir=/etc/vsftpd/vsftpd_user_conf</div><div class="line">allow_writeable_chroot=YES</div></pre></td></tr></table></figure>
-<ul>
-<li>修改后启动vsftpd服务：systemctl start vsftpd </li>
-</ul>
-<p>1.4、创建测试文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir /home/virftp/testuser1</div><div class="line">touch /home/virftp/testuser1/test.txt</div><div class="line">chown -R virftp:virftp /home/virftp</div></pre></td></tr></table></figure>
-<p>1.5、测试</p>
-<p>Linux使用lftp，Windows使用filezilla客户端软件进行测试</p>
-<h3 id="二、使用pure-ftpd搭建ftp服务"><a href="#二、使用pure-ftpd搭建ftp服务" class="headerlink" title="二、使用pure-ftpd搭建ftp服务"></a>二、使用pure-ftpd搭建ftp服务</h3><p>pure-ftpd比较小巧</p>
-<p>2.1、安装pure-ftpd</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum  install   -y  epel-release</div><div class="line">yum  install  -y  pure-ftpd</div></pre></td></tr></table></figure>
-<p>2.2、修改配置文件后启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim /etc/pure-ftpd/pure-ftpd.conf</div><div class="line">#找到pureftpd.pdb这行，把行首的#删除</div><div class="line">启动：systemctl start pure-ftpd</div></pre></td></tr></table></figure>
-<ul>
-<li>启动前注意，如果之前启动了vsftpd，需要先关闭该服务。</li>
-</ul>
-<p>2.3、建立账号</p>
-<p>为了安全起见，我们仍然使用虚拟用户</p>
-<p>2.3.1、创建虚拟用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/ftp/</div><div class="line">#生成虚拟用户关联的系统用户</div><div class="line">useradd -u 1010 pure-ftp</div><div class="line">chown -R pure-ftp:pure-ftp   /data/ftp/</div><div class="line">#创建虚拟用户</div><div class="line">pure-pw  useradd  ftp_user  -u  pure-ftp  -d  /data/ftp</div></pre></td></tr></table></figure>
-<ul>
-<li>-u：指定关联的系统用户</li>
-<li>-d：指定家目录</li>
-<li>使用pure-pw  –help可以查看该命令的使用帮助</li>
-</ul>
-<p>2.3.2、创建用户信息数据库文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pure-pw  mkdb</div></pre></td></tr></table></figure>
-<p>2.4、测试</p>
-<p>同vsftpd</p>
-<h3 id="三、xshell的xftp使用"><a href="#三、xshell的xftp使用" class="headerlink" title="三、xshell的xftp使用"></a>三、xshell的xftp使用</h3><p>1、下载安装xftp</p>
-<p>Windows下载地址：<a href="http://download.netsarang.com/files/download.php?fileName=xfp05001222.exe&amp;fileExtra=Xftp5.exe" target="_blank" rel="external">http://download.netsarang.com/files/download.php?fileName=xfp05001222.exe&amp;fileExtra=Xftp5.exe</a></p>
-<p>2、使用</p>
-<p>直接在已打开的会话窗口使用快捷键”ctrl+alt+f”</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170825/110638546.png?imageslim" alt="mark"></p>
-<ul>
-<li>xftp使用的是22端口，不会跟vsftpd和pure-ftp冲突。</li>
-</ul>
-<p>拓展：</p>
-<p><a href="http://www.aminglinux.com/bbs/thread-342-1-1.html" target="_blank" rel="external">vsftp使用mysql存放虚拟用户并验证</a></p>
-<p><a href="http://www.aminglinux.com/bbs/thread-961-1-1.html" target="_blank" rel="external">ftp的主动和被动模式</a></p>
-
+        
+          <a class="article-more-a" href="/2017/08/25/15、ftp服务配置/#more">more >></a>
+        
       
 
       
