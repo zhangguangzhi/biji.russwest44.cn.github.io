@@ -6,31 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LNMP之搭建WordPress | Hexo</title>
+  <title>15ftp服务配置 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 1、实验环境nginx：nginx/1.12.1  php：5.6.30  mysql：5.6.35  实验环境如上，具体搭建省略。 实验域名为：test1.com">
-<meta name="keywords" content="LNMP">
+  <meta name="description" content="[TOC] ftp是file transfer protocol（文件传输协议）的英文简写形式，用于在因特网上控制文件的双向传输。它同时也是一个应用程序，用户可以通过它把自己的PC机与世界各地所有运行ftp协议的服务器相连，以访问服务器上的大量程序和信息。 ftp的主要作用就是让用户所连接一个远程计算机（这些计算机上运行着ftp服务器程序），并查看远程计算机中的文件，然后把文件从远程计算机复制到本">
+<meta name="keywords" content="ftp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LNMP之搭建WordPress">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/19/LNMP之搭建WordPress/index.html">
+<meta property="og:title" content="15ftp服务配置">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/25/15、ftp服务配置/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="[TOC] 1、实验环境nginx：nginx/1.12.1  php：5.6.30  mysql：5.6.35  实验环境如上，具体搭建省略。 实验域名为：test1.com">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/144513227.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/144555856.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/144645042.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/150341749.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/150412922.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/150438940.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/150932301.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/151208464.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/151255510.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/151537211.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/151556875.png?imageslim">
-<meta property="og:updated_time" content="2017-08-21T12:54:41.741Z">
+<meta property="og:description" content="[TOC] ftp是file transfer protocol（文件传输协议）的英文简写形式，用于在因特网上控制文件的双向传输。它同时也是一个应用程序，用户可以通过它把自己的PC机与世界各地所有运行ftp协议的服务器相连，以访问服务器上的大量程序和信息。 ftp的主要作用就是让用户所连接一个远程计算机（这些计算机上运行着ftp服务器程序），并查看远程计算机中的文件，然后把文件从远程计算机复制到本">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170825/110638546.png?imageslim">
+<meta property="og:updated_time" content="2017-08-25T03:08:22.828Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LNMP之搭建WordPress">
-<meta name="twitter:description" content="[TOC] 1、实验环境nginx：nginx/1.12.1  php：5.6.30  mysql：5.6.35  实验环境如上，具体搭建省略。 实验域名为：test1.com">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170819/144513227.png?imageslim">
+<meta name="twitter:title" content="15ftp服务配置">
+<meta name="twitter:description" content="[TOC] ftp是file transfer protocol（文件传输协议）的英文简写形式，用于在因特网上控制文件的双向传输。它同时也是一个应用程序，用户可以通过它把自己的PC机与世界各地所有运行ftp协议的服务器相连，以访问服务器上的大量程序和信息。 ftp的主要作用就是让用户所连接一个远程计算机（这些计算机上运行着ftp服务器程序），并查看远程计算机中的文件，然后把文件从远程计算机复制到本">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170825/110638546.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -146,20 +136,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-LNMP之搭建WordPress" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-15、ftp服务配置" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      LNMP之搭建WordPress
+      15ftp服务配置
     </h1>
   
 
         
-        <a href="/2017/08/19/LNMP之搭建WordPress/" class="archive-article-date">
-  	<time datetime="2017-08-19T06:43:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
+        <a href="/2017/08/25/15、ftp服务配置/" class="archive-article-date">
+  	<time datetime="2017-08-25T02:24:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-25</time>
 </a>
         
       </header>
@@ -167,54 +157,79 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="1、实验环境"><a href="#1、实验环境" class="headerlink" title="1、实验环境"></a>1、实验环境</h3><p>nginx：nginx/1.12.1</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/144513227.png?imageslim" alt="mark"></p>
-<p>php：5.6.30</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/144555856.png?imageslim" alt="mark"></p>
-<p>mysql：5.6.35</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/144645042.png?imageslim" alt="mark"></p>
-<p>实验环境如上，具体搭建省略。</p>
-<p>实验域名为：test1.com</p>
-<a id="more"></a>
-<h3 id="2、安装WordPress"><a href="#2、安装WordPress" class="headerlink" title="2、安装WordPress"></a>2、安装WordPress</h3><h4 id="2-1、下载WordPress"><a href="#2-1、下载WordPress" class="headerlink" title="2.1、下载WordPress"></a>2.1、下载WordPress</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget  https://cn.wordpress.org/wordpress-4.8.1-zh_CN.zip</div></pre></td></tr></table></figure>
-<h4 id="2-2、解压安装包"><a href="#2-2、解压安装包" class="headerlink" title="2.2、解压安装包"></a>2.2、解压安装包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">unzip  wordpress-4.8.1-zh_CN.zip</div><div class="line">mv wordpress/*  /data/wwwroot/word.com/</div></pre></td></tr></table></figure>
-<h4 id="2-3、创建WordPress所需数据库和授权用户"><a href="#2-3、创建WordPress所需数据库和授权用户" class="headerlink" title="2.3、创建WordPress所需数据库和授权用户"></a>2.3、创建WordPress所需数据库和授权用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/usr/local/mysql/bin/mysql</div><div class="line">#wordpress为数据库名</div><div class="line">create  database wordpress;</div><div class="line">grant all on wordpress.* to &apos;allen&apos;@&apos;localhost&apos; identified by &apos;123456&apos;;</div></pre></td></tr></table></figure>
+<p>ftp是file transfer protocol（文件传输协议）的英文简写形式，用于在因特网上控制文件的双向传输。它同时也是一个应用程序，用户可以通过它把自己的PC机与世界各地所有运行ftp协议的服务器相连，以访问服务器上的大量程序和信息。</p>
+<p>ftp的主要作用就是让用户所连接一个远程计算机（这些计算机上运行着ftp服务器程序），并查看远程计算机中的文件，然后把文件从远程计算机复制到本地计算机，或把本地计算机的文件传送到远程计算机。ftp方便传输数据，所以个人用户很多，但是企业应用较少，主要原因还是安全问题。</p>
+<h3 id="一、使用vsftpd搭建ftp服务"><a href="#一、使用vsftpd搭建ftp服务" class="headerlink" title="一、使用vsftpd搭建ftp服务"></a>一、使用vsftpd搭建ftp服务</h3><p>1.1安装vsftpd</p>
+<p>直接使用yum工具安装vsftpd包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install -y vsftpd db4-utils</div></pre></td></tr></table></figure>
 <ul>
-<li>all：指定所有权限</li>
-<li>wordpress.*：指定数据库及库里文件</li>
-<li>‘allen’@’localhost’：用户和IP</li>
-<li>identified by ‘123456’：密码</li>
+<li>db4-utils是用来生成密码库文件</li>
 </ul>
-<h4 id="2-4、开始安装"><a href="#2-4、开始安装" class="headerlink" title="2.4、开始安装"></a>2.4、开始安装</h4><p>2.4.1、在浏览器上输入test1.com/index.php</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/150341749.png?imageslim" alt="mark"></p>
+<p>1.2、建立虚拟账号</p>
+<p>vsftpd默认可以支持系统账号登录，但是有安全隐患。所以我们可以创建虚拟账号登录</p>
+<p>1.2.1、建立与虚拟账号相关联的系统账号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd  -s  /sbin/nologin  virftp</div></pre></td></tr></table></figure>
+<p>1.2.2、创建虚拟账户登录文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#创建虚拟账户登录信息文件</div><div class="line">vim  /etc/vsftpd/vsftpd_login</div><div class="line">#写入以下内容</div><div class="line">test1</div><div class="line">123456</div><div class="line">test2</div><div class="line">asdfgh</div><div class="line">#修改文件权限</div><div class="line">chmod  600  /etc/vsftpd/vsftpd_login</div><div class="line">#生成密码库文件</div><div class="line">db_load -T -t  hash -f /etc/vsftpd/vsftpd_login   /etc/vsftpd/vsftpd_login.db</div></pre></td></tr></table></figure>
 <ul>
-<li>以上数据库相关内容我们都准备好了</li>
+<li>奇数行为用户名，偶数行为密码。主要行尾空格</li>
+<li>应为vsftpd使用的密码文件不是明文的，需要生成对应库文件</li>
 </ul>
-<p>2.4.2、填写相关数据库内容</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/150412922.png?imageslim" alt="mark"></p>
-<p>如果错误的话会出现以下提示：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/150438940.png?imageslim" alt="mark"></p>
+<p>1.2.3、创建用户对应配置文件</p>
+<p>创建配置文件存放目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir /etc/vsftpd/vsftpd_user_conf</div><div class="line">cd   /etc/vsftpd/vsftpd_user_conf</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#创建用户配置文件</div><div class="line">vim  test1</div><div class="line">#写入以下内容</div><div class="line">local_root=/home/virftp/test1</div><div class="line">anonymous_enable=NO</div><div class="line">write_enable=YES</div><div class="line">local_umask=022</div><div class="line">anon_upload_enable=NO</div><div class="line">anon_mkdir_write_enable=NO</div><div class="line">idle_session_timeout=600</div><div class="line">data_connection_timeout=120</div><div class="line">max_clients=10</div><div class="line">#test2配置文件与test1大致一样，修改local_root即可</div></pre></td></tr></table></figure>
 <ul>
-<li>这时我们需要逐一排查</li>
+<li>local_root指定虚拟用户家目录</li>
+<li>anonymous_enable是否允许匿名用户登录</li>
+<li>write_enable是否允许创建</li>
+<li>local_umask创建后的文件umask</li>
+<li>anon_upload_enable是否允许匿名用户上传</li>
+<li>anon_mkdir_write_enable匿名用户是否可写</li>
+<li>idle_session_timeout链接超时时间</li>
+<li>data_connection_timeout文件传输超时时间</li>
+<li>max_clients最大链接数</li>
+<li>配置文件的名称应该与密码文件中的用户名一致</li>
 </ul>
-<p>2.4.3、创建wp-config.php文件</p>
-<p>提示需要我们创建wp-config.php文件</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/150932301.png?imageslim" alt="mark"></p>
+<p>1.2.4、创建认证文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /etc/pam.d/vsftpd </div><div class="line">#在最前面加上</div><div class="line">auth sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login</div><div class="line">account sufficient /lib64/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login</div></pre></td></tr></table></figure>
+<p>1.3、修改全局配置文件/etc/vsftpd/vsftpd.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">vim /etc/vsftpd/vsftpd.conf</div><div class="line">#将anonymous_enable=YES 改为 anonymous_enable=NO</div><div class="line">#将#anon_upload_enable=YES 改为 anon_upload_enable=NO </div><div class="line">#将#anon_mkdir_write_enable=YES 改为 anon_mkdir_write_enable=NO</div><div class="line">#再增加如下内容</div><div class="line">chroot_local_user=YES</div><div class="line">guest_enable=YES</div><div class="line">guest_username=virftp</div><div class="line">virtual_use_local_privs=YES</div><div class="line">user_config_dir=/etc/vsftpd/vsftpd_user_conf</div><div class="line">allow_writeable_chroot=YES</div></pre></td></tr></table></figure>
 <ul>
-<li>按照要求在服务器创建</li>
+<li>修改后启动vsftpd服务：systemctl start vsftpd </li>
 </ul>
-<h4 id="2-5、创建网站管理员账号"><a href="#2-5、创建网站管理员账号" class="headerlink" title="2.5、创建网站管理员账号"></a>2.5、创建网站管理员账号</h4><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/151208464.png?imageslim" alt="mark"></p>
+<p>1.4、创建测试文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir /home/virftp/testuser1</div><div class="line">touch /home/virftp/testuser1/test.txt</div><div class="line">chown -R virftp:virftp /home/virftp</div></pre></td></tr></table></figure>
+<p>1.5、测试</p>
+<p>Linux使用lftp，Windows使用filezilla客户端软件进行测试</p>
+<h3 id="二、使用pure-ftpd搭建ftp服务"><a href="#二、使用pure-ftpd搭建ftp服务" class="headerlink" title="二、使用pure-ftpd搭建ftp服务"></a>二、使用pure-ftpd搭建ftp服务</h3><p>pure-ftpd比较小巧</p>
+<p>2.1、安装pure-ftpd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum  install   -y  epel-release</div><div class="line">yum  install  -y  pure-ftpd</div></pre></td></tr></table></figure>
+<p>2.2、修改配置文件后启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim /etc/pure-ftpd/pure-ftpd.conf</div><div class="line">#找到pureftpd.pdb这行，把行首的#删除</div><div class="line">启动：systemctl start pure-ftpd</div></pre></td></tr></table></figure>
 <ul>
-<li>填写完成后，点击“安装wordpress”</li>
+<li>启动前注意，如果之前启动了vsftpd，需要先关闭该服务。</li>
 </ul>
-<h4 id="2-6、登录网站"><a href="#2-6、登录网站" class="headerlink" title="2.6、登录网站"></a>2.6、登录网站</h4><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/151255510.png?imageslim" alt="mark"></p>
+<p>2.3、建立账号</p>
+<p>为了安全起见，我们仍然使用虚拟用户</p>
+<p>2.3.1、创建虚拟用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/ftp/</div><div class="line">#生成虚拟用户关联的系统用户</div><div class="line">useradd -u 1010 pure-ftp</div><div class="line">chown -R pure-ftp:pure-ftp   /data/ftp/</div><div class="line">#创建虚拟用户</div><div class="line">pure-pw  useradd  ftp_user  -u  pure-ftp  -d  /data/ftp</div></pre></td></tr></table></figure>
 <ul>
-<li>此时安装已经完成，点击登录即可</li>
+<li>-u：指定关联的系统用户</li>
+<li>-d：指定家目录</li>
+<li>使用pure-pw  –help可以查看该命令的使用帮助</li>
 </ul>
-<h3 id="3、登录用户"><a href="#3、登录用户" class="headerlink" title="3、登录用户"></a>3、登录用户</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/151537211.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170819/151556875.png?imageslim" alt="mark"></p>
+<p>2.3.2、创建用户信息数据库文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pure-pw  mkdb</div></pre></td></tr></table></figure>
+<p>2.4、测试</p>
+<p>同vsftpd</p>
+<h3 id="三、xshell的xftp使用"><a href="#三、xshell的xftp使用" class="headerlink" title="三、xshell的xftp使用"></a>三、xshell的xftp使用</h3><p>1、下载安装xftp</p>
+<p>Windows下载地址：<a href="http://download.netsarang.com/files/download.php?fileName=xfp05001222.exe&amp;fileExtra=Xftp5.exe" target="_blank" rel="external">http://download.netsarang.com/files/download.php?fileName=xfp05001222.exe&amp;fileExtra=Xftp5.exe</a></p>
+<p>2、使用</p>
+<p>直接在已打开的会话窗口使用快捷键”ctrl+alt+f”</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170825/110638546.png?imageslim" alt="mark"></p>
 <ul>
-<li>点击这个即可开始写博客</li>
+<li>xftp使用的是22端口，不会跟vsftpd和pure-ftp冲突。</li>
 </ul>
 
       
@@ -229,7 +244,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ftp</a>
         		</li>
       		
 		</ul>
@@ -285,7 +300,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/19/LNMP之搭建WordPress/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/25/15、ftp服务配置/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -299,18 +314,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/19/LNMP之搭建discuz/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          LNMP之搭建discuz
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/08/16/12.11、LNMP之php-fpm设置/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LNMP之php-fpm设置</div>
+    <a href="/2017/08/23/mysql启动报错/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql启动报错</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -337,7 +352,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、实验环境"><span class="toc-number">1.</span> <span class="toc-text">1、实验环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、安装WordPress"><span class="toc-number">2.</span> <span class="toc-text">2、安装WordPress</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、下载WordPress"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、下载WordPress</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、解压安装包"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、解压安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、创建WordPress所需数据库和授权用户"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、创建WordPress所需数据库和授权用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、开始安装"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、开始安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5、创建网站管理员账号"><span class="toc-number">2.5.</span> <span class="toc-text">2.5、创建网站管理员账号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6、登录网站"><span class="toc-number">2.6.</span> <span class="toc-text">2.6、登录网站</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、登录用户"><span class="toc-number">3.</span> <span class="toc-text">3、登录用户</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、使用vsftpd搭建ftp服务"><span class="toc-number">1.</span> <span class="toc-text">一、使用vsftpd搭建ftp服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、使用pure-ftpd搭建ftp服务"><span class="toc-number">2.</span> <span class="toc-text">二、使用pure-ftpd搭建ftp服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、xshell的xftp使用"><span class="toc-number">3.</span> <span class="toc-text">三、xshell的xftp使用</span></a></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){

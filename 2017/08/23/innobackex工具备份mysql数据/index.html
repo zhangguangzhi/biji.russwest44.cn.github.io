@@ -18,11 +18,13 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102430977.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102225364.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/102125940.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/233956093.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/234435615.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/003831169.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/003856322.png?imageslim">
-<meta property="og:updated_time" content="2017-08-24T02:38:26.986Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/230638545.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/231753694.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/232327506.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/233206713.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/235830503.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/234347594.png?imageslim">
+<meta property="og:updated_time" content="2017-08-24T16:14:35.977Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="innobackex工具备份mysql数据">
 <meta name="twitter:description" content="xtrbackup只能用于备份innodb引擎的数据库，而innobackex 既可以备份innodb引擎的数据库，也可以备份myisam引擎的数据库。备份时也可分为全量备份和增量备份">
@@ -182,7 +184,7 @@
 <ul>
 <li><p>–defaults-file=/etc/my.cnf指定配置文件位置是为了获得datadir位置</p>
 </li>
-<li><p>备份完成后，会在指定的保存目录中生成一个目录，该目录的名称为备份完成时的时间格式。该目录名称也是恢复时的apply-log。</p>
+<li><p>备份完成后，会在指定的保存目录中生成一个时间戳目录，该时间戳目录名称也是恢复时的apply-log。</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/102430977.png?imageslim" alt="mark"></p>
 </li>
 </ul>
@@ -196,36 +198,63 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mv /data/mysql  /data/mysql.bak</div><div class="line">mkdir /data/mysql  </div><div class="line">chown mysql:mysql  /data/mysql</div></pre></td></tr></table></figure>
 <p>3.3、恢复mysql</p>
 <p>首先，需要初始化(初始化的叫法不够严谨)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --use-memory=512M  --apply-log  /备份的时间目录/</div><div class="line"># innobackex  --use-memory=512M  --apply-log  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --use-memory=512M  --apply-log  /备份的时间戳目录/</div><div class="line"># innobackex  --use-memory=512M  --apply-log  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
 <ul>
 <li>–use-memory=512M指定备份时使用的内存为512M，注意单位。默认为字节</li>
 </ul>
 <p>初始化完成后，进行恢复</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --defaults-file=/etc/my.cnf  --copy-back  /备份的时间目录/</div><div class="line">#innobackupex  --defaults-file=/etc/my.cnf  --copy-back  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackex  --defaults-file=/etc/my.cnf  --copy-back  /备份的时间戳目录/</div><div class="line">#innobackupex  --defaults-file=/etc/my.cnf  --copy-back  /data/backup/2017-08-23_10-24-06/</div></pre></td></tr></table></figure>
 <ul>
 <li>使用–copy-back参数恢复</li>
 </ul>
-<h3 id="四、增量备份"><a href="#四、增量备份" class="headerlink" title="四、增量备份"></a>四、增量备份</h3><p>之前我们已经进行了全量备份，经过一段时间后重新全量备份的话，需要耗费的资源较多，这时我们就可以使用增量备份了。</p>
-<p>首先需要我们确认本次增量备份的前一次全量备份的目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 backup]# du -sh /data/backup/2017-08-23_23-31-25/</div><div class="line">16M	/data/backup/2017-08-23_23-31-25/</div></pre></td></tr></table></figure>
+<h3 id="四、增量备份"><a href="#四、增量备份" class="headerlink" title="四、增量备份"></a>四、增量备份</h3><p>之前我们已经进行了全量备份，经过操作，一段时间后重新全量备份的话，需要耗费的资源较多，这时我们就可以使用增量备份了。</p>
+<p>本次实验将执行一次全量备份，两次增量备份</p>
+<h4 id="4-1、进行一次全量备份"><a href="#4-1、进行一次全量备份" class="headerlink" title="4.1、进行一次全量备份"></a>4.1、进行一次全量备份</h4><p>增量备份是基于全量备份的，所以在增量备份操作之前我们需要先进行全量备份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#  innobackupex   --defaults-file=/etc/my.cnf  --user=backuser  --password=&apos;allen&apos;    -S /tmp/mysql.sock  /data/backup</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170824/230638545.png?imageslim" alt="mark"></p>
 <ul>
-<li>/data/backup/2017-08-24_00-21-44/就是我们全量备份的目录，即为incremental-basedir</li>
+<li>/data/backup/2017-08-24_23-05-09/就是我们全量备份的时间戳目录</li>
 </ul>
-<p>4.1、增量备份语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex  --defaults-file=/etc/my.cnf  --user=backuser  --password=&apos;allen&apos;  -S /tmp/mysql.sock  --incremental  /data/backup  --incremental-basedir=/data/backup/2017-08-23_23-31-25/</div></pre></td></tr></table></figure>
+<h4 id="4-2、进行增量备份"><a href="#4-2、进行增量备份" class="headerlink" title="4.2、进行增量备份"></a>4.2、进行增量备份</h4><p>4.2.1、进行数据库操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#创建测试库test1_backup</div><div class="line">mysql -uroot -pallen  -e &apos;create database test1_backup;&apos;</div><div class="line">#导入数据</div><div class="line">mysql -uroot -pallen test1_backup  &lt; /tmp/1.sql</div></pre></td></tr></table></figure>
 <ul>
-<li>–incremental表示增量备份，–incremental-basedir指定本次增量备份是基于那个全量备份</li>
-<li>本次增量备份的目录为/data/backup/2017-08-24_00-22-38</li>
+<li>模拟数据库数据发生改变，进行增量备份</li>
 </ul>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/233956093.png?imageslim" alt="mark"></p>
-<p>我们在等待一段时间后在进行第二次增量备份</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex  --defaults-file=/etc/my.cnf  --user=backuser  --password=&apos;allen&apos;  -S /tmp/mysql.sock  --incremental  /data/backup  --incremental-basedir=/data/backup/2017-08-23_23-31-25/</div></pre></td></tr></table></figure>
+<p>4.2.2、进行第一次增量备份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex  --defaults-file=/etc/my.cnf  --user=backuser  --password=&apos;allen&apos;  -S /tmp/mysql.sock  --incremental  /data/backup  --incremental-basedir=/data/backup/全量备份时间戳目录/</div></pre></td></tr></table></figure>
 <ul>
-<li><p>本次增量备份的目录为/data/backup/2017-08-24_00-25-11</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/234435615.png?imageslim" alt="mark"></p>
+<li><p>–incremental表示增量备份，–incremental-basedir指定<strong>全量备份时间戳目录</strong>，因为本次增量备份是基于全量备份。</p>
+</li>
+<li><p>本次增量备份的时间戳目录为/data/backup/2017-08-24_23-15-19</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170824/231753694.png?imageslim" alt="mark"></p>
 </li>
 </ul>
-<p><strong>这样我们的增量备份就完成了</strong></p>
+<p>4.2.3、进行数据库操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#创建测试库test2_backup</div><div class="line">mysql -uroot -pallen  -e &apos;create database test2_backup;&apos;</div><div class="line">#导入数据</div><div class="line">mysql -uroot -pallen test2_backup  &lt; /tmp/1.sql</div></pre></td></tr></table></figure>
+<p>4.2.4、进行第二次增量备份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex  --defaults-file=/etc/my.cnf  --user=backuser  --password=&apos;allen&apos;  -S /tmp/mysql.sock  --incremental  /data/backup  --incremental-basedir=/data/backup/第一次增量备份时间戳目录/</div></pre></td></tr></table></figure>
+<ul>
+<li><p>–incremental-basedir指定<strong>第一次增量备份时间戳目录</strong>，因为本次增量备份是基于第一次增量备份。</p>
+</li>
+<li><p>本次增量备份的时间戳目录为/data/backup/2017-08-24_23-21-16/</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170824/232327506.png?imageslim" alt="mark"></p>
+</li>
+</ul>
+<p><strong>经过以上操作，我们的增量备份就完成了</strong></p>
+<h4 id="4-3、增量备份指定的incremental-basedir如何确定"><a href="#4-3、增量备份指定的incremental-basedir如何确定" class="headerlink" title="4.3、增量备份指定的incremental-basedir如何确定"></a>4.3、增量备份指定的incremental-basedir如何确定</h4><p>在上面的实验中，我们进行增量操作时。第一次增量的incremental-basedir是全量备份时间戳目录，第二次增量的incremental-basedir是第一次增量备份的时间戳目录，这是为什么呢？</p>
+<p>在每个备份的时间戳目录下面都有一个文件，里面记录了本次备份的检查点。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170824/233206713.png?imageslim" alt="mark"></p>
+<ul>
+<li>from_lsn为起始检查点，to_lsn为终止检查点</li>
+<li>全量备份的from_lsn为0，to_lsn为第一次增量备份的from_lsn，而第一次增量备份的to_lsn为第二次增量备份的from_lsn。刚好组成0-1863060。</li>
+<li>如果上面的检查点不是依次连续的，那么在后面的增量恢复时容易出现错误。</li>
+</ul>
+<p>如果每一次都是使用全量备份时间戳目录作为incremental-basedir，那么会出现以下情况</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170824/235830503.png?imageslim" alt="mark"></p>
+<ul>
+<li>第二次增量备份的to_lsn会覆盖第一次增量备份的to_lsn。</li>
+<li>如果是这样，那么我们在恢复时只需要初始化全量备份和第二次增量备份的时间戳目录</li>
+</ul>
 <h3 id="五、增量备份恢复"><a href="#五、增量备份恢复" class="headerlink" title="五、增量备份恢复"></a>五、增量备份恢复</h3><p>模拟故障，此时mysql的数据损毁。而之前我们已经进行全量和增量备份。</p>
 <p>5.1、停止mysql服务</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/mysqld  stop</div><div class="line">ps aux |grep &quot;mysqld&quot;</div><div class="line">#不允许mysql进程存在</div></pre></td></tr></table></figure>
@@ -240,11 +269,16 @@
 </ul>
 <p>5.4、增量备份恢复</p>
 <p>进行初始化，执行恢复时与全量备份恢复一样，都是指定全量备份目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">innobackupex --copy-back /bakdir/全量备份目录</div><div class="line">chown -R mysql:mysql  /data/mysql</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">innobackupex --copy-back /bakdir/全量备份目录</div><div class="line">#为了避免权限问题，导致mysql无法启动</div><div class="line">chown -R mysql:mysql  /data/mysql</div></pre></td></tr></table></figure>
 <p>所以，增量备份恢复在本次实验的步骤如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#停止mysql服务</div><div class="line">/etc/init.d/mysqld stop</div><div class="line">#模拟数据库损毁</div><div class="line">mv /data/mysql  /data/mysql.bak</div><div class="line">mkdir /data/mysql</div><div class="line">chown  mysql:mysql   /data/mysql</div><div class="line">#初始化全局</div><div class="line">innobackupex --apply-log --redo-only  /data/backup/2017-08-23_23-31-25</div><div class="line">#初始化第一次增量</div><div class="line">innobackupex --apply-log --redo-only  /data/backup/2017-08-23_23-31-25 --incremental-dir=/data/backup/2017-08-23_23-37-56</div><div class="line">#初始化第二次增量，这是最后一次增量，所以不需要--redo-only参数</div><div class="line">innobackupex --apply-log   /data/backup/2017-08-24_00-21-44 --incremental-dir=/data/backup/2017-08-24_00-25-11</div><div class="line">#再初始化全量，不使用--redo-only</div><div class="line">innobackupex --apply-log   /data/backup/2017-08-24_00-21-44</div><div class="line">#恢复mysql</div><div class="line">innobackupex --copy-back   /data/backup/2017-08-24_00-21-44</div><div class="line">#设置权限，避免启动mysql出错</div><div class="line">chown -R mysql:mysql  /data/mysql</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170824/003831169.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170824/003856322.png?imageslim" alt="mark"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#停止mysql服务</div><div class="line">/etc/init.d/mysqld stop</div><div class="line">#模拟数据库损毁</div><div class="line">mv /data/mysql  /data/mysql.bak</div><div class="line">mkdir /data/mysql</div><div class="line">chown  mysql:mysql   /data/mysql</div><div class="line">#初始化全局</div><div class="line">innobackupex --apply-log --redo-only  /data/backup/2017-08-24_23-05-09</div><div class="line">#初始化第一次增量</div><div class="line">innobackupex --apply-log   /data/backup/2017-08-24_23-05-09  --incremental-dir=/data/backup/2017-08-24_23-21-16</div><div class="line">#初始化第二次增量，这是最后一次增量，所以不需要--redo-only参数</div><div class="line">innobackupex --apply-log   /data/backup/2017-08-24_23-05-09  --incremental-dir=/data/backup/2017-08-24_23-21-16</div><div class="line">#再初始化全量，不使用--redo-only</div><div class="line">innobackupex --apply-log   /data/backup/2017-08-24_23-05-09</div><div class="line">#恢复mysql</div><div class="line">innobackupex --copy-back   /data/backup/2017-08-24_23-05-09</div><div class="line">#设置权限，避免启动mysql出错</div><div class="line">chown -R mysql:mysql  /data/mysql</div></pre></td></tr></table></figure>
+<p>5.5、查看是否成功</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170824/234347594.png?imageslim" alt="mark"></p>
+<ul>
+<li>启动test1_backup和test2_backup是做完全量备份才创建的测试库，说明恢复成功</li>
+</ul>
+<p>ps：在进行增量备份时，每一次的–incremental-basedir都指定全量备份时间戳。那么在恢复时，只需要初始化全量备份时间戳目录和最后一次增量备份的时间戳目录 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">1、先初始化全量</div><div class="line">innobackupex --apply-log --redo-only  /data/backup/全量备份目录</div><div class="line">2、初始化最后一次增量</div><div class="line">innobackupex --apply-log  /data/backup/全量备份目录 --incremental-dir=/data/backup/最后一次增量备份目录</div><div class="line">3、再初始化一次全量，不需要--redo-only</div><div class="line">innobackupex --apply-log   /data/backup/全量备份目录</div><div class="line">4、恢复</div><div class="line">innobackupex --copy-back   /data/backup/全量备份目录</div></pre></td></tr></table></figure>
 
       
 
@@ -366,7 +400,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、安装innobackex"><span class="toc-number">1.</span> <span class="toc-text">一、安装innobackex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、全量备份mysql"><span class="toc-number">2.</span> <span class="toc-text">二、全量备份mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、全量备份恢复"><span class="toc-number">3.</span> <span class="toc-text">三、全量备份恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、增量备份"><span class="toc-number">4.</span> <span class="toc-text">四、增量备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、增量备份恢复"><span class="toc-number">5.</span> <span class="toc-text">五、增量备份恢复</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、安装innobackex"><span class="toc-number">1.</span> <span class="toc-text">一、安装innobackex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、全量备份mysql"><span class="toc-number">2.</span> <span class="toc-text">二、全量备份mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、全量备份恢复"><span class="toc-number">3.</span> <span class="toc-text">三、全量备份恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、增量备份"><span class="toc-number">4.</span> <span class="toc-text">四、增量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1、进行一次全量备份"><span class="toc-number">4.1.</span> <span class="toc-text">4.1、进行一次全量备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2、进行增量备份"><span class="toc-number">4.2.</span> <span class="toc-text">4.2、进行增量备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3、增量备份指定的incremental-basedir如何确定"><span class="toc-number">4.3.</span> <span class="toc-text">4.3、增量备份指定的incremental-basedir如何确定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、增量备份恢复"><span class="toc-number">5.</span> <span class="toc-text">五、增量备份恢复</span></a></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
@@ -486,15 +520,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,6 +532,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
@@ -514,7 +548,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -530,6 +564,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
@@ -538,11 +576,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,23 +592,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,7 +604,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
               </li>
             
             <div class="clearfix"></div>
