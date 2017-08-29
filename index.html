@@ -6,14 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Hexo</title>
+  <title>�Ź��ǵ�΢��</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="�Ź��ǵ�΢��">
 <meta property="og:url" content="http://zhangguangzhi.github.io/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="�Ź��ǵ�΢��">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="�Ź��ǵ�΢��">
   
   
     <link rel="icon" href="/favicon.png">
@@ -40,7 +40,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/100607869.png?imageslim" class="js-avatar">
+			<img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/143040296.png?imageslim" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Rise zhangguangzhi</a></h1>
@@ -90,7 +90,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/100607869.png?imageslim" class="js-avatar">
+				<img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/143040296.png?imageslim" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Rise zhangguangzhi</h1>
@@ -276,31 +276,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y  vsftpd</div></pre></td></tr></table></figure>
 <p>1.2、修改配置文件vsftpd.conf</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">cp /etc/vsftpd/vsftpd.conf  /etc/vsftpd/vsftpd.conf.bak</div><div class="line">vim /etc/vsftpd/vsftpd.conf</div><div class="line">#写入以下内容</div><div class="line">listen=YES</div><div class="line">connect_from_port_20=YES</div><div class="line">pasv_enable=YES</div><div class="line">tcp_wrappers=YES</div><div class="line">local_enable=YES</div><div class="line">chroot_local_user=yes</div><div class="line">anonymous_enable=NO</div><div class="line">guest_enable=YES</div><div class="line">guest_username=vsftpdguest</div><div class="line">user_config_dir=/etc/vsftpd/vsftpd_user_conf</div><div class="line">pam_service_name=/etc/pam.d/vsftpd</div><div class="line">dirmessage_enable=YES</div><div class="line">idle_session_timeout=600</div><div class="line">check_shell=NO</div></pre></td></tr></table></figure>
-<p>1.3、创建一个系统用户映射虚拟用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd  -s /sbin/nologin   vsftpdguest</div></pre></td></tr></table></figure>
-<h3 id="二、mysql配置"><a href="#二、mysql配置" class="headerlink" title="二、mysql配置"></a>二、mysql配置</h3><p>2.1、安装mysql</p>
-<p>2.2、安装pam-mysql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget  https://nchc.dl.sourceforge.net/project/pam-mysql/pam-mysql/0.7RC1/pam_mysql-0.7RC1.tar.gz</div><div class="line">tar zxvf  pam_mysql-0.7RC1.tar.gz</div><div class="line">cd pam_mysql-0.7RC1</div><div class="line">./configure --with-mysql=/usr/local/mysql --with-pam=/usr --with-pam-mods-dir=/usr/lib</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<p>2.3、创建vsftp库和相关的表并授权</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; create database vsftp;</div><div class="line">&gt; create table users ( name char(16) binary ,passwd char(125) binary ) ;</div><div class="line">&gt; insert into users (name,passwd) values (&apos;test001&apos;,password(&apos;123456&apos;));</div><div class="line">&gt; insert into users (name,passwd) values (&apos;test002&apos;,password(&apos;234567&apos;));</div><div class="line">&gt; grant select on vsftp.users to vsftpdguest@localhost identified by &apos;vsftpdguest&apos;;</div></pre></td></tr></table></figure>
-<h3 id="三、创建虚拟账户的配置文件"><a href="#三、创建虚拟账户的配置文件" class="headerlink" title="三、创建虚拟账户的配置文件"></a>三、创建虚拟账户的配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mkdir /etc/vsftpd/vsftpd_user_conf </div><div class="line">cd  /etc/vsftpd/vsftpd_user_conf</div><div class="line">#虚拟账户配置文件的名称要与users表创建的一致</div><div class="line">vim test001</div><div class="line">#写入以下内容</div><div class="line">local_root=/ftp/        </div><div class="line">write_enable=YES</div><div class="line">virtual_use_local_privs=YES</div><div class="line">chmod_enable=YES</div></pre></td></tr></table></figure>
-<h3 id="四、编辑认证文件"><a href="#四、编辑认证文件" class="headerlink" title="四、编辑认证文件"></a>四、编辑认证文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim  /etc/pam.d/vsftpd</div><div class="line">#内容如下</div><div class="line">#%PAM-1.0</div><div class="line">auth required /usr/lib/pam_mysql.so user=vsftpdguest passwd=vsftpdguest host=localhost db=vsftp table=users usercolumn=name passwdcolumn=passwd crypt=2</div><div class="line">account required /usr/lib/pam_mysql.so user=vsftpdguest passwd=vsftpdguest host=localhost db=vsftp table=users usercolumn=name passwdcolumn=passwd crypt=2</div></pre></td></tr></table></figure>
-<ul>
-<li>需要查看so文件的位置是否正确，该位置是在pam_mysql编译时指定的</li>
-</ul>
-<h3 id="五、测试"><a href="#五、测试" class="headerlink" title="五、测试"></a>五、测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#创建测试文件</div><div class="line">mkdir  /ftp/</div><div class="line">touch  /ftp/1.txt</div></pre></td></tr></table></figure>
-<p>使用lftp测试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# lftp test001@localhost</div><div class="line">口令: </div><div class="line">lftp test001@localhost:~&gt; ls        </div><div class="line">ls: 登录失败: 530 Login incorrect.</div></pre></td></tr></table></figure>
-<ul>
-<li>出现530登录失败</li>
-</ul>
-<p>查看日志/var/log/secure，得到以下错误信息</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170827/143236063.png?imageslim" alt="mark"></p>
-<p>解决办法：从日志可以看出pam_mysql无法通过sock连接mysql，因为我的sock位置为/tmp/mysql.sock。暂时的解决办法就是创建软连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln -s /tmp/mysql.sock  /var/lib/mysql/mysql.sock</div></pre></td></tr></table></figure>
-<p>创建软连接后可以登录使用vsftp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# lftp test001@localhost</div><div class="line">口令: </div><div class="line">lftp test001@localhost:~&gt; ls        </div><div class="line">-rw-r--r--    1 0        0               0 Aug 27 02:41 1.txt</div><div class="line">lftp test001@localhost:/&gt;</div></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2017/08/27/vsftp利用mysql验证虚拟账户/#more">more >></a>
+        
       
 
       
