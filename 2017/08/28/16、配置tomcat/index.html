@@ -23,7 +23,21 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170828/105854435.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170828/105900991.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170828/110019736.png?imageslim">
-<meta property="og:updated_time" content="2017-08-28T03:04:09.825Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/145541754.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/145645640.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/150512226.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/150817864.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/150907136.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/152553497.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/153127795.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/153706419.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/160741705.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/162647153.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/162731877.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/165539570.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/165421018.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170829/235319866.png?imageslim">
+<meta property="og:updated_time" content="2017-08-29T15:58:32.342Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="配置tomcat">
 <meta name="twitter:description" content="[TOC] 目前有很多网站是用Java编写的，所以解析Java程序就必须有相关的软件来完成，tomcat就是其中之一。tomcat是Apache基金会的Jakarta项目中的一个核心项目，有Apache，sun和其他一些公司及个人共同开发。tomcat技术先进，新能稳定而且免费，因而深受Java爱好者的喜爱，并得到了部分软件开发商的认可，成为目前运行Java比较流行的web应用服务。 tomcat">
@@ -54,7 +68,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/144145248.png?imageslim" class="js-avatar">
+			<img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/100607869.png?imageslim" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Rise zhangguangzhi</a></h1>
@@ -104,7 +118,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/144145248.png?imageslim" class="js-avatar">
+				<img src="http://oqx92let4.bkt.clouddn.com/blog/20170626/100607869.png?imageslim" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Rise zhangguangzhi</h1>
@@ -219,6 +233,110 @@
 <li>8005为管理端口</li>
 <li>8009为第三方服务调用的端口，例如httpd和tomcat的结合</li>
 </ul>
+<h3 id="三、tomcat-根目录下的个目录的作用"><a href="#三、tomcat-根目录下的个目录的作用" class="headerlink" title="三、tomcat 根目录下的个目录的作用"></a>三、tomcat 根目录下的个目录的作用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root@centos7 tomcat]# ls -l </div><div class="line">总用量 100</div><div class="line">drwxr-xr-x 2 root root  4096 7月  29 06:58 bin</div><div class="line">drwxr-xr-x 3 root root  4096 7月  29 09:54 conf</div><div class="line">drwxr-xr-x 2 root root  4096 7月  29 06:58 lib</div><div class="line">-rw-r--r-- 1 root root 56977 6月  19 20:55 LICENSE</div><div class="line">drwxr-xr-x 2 root root  4096 7月  29 07:02 logs</div><div class="line">-rw-r--r-- 1 root root  1397 6月  19 20:55 NOTICE</div><div class="line">-rw-r--r-- 1 root root  6865 6月  19 20:55 RELEASE-NOTES</div><div class="line">-rw-r--r-- 1 root root 16204 6月  19 20:55 RUNNING.txt</div><div class="line">drwxr-xr-x 2 root root    29 7月  29 06:58 temp</div><div class="line">drwxr-xr-x 5 root root    43 7月  29 09:58 webapps</div><div class="line">drwxr-xr-x 3 root root    21 7月  29 07:02 work</div></pre></td></tr></table></figure>
+<p>详解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">bin：该目录下存放的是一些可执行脚本文件，tomcat 的启动关闭都在这个文件里面</div><div class="line">conf：该目录存放的是tomcat 的配置文件，比如server.xml  tomcat-user.xml</div><div class="line">lib：该目录存放的是tomcat 的一些库文件</div><div class="line">log：日志目录</div><div class="line">temp：临时文件目录</div><div class="line">webapps：应用文件存放目录,比如war jsp 等（如果部署完tomcat，不想默认访问tomcat，只需要把该目录下的root目录重命名或者删除，重新部署新的应用在这里即可）</div><div class="line">work：由Tomcat自动生成，这是Tomcat放置它运行期间的中间(intermediate)文件(诸如编译的JSP文件)地方。 如果当Tomcat运行时，你删除了这个目录那么将不能够执行包含JSP的页面</div></pre></td></tr></table></figure>
+<h3 id="四、配置tomcat"><a href="#四、配置tomcat" class="headerlink" title="四、配置tomcat"></a>四、配置tomcat</h3><p>tomcat的主配置文件为：/usr/local/tomcat/conf/server.xml，使用html。</p>
+<h4 id="4-1、配置tomcat服务的访问端口"><a href="#4-1、配置tomcat服务的访问端口" class="headerlink" title="4.1、配置tomcat服务的访问端口"></a>4.1、配置tomcat服务的访问端口</h4><p>tomcat默认的访问端口为8080，如果需要使用80端口。则需要修改主配置文件server.xml。</p>
+<p>4.1.1、修改配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/tomcat/conf/server.xml</div><div class="line">#找到以下内容</div><div class="line">&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;</div><div class="line">               connectionTimeout=&quot;20000&quot;</div><div class="line">               redirectPort=&quot;8443&quot; /&gt;</div><div class="line">#将8080改为80</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/145541754.png?imageslim" alt="mark"></p>
+<p>4.1.2、保存后重启测试</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/145645640.png?imageslim" alt="mark"></p>
+<h4 id="4-2、tomcat的虚拟主机"><a href="#4-2、tomcat的虚拟主机" class="headerlink" title="4.2、tomcat的虚拟主机"></a>4.2、tomcat的虚拟主机</h4><p>在Apache或者nginx中，都有虚拟主机的概念。在tomcat中也是有这一说法的。在主配置文件server.xml中，\<host>和\</host>之间的配置为虚拟主机配置部分。</p>
+<p>4.2.1、默认虚拟主机</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/150512226.png?imageslim" alt="mark"></p>
+<ul>
+<li>name定义域名</li>
+<li>appbase定义应用目录，Java的应用通常是一个jar的压缩包，将jar的压缩包放在appbase目录下即可。</li>
+<li>unpackWARs定义是否自动解压压缩包</li>
+<li>autoDeploy定义应用是否自动部署</li>
+<li>&lt;Valve字段定义日志</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/150817864.png?imageslim" alt="mark"></p>
+<ul>
+<li>tomcat的默认页其实就是在appbase目录下面，不过是在它的子目录ROOT里。</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/150907136.png?imageslim" alt="mark"></p>
+<ul>
+<li>在appbase（/usr/local/tomcat/webapps）目录下面有很多子目录，每个子目录都可以被访问，我们可以把自定义的应用放在webapps目录里（假设应用名字为test，test为一个目录）。然后通过<a href="http://ip/test/来访问这个应用。**如果直接访问IP，后面不加二级目录，则默认会访问ROOT目录下的主页文件，加上二级目录才能访问二级目录下面的文件。**" target="_blank" rel="external">http://ip/test/来访问这个应用。**如果直接访问IP，后面不加二级目录，则默认会访问ROOT目录下的主页文件，加上二级目录才能访问二级目录下面的文件。**</a></li>
+</ul>
+<p>4.2.2、增加新的虚拟主机</p>
+<p>编辑主配置文件server.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/tomcat/conf/server.xml</div><div class="line">#在&lt;/Host&gt;后面添加新的虚拟主机</div><div class="line">&lt;Host name=&quot;www.123.com&quot; appBase=&quot;&quot;</div><div class="line">   unpackWARs=&quot;ture&quot; autoDeploy=&quot;ture&quot;</div><div class="line">   xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</div><div class="line">   &lt;Context path=&quot;&quot; docBase=&quot;/data/wwwroot/123.com&quot; debug=&quot;0&quot;</div><div class="line">   reloadable=&quot;ture&quot; crossContext=&quot;ture&quot;/&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/152553497.png?imageslim" alt="mark"></p>
+<ul>
+<li>改虚拟主机多了&lt;Context字段，定义了docBase。docBase定义网站的文件存放路径，如果不定义，默认是在appBase/ROOT下面，定义了docBase则以该目录为根目录。appBase和docBase可以一样</li>
+</ul>
+<p>创建测试文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/wwwroot/123.com</div><div class="line">echo &quot;tomcat test page&quot;  &gt;  /data/wwwroot/123.com/test.html</div></pre></td></tr></table></figure>
+<p>重启tomcat测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/usr/local/tomcat/bin/shutdown.sh  &amp;&amp; /usr/local/tomcat/bin/startup.sh</div><div class="line">curl -x127.0.0.1:80  www.123.com/test.html</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/153127795.png?imageslim" alt="mark"></p>
+<h4 id="4-3、测试tomcat解析jsp"><a href="#4-3、测试tomcat解析jsp" class="headerlink" title="4.3、测试tomcat解析jsp"></a>4.3、测试tomcat解析jsp</h4><p>在上面的操作中，我们仅仅是将tomcat作为一个普通的web服务器，tomcat主要还是用于解析JSP页面</p>
+<p>4.3.1、创建JSP测试文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim  /data/wwwroot/123.com/test.jsp</div><div class="line">#写入以下内容</div><div class="line">&lt;html&gt;&lt;body&gt;&lt;center&gt;</div><div class="line">    Now  time  is: &lt;%=new java.util.Date()%&gt;</div><div class="line">&lt;/center&gt;&lt;/body&gt;&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>4.3.2、测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl  -x127.0.0.1:80  www.123.com/test.jsp</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/153706419.png?imageslim" alt="mark"></p>
+<ul>
+<li>已经解析为当前系统时间</li>
+</ul>
+<h3 id="五、tomcat的日志"><a href="#五、tomcat的日志" class="headerlink" title="五、tomcat的日志"></a>五、tomcat的日志</h3><h4 id="5-1、tomcat的日志类型"><a href="#5-1、tomcat的日志类型" class="headerlink" title="5.1、tomcat的日志类型"></a>5.1、tomcat的日志类型</h4><p>tomcat的日志目录为/usr/local/tomcat/logs，主要有四大类日志</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/160741705.png?imageslim" alt="mark"></p>
+<ul>
+<li>catalina开头的日志为tomcat的综合日志，它记录tomcat服务相关信息，也会记录错误日志，其中catalina.out和catalina.2017-08-28.log内容部分相同，catalina.2017-08-28.log是由catalina.out切割而来。</li>
+<li>host-manager和manager为管理相关的日志，其中host-manager为虚拟主机的管理日志。</li>
+<li>localhost和localhost_access为虚拟主机相关日志，其中带access字样的日志为访问日志，不带access字样的为默认虚拟主机的错误日志。</li>
+</ul>
+<h4 id="5-2、tomcat设置记录访问日志"><a href="#5-2、tomcat设置记录访问日志" class="headerlink" title="5.2、tomcat设置记录访问日志"></a>5.2、tomcat设置记录访问日志</h4><p>访问日志默认不会生成，需要在server.xml中配置一下，具体方法是在对应虚拟主机的\<host>和\</host>里面加入下面的配置（加入域名为www.123.com）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;logs&quot;</div><div class="line">       prefix=&quot;www.123.com_access_log&quot; suffix=&quot;.txt&quot;</div><div class="line">       pattern=&quot;%h %l %u %t &amp;quot;%r&amp;quot; %s %b&quot; /&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>prefix定义访问日志的前缀，suffix定义日志的后缀，pattern定义日志格式。</li>
+<li>新增加的虚拟主机并不会生成类似默认虚拟主机的“localhost.日期.log”日志</li>
+<li>虚拟主机的错误日志会同一记录到catalina.out中，所以需要我们关注该日志</li>
+</ul>
+<h3 id="六、tomcat连接mysql"><a href="#六、tomcat连接mysql" class="headerlink" title="六、tomcat连接mysql"></a>六、tomcat连接mysql</h3><p>tomcat连接MySQL是通过自带的JDBC驱动实现的。</p>
+<h4 id="6-1、配置mysql"><a href="#6-1、配置mysql" class="headerlink" title="6.1、配置mysql"></a>6.1、配置mysql</h4><p>创建实验用的库，表以及用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot  -pallen</div><div class="line">&gt;  create  database  java_test;</div><div class="line">&gt;  use  java_test;</div><div class="line">&gt;  grant all  on  java_test.*  to  &apos;java&apos;@&apos;127.0.0.1&apos; identified by &apos;allen&apos;;</div><div class="line">&gt;  create  table allen (`id` int(4),`name` char(40));</div><div class="line">&gt;  insert  into  allen  values  (1,&apos;aaa&apos;);</div><div class="line">&gt;  insert  into  allen  values  (2,&apos;bbb&apos;);</div><div class="line">&gt;  insert  into  allen  values  (3,&apos;ccc&apos;);</div></pre></td></tr></table></figure>
+<p>验证创建的mysql是否能成功登录</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/162647153.png?imageslim" alt="mark"></p>
+<p>查看数据库和表是否创建成功</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/162731877.png?imageslim" alt="mark"></p>
+<h4 id="6-2、添加JDBC驱动"><a href="#6-2、添加JDBC驱动" class="headerlink" title="6.2、添加JDBC驱动"></a>6.2、添加JDBC驱动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#下载驱动</div><div class="line">cd  /usr/local/src</div><div class="line">wget https://cdn.mysql.com//Downloads/Connector-J/mysql-connector-java-5.1.43.tar.gz</div></pre></td></tr></table></figure>
+<p>解压：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tar -zxvf  mysql-connector-java-5.1.43.tar.gz</div><div class="line">#移动JAR文件</div><div class="line">cp /usr/local/src/mysql-connector-java-5.1.43/mysql-connector-java-5.1.43-bin.jar   /usr/local/tomcat/lib/</div></pre></td></tr></table></figure>
+<h4 id="6-3、配置tomcat"><a href="#6-3、配置tomcat" class="headerlink" title="6.3、配置tomcat"></a>6.3、配置tomcat</h4><p>6.2.1、修改配置文件/usr/local/tomcat/conf/context.xml</p>
+<p>编辑配置文件context.xml，在\上面添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/tomcat/conf/context.xml</div><div class="line">#在&lt;/Context上面添加以下内容</div><div class="line">    &lt;Resource name=&quot;jdbc/mytest&quot;</div><div class="line">        auth=&quot;Container&quot;</div><div class="line">        type=&quot;javax.sql.DataSource&quot;</div><div class="line">        maxActive=&quot;100&quot; maxIdle=&quot;30&quot; maxWait=&quot;10000&quot;</div><div class="line">        username=&quot;java&quot; password=&quot;allen&quot;</div><div class="line">        driverClassName=&quot;com.mysql.jdbc.Driver&quot;</div><div class="line">        url=&quot;jdbc:mysql://127.0.0.1:3306/java_test&quot;&gt;</div><div class="line">    &lt;/Resource&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/165539570.png?imageslim" alt="mark"></p>
+<ul>
+<li>name定义jdbc/mytest，这里的mytest可以自定义。</li>
+<li>username为mysql的用户</li>
+<li>password为mysql的用户密码</li>
+<li>url定义mysql的IP、端口以及库名</li>
+</ul>
+<p>6.2.2、修改配置文件/usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml</p>
+<p>编辑配置文件/usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml，在\上面添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml</div><div class="line">#在&lt;/web-app&gt;上面添加以下内容</div><div class="line">  &lt;resource-ref&gt;</div><div class="line">   &lt;description&gt;DB Connection&lt;/description&gt;</div><div class="line">   &lt;res-ref-name&gt;jdbc/mytest&lt;/res-ref-name&gt;</div><div class="line">   &lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;</div><div class="line">   &lt;res-auth&gt;Container&lt;/res-auth&gt;</div><div class="line">  &lt;/resource-ref&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/165421018.png?imageslim" alt="mark"></p>
+<ul>
+<li>在每一个应用（上文提到的webapps/ROOT）目录下都应该有一个WEB-INF目录，它里面会有对应的配置文件，比如web.xml就是用来定义JDBC相关资源的，其中的res-ref-name和前面定义的Resource name保存一致。</li>
+</ul>
+<h4 id="6-4、测试"><a href="#6-4、测试" class="headerlink" title="6.4、测试"></a>6.4、测试</h4><p>6.3.1、创建测试文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/tomcat/webapps/ROOT/t.jsp</div><div class="line">#写入以下内容</div><div class="line">&lt;%@page import=&quot;java.sql.*&quot;%&gt;</div><div class="line">&lt;%@page import=&quot;javax.sql.DataSource&quot;%&gt;</div><div class="line">&lt;%@page import=&quot;javax.naming.*&quot;%&gt;</div><div class="line">&lt;%</div><div class="line">Context ctx = new InitialContext();</div><div class="line">DataSource ds = (DataSource) ctx</div><div class="line">.lookup(&quot;java:comp/env/jdbc/mytest&quot;);</div><div class="line">Connection conn = ds.getConnection();</div><div class="line">Statement state = conn.createStatement();</div><div class="line">String sql = &quot;select * from allen&quot;;</div><div class="line">ResultSet rs = state.executeQuery(sql);</div><div class="line">while (rs.next()) &#123;</div><div class="line">out.println(rs.getString(&quot;id&quot;) +&quot;&lt;tr&gt;&quot;);</div><div class="line">out.println(rs.getString(&quot;name&quot;) +&quot;&lt;tr&gt;&lt;br&gt;&quot;);</div><div class="line">&#125;</div><div class="line">rs.close();</div><div class="line">state.close();</div><div class="line">conn.close();</div><div class="line">%&gt;</div></pre></td></tr></table></figure>
+<p>6.3.2、测试</p>
+<p>重启tomcat</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/usr/local/tomcat/bin/shutdown.sh</div><div class="line">/usr/local/tomcat/bin/startup.sh</div></pre></td></tr></table></figure>
+<p>在浏览器中直接访问<a href="http://ip/t.jsp" target="_blank" rel="external">http://ip/t.jsp</a></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170829/235319866.png?imageslim" alt="mark"></p>
+<ul>
+<li>与数据库中的表一致。</li>
+</ul>
+<p>拓展：</p>
+<p><a href="http://blog.csdn.net/lishehe/article/details/41607725" target="_blank" rel="external">jar和war包的区别</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_4ab26bdd0100gwpk.html" target="_blank" rel="external">tomcat常见配置汇总</a></p>
+<p><a href="http://fangniuwa.blog.51cto.com/10209030/1763488/" target="_blank" rel="external">resin安装</a></p>
 
       
 
@@ -306,11 +424,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/30/tomcat搭建zrlog/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          tomcat搭建zrlog
         
       </div>
     </a>
@@ -355,7 +473,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、安装JDK"><span class="toc-number">1.</span> <span class="toc-text">一、安装JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装tomcat"><span class="toc-number">2.</span> <span class="toc-text">二、安装tomcat</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、安装JDK"><span class="toc-number">1.</span> <span class="toc-text">一、安装JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装tomcat"><span class="toc-number">2.</span> <span class="toc-text">二、安装tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、tomcat-根目录下的个目录的作用"><span class="toc-number">3.</span> <span class="toc-text">三、tomcat 根目录下的个目录的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、配置tomcat"><span class="toc-number">4.</span> <span class="toc-text">四、配置tomcat</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1、配置tomcat服务的访问端口"><span class="toc-number">4.1.</span> <span class="toc-text">4.1、配置tomcat服务的访问端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2、tomcat的虚拟主机"><span class="toc-number">4.2.</span> <span class="toc-text">4.2、tomcat的虚拟主机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3、测试tomcat解析jsp"><span class="toc-number">4.3.</span> <span class="toc-text">4.3、测试tomcat解析jsp</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、tomcat的日志"><span class="toc-number">5.</span> <span class="toc-text">五、tomcat的日志</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1、tomcat的日志类型"><span class="toc-number">5.1.</span> <span class="toc-text">5.1、tomcat的日志类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2、tomcat设置记录访问日志"><span class="toc-number">5.2.</span> <span class="toc-text">5.2、tomcat设置记录访问日志</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六、tomcat连接mysql"><span class="toc-number">6.</span> <span class="toc-text">六、tomcat连接mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1、配置mysql"><span class="toc-number">6.1.</span> <span class="toc-text">6.1、配置mysql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2、添加JDBC驱动"><span class="toc-number">6.2.</span> <span class="toc-text">6.2、添加JDBC驱动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3、配置tomcat"><span class="toc-number">6.3.</span> <span class="toc-text">6.3、配置tomcat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4、测试"><span class="toc-number">6.4.</span> <span class="toc-text">6.4、测试</span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
@@ -475,11 +593,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -491,15 +609,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,10 +634,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ftp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,6 +673,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
@@ -564,10 +686,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -642,7 +760,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">Why Not?</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">企鹅409631175</div>
   	  	
     	</section>
     
