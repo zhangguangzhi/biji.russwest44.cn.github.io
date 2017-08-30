@@ -6,27 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LNMP之nginx配置SSL | ZhangGuangZhi</title>
+  <title>Tag: mysql主从 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。">
-<meta name="keywords" content="LNMP">
-<meta property="og:type" content="article">
-<meta property="og:title" content="LNMP之nginx配置SSL">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/15/12.10、LNMP之nginx配置SSL/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="ZhangGuangZhi">
+<meta property="og:url" content="http://zhangguangzhi.github.io/tags/mysql主从/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/155430120.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/161303707.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/160927076.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/161718814.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/161803575.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/162045311.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170816/164050492.png?imageslim">
-<meta property="og:updated_time" content="2017-08-19T02:21:12.353Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LNMP之nginx配置SSL">
-<meta name="twitter:description" content="使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170815/155430120.png?imageslim">
+<meta name="twitter:title" content="ZhangGuangZhi">
   
   
     <link rel="icon" href="/favicon.png">
@@ -142,212 +129,61 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-12.10、LNMP之nginx配置SSL" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      LNMP之nginx配置SSL
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/08/30/17、mysql主从配置/" class="archive-article-date">
+  	<time datetime="2017-08-30T08:09:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-30</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/08/30/17、mysql主从配置/">mysql主从复制配置</a>
     </h1>
   
 
-        
-        <a href="/2017/08/15/12.10、LNMP之nginx配置SSL/" class="archive-article-date">
-  	<time datetime="2017-08-15T07:42:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用SSL是为了保证安全。SSL的具体实例为HTTPS，HTTPS是一种加密的HTTP协议，如果HTTP通信的数据包在传输过程中被截获，我们可以破译这些数据包里面的信息，这里面不乏一些用户名、密码、手机号等敏感信息。而如果使用HTTPS通信，即使数据包被截获，我们也无法破译里面的内容。</p>
-<a id="more"></a>
-<h3 id="1、HTTPS通信过程"><a href="#1、HTTPS通信过程" class="headerlink" title="1、HTTPS通信过程"></a>1、HTTPS通信过程</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/155430120.png?imageslim" alt="mark"></p>
-<p>（1） 浏览器发送一个https的请求给服务器；</p>
-<p>（2） 服务器要有一套数字证书，可以自己制作（但使用自己制作的证书，浏览器访问的时候会提示不信任），也可以向组织申请，区别就是自己颁发的证书需要客户端验证通过，才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面，这套证书其实就是一对公钥和私钥；</p>
-<p>（3） 服务器会把公钥传输给客户端；</p>
-<p>（4） 客户端（浏览器）收到公钥后，会验证其是否合法有效，无效会有警告提醒，有效则会生成一串随机数，并用收到的公钥加密；</p>
-<p>（5） 客户端把加密后的随机字符串传输给服务器；</p>
-<p>（6） 服务器收到加密随机字符串后，先用私钥解密（公钥加密，私钥解密），获取到这一串随机数后，再用这串随机字符串加密传输的数据（该加密为对称加密，所谓对称加密，就是将数据和私钥也就是这个随机字符串通过某种算法混合在一起，这样除非知道私钥，否则无法获取数据内容）；</p>
-<p>（7） 服务器把加密后的数据传输给客户端；</p>
-<p>（8） 客户端收到数据后，再用自己的私钥也就是那个随机字符串解密；</p>
-<h3 id="2、nginx配置SSL"><a href="#2、nginx配置SSL" class="headerlink" title="2、nginx配置SSL"></a>2、nginx配置SSL</h3><h4 id="2-1、安装相关工具"><a href="#2-1、安装相关工具" class="headerlink" title="2.1、安装相关工具"></a>2.1、安装相关工具</h4><p>安装OpenSSL工具：yum  install  -y  openssl.x86_64 1:1.0.1e-60.el7_3.1</p>
-<h4 id="2-2、生成SSL证书（私钥和公钥）"><a href="#2-2、生成SSL证书（私钥和公钥）" class="headerlink" title="2.2、生成SSL证书（私钥和公钥）"></a>2.2、生成SSL证书（私钥和公钥）</h4><p>生成私钥</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/nginx/conf/</div><div class="line">#生成私钥，此时私钥是有认证密码的。私钥为tmp.key</div><div class="line">openssl genrsa -des3 -out tmp.key 2048</div><div class="line">#去除私钥认证密码，目的是删除刚才设置的密码，如果key文件有密码，则必须在nginx</div><div class="line">#加载它的时候输入密码，这样很不方便。生成无认证密码的私钥nginxssl.key</div><div class="line">openssl rsa -in tmp.key -out nginxssl.key</div></pre></td></tr></table></figure>
-<p>生成请求文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#首先，需要生成请求文件，需要使用该文件和私钥一起生成公钥文件</div><div class="line">#该请求文件需要填写一些信息</div><div class="line">openssl req -new -key nginxssl.key -out nginxssl.csr</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/161303707.png?imageslim" alt="mark"></p>
-<p>生成公钥</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#需要使用私钥和请求文件，公钥为nginxssl.crt</div><div class="line">openssl x509 -req -days 365 -in nginxssl.csr -signkey nginxssl.key -out nginxssl.crt</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/160927076.png?imageslim" alt="mark"></p>
-<h4 id="2-3、nginx配置SSL"><a href="#2-3、nginx配置SSL" class="headerlink" title="2.3、nginx配置SSL"></a>2.3、nginx配置SSL</h4><p>创建配置文件ssl.conf</p>
-<p>写入以下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#vim /usr/local/nginx/conf/vhost/ssl.conf</div><div class="line"></div><div class="line">server</div><div class="line">&#123;</div><div class="line">    listen 443;</div><div class="line">    server_name allen.com;</div><div class="line">    index index.html index.php;</div><div class="line">    root /data/wwwroot/allen.com;</div><div class="line">    ssl on;</div><div class="line">    ssl_certificate nginxssl.crt;</div><div class="line">    ssl_certificate_key nginxssl.key;</div><div class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/161718814.png?imageslim" alt="mark"></p>
-<p>重新加载配置文件，出现以下错误：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/161803575.png?imageslim" alt="mark"></p>
-<p>解决办法：因为我们编译时没有添加支持ssl相关参数（查看nginx编译参数nginx -V），所以重新编译添加即可</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170815/162045311.png?imageslim" alt="mark"></p>
-<p>重新编译安装nginx后，因为刚刚重新编译了。所以需要重新启动nginx后测试</p>
-<p>当然，allen.com也需要有index.html。如果访问不到需要检查防火墙</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir /data/wwwroot/allen.com</div><div class="line">echo &quot;ssl test&quot;  &gt;  /data/wwwroot/allen.com/index.html</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170816/164050492.png?imageslim" alt="mark"></p>
-<ul>
-<li>因为浏览器并没有认证我们的证书，所以会显示不是私密链接</li>
-<li>可以在沃通申请认证的ssl证书</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/15/12.10、LNMP之nginx配置SSL/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/08/16/12.11、LNMP之php-fpm设置/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          LNMP之php-fpm设置
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/08/14/12.9、LNMP之nginx代理/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LNMP之nginx代理和负载均衡</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
-  
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script>
-  var cloudTieConfig = {
-    url: "http://zhangguangzhi.github.io/2017/08/15/12.10、LNMP之nginx配置SSL/", 
-    sourceId: "12.10、LNMP之nginx配置SSL",
-    productKey: "ture",
-    target: "cloud-tie-wrapper"
-  };
-</script>
-<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    </div></section>
   
 
-  
+    
 
-  
-
-<!-- 目录内容 -->
-        
-            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
-            <span class="btn-bg"></span>
-            <span class="btn-text">文章导航</span>
-            </p>
-            <div id="toc-article" class="toc-article">
-                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
-                <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、HTTPS通信过程"><span class="toc-number">1.</span> <span class="toc-text">1、HTTPS通信过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、nginx配置SSL"><span class="toc-number">2.</span> <span class="toc-text">2、nginx配置SSL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、安装相关工具"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、安装相关工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、生成SSL证书（私钥和公钥）"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、生成SSL证书（私钥和公钥）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、nginx配置SSL"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、nginx配置SSL</span></a></li></ol></li></ol>
-           </div>
-           <script type="text/javascript">
-            function showToc(){
-                var toc_article = document.getElementById("toc-article");
-                var show_toc_btn = document.getElementById("show-toc-btn");
-                toc_article.setAttribute("style","display:block");
-                show_toc_btn.setAttribute("style","display:none");
-                };
-            function showBtn(){
-                var toc_article = document.getElementById("toc-article");
-                var show_toc_btn = document.getElementById("show-toc-btn");
-                toc_article.setAttribute("style","display:none");
-                show_toc_btn.setAttribute("style","display:block");
-                };
-           </script>
-             
-        <!-- 目录内容结束 -->
 
           </div>
         </div>
@@ -369,9 +205,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
