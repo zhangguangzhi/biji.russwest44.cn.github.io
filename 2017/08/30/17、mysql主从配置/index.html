@@ -24,9 +24,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/192522104.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/193942101.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/193821999.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170831/113234467.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/200145777.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/200035293.png?imageslim">
-<meta property="og:updated_time" content="2017-08-30T16:07:09.194Z">
+<meta property="og:updated_time" content="2017-08-31T12:45:31.900Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql主从复制配置">
 <meta name="twitter:description" content="[TOC]  一、mysql主从介绍mysql从5.1.12开始，可以使用以下三种模式来实现主从复制  基于SQL语句的复制(statement-based replication, SBR)，也是默认模式 基于行的复制(row-based replication, RBR) 混合模式复制(mixed-based replication, MBR)  相应地，binlog的格式也有三种：STATE">
@@ -202,7 +203,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#首先需要在mysql中创建cms,discuz,mysqltest,wordpress这个四个库</div><div class="line">mysql -uroot -p123456  -e  &quot;create database cms&quot;</div><div class="line">mysql -uroot -p123456  -e  &quot;create database discuz&quot;</div><div class="line">mysql -uroot -p123456  -e  &quot;create database mysqltest&quot;</div><div class="line">mysql -uroot -p123456  -e  &quot;create database wordpress&quot;</div><div class="line">#恢复数据</div><div class="line">scp 192.168.205.138:/tmp/*.sql  /tmp/</div><div class="line">mysql  -uroot -p123456  cms &lt;/tmp/cms.sql</div><div class="line">mysql  -uroot -p123456  discuz &lt;/tmp/discuz.sql</div><div class="line">mysql  -uroot -p123456  mysqltest &lt;/tmp/mysqltest.sql</div><div class="line">mysql  -uroot -p123456  wordpress &lt;/tmp/wordpress.sql</div></pre></td></tr></table></figure>
 <p><strong>此时，完成准备工作</strong></p>
 <h4 id="2-3、master上操作"><a href="#2-3、master上操作" class="headerlink" title="2.3、master上操作"></a>2.3、master上操作</h4><p>2.3.1、修改配置文件/etc/my.cnf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /etc/my.cnf</div><div class="line">#在[mysqld]字段添加server_id和log_bin开关</div><div class="line">server_id=138</div><div class="line">log_bin = on</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /etc/my.cnf</div><div class="line">#在[mysqld]字段添加server_id和log_bin开关</div><div class="line">server_id=138</div><div class="line">log_bin = allen1</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/170419395.png?imageslim" alt="mark"></p>
 <ul>
 <li>关于server_id，master和slave上不能一样</li>
@@ -212,11 +213,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/mysqld restart</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/170713562.png?imageslim" alt="mark"></p>
 <p>2.3.2、创建同步数据的用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mysql -uroot  -p123456</div><div class="line">&gt; grant replication slave on *.* to &apos;repl&apos;@slave_ip identified by &apos;mysql123&apos;;</div><div class="line">#锁定表</div><div class="line">&gt; flush tables with read lock;</div><div class="line">#查看master状态</div><div class="line">&gt; show master status;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>在查看master状态后，我们需要记住以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql -uroot  -p123456</div><div class="line">&gt; grant replication slave on *.* to &apos;repl&apos;@slave_ip identified by &apos;mysql123&apos;;</div><div class="line">#锁定表</div><div class="line">&gt; flush tables with read lock;</div></pre></td></tr></table></figure>
+<p>2.3.3、查看master状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;  show  master status\G</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/171034411.png?imageslim" alt="mark"></p>
-</li>
+<ul>
+<li>需要我们几下file和position的信息。</li>
 </ul>
 <h4 id="2-4、slave上操作"><a href="#2-4、slave上操作" class="headerlink" title="2.4、slave上操作"></a>2.4、slave上操作</h4><p>2.4.1、修改配置文件/etc/my.cnf</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim /etc/my.cnf</div><div class="line">#在[mysqld]中添加server_id</div><div class="line">server_id = 136</div></pre></td></tr></table></figure>
@@ -225,8 +227,8 @@
 <li>需要与master上的不同</li>
 <li>修改后需要重新启动mysql</li>
 </ul>
-<p>2.4.2、设置同步那个master</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot  -p123456</div><div class="line">&gt; stop  slave;</div><div class="line">&gt; change master to master_host=&apos;&apos;, master_user=&apos;repl&apos;, master_password=&apos;&apos;,master_log_file=&apos;&apos;, master_log_pos=xx;</div><div class="line">&gt; start slave;</div></pre></td></tr></table></figure>
+<p>2.4.2、设置master同步信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot  -p123456</div><div class="line">&gt; stop  slave;</div><div class="line">&gt; change master to master_host=&apos;&apos;,master_user=&apos;repl&apos;,master_password=&apos;&apos;,master_log_file=&apos;&apos;,master_log_pos=xx;</div><div class="line">&gt; start slave;</div></pre></td></tr></table></figure>
 <ul>
 <li>master_host：指定master的IP</li>
 <li>master_user：指定master授权同步的用户</li>
@@ -235,7 +237,6 @@
 <li>master_log_pos：指定同步节点</li>
 </ul>
 <p>2.4.3、查看是否成功</p>
-<p><strong>需要在主上执行<code>unlock tables;</code></strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot -p123456</div><div class="line">&gt; show slave status\G</div></pre></td></tr></table></figure>
 <p>出现以下错误：大致意思是slave无法连接到master</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/193942101.png?imageslim" alt="mark"></p>
@@ -257,8 +258,10 @@
 <li>一般使用库名.%这种形式</li>
 </ul>
 <h3 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h3><p>我们将使用数据库mysqltest测试</p>
+<p><strong>测试前，需要在主上执行<code>unlock tables;</code></strong>，不然会出现以下错误</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170831/113234467.png?imageslim" alt="mark"></p>
 <p>3.1、在master上清空一个表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot  -p123456</div><div class="line">&gt; use mysqltest;</div><div class="line">&gt; select count(*) from  dede_admin ;</div><div class="line">&gt; truncate table dede_admin;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot  -p123456</div><div class="line">&gt; unlock tables;</div><div class="line">&gt; use mysqltest;</div><div class="line">&gt; select count(*) from  dede_admin ;</div><div class="line">&gt; truncate table dede_admin;</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/200145777.png?imageslim" alt="mark"></p>
 <p>3.2、在slave上查看这个表的行数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot  -p123456</div><div class="line">&gt; use mysqltest;</div><div class="line">&gt; select count(*) from  dede_admin ;</div></pre></td></tr></table></figure>
@@ -350,11 +353,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/31/使用innobackupex在线对mysql做主从复制/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          使用innobackupex在线对mysql做主从复制
         
       </div>
     </a>
@@ -519,6 +522,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
               </li>
              
@@ -531,7 +538,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -539,15 +546,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,11 +558,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,35 +570,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,6 +594,18 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
@@ -627,7 +614,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
             
             <div class="clearfix"></div>
