@@ -6,19 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>yum配置文件详解 | ZhangGuangZhi</title>
+  <title>使用mysql-proxy配置mysql读写分离 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 1、/etc/yum.conf配置详解：[main] cachedir=/var/cache/yum                                 #yum下载的RPM包的缓存目录 keepcache=0                                              #缓存是否保存，1保存，0不保存。 debuglevel=2">
-<meta name="keywords" content="yum">
+  <meta name="description" content="[TOC] mysql-proxy介绍 mysql proxy是一个处于你的client和mysql server端之间的简单程序，它可以监听、分析和改变它们的通信。它使用灵活，没有限制，常见用途：负载均衡，故障、查询分析，查询过滤和修改等等。">
+<meta name="keywords" content="mysql主从">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yum配置文件详解">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/26/yum配置文件详解/index.html">
+<meta property="og:title" content="使用mysql-proxy配置mysql读写分离">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/09/01/使用mysql-proxy配置mysql读写分离/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 1、/etc/yum.conf配置详解：[main] cachedir=/var/cache/yum                                 #yum下载的RPM包的缓存目录 keepcache=0                                              #缓存是否保存，1保存，0不保存。 debuglevel=2">
-<meta property="og:updated_time" content="2017-08-11T02:45:10.454Z">
+<meta property="og:description" content="[TOC] mysql-proxy介绍 mysql proxy是一个处于你的client和mysql server端之间的简单程序，它可以监听、分析和改变它们的通信。它使用灵活，没有限制，常见用途：负载均衡，故障、查询分析，查询过滤和修改等等。">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/212907870.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/214416447.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/215119410.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/223212328.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/223244351.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/222803647.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/223129984.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/224010237.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/224103140.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/225612868.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/225516109.png?imageslim">
+<meta property="og:updated_time" content="2017-09-03T14:57:02.315Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yum配置文件详解">
-<meta name="twitter:description" content="[TOC] 1、/etc/yum.conf配置详解：[main] cachedir=/var/cache/yum                                 #yum下载的RPM包的缓存目录 keepcache=0                                              #缓存是否保存，1保存，0不保存。 debuglevel=2">
+<meta name="twitter:title" content="使用mysql-proxy配置mysql读写分离">
+<meta name="twitter:description" content="[TOC] mysql-proxy介绍 mysql proxy是一个处于你的client和mysql server端之间的简单程序，它可以监听、分析和改变它们的通信。它使用灵活，没有限制，常见用途：负载均衡，故障、查询分析，查询过滤和修改等等。">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170903/212907870.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -134,20 +146,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-yum配置文件详解" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-使用mysql-proxy配置mysql读写分离" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      yum配置文件详解
+      使用mysql-proxy配置mysql读写分离
     </h1>
   
 
         
-        <a href="/2017/06/26/yum配置文件详解/" class="archive-article-date">
-  	<time datetime="2017-06-26T13:46:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-26</time>
+        <a href="/2017/09/01/使用mysql-proxy配置mysql读写分离/" class="archive-article-date">
+  	<time datetime="2017-09-01T12:43:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-01</time>
 </a>
         
       </header>
@@ -155,37 +167,167 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h2 id="1、-etc-yum-conf配置详解："><a href="#1、-etc-yum-conf配置详解：" class="headerlink" title="1、/etc/yum.conf配置详解："></a>1、/etc/yum.conf配置详解：</h2><p>[main]</p>
-<p>cachedir=/var/cache/yum                                 #yum下载的RPM包的缓存目录</p>
-<p>keepcache=0                                              #缓存是否保存，1保存，0不保存。</p>
-<p>debuglevel=2                                             #调试级别(0-10)，默认为2(</p>
-<p>logfile=/var/log/yum.log                                 #yum的日志文件所在的位置</p>
-<p>exactarch=1                                                                                                 #在更新的时候，是否允许更新不同版本的RPM包，比如是否在i386上更新i686的RPM包。</p>
+<p>mysql-proxy介绍</p>
+<p>mysql proxy是一个处于你的client和mysql server端之间的简单程序，它可以监听、分析和改变它们的通信。它使用灵活，没有限制，常见用途：负载均衡，故障、查询分析，查询过滤和修改等等。</p>
 <a id="more"></a>
-<p>obsoletes=1                                                                                                #这是一个update的参数，具体请参阅yum(8)，简单的说就是相当于upgrade,允许更新陈旧的RPM包。</p>
-<p>gpgcheck=1            #是否检查GPG(GNU Private Guard)，一种密钥方式签名。</p>
-<p>plugins=1                                                                                                    #是否允许使用插件，默认是0不允许，但是我们一般会用yum-fastestmirror这个插件。</p>
-<p>installonly_limit=3        #允许保留多少个内核包。</p>
-<p>exclude=selinux*          #屏蔽不想更新的RPM包，可用通配符，多个RPM包之间使用空格分离。</p>
-<h2 id="2、源配置文件：-etc-yum-repos-d-repo"><a href="#2、源配置文件：-etc-yum-repos-d-repo" class="headerlink" title="2、源配置文件：/etc/yum.repos.d/ *.repo"></a>2、源配置文件：/etc/yum.repos.d/ *.repo</h2><p>[fedora]      #方括号里面的是软件源的名称，将被yum取得并识别</p>
-<p>name=Fedora $releasever - $basearch   #这里也定义了软件 仓库的名称，通常是为了方便阅读配置文件，一般没什么作用，$releasever变量定义了发行版本，通常是8，9，10等数字，$basearch变 量定义了系统的架构，可以是i386、x86_64、ppc等值，这两个变量根据当前系统的版本架构不同而有不同的取值，这可以方便yum升级的时候选择 适合当前系统的软件包，以下同……</p>
-<p>failovermethod=priority   #failovermethod 有两个值可以选择，priority是默认值，表示从列出的baseurl中顺序选择镜像服务器地址，roundrobin表示在列出的服务器中随机选择</p>
-<p>exclude=compiz<em> </em>compiz<em> fusion-icon</em> #exclude这个选项是后来我自己加上去的，用来禁止这个软件仓库中的某些软件包的安装和更新，可以使用通配符，并以空格分隔，可以视情况需要自行添加</p>
-<p>#baseurl=<a href="http://download.fedoraproject.org/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/" target="_blank" rel="external">http://download.fedoraproject.org/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/</a></p>
-<p>#上面的一行baseurl第一个字符是’#’表示该行已经被注释，将不会被读取，这一行的意思是指定一个baseurl（源的镜像服务器地址）</p>
-<p>#mirrorlist=<a href="http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-\$releasever&amp;arch=\$basearch" target="_blank" rel="external">http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-\$releasever&amp;arch=\$basearch</a>            #上面的这一行是指定一个镜像服务器的地址列表，通常是开启的，本例中加了注释符号禁用了，我们可以试试，将$releasever和$basearch替换成自己对应的版本和架构，例如10和i386，在浏览器中打开，我们就能看到一长串镜可用的镜像服务器地址列表。</p>
-<p>选择自己访问速度较快的镜像服务器地址复制并粘贴到repo文件中，我们就能获得较快的更新速度了，格式如下baseurl所示：</p>
-<p>baseurl=</p>
-<p>ftp://ftp.sfc.wide.ad.jp/pub/Linux/Fedora/releases/10/Everything/i386/os</p>
-<p><a href="http://ftp.chg.ru/pub/Linux/fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://ftp.chg.ru/pub/Linux/fedora/linux/releases/10/Everything/i386/os</a></p>
-<p><a href="http://ftp.yz.yamagata-u.ac.jp/pub/linux/fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://ftp.yz.yamagata-u.ac.jp/pub/linux/fedora/linux/releases/10/Everything/i386/os</a></p>
-<p><a href="http://mirror.nus.edu.sg/fedora/releases/10/Everything/i386/os" target="_blank" rel="external">http://mirror.nus.edu.sg/fedora/releases/10/Everything/i386/os</a></p>
-<p><a href="http://mirror.yandex.ru/fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://mirror.yandex.ru/fedora/linux/releases/10/Everything/i386/os</a></p>
-<p><a href="http://ftp.twaren.net/Linux/Fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://ftp.twaren.net/Linux/Fedora/linux/releases/10/Everything/i386/os</a></p>
-<p><a href="http://ftp.itu.edu.tr/Mirror/Fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://ftp.itu.edu.tr/Mirror/Fedora/linux/releases/10/Everything/i386/os</a></p>
-<p>enabled=1         #这个选项表示这个repo中定义的源是启用的，0为禁用</p>
-<p>gpgcheck=1         #这个选项表示这个repo中下载的rpm将进行gpg的校验，已确定rpm包的来源是有效和安全的</p>
-<p>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$basearch #定义用于校验的gpg密钥</p>
+<p>本次实验，我们将实验mysql-proxy配置mysql读写分离</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/212907870.png?imageslim" alt="mark"></p>
+<h3 id="一、安装mysql-proxy"><a href="#一、安装mysql-proxy" class="headerlink" title="一、安装mysql-proxy"></a>一、安装mysql-proxy</h3><h4 id="1-1、实验准备"><a href="#1-1、实验准备" class="headerlink" title="1.1、实验准备"></a>1.1、实验准备</h4><p>1.1.1、实验环境</p>
+<p>master：192.168.205.138（centos 7）</p>
+<p>slave：192.168.205.140（centos 7）</p>
+<p>mysql-proxy：192.168.205.141（centos 7）</p>
+<p>1.1.2、关闭iptables</p>
+<p>为了方便实验，关闭三台机器的iptables。三台机器都执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl  stop  firewalld</div></pre></td></tr></table></figure>
+<h4 id="1-2、下载mysql-proxy"><a href="#1-2、下载mysql-proxy" class="headerlink" title="1.2、下载mysql-proxy"></a>1.2、下载mysql-proxy</h4><p>因为源码包安装mysql-proxy的话，glib，lua包等的版本有严格要求，所以本次实验我们使用二进制包安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#下载地址https://downloads.mysql.com/archives/proxy/</div><div class="line">#下载0.8.5版本64位（根据系统版本下载）</div><div class="line">cd /usr/local/src</div><div class="line">wget https://cdn.mysql.com/archives/mysql-proxy/mysql-proxy-0.8.5-linux-el6-x86-64bit.tar.gz</div></pre></td></tr></table></figure>
+<h4 id="1-3、安装并配置环境变量"><a href="#1-3、安装并配置环境变量" class="headerlink" title="1.3、安装并配置环境变量"></a>1.3、安装并配置环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#因为是二进制包，所以解压后直接移动到指定位置即可</div><div class="line">mv mysql-proxy-0.8.5-linux-el6-x86-64bit   /usr/local/mysql-proxy</div><div class="line">#配置环境变量</div><div class="line">vim  ~/.bash_profile</div><div class="line">#加入以下内容</div><div class="line">export PATH=$PATH:/usr/local/mysql-proxy/bin</div><div class="line">source ~/.bash_profile</div></pre></td></tr></table></figure>
+<h3 id="二、配置mysql-proxy"><a href="#二、配置mysql-proxy" class="headerlink" title="二、配置mysql-proxy"></a>二、配置mysql-proxy</h3><p>mysql-proxy自带读写分离脚本，我们还需要修改一下</p>
+<h4 id="2-1、配置读写分离脚本"><a href="#2-1、配置读写分离脚本" class="headerlink" title="2.1、配置读写分离脚本"></a>2.1、配置读写分离脚本</h4><p>修改读写分离脚本位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp /usr/local/mysql-proxy/share/doc/mysql-proxy/rw-splitting.lua /usr/local/mysql-proxy/lib/mysql-proxy/lua/</div></pre></td></tr></table></figure>
+<p>修改读写分离脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/mysql-proxy/lib/mysql-proxy/lua/rw-splitting.lua</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/214416447.png?imageslim" alt="mark"></p>
+<ul>
+<li>默认最小4个（最大8个）以上客户端连接才会实现读写分离，改为最小1个最大1个，便于读写分离的测试</li>
+<li>在读写分离测试时，需要开启多个窗口连接mysql-proxy，这是因为mysql-proxy会检查客户端连接，当连接没有超过min_idle_connections预设值时，不会进行读写分离，即查询操作会发生在master上。</li>
+</ul>
+<h4 id="2-2、设置LUA-PATH变量"><a href="#2-2、设置LUA-PATH变量" class="headerlink" title="2.2、设置LUA_PATH变量"></a>2.2、设置LUA_PATH变量</h4><p>在/etc/profile中添加LUA_PATH变量的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim  /etc/profile</div><div class="line">#加入以下内容</div><div class="line">LUA_PATH=&quot;/usr/local/mysql-proxy/lib/mysql-proxy/lua/?.lua&quot;</div><div class="line">export  LUA_PATH</div><div class="line">执行source /etc/profile</div></pre></td></tr></table></figure>
+<ul>
+<li><p>对于此变量也可不设置。可在mysql-proxy启动脚本中配置。</p>
+</li>
+<li><p>该变量可以通过mysql-proxy  -V查看</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/215119410.png?imageslim" alt="mark"></p>
+</li>
+</ul>
+<h4 id="2-3、mysql-proxy命令介绍"><a href="#2-3、mysql-proxy命令介绍" class="headerlink" title="2.3、mysql-proxy命令介绍"></a>2.3、mysql-proxy命令介绍</h4><p>使用mysql-proxy  –help-all可以查看命令全部帮助</p>
+<p>以下为一些常用参数介绍</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>–proxy-address</td>
+<td>指定代理服务监听的地址和端口（默认是4040），简写为-P</td>
+</tr>
+<tr>
+<td>–admin-address</td>
+<td>指定管理主机地址和端口（默认是4041）</td>
+</tr>
+<tr>
+<td>–proxy-backend-addresses</td>
+<td>指定后端mysql服务器的地址和端口（master），简写为-b</td>
+</tr>
+<tr>
+<td>–proxy-read-only-backend-addresses</td>
+<td>指定后端只读mysql服务器的地址和端口（slave），缩为-r</td>
+</tr>
+<tr>
+<td>–proxy-lua-script</td>
+<td>指定mysql代理功能的Lua脚本文件</td>
+</tr>
+<tr>
+<td>–daemon</td>
+<td>以守护进程模式启动mysql-proxy</td>
+</tr>
+<tr>
+<td>–defaults-file</td>
+<td>指定配置文件路径</td>
+</tr>
+<tr>
+<td>–log-file</td>
+<td>指定日志文件路径</td>
+</tr>
+<tr>
+<td>–log-level</td>
+<td>指定日志级别（error\</td>
+<td>warning\</td>
+<td>info\</td>
+<td>message\</td>
+<td>debug）</td>
+</tr>
+<tr>
+<td>–user</td>
+<td>指定运行mysql-proxy进程的用户</td>
+</tr>
+<tr>
+<td>–admin-username</td>
+<td>指定登录到mysql-proxy管理界面的用户名</td>
+</tr>
+<tr>
+<td>–admin-password</td>
+<td>指定登录到mysql-proxy管理界面的用户密码</td>
+</tr>
+<tr>
+<td>–admin-lua-script=script-file</td>
+<td>管理模块的lua脚本文件路径（创建管理接口）</td>
+</tr>
+<tr>
+<td>–plugins</td>
+<td>加载插件（admin,proxy）</td>
+</tr>
+<tr>
+<td>–proxy-lua-script</td>
+<td>指定读写分离脚本位置</td>
+</tr>
+<tr>
+<td>–admin-lua-script</td>
+<td>指定管理界面脚本位置</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-4、启动mysql-proxy"><a href="#2-4、启动mysql-proxy" class="headerlink" title="2.4、启动mysql-proxy"></a>2.4、启动mysql-proxy</h4><p>启动时，我们需要什么功能就指定相应参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql-proxy --daemon --log-level=debug \</div><div class="line">--log-file=/var/log/mysql-proxy.log \</div><div class="line">--plugins=proxy -b 192.168.205.138:3306 -r 192.168.205.140:3306 \</div><div class="line">--proxy-lua-script=/usr/local/mysql-proxy/lib/mysql-proxy/lua/rw-splitting.lua \</div><div class="line">--plugins=admin --admin-username=admin \</div><div class="line">--admin-password=admin \</div><div class="line">--admin-lua-script=/usr/local/mysql-proxy/lib/mysql-proxy/lua/admin.lua</div></pre></td></tr></table></figure>
+<ul>
+<li>需要指定plugins=proxy才能开启代理功能，同理，需要指定plugins=admin才能使用管理功能</li>
+</ul>
+<p>查看端口</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/223212328.png?imageslim" alt="mark"></p>
+<p>查看启动日志</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/223244351.png?imageslim" alt="mark"></p>
+<h4 id="2-5、停止mysql-proxy"><a href="#2-5、停止mysql-proxy" class="headerlink" title="2.5、停止mysql-proxy"></a>2.5、停止mysql-proxy</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ps aux |grep &quot;mysql-proxy&quot;</div><div class="line">killall  -9  mysql-proxy</div></pre></td></tr></table></figure>
+<h3 id="三、读写分离测试"><a href="#三、读写分离测试" class="headerlink" title="三、读写分离测试"></a>三、读写分离测试</h3><h4 id="3-1、创建并授权mysql-proxy登录用户"><a href="#3-1、创建并授权mysql-proxy登录用户" class="headerlink" title="3.1、创建并授权mysql-proxy登录用户"></a>3.1、创建并授权mysql-proxy登录用户</h4><p>登录master和slave，执行以下sql语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot -p123456</div><div class="line">&gt; grant all on *.* to &apos;proxy&apos;@&apos;%&apos; identified by &apos;123456&apos;;</div><div class="line">&gt; flush privileges;</div></pre></td></tr></table></figure>
+<h4 id="3-2、登录mysql-proxy管理后台查看状态"><a href="#3-2、登录mysql-proxy管理后台查看状态" class="headerlink" title="3.2、登录mysql-proxy管理后台查看状态"></a>3.2、登录mysql-proxy管理后台查看状态</h4><p>查看master和slave的状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql -uadmin  -padmin  -h192.168.205.141 -P4041</div><div class="line">&gt; SELECT * FROM backends;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/222803647.png?imageslim" alt="mark"></p>
+<ul>
+<li>之所以是unknown状态，是因为我们还没有客户端连接</li>
+</ul>
+<p>我们多开几个会话后，重新查看状态</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/223129984.png?imageslim" alt="mark"></p>
+<p><strong>此时，我们的服务已经搭建</strong>，接下来我们来进行测试</p>
+<h4 id="3-3、测试读写分离效果"><a href="#3-3、测试读写分离效果" class="headerlink" title="3.3、测试读写分离效果"></a>3.3、测试读写分离效果</h4><p>3.3.1、测试1</p>
+<p>抓包master</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tcpdump -i ens33 -nn -XX ip dst 192.168.205.138 and tcp dst port 3306</div></pre></td></tr></table></figure>
+<p>抓包slave</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tcpdump -i ens33 -nn -XX ip dst 192.168.205.140 and tcp dst port 3306</div></pre></td></tr></table></figure>
+<p>在客户端进行以下操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql -uproxy  -p123456  -h192.168.205.141 -P4040</div><div class="line">&gt; create database  test2;    #模拟写操作</div><div class="line">&gt; select * from  mysql.user;   #模拟写操作，可以用额外的主机多执行几次</div></pre></td></tr></table></figure>
+<p>测试结果：</p>
+<p>在master上的抓包信息</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/224010237.png?imageslim" alt="mark"></p>
+<p>在slave上的抓包信息</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/224103140.png?imageslim" alt="mark"></p>
+<p>3.1.2、测试2</p>
+<p>因为读的操作会在slave上执行，为了更好的展示测试效果，我们想将slave停掉</p>
+<p>在slave上操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -p123456</div><div class="line">&gt; stop slave;</div></pre></td></tr></table></figure>
+<p>在mysql-proxy上执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mysql -uproxy  -p123456  -h192.168.205.141 -P4040</div><div class="line">&gt; use test2</div><div class="line">&gt; create table tb1 (`id` int(4),`name` char(40)) ENGINE=MyISAM DEFAULT CHARSET=utf8;</div><div class="line">&gt; insert into tb1 values  (1,&apos;abc&apos;);</div><div class="line">&gt; select * from test2.tb1;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/225612868.png?imageslim" alt="mark"></p>
+<p>接着，在slave上操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -p123456</div><div class="line">&gt; start slave;</div></pre></td></tr></table></figure>
+<p>在mysql-proxy上执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql -uproxy  -p123456  -h192.168.205.141 -P4040</div><div class="line">&gt; select * from test2.tb1;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170903/225516109.png?imageslim" alt="mark"></p>
+<h3 id="四、注意事项"><a href="#四、注意事项" class="headerlink" title="四、注意事项"></a>四、注意事项</h3><p>在上述环境中，mysql-proxy和mysql-master、mysql-slave三台服务器均存在单点故障。如果在可用性要求较高的场合，单点隐患是绝对不允许的。为了避免mysql-proxy单点隐患有两种方法，一种方法是mysql-proxy配合keepalived做双机，另一种方法是将mysql-proxy和应用服务安装到同一台服务器上；为了避免mysql-master单点故障可以使用DRBD+heartbear做双机；避免mysql-slave单点故障增加多台mysql-slave即可，因为mysql-proxy会自动屏蔽后端发生故障的mysql-slave。</p>
+<p>参考：<a href="https://www.2cto.com/database/201608/539688.html" target="_blank" rel="external">https://www.2cto.com/database/201608/539688.html</a></p>
 
       
 
@@ -199,7 +341,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">yum</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
         		</li>
       		
 		</ul>
@@ -255,7 +397,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/06/26/yum配置文件详解/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/09/01/使用mysql-proxy配置mysql读写分离/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -269,18 +411,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/06/28/shell基础知识1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          shell基础知识之一
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/06/26/安装与卸载软件/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">linux安装与卸载软件</div>
+    <a href="/2017/09/01/mysql一主多从/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql一主多从</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -296,8 +438,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://zhangguangzhi.github.io/2017/06/26/yum配置文件详解/", 
-    sourceId: "yum配置文件详解",
+    url: "http://zhangguangzhi.github.io/2017/09/01/使用mysql-proxy配置mysql读写分离/", 
+    sourceId: "使用mysql-proxy配置mysql读写分离",
     productKey: "ture",
     target: "cloud-tie-wrapper"
   };
@@ -318,7 +460,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、-etc-yum-conf配置详解："><span class="toc-number">1.</span> <span class="toc-text">1、/etc/yum.conf配置详解：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、源配置文件：-etc-yum-repos-d-repo"><span class="toc-number">2.</span> <span class="toc-text">2、源配置文件：/etc/yum.repos.d/ *.repo</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、安装mysql-proxy"><span class="toc-number">1.</span> <span class="toc-text">一、安装mysql-proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1、实验准备"><span class="toc-number">1.1.</span> <span class="toc-text">1.1、实验准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2、下载mysql-proxy"><span class="toc-number">1.2.</span> <span class="toc-text">1.2、下载mysql-proxy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3、安装并配置环境变量"><span class="toc-number">1.3.</span> <span class="toc-text">1.3、安装并配置环境变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、配置mysql-proxy"><span class="toc-number">2.</span> <span class="toc-text">二、配置mysql-proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、配置读写分离脚本"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、配置读写分离脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、设置LUA-PATH变量"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、设置LUA_PATH变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、mysql-proxy命令介绍"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、mysql-proxy命令介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、启动mysql-proxy"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、启动mysql-proxy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5、停止mysql-proxy"><span class="toc-number">2.5.</span> <span class="toc-text">2.5、停止mysql-proxy</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、读写分离测试"><span class="toc-number">3.</span> <span class="toc-text">三、读写分离测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、创建并授权mysql-proxy登录用户"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、创建并授权mysql-proxy登录用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、登录mysql-proxy管理后台查看状态"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、登录mysql-proxy管理后台查看状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3、测试读写分离效果"><span class="toc-number">3.3.</span> <span class="toc-text">3.3、测试读写分离效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、注意事项"><span class="toc-number">4.</span> <span class="toc-text">四、注意事项</span></a></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
