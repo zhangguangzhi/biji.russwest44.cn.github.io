@@ -6,14 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Archives | ZhangGuangZhi</title>
+  <title>Linux集群之高可用集群配置 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ZhangGuangZhi">
-<meta property="og:url" content="http://zhangguangzhi.github.io/archives/page/2/index.html">
+  <meta name="description" content="Linux集群介绍 一台服务器的硬件配置总是有限的，当服务器上运行的资源超过服务器的承载能力时，必将导致该服务器崩溃。在生产环境中，多数企业会使用多台服务器搭建成一个集群来运行应用程序，这样不仅可以避免单点故障，还能提升服务器的承载能力。">
+<meta name="keywords" content="Linux集群">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux集群之高可用集群配置">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/09/04/18、Linux集群之高可用集群配置/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
+<meta property="og:description" content="Linux集群介绍 一台服务器的硬件配置总是有限的，当服务器上运行的资源超过服务器的承载能力时，必将导致该服务器崩溃。在生产环境中，多数企业会使用多台服务器搭建成一个集群来运行应用程序，这样不仅可以避免单点故障，还能提升服务器的承载能力。">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/162807501.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/162509173.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/163305926.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/171307475.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/171237909.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/225920540.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/230005785.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/231144949.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/230709157.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/231117597.png?imageslim">
+<meta property="og:updated_time" content="2017-09-04T15:14:32.449Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ZhangGuangZhi">
+<meta name="twitter:title" content="Linux集群之高可用集群配置">
+<meta name="twitter:description" content="Linux集群介绍 一台服务器的硬件配置总是有限的，当服务器上运行的资源超过服务器的承载能力时，必将导致该服务器崩溃。在生产环境中，多数企业会使用多台服务器搭建成一个集群来运行应用程序，这样不仅可以避免单点故障，还能提升服务器的承载能力。">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170904/162807501.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,407 +145,245 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-18、Linux集群之高可用集群配置" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux集群之高可用集群配置
+    </h1>
+  
+
+        
+        <a href="/2017/09/04/18、Linux集群之高可用集群配置/" class="archive-article-date">
+  	<time datetime="2017-09-04T07:56:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-04</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Linux集群介绍</p>
+<p>一台服务器的硬件配置总是有限的，当服务器上运行的资源超过服务器的承载能力时，必将导致该服务器崩溃。在生产环境中，多数企业会使用多台服务器搭建成一个集群来运行应用程序，这样不仅可以避免单点故障，还能提升服务器的承载能力。</p>
+<a id="more"></a>
+<p>集群从功能上实现分为两种：高可用集群和负载均衡集群。</p>
+<p>高可用：即HA集群，也称“双击热备”顾名思义，当一台服务器宕机不能提供服务了，还有另外的服务器顶替。</p>
+<p>负载均衡：简单讲就是把用户的请求分摊到多台服务器上。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/162807501.png?imageslim" alt="mark"></p>
+<ul>
+<li>常见集群实现方式</li>
+</ul>
+<h3 id="一、keepalived介绍"><a href="#一、keepalived介绍" class="headerlink" title="一、keepalived介绍"></a>一、keepalived介绍</h3><p>keepalived具有高可用和负载均衡功能</p>
+<p>keepalived通过VRRP（Virtual Router Redundancy Protocl）来实现高可用，在这个协议里会将多台功能相同的路由器组成一个小组，这个小组里会有一个master角色和N(N&gt;=1)个backup角色。</p>
+<p>master会通过组播的形式的形式向各个backup发生VRRP协议的数据包，当backup收不到master发来的VRRP数据包时，就会认为master宕机。此时就需要根据各个backup的优先级来决定谁成为新的master。</p>
+<p>在keepalived中有三个模块，分别是core，check和vrrp。其中core模块为keepalived的核心，负责主进程的启动，维护以及全局配置文件的加载和解析，check模块负责健康检查，vrrp模块是来实现VRRP协议的。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/162509173.png?imageslim" alt="mark"></p>
+<h3 id="二、keepalived-nginx实现web高可用"><a href="#二、keepalived-nginx实现web高可用" class="headerlink" title="二、keepalived+nginx实现web高可用"></a>二、keepalived+nginx实现web高可用</h3><h4 id="2-1、实验环境"><a href="#2-1、实验环境" class="headerlink" title="2.1、实验环境"></a>2.1、实验环境</h4><p>master：192.168.205.136，安装nginx(源码)和keepalived</p>
+<p>backup：192.168.205.137，安装nginx(源码)和keepalived</p>
+<p>暂时关闭两台服务器上的防火墙</p>
+<h4 id="2-2、安装keepalived"><a href="#2-2、安装keepalived" class="headerlink" title="2.2、安装keepalived"></a>2.2、安装keepalived</h4><p>使用yum安装即可，在master和backup都需要安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  installl -y  keepalived</div></pre></td></tr></table></figure>
+<h4 id="2-3、修改master配置"><a href="#2-3、修改master配置" class="headerlink" title="2.3、修改master配置"></a>2.3、修改master配置</h4><p>2.3.1、编辑master上的keepalived配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">mv /etc/keepalived/keepalived.conf  /etc/keepalived/keepalived.conf.bak</div><div class="line">vim /etc/keepalived/keepalived.conf</div><div class="line">#写入以下内容</div><div class="line">global_defs &#123;</div><div class="line">   notification_email &#123;</div><div class="line">     allen@allen.com</div><div class="line">   &#125;</div><div class="line">   notification_email_from root@allen.com</div><div class="line">   smtp_server 127.0.0.1</div><div class="line">   smtp_connect_timeout 30</div><div class="line">   router_id LVS_DEVEL</div><div class="line">&#125;</div><div class="line">vrrp_script chk_nginx &#123;</div><div class="line">    script &quot;/usr/local/sbin/check_ng.sh&quot;</div><div class="line">    interval 3</div><div class="line">&#125;</div><div class="line">vrrp_instance VI_1 &#123;</div><div class="line">    state MASTER</div><div class="line">    interface ens33</div><div class="line">    virtual_router_id 51</div><div class="line">    priority 100</div><div class="line">    advert_int 1</div><div class="line">    authentication &#123;</div><div class="line">        auth_type PASS</div><div class="line">        auth_pass allen.com</div><div class="line">    &#125;</div><div class="line">    virtual_ipaddress &#123;</div><div class="line">        192.168.205.100</div><div class="line">    &#125;</div><div class="line">    track_script &#123;</div><div class="line">        chk_nginx</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/163305926.png?imageslim" alt="mark"></p>
+<ul>
+<li>global_defs表示全局配置</li>
+<li>virtual_router_id，master与backup需要一致</li>
+<li>priority，backup不能比master大</li>
+</ul>
+<p>2.3.2、添加nginx健康检查脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/sbin/check_ng.sh</div><div class="line">#写入以下内容</div><div class="line">#!/bin/bash</div><div class="line">#时间变量，用于记录日志</div><div class="line">d=`date --date today +%Y%m%d_%H:%M:%S`</div><div class="line">#计算nginx进程数量</div><div class="line">n=`ps -C nginx --no-heading|wc -l`</div><div class="line">#如果进程为0，则启动nginx，并且再次检测nginx进程数量，</div><div class="line">#如果还为0，说明nginx无法启动，此时需要关闭keepalived</div><div class="line">if [ $n -eq &quot;0&quot; ]; then</div><div class="line">        /etc/init.d/nginx start</div><div class="line">        n2=`ps -C nginx --no-heading|wc -l`</div><div class="line">        if [ $n2 -eq &quot;0&quot;  ]; then</div><div class="line">                echo &quot;$d nginx down,keepalived will stop&quot; &gt;&gt; /var/log/check_ng.log</div><div class="line">                systemctl stop keepalived</div><div class="line">        fi</div><div class="line">fi</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 755 /usr/local/sbin/check_ng.sh</div></pre></td></tr></table></figure>
+<p>2.3.3、启动keepalived</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl start  keepalived</div></pre></td></tr></table></figure>
+<p>因为我们的检查脚本会自动启动nginx，所以不需要我们启动</p>
+<p>查看VIP</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/171307475.png?imageslim" alt="mark"></p>
+<p>查看nginx状态</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/171237909.png?imageslim" alt="mark"></p>
+<h4 id="2-4、修改backup配置"><a href="#2-4、修改backup配置" class="headerlink" title="2.4、修改backup配置"></a>2.4、修改backup配置</h4><p>2.4.1、修改backup上的keepalived配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">mv /etc/keepalived/keepalived.conf  /etc/keepalived/keepalived.conf.bak</div><div class="line">vim /etc/keepalived/keepalived.conf</div><div class="line">#写入以下内容</div><div class="line">global_defs &#123;</div><div class="line">   notification_email &#123;</div><div class="line">     allen@allen.com</div><div class="line">   &#125;</div><div class="line">   notification_email_from root@allen.com</div><div class="line">   smtp_server 127.0.0.1</div><div class="line">   smtp_connect_timeout 30</div><div class="line">   router_id LVS_DEVEL</div><div class="line">&#125;</div><div class="line">vrrp_script chk_nginx &#123;</div><div class="line">    script &quot;/usr/local/sbin/check_ng.sh&quot;</div><div class="line">    interval 3</div><div class="line">&#125;</div><div class="line">vrrp_instance VI_1 &#123;</div><div class="line">    state BACKUP</div><div class="line">    interface ens33</div><div class="line">    virtual_router_id 51</div><div class="line">    priority 90</div><div class="line">    advert_int 1</div><div class="line">    authentication &#123;</div><div class="line">        auth_type PASS</div><div class="line">        auth_pass allen.com</div><div class="line">    &#125;</div><div class="line">    virtual_ipaddress &#123;</div><div class="line">        192.168.205.100</div><div class="line">    &#125;</div><div class="line">    track_script &#123;</div><div class="line">        chk_nginx</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>stat设置为BACKUP</li>
+<li>priority比master小</li>
+</ul>
+<p>2.4.2、添加nginx健康检查脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/sbin/check_ng.sh</div><div class="line">#写入以下内容</div><div class="line">#!/bin/bash</div><div class="line">#时间变量，用于记录日志</div><div class="line">d=`date --date today +%Y%m%d_%H:%M:%S`</div><div class="line">#计算nginx进程数量</div><div class="line">n=`ps -C nginx --no-heading|wc -l`</div><div class="line">#如果进程为0，则启动nginx，并且再次检测nginx进程数量，</div><div class="line">#如果还为0，说明nginx无法启动，此时需要关闭keepalived</div><div class="line">if [ $n -eq &quot;0&quot; ]; then</div><div class="line">        /etc/init.d/nginx start</div><div class="line">        n2=`ps -C nginx --no-heading|wc -l`</div><div class="line">        if [ $n2 -eq &quot;0&quot;  ]; then</div><div class="line">                echo &quot;$d nginx down,keepalived will stop&quot; &gt;&gt; /var/log/check_ng.log</div><div class="line">                systemctl stop keepalived</div><div class="line">        fi</div><div class="line">fi</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 755 /usr/local/sbin/check_ng.sh</div></pre></td></tr></table></figure>
+<p>2.4.3、启动keepalived</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl start  keepalived</div></pre></td></tr></table></figure>
+<p>查看nginx状态</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/225920540.png?imageslim" alt="mark"></p>
+<p>查看是否有vip</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/230005785.png?imageslim" alt="mark"></p>
+<h3 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h3><p>测试准备，执行以下命令</p>
+<p>master：echo “master,this is  master!”</p>
+<p>backup：echo “backup,this is backup!”</p>
+<p>未模拟故障时，访问vip，显示如下内容</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/231144949.png?imageslim" alt="mark"></p>
+<p>在master上模拟因为nginx故障，导致master上的keepalived服务停止运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#在master上操作</div><div class="line">systemctl stop keepalived</div></pre></td></tr></table></figure>
+<p>查看backup的日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail  -f /var/log/messages</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/230709157.png?imageslim" alt="mark"></p>
+<p>访问vip，显示内容如下</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170904/231117597.png?imageslim" alt="mark"></p>
+<p>拓展：</p>
+<p><a href="http://blog.csdn.net/yunhua_lee/article/details/9788433" target="_blank" rel="external">heartbeat和keepalived比较</a></p>
+<p><a href="http://502245466.blog.51cto.com/7559397/1298945" target="_blank" rel="external">DRBD工作原理和配置</a></p>
+<p><a href="http://lizhenliang.blog.51cto.com/7876557/1362313" target="_blank" rel="external">mysql+keepalived</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/25/15、ftp服务配置/" class="archive-article-date">
-  	<time datetime="2017-08-25T02:24:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/25/15、ftp服务配置/">ftp服务配置</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ftp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/09/04/18、Linux集群之高可用集群配置/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/23/mysql启动报错/" class="archive-article-date">
-  	<time datetime="2017-08-23T14:57:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-23</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/23/mysql启动报错/">mysql启动报错</a>
-    </h1>
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录Linux的学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/01/使用mysql-proxy配置mysql读写分离/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用mysql-proxy配置mysql读写分离</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://zhangguangzhi.github.io/2017/09/04/18、Linux集群之高可用集群配置/", 
+    sourceId: "18、Linux集群之高可用集群配置",
+    productKey: "ture",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/23/14、NFS服务配置/" class="archive-article-date">
-  	<time datetime="2017-08-23T06:23:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/23/14、NFS服务配置/">NFS服务配置</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/23/innobackex工具备份mysql数据/" class="archive-article-date">
-  	<time datetime="2017-08-23T02:07:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/23/innobackex工具备份mysql数据/">innobackex工具备份mysql数据</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/21/13.1、mysql常用操作/" class="archive-article-date">
-  	<time datetime="2017-08-21T11:39:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/21/13.1、mysql常用操作/">mysql常用操作</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/20/LNMP之搭建cms/" class="archive-article-date">
-  	<time datetime="2017-08-20T02:43:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/20/LNMP之搭建cms/">LNMP之搭建cms</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/19/LNMP之搭建discuz/" class="archive-article-date">
-  	<time datetime="2017-08-19T07:16:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/19/LNMP之搭建discuz/">LNMP之搭建discuz</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/19/LNMP之搭建WordPress/" class="archive-article-date">
-  	<time datetime="2017-08-19T06:43:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/19/LNMP之搭建WordPress/">LNMP之搭建WordPress</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/16/12.11、LNMP之php-fpm设置/" class="archive-article-date">
-  	<time datetime="2017-08-16T08:34:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/16/12.11、LNMP之php-fpm设置/">LNMP之php-fpm设置</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/15/12.10、LNMP之nginx配置SSL/" class="archive-article-date">
-  	<time datetime="2017-08-15T07:42:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/15/12.10、LNMP之nginx配置SSL/">LNMP之nginx配置SSL</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/8/">8</a><a class="extend next" rel="next" href="/archives/page/3/">Next &raquo;</a>
-    </nav>
-  
-
+<!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、keepalived介绍"><span class="toc-number">1.</span> <span class="toc-text">一、keepalived介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、keepalived-nginx实现web高可用"><span class="toc-number">2.</span> <span class="toc-text">二、keepalived+nginx实现web高可用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、实验环境"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、实验环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、安装keepalived"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、安装keepalived</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、修改master配置"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、修改master配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、修改backup配置"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、修改backup配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、测试"><span class="toc-number">3.</span> <span class="toc-text">三、测试</span></a></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
+             
+        <!-- 目录内容结束 -->
 
           </div>
         </div>
@@ -551,8 +405,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
