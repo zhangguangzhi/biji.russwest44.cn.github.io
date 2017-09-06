@@ -205,7 +205,7 @@
 <p>负载均衡：负载均衡就是LB（load bablance）集群架构，简单说就是让多台服务器均衡的去承载压力。如下图就是一个负载均衡集群，主要角色有分发器（DIR），后端服务器（RS）。常用软件有nginx、lvs、keepalived，商业的硬件负载设备F5、netscale。</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/104257010.png?imageslim" alt="mark"></p>
 <h3 id="一、LVS介绍"><a href="#一、LVS介绍" class="headerlink" title="一、LVS介绍"></a>一、LVS介绍</h3><p>LVS是由国人章文嵩开发。基于Linux2.6内核</p>
-<h4 id="1-1、LVS的三种模式介绍"><a href="#1-1、LVS的三种模式介绍" class="headerlink" title="1.1、LVS的三种模式介绍"></a>1.1、LVS的三种模式介绍</h4><p>1.1.1、nat模式</p>
+<h4 id="1-1、LVS的三种模式介绍"><a href="#1-1、LVS的三种模式介绍" class="headerlink" title="1.1、LVS的三种模式介绍"></a>1.1、LVS的三种模式介绍</h4><p>1.1.1、NAT模式</p>
 <p>这种模式需要借助iptables的nat表来实现，用户的请求到分发器后，通过预设的iptables规则，把请求的数据包转发到后端的服务器上。</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/105243989.png?imageslim" alt="mark"></p>
 <ul>
@@ -217,16 +217,72 @@
 <li>只需要DIR上有公网IP，节省公网IP资源</li>
 </ul>
 <p>1.1.2、LVS IP Tunnel模式</p>
-<h3 id="LVS的NAT模式搭建"><a href="#LVS的NAT模式搭建" class="headerlink" title="LVS的NAT模式搭建"></a>LVS的NAT模式搭建</h3><h4 id="实验环境："><a href="#实验环境：" class="headerlink" title="实验环境："></a>实验环境：</h4><p>DIR：192.168.205.138（内网），192.168.2.100（VIP）</p>
+<p>这种模式，需要有一个公共的IP配置在分发器和所有rs上，我们把它叫做vip</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/110923908.png?imageslim" alt="mark"></p>
+<ul>
+<li>客户端发起请求，分发器接受到请求数据包后，会对数据包做一个加工，将目标IP改为RS1的IP，这样数据包就到了RS上，RS接收数据包，会还原原始数据包，发现目标IP为VIP，所以它直接处理，并将结果返回给客户端。</li>
+</ul>
+<p>1.1.3、DR模式</p>
+<p>这种模式，也需要有一个公共的IP配置在分发器和所有rs上</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/110947741.png?imageslim" alt="mark"></p>
+<ul>
+<li>和IP Tunnel不同的是，它会把数据包的MAC地址修改为rs的MAC地址。</li>
+<li>客户端发起请求，分发器接收请求后分发，将数据包的MAC地址修改为RS1的MAC地址，RS1发现目标IP是VIP，处理后直接放回给客户端。</li>
+<li>在这个过程中数据包的源IP和目标IP不会修改</li>
+<li>RS上需要关闭ARP。</li>
+</ul>
+<h4 id="1-2、LVS的调度算法"><a href="#1-2、LVS的调度算法" class="headerlink" title="1.2、LVS的调度算法"></a>1.2、LVS的调度算法</h4><table>
+<thead>
+<tr>
+<th>调度算法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rr(Round-Robin)</td>
+<td>轮询，平等分发</td>
+</tr>
+<tr>
+<td>wrr(Weight Round-Robin)</td>
+<td>加权轮询，设置分发比例</td>
+</tr>
+<tr>
+<td>lc(Least-Connection)</td>
+<td>最小连接，那个链接数少优先分发</td>
+</tr>
+<tr>
+<td>wlc(Weight Least-Connection)</td>
+<td>加权最小连接</td>
+</tr>
+<tr>
+<td>lblc(Locality-Based Least Connections)</td>
+<td>基于局部性的最小连接</td>
+</tr>
+<tr>
+<td>lblcr(Locality-Based Least Connections with Replication)</td>
+<td>带复制的基于局部性最小连接</td>
+</tr>
+<tr>
+<td>dh(Destination Hashing)</td>
+<td>目标地址散列调度</td>
+</tr>
+<tr>
+<td>sh(Source Hashing)</td>
+<td>源地址散列调度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="二、LVS的NAT模式搭建"><a href="#二、LVS的NAT模式搭建" class="headerlink" title="二、LVS的NAT模式搭建"></a>二、LVS的NAT模式搭建</h3><h4 id="2-1、实验环境："><a href="#2-1、实验环境：" class="headerlink" title="2.1、实验环境："></a>2.1、实验环境：</h4><p>DIR：192.168.205.138（内网），192.168.2.100（VIP）</p>
 <p>RS1：192.168.205.136（内网）</p>
 <p>RS2：192.168.205.137（内网）</p>
 <p>为了实验方便，我们可关闭selinux和firewalld，开启iptables</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#三台机器都执行以下命令</div><div class="line">systemctl stop firewalld</div><div class="line">setenforce 0</div><div class="line">yum install -y iptables-services</div><div class="line">systemctl start  iptables</div><div class="line">iptables -F</div><div class="line">service iptables save</div></pre></td></tr></table></figure>
 <p>并且将RS1和RS2的网关设置为192.168.205.138</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim   /etc/sysconfig/network-scripts/ifcfg-ens33</div><div class="line">#将GATEWAY的值改为DIR内网网卡IP（192.168.205.138）</div></pre></td></tr></table></figure>
-<h4 id="编辑DIR配置"><a href="#编辑DIR配置" class="headerlink" title="编辑DIR配置"></a>编辑DIR配置</h4><p>DIR为分发器，也叫调度器，下面我们将在DIR上面进行配置</p>
+<h4 id="2-2、编辑DIR配置"><a href="#2-2、编辑DIR配置" class="headerlink" title="2.2、编辑DIR配置"></a>2.2、编辑DIR配置</h4><p>DIR为分发器，也叫调度器，下面我们将在DIR上面进行配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#在dir上安装ipvsadm</div><div class="line">yum  install -y ipvsadm</div><div class="line">#在dir上编写规则脚本，</div><div class="line">vim /usr/local/sbin/lvs_nat.sh</div><div class="line">#写入以下内容</div><div class="line">#!/bin/bash</div><div class="line"># director 服务器上开启路由转发功能</div><div class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</div><div class="line"># 关闭icmp的重定向</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/all/send_redirects</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/default/send_redirects</div><div class="line"># 注意区分网卡名字，本次实验两个网卡分别为ens33和ens37</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/ens33/send_redirects</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/ens37/send_redirects</div><div class="line"># director 设置nat防火墙</div><div class="line">iptables -t nat -F</div><div class="line">iptables -t nat -X</div><div class="line">iptables -t nat -A POSTROUTING -s 192.168.205.0/24  -j MASQUERADE</div><div class="line"># director设置ipvsadm</div><div class="line">IPVSADM=&apos;/usr/sbin/ipvsadm&apos;</div><div class="line">$IPVSADM -C</div><div class="line">$IPVSADM -A -t 192.168.2.100:80 -s rr</div><div class="line">$IPVSADM -a -t 192.168.2.100:80 -r 192.168.205.136:80 -m -w 1</div><div class="line">$IPVSADM -a -t 192.168.2.100:80 -r 192.168.205.137:80 -m -w 1</div></pre></td></tr></table></figure>
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>执行脚本<code>/usr/local/sbin/lvs_nat.sh</code></p>
+<h4 id="2-3、测试"><a href="#2-3、测试" class="headerlink" title="2.3、测试"></a>2.3、测试</h4><p>执行脚本<code>/usr/local/sbin/lvs_nat.sh</code></p>
 <p>修改nginx上的测试页</p>
 <p>RS1：<code>echo &quot;this is RS1.&quot; &gt;/usr/local/nginx/html/index.html</code></p>
 <p>RS2：<code>echo &quot;this is RS2.&quot; &gt;/usr/local/nginx/html/index.html</code></p>
