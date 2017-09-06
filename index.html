@@ -204,61 +204,9 @@
         <p>[TOC]</p>
 <h3 id="一、keepalived结合LVS介绍"><a href="#一、keepalived结合LVS介绍" class="headerlink" title="一、keepalived结合LVS介绍"></a>一、keepalived结合LVS介绍</h3><p>1.1、为什么要引入keepalived</p>
 <p>之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/164242708.png?imageslim" alt="mark"></p>
-<p>1.2、keepalived的作用</p>
-<p>除了可以检测RS状态外(剔除故障的RS)，还可以添加备用director。也就是说keepalived在这里也可以配置HA集群的功能，当然了也需要一台备用的director服务器。备用director也需要安装keepalive软件。</p>
-<p>注意：keepalive不像nginx和Apache那样，会自动检测配置文件是否错误。所以应该仔细检查配置文件。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/164434358.png?imageslim" alt="mark"></p>
-<ul>
-<li>简单的架构图</li>
-</ul>
-<h3 id="二、配置keepalived结合LVS"><a href="#二、配置keepalived结合LVS" class="headerlink" title="二、配置keepalived结合LVS"></a>二、配置keepalived结合LVS</h3><h4 id="2-1、实验环境"><a href="#2-1、实验环境" class="headerlink" title="2.1、实验环境"></a>2.1、实验环境</h4><p>master DIR：192.168.205.138</p>
-<p>backup DIR：192.168.205.137 </p>
-<p>RS1：192.168.205.140</p>
-<p>RS2：192.168.205.141</p>
-<p>VIP：192.168.205.200</p>
-<p>LVS使用DR模式</p>
-<h4 id="2-2、配置DIR"><a href="#2-2、配置DIR" class="headerlink" title="2.2、配置DIR"></a>2.2、配置DIR</h4><p>2.2.1、安装keepalived</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install -y keepalived</div></pre></td></tr></table></figure>
-<p>2.2.2、修改keepalived配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">mv   /etc/keepalived/keepalived.conf   /etc/keepalived/keepalived.conf.bak</div><div class="line">vim  /etc/keepalived/keepalived.conf</div><div class="line">#写入以下内容</div><div class="line">vrrp_instance VI_1 &#123;	#全局的设置</div><div class="line">state MASTER 	#如果是备用服务器，这里改为BACKUP</div><div class="line">interface eth0    #使用的网卡</div><div class="line">virtual_router_id 51 #一个id号，主从需要一样</div><div class="line">priority 100  	#优先级，从小于主</div><div class="line">advert_int 1</div><div class="line">authentication &#123;  	#主从认证通讯的设置</div><div class="line">auth_type PASS</div><div class="line">auth_pass 1111</div><div class="line">&#125;</div><div class="line">virtual_ipaddress &#123;	#设置vip</div><div class="line">192.168.205.200</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">virtual_server 192.168.205.200 80 &#123;	#指定vip对应的服务端</div><div class="line">delay_loop 6            	#每隔10秒查询realserver状态</div><div class="line">lb_algo rr             #LVS算法</div><div class="line">lb_kind DR             #调度DR模式</div><div class="line">persistence_timeout 0	#同一IP的连接60秒内被分配到同一real server</div><div class="line">protocol TCP         	#用TCP协议检查服务端的状态</div><div class="line">real_server 192.168.205.140  80 &#123;	#RS服务器配置</div><div class="line">weight 1	#权重</div><div class="line">TCP_CHECK &#123;</div><div class="line">connect_timeout 10	#10秒无响应答超时</div><div class="line">nb_get_retry 3</div><div class="line">delay_before_retry 3</div><div class="line">connect_port 80  	#检测的端口</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">real_server 192.168.205.141 80 &#123;</div><div class="line">weight 1</div><div class="line">TCP_CHECK &#123;</div><div class="line">connect_timeout 10</div><div class="line">nb_get_retry 3</div><div class="line">delay_before_retry 3</div><div class="line">connect_port 80</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>以上为master DIR的keepalived配置文件，backup DIR的配置文件需要修改stat=BACKUP，priority的值需要比master上的小。</li>
-</ul>
-<p>2.2.3、启动keepalived<br>启动之前需要打开端口转发</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo 1 &gt;/proc/sys/net/ipv4/ip_forward</div></pre></td></tr></table></figure>
-<p>启动keepalived，先启动master的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl start keepalived</div></pre></td></tr></table></figure>
-<p>此时，DIR上的配置文件中的规则已经生效</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/170406125.png?imageslim" alt="mark"></p>
-<p>现在只有master DIR上有VIP</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/171122419.png?imageslim" alt="mark"></p>
-<h4 id="2-3、RS执行脚本"><a href="#2-3、RS执行脚本" class="headerlink" title="2.3、RS执行脚本"></a>2.3、RS执行脚本</h4><p>在RS上的唯一操作，执行一下脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh /usr/local/sbin/lvs_rs.sh</div></pre></td></tr></table></figure>
-<p>脚本内容如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/sbin/lvs_rs.sh</div><div class="line">#/bin/bash</div><div class="line">vip=192.168.205.200</div><div class="line">#把vip绑定在lo上，是为了实现rs直接把结果返回给客户端</div><div class="line">ifconfig lo:0 $vip broadcast $vip netmask 255.255.255.255 up</div><div class="line">route add -host $vip lo:0</div><div class="line">#以下操作为更改arp内核参数，禁止响应arp广播，目的是为了让rs顺利发送mac地址给客户端</div><div class="line">#参考文档www.cnblogs.com/lgfeng/archive/2012/10/16/2726308.html</div><div class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</div><div class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</div><div class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</div><div class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</div></pre></td></tr></table></figure>
-<h3 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h3><h4 id="3-1、测试是否搭建成功"><a href="#3-1、测试是否搭建成功" class="headerlink" title="3.1、测试是否搭建成功"></a>3.1、测试是否搭建成功</h4><p>使用新的服务器curl</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/172316288.png?imageslim" alt="mark"></p>
-<ul>
-<li>在keepalived的配置文件中，我们设置的算法为rr，而且后端RS的权重都为1</li>
-</ul>
-<h4 id="3-2、测试自动剔除故障RS"><a href="#3-2、测试自动剔除故障RS" class="headerlink" title="3.2、测试自动剔除故障RS"></a>3.2、测试自动剔除故障RS</h4><p>将RS1上的nginx停掉，测试</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/172546200.png?imageslim" alt="mark"></p>
-<h4 id="3-3、测试HA"><a href="#3-3、测试HA" class="headerlink" title="3.3、测试HA"></a>3.3、测试HA</h4><p>将master DIR上keepalived停止</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/172750161.png?imageslim" alt="mark"></p>
-<ul>
-<li>backup会接管VIP，成为master。当master恢复时，VIP会再次漂移</li>
-</ul>
-<p>还是可以正常访问</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/172859321.png?imageslim" alt="mark"></p>
-<p>双备：我们可以将两台DIR设置为双备，角色都是backup，权重也一样。只有一方的keepalive挂掉，另一方才能拿到vip，即使挂掉的keepalive重新启动，vip也不会漂移。</p>
-<p>搭建不成功如何进程拍障：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1. IPvsadm -ln</div><div class="line">2. arp -a</div><div class="line">3. keepalived是否出现脑裂（即lvs_dr脚本是不能执行的）</div></pre></td></tr></table></figure>
-<p>拓展：</p>
-<p><a href="http://blog.csdn.net/xrt95050/article/details/40926255" target="_blank" rel="external">haproxy+keepalived</a></p>
-<p><a href="http://my.oschina.net/hncscwc/blog/158746" target="_blank" rel="external">keepalived中自定义脚本 vrrp_script</a></p>
-<p><a href="http://note.youdao.com/share/?id=424708c39444f18bf27ce3ab5334f898&amp;type=note#/" target="_blank" rel="external">keepalived结合lvs配置文件详解</a></p>
-
+        
+          <a class="article-more-a" href="/2017/09/06/22、LVS结合keepalived/#more">more >></a>
+        
       
 
       

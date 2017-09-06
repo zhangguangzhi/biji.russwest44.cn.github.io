@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>LVS结合keepalived | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、keepalived结合LVS介绍1.1、为什么要引入keepalived 之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。  1.2、keepali">
+  <meta name="description" content="[TOC] 一、keepalived结合LVS介绍1.1、为什么要引入keepalived 之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。">
 <meta name="keywords" content="Linux集群,LVS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LVS结合keepalived">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/09/06/22、LVS结合keepalived/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 一、keepalived结合LVS介绍1.1、为什么要引入keepalived 之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。  1.2、keepali">
+<meta property="og:description" content="[TOC] 一、keepalived结合LVS介绍1.1、为什么要引入keepalived 之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/164242708.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/164434358.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/170406125.png?imageslim">
@@ -23,10 +23,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/172546200.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/172750161.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/172859321.png?imageslim">
-<meta property="og:updated_time" content="2017-09-06T09:41:46.840Z">
+<meta property="og:updated_time" content="2017-09-06T14:47:52.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LVS结合keepalived">
-<meta name="twitter:description" content="[TOC] 一、keepalived结合LVS介绍1.1、为什么要引入keepalived 之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。  1.2、keepali">
+<meta name="twitter:description" content="[TOC] 一、keepalived结合LVS介绍1.1、为什么要引入keepalived 之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/164242708.png?imageslim">
   
   
@@ -166,6 +166,7 @@
         <p>[TOC]</p>
 <h3 id="一、keepalived结合LVS介绍"><a href="#一、keepalived结合LVS介绍" class="headerlink" title="一、keepalived结合LVS介绍"></a>一、keepalived结合LVS介绍</h3><p>1.1、为什么要引入keepalived</p>
 <p>之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。</p>
+<a id="more"></a>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/164242708.png?imageslim" alt="mark"></p>
 <p>1.2、keepalived的作用</p>
 <p>除了可以检测RS状态外(剔除故障的RS)，还可以添加备用director。也就是说keepalived在这里也可以配置HA集群的功能，当然了也需要一台备用的director服务器。备用director也需要安装keepalive软件。</p>
