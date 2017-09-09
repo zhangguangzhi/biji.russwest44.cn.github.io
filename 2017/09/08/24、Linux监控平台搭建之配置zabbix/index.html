@@ -6,14 +6,62 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Tag: sort | ZhangGuangZhi</title>
+  <title>Linux监控平台搭建之配置zabbix | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ZhangGuangZhi">
-<meta property="og:url" content="http://zhangguangzhi.github.io/tags/sort/index.html">
+  <meta name="description" content="[TOC] 安装zabbix的服务端以及客户端后，我们还需要做一些配置，方便我们使用 一、忘记Admin密码怎么办因为Admin的密码是保存在mysql中的，所以只需要进入mysql命令行，选择zabbix库进行重置即可 123mysql -uroot -pallenuse zabbix;&amp;gt; update users set passwd=md5(‘new passwd’) where al">
+<meta name="keywords" content="zabbix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux监控平台搭建之配置zabbix">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/09/08/24、Linux监控平台搭建之配置zabbix/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
+<meta property="og:description" content="[TOC] 安装zabbix的服务端以及客户端后，我们还需要做一些配置，方便我们使用 一、忘记Admin密码怎么办因为Admin的密码是保存在mysql中的，所以只需要进入mysql命令行，选择zabbix库进行重置即可 123mysql -uroot -pallenuse zabbix;&amp;gt; update users set passwd=md5(‘new passwd’) where al">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/203215666.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/203348637.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/203945702.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/204117706.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/212326607.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/212432655.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/214041517.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/214115785.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/214254327.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/214314223.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/215420098.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/215204201.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/215339598.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/220318385.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/215648238.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/215840039.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/220109836.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/220700186.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/223048462.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/223021671.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/225643240.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/225732152.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/230028010.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/231229671.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/231452859.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/232308361.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/232928782.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/232737720.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/233044420.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/233340458.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/233412221.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/091941050.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/092115385.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/092449328.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/093136319.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/093310527.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/093835527.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/093928433.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/095901566.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/100040116.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/100509092.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/100554276.png?imageslim">
+<meta property="og:updated_time" content="2017-09-09T02:06:11.216Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ZhangGuangZhi">
+<meta name="twitter:title" content="Linux监控平台搭建之配置zabbix">
+<meta name="twitter:description" content="[TOC] 安装zabbix的服务端以及客户端后，我们还需要做一些配置，方便我们使用 一、忘记Admin密码怎么办因为Admin的密码是保存在mysql中的，所以只需要进入mysql命令行，选择zabbix库进行重置即可 123mysql -uroot -pallenuse zabbix;&amp;gt; update users set passwd=md5(‘new passwd’) where al">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/203215666.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -129,61 +177,393 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-24、Linux监控平台搭建之配置zabbix" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/03/sort默认不按ascii表排序如何解决/" class="archive-article-date">
-  	<time datetime="2017-07-03T15:00:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/03/sort默认不按ascii表排序如何解决/">sort默认不按ascii表排序如何解决</a>
+    <h1 class="article-title" itemprop="name">
+      Linux监控平台搭建之配置zabbix
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/" class="archive-article-date">
+  	<time datetime="2017-09-08T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>安装zabbix的服务端以及客户端后，我们还需要做一些配置，方便我们使用</p>
+<h3 id="一、忘记Admin密码怎么办"><a href="#一、忘记Admin密码怎么办" class="headerlink" title="一、忘记Admin密码怎么办"></a>一、忘记Admin密码怎么办</h3><p>因为Admin的密码是保存在mysql中的，所以只需要进入mysql命令行，选择zabbix库进行重置即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -pallen</div><div class="line">use zabbix;</div><div class="line">&gt; update users set passwd=md5(‘new passwd’) where alias=‘Admin’;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="二、添加主机"><a href="#二、添加主机" class="headerlink" title="二、添加主机"></a>二、添加主机</h3><p>添加主机，<strong>即把要监控的主机加入监控中心，</strong>这样就能监控它的一些项目了，比如CPU，内存，磁盘以及网络等。在添加主机前，我们需要先添加一个主机组。</p>
+<p>2.1、添加主机组</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/203215666.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/203348637.png?imageslim" alt="mark"></p>
+<ul>
+<li>“配置”→”主机群组”→”创建主机群组”→”设置组名”  </li>
+</ul>
+<p>2.2、添加主机</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/203945702.png?imageslim" alt="mark"></p>
+<ul>
+<li>“配置”→”主机”→”创建主机”</li>
+<li>填写主机名称，选择群组，主机IP（需要安装客户端）  </li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/204117706.png?imageslim" alt="mark"></p>
+<ul>
+<li>此时主机已经添加，但是还有没任何监控项目，可以对比第二行的zabbix server</li>
+</ul>
+<p>以上出现几个概念，具体解释如下：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用集</td>
+<td>多个监控项的集合，非空应用集无法删除</td>
+</tr>
+<tr>
+<td>监控项</td>
+<td>我们准备监控的项目，例如CPU，内存等</td>
+</tr>
+<tr>
+<td>触发器</td>
+<td>针对某个监控项做的告警规则</td>
+</tr>
+<tr>
+<td>图形</td>
+<td>监控项形成的图表</td>
+</tr>
+<tr>
+<td>自动发现</td>
+<td>自动识别服务器的网卡以及磁盘</td>
+</tr>
+<tr>
+<td>web检测</td>
+<td>监控指定网站的某个URL访问是否正常</td>
+</tr>
+</tbody>
+</table>
+<h3 id="三、添加自定义模板"><a href="#三、添加自定义模板" class="headerlink" title="三、添加自定义模板"></a>三、添加自定义模板</h3><h4 id="3-1、创建空的模板"><a href="#3-1、创建空的模板" class="headerlink" title="3.1、创建空的模板"></a>3.1、创建空的模板</h4><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/212326607.png?imageslim" alt="mark"></p>
+<ul>
+<li>“配置”→”模板”→”创建模板”→”设置模板名称”  →”选择模板群组”</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/212432655.png?imageslim" alt="mark"></p>
+<ul>
+<li>新添加的模板还没有应用集，监控项等</li>
+</ul>
+<h4 id="3-2、新创建模板添加监控项目"><a href="#3-2、新创建模板添加监控项目" class="headerlink" title="3.2、新创建模板添加监控项目"></a>3.2、新创建模板添加监控项目</h4><p>一般使用以下两种方法</p>
+<p>3.2.1、从其它模板复制监控项目</p>
+<p>我们可以在其它模板复制我们需要的项目，例如我们复制”Template OS Linux”中的一些项目到我们刚刚创建的模板allen中</p>
+<p>（1）选择要复制的模板</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/214041517.png?imageslim" alt="mark"></p>
+<p>（2）选择要复制的项目</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/214115785.png?imageslim" alt="mark"></p>
+<p> （3）确认复制</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/214254327.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/214314223.png?imageslim" alt="mark"></p>
+<ul>
+<li>已经复制成功，应用集，触发器，图形等都能使用此方法复制，<strong>但是自动发现</strong>无法复制。需要使用以下方法</li>
+</ul>
+<p>（4）添加新创建模板的”自动发现”选项</p>
+<p>需要我们将选择复制的模板导出成文件，再将文件的配置内容删除到只剩下自动发现项目，再重新导入，工作量较大。</p>
+<p>3.2.2、链接已有模板</p>
+<p>使用链接模板添加监控项目，可以快速的添加。而且不需要导出导入，修改模板文件</p>
+<p>（1）删除现有项目</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/215420098.png?imageslim" alt="mark"></p>
+<p>（2）选择链接模板</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/215204201.png?imageslim" alt="mark"></p>
+<ul>
+<li>点击更新后，allen就会链接选定的模板项目</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/215339598.png?imageslim" alt="mark"></p>
+<p>（3）解除链接</p>
+<p>因为我们并不需要这么多监控项目，所以我们需要删除一些。但是，我们现在还是处于链接其他模板的状态，所以需要先解除链接。</p>
+<p>未解除链接无法删除监控项目</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/220318385.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/215648238.png?imageslim" alt="mark"></p>
+<p>解除链接状态</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/215840039.png?imageslim" alt="mark"></p>
+<ul>
+<li><p>点击”更新”后，我们就可以愉快的删除不需要的监控项目了（非空应用集无法删除）。而且我们也会有”自动发现”</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/220109836.png?imageslim" alt="mark"></p>
+</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/220700186.png?imageslim" alt="mark"></p>
+<h4 id="3-3、主机使用新建模板"><a href="#3-3、主机使用新建模板" class="headerlink" title="3.3、主机使用新建模板"></a>3.3、主机使用新建模板</h4><p>（1）选择主机</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/223048462.png?imageslim" alt="mark"></p>
+<p>（2）选择模板</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/223021671.png?imageslim" alt="mark"></p>
+<p>（3）成功使用模板</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/225643240.png?imageslim" alt="mark"></p>
+<h4 id="3-4、解决图形中文不显示"><a href="#3-4、解决图形中文不显示" class="headerlink" title="3.4、解决图形中文不显示"></a>3.4、解决图形中文不显示</h4><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/225732152.png?imageslim" alt="mark"></p>
+<ul>
+<li>如图所示，有小空块。汉字无法显示，在这里是字库的问题。</li>
+</ul>
+<p>解决办法：</p>
+<p>（1）获取中文字库</p>
+<p>Windows存放字库的位置为：C:\Windows\Fonts</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/230028010.png?imageslim" alt="mark"></p>
+<p>（2）zabbix字库存放位置</p>
+<p>服务端上查看zabbix配置文件</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/231229671.png?imageslim" alt="mark"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ls -l /usr/share/zabbix/fonts</div><div class="line">ls -l /etc/alternatives/zabbix-web-font</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/231452859.png?imageslim" alt="mark"></p>
+<ul>
+<li>通过软链接，源文件为/usr/share/fonts/dejavu/DejaVuSans.ttf</li>
+</ul>
+<p>（3）修改zabbix字库</p>
+<p>zabbix的字库文件名称是指定的，所以我们可以将该文件的源文件修改为支持中文的字库文件。将Windows上的字库文件(宋体)传输到Linux上，使用软链接链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mv /tmp/simsun.ttc   /usr/share/fonts/</div><div class="line">mv /usr/share/zabbix/fonts/graphfont.ttf  /usr/share/zabbix/fonts/graphfont.ttf.bak</div><div class="line"> ln -s  /usr/share/fonts/simsun.ttc   /usr/share/zabbix/fonts/graphfont.ttf</div></pre></td></tr></table></figure>
+<ul>
+<li><p>完成后刷新即可</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/232308361.png?imageslim" alt="mark"></p>
+</li>
+</ul>
+<h4 id="3-5、创建项目图形"><a href="#3-5、创建项目图形" class="headerlink" title="3.5、创建项目图形"></a>3.5、创建项目图形</h4><p>我们的模板起初只设置了几个监控项目可以直接查看图形</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/232928782.png?imageslim" alt="mark"></p>
+<p>其它项目想要查看图形需要进行以下操作：</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/232737720.png?imageslim" alt="mark"></p>
+<ul>
+<li>“监测中”→”最新数据”→”图形”</li>
+</ul>
+<p>我们可以添加某些项目的图形，更加方便我们查看。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/233044420.png?imageslim" alt="mark"></p>
+<p>创建图形后，配置监控项</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/233340458.png?imageslim" alt="mark"></p>
+<p>成功添加</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/233412221.png?imageslim" alt="mark"></p>
+<h4 id="3-6、”自动发现”配置"><a href="#3-6、”自动发现”配置" class="headerlink" title="3.6、”自动发现”配置"></a>3.6、”自动发现”配置</h4><p>3.6.1、修改”自动发现”数据更新间隔</p>
+<p>“自动发现”的数据更新间隔默认为1h，这样会导致我们监控主机后，要一个小时之后才能了解这些项目的数据。所以，我们可以将间隔修改，更快获得数据</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/091941050.png?imageslim" alt="mark"></p>
+<p>（1）直接选择自动发现规则</p>
+<p>修改数据更新间隔</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/092115385.png?imageslim" alt="mark"></p>
+<ul>
+<li>“配置”→”模板”→”自动发现”→”选择项目”</li>
+<li>修改为60秒，重启zabbix-agent和zabbix-server服务可以更快是配置生效</li>
+</ul>
+<p>重启zabbix后，会自动生成图形</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/092449328.png?imageslim" alt="mark"></p>
+<ul>
+<li>为了避免压力，我们可以将数据更新间隔修改为600秒</li>
+</ul>
+<p>3.6.2、修改图形选项</p>
+<p>有时候，我们并不喜欢图形默认的颜色，需要修改，我们可以按照以下步骤进行修改。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/093136319.png?imageslim" alt="mark"></p>
+<ul>
+<li>“配置”→”模板”→”自动发现”→”图形原型”→”选择项目”</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/093310527.png?imageslim" alt="mark"></p>
+<ul>
+<li>修改后查看预览即可</li>
+</ul>
+<p>3.6.3、修改监控项数据更新时间</p>
+<p>监控项数据默认更新时间为60秒，我们可以进行修改</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/093835527.png?imageslim" alt="mark"></p>
+<ul>
+<li>“配置”→”模板”→”自动发现”→”监控项原型”</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/093928433.png?imageslim" alt="mark"></p>
+<ul>
+<li>修改为30秒，更新速率已经很快</li>
+<li>“配置”→”模板”→”自动发现”→”监控项原型”→”选择项目”</li>
+</ul>
+<h4 id="3-7、添加自定义监控项目"><a href="#3-7、添加自定义监控项目" class="headerlink" title="3.7、添加自定义监控项目"></a>3.7、添加自定义监控项目</h4><p>需求：监控某台Web服务器80端口的并发连接数，并设置图形</p>
+<p>（1）创建监控80端口脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#在客户端创建</div><div class="line">vim  /usr/local/sbin/estab.sh</div><div class="line">#写入以下内容</div><div class="line">#!/bin/bash</div><div class="line">netstat -ant  |grep &apos;:80 &apos;  |grep  -c  ESTABLISHED</div></pre></td></tr></table></figure>
+<ul>
+<li><p>修改权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod  755  /usr/local/sbin/estab.sh</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>（2）使zabbix-agent知道监控脚本的位置</p>
+<p>修改zabbix-agent配置文件，定义监控项的key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim  /etc/zabbix/zabbix_agentd.conf</div><div class="line">#增加两行</div><div class="line">#表示使用自定义脚本</div><div class="line">UnsafeUserParameters=1</div><div class="line">#自定义监控项的key为my.estab.count(在zabbix添加监控项需要用到),后面的[*]里面写脚本的参数，如果没有参数则可以省略，指定脚本为/usr/local/sbin/enstab</div><div class="line">UserParameter=my.estab.count[*],/usr/local/sbin/estab.sh</div></pre></td></tr></table></figure>
+<ul>
+<li>保存文件后，需要重新启动zabbix-agent</li>
+</ul>
+<p>（3）添加监控项目</p>
+<p>首先在服务端验证脚本是否可以执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zabbix_get  -s 192.168.205.138  -p 10050 -k &apos;my.estab.count&apos;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/095901566.png?imageslim" alt="mark"></p>
+<p>在浏览器中添加监控项，键值填写’my.estab.count’</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/100040116.png?imageslim" alt="mark"></p>
+<ul>
+<li>“配置”→”模板”→”监控项”→”创建监控项”</li>
+<li>创建完成，可以在’检测中’→’最新数据’查看刚添加的项目是否有数据出现</li>
+</ul>
+<p>（4）添加图形</p>
+<p>有了监控线，有了数据，我们就可以添加图形。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/100509092.png?imageslim" alt="mark"></p>
+<ul>
+<li>“配置”→”主机”→”图形”→”创建图形”</li>
+<li>记得找到我们刚刚添加的监控项</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/100554276.png?imageslim" alt="mark"></p>
+<ul>
+<li>添加自定义监控项完成</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sort</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/09/08/24、Linux监控平台搭建之配置zabbix/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          记录Linux的学习
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2017/09/08/23、Linux监控平台搭建之zabbix/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux监控平台搭建之zabbix</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://zhangguangzhi.github.io/2017/09/08/24、Linux监控平台搭建之配置zabbix/", 
+    sourceId: "24、Linux监控平台搭建之配置zabbix",
+    productKey: "ture",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
 
+  
+
+<!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、忘记Admin密码怎么办"><span class="toc-number">1.</span> <span class="toc-text">一、忘记Admin密码怎么办</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、添加主机"><span class="toc-number">2.</span> <span class="toc-text">二、添加主机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、添加自定义模板"><span class="toc-number">3.</span> <span class="toc-text">三、添加自定义模板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、创建空的模板"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、创建空的模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、新创建模板添加监控项目"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、新创建模板添加监控项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3、主机使用新建模板"><span class="toc-number">3.3.</span> <span class="toc-text">3.3、主机使用新建模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4、解决图形中文不显示"><span class="toc-number">3.4.</span> <span class="toc-text">3.4、解决图形中文不显示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5、创建项目图形"><span class="toc-number">3.5.</span> <span class="toc-text">3.5、创建项目图形</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6、”自动发现”配置"><span class="toc-number">3.6.</span> <span class="toc-text">3.6、”自动发现”配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7、添加自定义监控项目"><span class="toc-number">3.7.</span> <span class="toc-text">3.7、添加自定义监控项目</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
+             
+        <!-- 目录内容结束 -->
 
           </div>
         </div>
@@ -205,9 +585,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

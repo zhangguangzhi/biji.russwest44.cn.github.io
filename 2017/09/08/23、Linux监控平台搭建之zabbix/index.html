@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/101730347.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/102648793.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/103906764.png?imageslim">
-<meta property="og:updated_time" content="2017-09-08T02:41:31.626Z">
+<meta property="og:updated_time" content="2017-09-08T13:21:55.923Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux监控平台搭建之zabbix">
 <meta name="twitter:description" content="[TOC] 监控对于一个架构是十分重要的。一个企业就算架构再不成熟，监控都必须要有。监控不管用什么方式实现，开源软件也好，商业的监控服务也好，或者简陋的shell脚本，在业务上线时都必须要先做到位。当前，流行的开源监控软件有cacti，nagios，zabbix，open-falcon。    监控软件 特点     cacti 成图专业，擅长监控网络流量   nagios 没有历史数据，直接返回">
@@ -295,8 +295,6 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170908/103906764.png?imageslim" alt="mark"></p>
 </li>
 </ul>
-<h4 id="2-1-5、忘记Admin密码怎么办"><a href="#2-1-5、忘记Admin密码怎么办" class="headerlink" title="2.1.5、忘记Admin密码怎么办"></a>2.1.5、忘记Admin密码怎么办</h4><p>因为Admin的密码是保存在mysql中的，所以只需要进入mysql命令行，选择zabbix库进行重置即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -pallen</div><div class="line">use zabbix;</div><div class="line">&gt; update users set passwd=md5(‘new passwd’) where alias=‘Admin’;</div></pre></td></tr></table></figure>
 
       
 
@@ -380,11 +378,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          Linux监控平台搭建之配置zabbix
         
       </div>
     </a>
@@ -429,7 +427,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、zabbix监控介绍"><span class="toc-number">1.</span> <span class="toc-text">一、zabbix监控介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、zabbix监控安装和部署"><span class="toc-number">2.</span> <span class="toc-text">二、zabbix监控安装和部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、安装zabbix"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、安装zabbix</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-5、忘记Admin密码怎么办"><span class="toc-number">2.2.</span> <span class="toc-text">2.1.5、忘记Admin密码怎么办</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、zabbix监控介绍"><span class="toc-number">1.</span> <span class="toc-text">一、zabbix监控介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、zabbix监控安装和部署"><span class="toc-number">2.</span> <span class="toc-text">二、zabbix监控安装和部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、安装zabbix"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、安装zabbix</span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
@@ -553,14 +551,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
@@ -573,23 +563,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linux集群,LVS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Linux集群,keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -597,15 +579,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -617,7 +591,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Linux集群,keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Linux集群,LVS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,6 +620,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,7 +643,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,15 +651,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -666,6 +660,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
