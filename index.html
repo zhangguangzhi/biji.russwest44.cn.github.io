@@ -181,6 +181,179 @@
         <!-- 目录内容结束 -->
 
   
+    <article id="post-26、shell脚本介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/12/26、shell脚本介绍/">shell脚本介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/12/26、shell脚本介绍/" class="archive-article-date">
+  	<time datetime="2017-09-12T06:23:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、什么是shell脚本"><a href="#一、什么是shell脚本" class="headerlink" title="一、什么是shell脚本"></a>一、什么是shell脚本</h3><p>shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本</p>
+<h3 id="二、shell脚本的作用"><a href="#二、shell脚本的作用" class="headerlink" title="二、shell脚本的作用"></a>二、shell脚本的作用</h3><p>shell脚本能帮助我们很方便地管理服务器，因为我们可以指定一个任务计划，定时去执行某个shell脚本以满足需求。例如，我需要在每天的凌晨某个时段备份数据库，并将其压缩。我不可能每天凌晨都来进行这些操作。但是，我可以在任务计划里添加一个脚本，脚本的内容就是帮我备份数据库并压缩。我只需要检查任务计划是否有执行即可。</p>
+<h3 id="三、shell脚本的创建和执行"><a href="#三、shell脚本的创建和执行" class="headerlink" title="三、shell脚本的创建和执行"></a>三、shell脚本的创建和执行</h3><h4 id="3-1、shell脚本的创建"><a href="#3-1、shell脚本的创建" class="headerlink" title="3.1、shell脚本的创建"></a>3.1、shell脚本的创建</h4><p>首先，我们来创建第一个脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/sbin</div><div class="line">vim first.sh</div><div class="line">#!/bin.bash</div><div class="line">#This is first script.</div><div class="line">date </div><div class="line">echo  &quot;Hello  world!&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>脚本的名称为first.sh，以.sh结尾。这样做只是为了方便管理员知道这是一个脚本文件，并不是说不以.sh结尾的就能能执行。</li>
+<li>脚本第一行内容”#!/bin/bash”，表示该脚本使用bash语法</li>
+<li>脚本第二行”#This is first script.”，在shell脚本中，以#开头的行属于注释</li>
+<li>脚本第三，四行才是真正执行的命令</li>
+</ul>
+<h4 id="3-2、shell脚本的执行"><a href="#3-2、shell脚本的执行" class="headerlink" title="3.2、shell脚本的执行"></a>3.2、shell脚本的执行</h4><p>创建完脚本，我们需要执行才知道是不是有效果。</p>
+<p>以下有两种方法执行shell脚本</p>
+<p>3.2.1、赋予脚本执行权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod  +x /usr/local/sbin/first.sh</div><div class="line">/usr/local/sbin/first.sh</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/144528350.png?imageslim" alt="mark"></p>
+<ul>
+<li>脚本赋予执行权限后，使用绝对路径执行</li>
+</ul>
+<p>3.2.2、使用bash执行</p>
+<p>（1）bash直接执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#首先去掉执行权限</div><div class="line">chmod  -x /usr/local/sbin/first.sh</div><div class="line">bash  /usr/local/sbin/first.sh</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/144729231.png?imageslim" alt="mark"></p>
+<ul>
+<li>使用bash加脚本绝对路径也可以执行shell脚本</li>
+</ul>
+<p>（2）查看执行过程</p>
+<p>使用bash执行脚本时，我们还可以使用-x查看脚本执行过程</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/144907582.png?imageslim" alt="mark"></p>
+<ul>
+<li>+后面表示执行的命令，接着是该命令的输出</li>
+</ul>
+<p>（3）检查语法</p>
+<p>使用bash执行脚本时，我们还可以使用-n查看脚本是否有语法错误</p>
+<p>我们将first.sh的内容修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/sbin/first.sh</div><div class="line">#!/bin/bash</div><div class="line">#This is first script.</div><div class="line">date</div><div class="line">echo &quot;Hello world!&quot;</div><div class="line">if [ $? -eq 0   ]</div><div class="line">then</div><div class="line">        echo &quot;ok&quot;</div><div class="line"></div><div class="line">#if判断少了结束fi</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/145207971.png?imageslim" alt="mark"></p>
+<h3 id="四、date命令的使用"><a href="#四、date命令的使用" class="headerlink" title="四、date命令的使用"></a>四、date命令的使用</h3><p>如上的备份数据库，我们需要有一个时间来确认备份文件属于那一天。这时，我们就可以使用date。</p>
+<p>直接执行date，会显示当前时间</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/150618734.png?imageslim" alt="mark"></p>
+<p>4.1、格式化输出当前时间</p>
+<p>使用date  +%可以格式化输出时间</p>
+<p>（1）以四位数字表示当前所在年份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%Y</div><div class="line">2017</div></pre></td></tr></table></figure>
+<p>（2）以两位数字表示当前所在年份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%y</div><div class="line">17</div></pre></td></tr></table></figure>
+<p>（3）表示当前所在月份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%m</div><div class="line">09</div></pre></td></tr></table></figure>
+<p>（4）表示当前所在日期</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%d</div><div class="line">12</div></pre></td></tr></table></figure>
+<p>（5）表示当前所在小时</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%H</div><div class="line">14</div></pre></td></tr></table></figure>
+<p>（6）表示当前所在秒数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%S</div><div class="line">04</div></pre></td></tr></table></figure>
+<ul>
+<li>%s表示当前的一个时间戳</li>
+</ul>
+<p>（7）表示当前所在周几</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%w</div><div class="line">2</div></pre></td></tr></table></figure>
+<ul>
+<li>%W表示一年中的第几周</li>
+</ul>
+<p><strong>以上格式是可以组合起来使用的，并且支持符号链接</strong></p>
+<p>（8）表示一个日期（年月日）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">date  +%F</div><div class="line">[root@allen4 shell]# date  +%F</div><div class="line">2017-09-12</div></pre></td></tr></table></figure>
+<ul>
+<li>+%F等于+%Y-%m-%d</li>
+</ul>
+<p>（9）表示一个时间（时分秒）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date  +%T</div><div class="line">15:05:30</div></pre></td></tr></table></figure>
+<ul>
+<li>+%T等于+%H:%M:%S</li>
+</ul>
+<p>（10）输出一个完整时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date  +&quot;%Y-%m-%d %H:%M:%S&quot;</div><div class="line">2017-09-12 15:09:04</div></pre></td></tr></table></figure>
+<p>4.2、date输出指定日期<br>（1）输出指定日期</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date  -d  &quot;2017-09-01 19:00:00&quot;</div><div class="line">2017年 09月 01日 星期五 19:00:00 CST</div></pre></td></tr></table></figure>
+<p>（2）输出当前时间的前一天</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date</div><div class="line">2017年 09月 12日 星期二 15:16:16 CST</div><div class="line">[root@allen4 shell]# date  -d  &quot;-1day&quot;</div><div class="line">2017年 09月 11日 星期一 15:17:35 CST</div></pre></td></tr></table></figure>
+<ul>
+<li>前一小时使用”-1 hour”</li>
+<li>前一分钟使用”-1 min”</li>
+<li>前一秒钟使用”-1 second”</li>
+<li>前一年使用”-1 year”</li>
+<li>前一个月使用”-1 month”</li>
+<li>不一定都是”1”</li>
+</ul>
+<p>4.3、时间戳应用</p>
+<p>（1）时间戳转换为日期</p>
+<p>date  +%s会输出一个时间戳</p>
+<p>该时间戳表示自UTC 时间 1970-01-01 00:00:00 以来所经过的秒数。那么我们要怎样做才能知道一个时间戳对应的日期。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date  +%s</div><div class="line">1505200353</div><div class="line">[root@allen4 shell]# date  -d  @1505200353</div><div class="line">2017年 09月 12日 星期二 15:12:33 CST</div></pre></td></tr></table></figure>
+<p>（2）某个日期转换为时间戳</p>
+<p>那么我们怎么将一个日期转化为时间戳呢</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date   -d   &quot;2017-09-01 19:00:00 &quot;  +%s </div><div class="line">1504263600</div></pre></td></tr></table></figure>
+<h3 id="五、shell脚本中的变量"><a href="#五、shell脚本中的变量" class="headerlink" title="五、shell脚本中的变量"></a>五、shell脚本中的变量</h3><p>在shell脚本中使用变量会使我们的脚本更加专业，更像是一门语言。如果你写了一个长达1000行的shell脚本，并且脚本中多次出现某一个命令或者路径，而你觉得路径不对想修改一下，就得一个一个修改，或者使用批量替换的命令修改。这样做很麻烦，并且脚本也会显得臃肿。如果，你一开始就使用变量。那么你只需要修改该变量的值，这样就方便很多。</p>
+<p>在脚本中定义变量的格式为：”变量名”=”变量的值”。在脚本中引用变量的值需要加上符号$。这跟在shell中自定义变量是一致的。</p>
+<p>以下是shell脚本中的几种变量</p>
+<p>（1）当脚本中使用某个字符串较频繁并且字符串很长时就应该使用变量代替</p>
+<p>（2）使用条件语句时，常使用变量，if  [ $a -gt 1]; then  …. ; fi</p>
+<p>（3）引用某个命令的结果时，用变量代替，n=`wc -l 1.txt `，引用的命令使用反引号</p>
+<p>（4）写和用户交互的脚本时，变量也是必不可少的， read -p “Input a number: “ n; echo \$n   如果没写这个n，可以直接使用$REPLY</p>
+<p>（5）内置变量\$0，\$1，\$2，\$3……   \$0表示脚本本身，\$1表示第一个参数，\$2表示第二个参数，\$n表示第n个参数，第10个起需要使用{}，\$#表示参数个数</p>
+<h3 id="六、shell脚本中的数学运算"><a href="#六、shell脚本中的数学运算" class="headerlink" title="六、shell脚本中的数学运算"></a>六、shell脚本中的数学运算</h3><p>如果我们有一个需求是需要计算两个变量之间的和。因为shell中的变量的值是字符串，所以无法直接进行数学运算。</p>
+<p>实例脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# cat sum.sh</div><div class="line">#!/bin/bash</div><div class="line">#For get the sum of two number</div><div class="line"></div><div class="line">a=1</div><div class="line">b=2</div><div class="line">sum1=$a+$b</div><div class="line">sum2=$(($a+$b))</div><div class="line">sum3=$[$a+$b]</div><div class="line">echo  &quot;$sum1&quot;</div><div class="line">echo  &quot;$sum2&quot;</div><div class="line">echo  &quot;$sum3&quot;</div></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/155217479.png?imageslim" alt="mark"></p>
+<ul>
+<li>可以看到变量sum1的值还是一个字符串，而sum2和sum3的值才是正常的</li>
+</ul>
+<p><strong>shell脚本如果需要进行数学运算，需要使用\$(( 1+2 ))或者\$[ 1+2 ]</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/12/26、shell脚本介绍/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-25、Linux监控平台搭建之配置zabbix告警" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -272,45 +445,9 @@
 <p>master：192.168.205.137</p>
 <p>backup：192.168.205.136</p>
 <p>VIP：192.168.205.110</p>
-<h3 id="一、配置两台mysql主主同步"><a href="#一、配置两台mysql主主同步" class="headerlink" title="一、配置两台mysql主主同步"></a>一、配置两台mysql主主同步</h3><p>配置了主主同步，才能保证两台mysql的数据是一致的。</p>
-<p>配置步骤可以参考：<a href="http://zhangguangzhi.top/2017/08/31/mysql%E4%B8%BB%E4%B8%BB%E5%A4%8D%E5%88%B6/" target="_blank" rel="external">mysql主主复制</a></p>
-<h3 id="二、配置keepalived实现热备"><a href="#二、配置keepalived实现热备" class="headerlink" title="二、配置keepalived实现热备"></a>二、配置keepalived实现热备</h3><h4 id="2-1、安装keepalived"><a href="#2-1、安装keepalived" class="headerlink" title="2.1、安装keepalived"></a>2.1、安装keepalived</h4><p>可以使用源码安装，也可以使用yum安装</p>
-<p>2.1.1、下载源码包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install -y pcre-devel openssl-devel popt-devel   #安装依赖包</div><div class="line">cd /usr/local/src</div><div class="line">wget http://www.keepalived.org/software/keepalived-1.2.7.tar.gz</div><div class="line">tar -zxvf keepalived-1.2.7.tar.gz</div></pre></td></tr></table></figure>
-<p>2.1.2、安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ./keepalived-1.2.7</div><div class="line">./configure --prefix=/usr/local/keepalived</div><div class="line">make  &amp;&amp;  make install</div></pre></td></tr></table></figure>
-<h4 id="2-2、配置keepalived"><a href="#2-2、配置keepalived" class="headerlink" title="2.2、配置keepalived"></a>2.2、配置keepalived</h4><p>2.2.1、将keepalived配置成系统服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cp /usr/local/keepalived/etc/rc.d/init.d/keepalived /etc/init.d/</div><div class="line">cp /usr/local/keepalived/etc/sysconfig/keepalived /etc/sysconfig/</div><div class="line">mkdir /etc/keepalived/</div><div class="line">cp /usr/local/keepalived/etc/keepalived/keepalived.conf /etc/keepalived/</div><div class="line">cp /usr/local/keepalived/sbin/keepalived /usr/sbin/</div></pre></td></tr></table></figure>
-<p>2.2.2、修改keepalived配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&gt; /etc/keepalived/keepalived.conf</div><div class="line">vi /etc/keepalived/keepalived.conf</div><div class="line">#写入以下内容</div><div class="line">! Configuration File forkeepalived</div><div class="line">global_defs &#123;</div><div class="line">notification_email &#123;</div><div class="line">test@sina.com</div><div class="line"> &#125;</div><div class="line">notification_email_from  admin@test.com</div><div class="line">smtp_server 127.0.0.1</div><div class="line">smtp_connect_timeout 30</div><div class="line">router_id MYSQL_HA      #标识，双主相同</div><div class="line"> &#125;</div><div class="line">vrrp_instance VI_1 &#123;</div><div class="line"> state BACKUP           #两台都设置BACKUP</div><div class="line"> interface ens33</div><div class="line"> virtual_router_id 51       #主备相同</div><div class="line"> priority 100           #可以设置一样，如果不一样需要使用nopreempt</div><div class="line"> advert_int 1</div><div class="line"> #nopreempt             #不主动抢占资源，只在master这台优先级高的设置，backup不设置</div><div class="line"> authentication &#123;</div><div class="line"> auth_type PASS</div><div class="line"> auth_pass 1111</div><div class="line"> &#125;</div><div class="line"> virtual_ipaddress &#123;</div><div class="line"> 192.168.205.110</div><div class="line"> &#125;</div><div class="line">&#125;</div><div class="line">virtual_server 192.168.205.110 3306 &#123;</div><div class="line"> delay_loop 2</div><div class="line"> #lb_algo rr              #LVS算法，用不到，我们就关闭了</div><div class="line"> #lb_kind DR              #LVS模式，如果不关闭，备用服务器不能通过VIP连接主MySQL</div><div class="line"> persistence_timeout 50  #同一IP的连接60秒内被分配到同一台真实服务器</div><div class="line"> protocol TCP</div><div class="line"> real_server 192.168.205.137 3306 &#123;   #检测本地mysql，backup也要写检测本地mysql</div><div class="line"> weight 3</div><div class="line"> notify_down /usr/local/keepalived/mysql.sh    #当mysql服务down时，执行此脚本，杀死keepalived实现切换</div><div class="line"> TCP_CHECK &#123;</div><div class="line"> connect_timeout 3    #连接超时</div><div class="line"> nb_get_retry 3       #重试次数</div><div class="line"> delay_before_retry 3 #重试间隔时间</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>backup服务器只修改priority为90、nopreempt不设置、real_server设置本地IP。</strong></li>
-</ul>
-<p>2.2.3、添加/usr/local/keepalived/mysql.sh</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/keepalived/mysql.sh</div><div class="line">#!/bin/bash</div><div class="line">pkill keepalived</div><div class="line">sleep  10</div><div class="line">/etc/init.d/keepalived start  &gt;/dev/null</div></pre></td></tr></table></figure>
-<ul>
-<li>创建之后，还需要赋予执行权限</li>
-</ul>
-<p>启动keepalived</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/keepalived start</div></pre></td></tr></table></figure>
-<h3 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h3><p>本次测试我们将是用其他客户端连接，所以我们需要在master和backup上的mysql授权root远程登录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql&gt; grant all on *.* to&apos;root&apos;@&apos;192.168.205.%&apos; identified by &apos;123.com&apos;;</div><div class="line">mysql&gt; flush privileges;</div></pre></td></tr></table></figure>
-<p>3.1、mysql客户端通过VIP连接，查看是否连接成功</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170910/104817454.png?imageslim" alt="mark"></p>
-<p>3.2、停止master上的mysql服务，是否能正常切换。</p>
-<p>在master上执行：/etc/init.d/mysqld  stop</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170910/104936966.png?imageslim" alt="mark"></p>
-<p>3.3、master服务器故障恢复后，是否主动抢占资源，成为活动服务器。</p>
-<p>在master上执行：/etc/init.d/mysqld  start</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170910/105106846.png?imageslim" alt="mark"></p>
-<ul>
-<li><p>因为我们的检测脚本只是简单的直接杀死keepalived，当我们恢复mysql服务时，同时还需要启动keepalived。</p>
-</li>
-<li><p>还可以使用以下内容作为检测脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">#时间变量，用于记录日志</div><div class="line">d=`date --date today +%Y%m%d_%H:%M:%S`</div><div class="line">#计算nginx进程数量</div><div class="line">n=`ps -C mysqld --no-heading|wc -l`</div><div class="line">#如果进程为0，则启动nginx，并且再次检测mysqld进程数量，</div><div class="line">#如果还为0，说明mysqld无法启动，此时需要关闭keepalived</div><div class="line">if [ $n -eq &quot;0&quot; ]; then</div><div class="line">        /etc/init.d/mysqld start</div><div class="line">        n2=`ps -C mysqld --no-heading|wc -l`</div><div class="line">        if [ $n2 -eq &quot;0&quot;  ]; then</div><div class="line">                echo &quot;$d mysqld down,keepalived will stop&quot; &gt;&gt; /var/log/check_ng.log</div><div class="line">               /etc/init.d/keepalived stop</div><div class="line">        fi</div><div class="line">fi</div></pre></td></tr></table></figure>
-<p>​</p>
-</li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2017/09/10/keepalived结合mysql实现高可用/#more">more >></a>
+        
       
 
       
@@ -323,7 +460,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">keepalived,mysql主从</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
         		</li>
       		
 		</ul>
@@ -551,7 +692,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群,LVS,keepalived</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
         		</li>
       		
 		</ul>
@@ -655,7 +804,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Linux集群,LVS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
         		</li>
       		
 		</ul>
@@ -763,7 +916,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Linux集群,LVS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
         		</li>
       		
 		</ul>
@@ -903,7 +1060,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Linux集群,LVS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
         		</li>
       		
 		</ul>
@@ -914,71 +1075,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/09/05/19、Linux集群之负载均衡集群/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-18、Linux集群之高可用集群配置keepalived" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/04/18、Linux集群之高可用集群配置keepalived/">Linux集群之高可用集群配置keepalived</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/04/18、Linux集群之高可用集群配置keepalived/" class="archive-article-date">
-  	<time datetime="2017-09-04T07:56:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Linux集群介绍</p>
-<p>一台服务器的硬件配置总是有限的，当服务器上运行的资源超过服务器的承载能力时，必将导致该服务器崩溃。在生产环境中，多数企业会使用多台服务器搭建成一个集群来运行应用程序，这样不仅可以避免单点故障，还能提升服务器的承载能力。</p>
-        
-          <a class="article-more-a" href="/2017/09/04/18、Linux集群之高可用集群配置keepalived/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Linux集群,keepalived</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/04/18、Linux集群之高可用集群配置keepalived/">展开全文 >></a>
         </p>
       
 
@@ -1104,15 +1200,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1124,7 +1216,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1132,15 +1228,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1152,7 +1244,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1160,7 +1256,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Linux集群,keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1168,7 +1264,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linux集群,LVS</a>
+                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1180,23 +1288,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群,LVS,keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">keepalived,mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1212,15 +1304,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1232,7 +1324,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>keepalived结合mysql实现高可用 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 实验环境： os：centos7×64 master：192.168.205.137 backup：192.168.205.136 VIP：192.168.205.110 一、配置两台mysql主主同步配置了主主同步，才能保证两台mysql的数据是一致的。 配置步骤可以参考：mysql主主复制 二、配置keepalived实现热备2.1、安装keepalived可以使用源码安装，也可以">
-<meta name="keywords" content="keepalived,mysql主从">
+  <meta name="description" content="[TOC] 实验环境： os：centos7×64 master：192.168.205.137 backup：192.168.205.136 VIP：192.168.205.110">
+<meta name="keywords" content="mysql主从,keepalived">
 <meta property="og:type" content="article">
 <meta property="og:title" content="keepalived结合mysql实现高可用">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/09/10/keepalived结合mysql实现高可用/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 实验环境： os：centos7×64 master：192.168.205.137 backup：192.168.205.136 VIP：192.168.205.110 一、配置两台mysql主主同步配置了主主同步，才能保证两台mysql的数据是一致的。 配置步骤可以参考：mysql主主复制 二、配置keepalived实现热备2.1、安装keepalived可以使用源码安装，也可以">
+<meta property="og:description" content="[TOC] 实验环境： os：centos7×64 master：192.168.205.137 backup：192.168.205.136 VIP：192.168.205.110">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170910/104817454.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170910/104936966.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170910/105106846.png?imageslim">
-<meta property="og:updated_time" content="2017-09-10T06:33:33.500Z">
+<meta property="og:updated_time" content="2017-09-12T03:17:47.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="keepalived结合mysql实现高可用">
-<meta name="twitter:description" content="[TOC] 实验环境： os：centos7×64 master：192.168.205.137 backup：192.168.205.136 VIP：192.168.205.110 一、配置两台mysql主主同步配置了主主同步，才能保证两台mysql的数据是一致的。 配置步骤可以参考：mysql主主复制 二、配置keepalived实现热备2.1、安装keepalived可以使用源码安装，也可以">
+<meta name="twitter:description" content="[TOC] 实验环境： os：centos7×64 master：192.168.205.137 backup：192.168.205.136 VIP：192.168.205.110">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170910/104817454.png?imageslim">
   
   
@@ -164,6 +164,7 @@
 <p>master：192.168.205.137</p>
 <p>backup：192.168.205.136</p>
 <p>VIP：192.168.205.110</p>
+<a id="more"></a>
 <h3 id="一、配置两台mysql主主同步"><a href="#一、配置两台mysql主主同步" class="headerlink" title="一、配置两台mysql主主同步"></a>一、配置两台mysql主主同步</h3><p>配置了主主同步，才能保证两台mysql的数据是一致的。</p>
 <p>配置步骤可以参考：<a href="http://zhangguangzhi.top/2017/08/31/mysql%E4%B8%BB%E4%B8%BB%E5%A4%8D%E5%88%B6/" target="_blank" rel="external">mysql主主复制</a></p>
 <h3 id="二、配置keepalived实现热备"><a href="#二、配置keepalived实现热备" class="headerlink" title="二、配置keepalived实现热备"></a>二、配置keepalived实现热备</h3><h4 id="2-1、安装keepalived"><a href="#2-1、安装keepalived" class="headerlink" title="2.1、安装keepalived"></a>2.1、安装keepalived</h4><p>可以使用源码安装，也可以使用yum安装</p>
@@ -215,7 +216,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">keepalived,mysql主从</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
         		</li>
       		
 		</ul>
@@ -454,15 +459,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -474,7 +475,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -482,15 +487,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,7 +503,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -510,7 +515,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Linux集群,keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,7 +523,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Linux集群,LVS</a>
+                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -530,23 +547,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群,LVS,keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">keepalived,mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,15 +563,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -582,7 +583,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>
