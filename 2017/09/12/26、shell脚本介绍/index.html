@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>shell脚本介绍 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、什么是shell脚本shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本 二、shell脚本的作用shell脚本能">
+  <meta name="description" content="[TOC] 一、什么是shell脚本shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本">
 <meta name="keywords" content="shell脚本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell脚本介绍">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/09/12/26、shell脚本介绍/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 一、什么是shell脚本shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本 二、shell脚本的作用shell脚本能">
+<meta property="og:description" content="[TOC] 一、什么是shell脚本shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170912/144528350.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170912/144729231.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170912/144907582.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170912/145207971.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170912/150618734.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170912/155217479.png?imageslim">
-<meta property="og:updated_time" content="2017-09-12T13:49:35.272Z">
+<meta property="og:updated_time" content="2017-09-14T01:58:03.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell脚本介绍">
-<meta name="twitter:description" content="[TOC] 一、什么是shell脚本shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本 二、shell脚本的作用shell脚本能">
+<meta name="twitter:description" content="[TOC] 一、什么是shell脚本shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170912/144528350.png?imageslim">
   
   
@@ -163,6 +163,7 @@
       
         <p>[TOC]</p>
 <h3 id="一、什么是shell脚本"><a href="#一、什么是shell脚本" class="headerlink" title="一、什么是shell脚本"></a>一、什么是shell脚本</h3><p>shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本</p>
+<a id="more"></a>
 <h3 id="二、shell脚本的作用"><a href="#二、shell脚本的作用" class="headerlink" title="二、shell脚本的作用"></a>二、shell脚本的作用</h3><p>shell脚本能帮助我们很方便地管理服务器，因为我们可以指定一个任务计划，定时去执行某个shell脚本以满足需求。例如，我需要在每天的凌晨某个时段备份数据库，并将其压缩。我不可能每天凌晨都来进行这些操作。但是，我可以在任务计划里添加一个脚本，脚本的内容就是帮我备份数据库并压缩。我只需要检查任务计划是否有执行即可。</p>
 <h3 id="三、shell脚本的创建和执行"><a href="#三、shell脚本的创建和执行" class="headerlink" title="三、shell脚本的创建和执行"></a>三、shell脚本的创建和执行</h3><h4 id="3-1、shell脚本的创建"><a href="#3-1、shell脚本的创建" class="headerlink" title="3.1、shell脚本的创建"></a>3.1、shell脚本的创建</h4><p>首先，我们来创建第一个脚本</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/sbin</div><div class="line">vim first.sh</div><div class="line">#!/bin.bash</div><div class="line">#This is first script.</div><div class="line">date </div><div class="line">echo  &quot;Hello  world!&quot;</div></pre></td></tr></table></figure>
@@ -356,11 +357,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/09/13/27、shell脚本之if判断/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          shell脚本之逻辑判断if,case
         
       </div>
     </a>
@@ -557,15 +558,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,11 +578,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,14 +591,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -613,7 +606,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -625,19 +622,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,11 +646,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
             
             <div class="clearfix"></div>

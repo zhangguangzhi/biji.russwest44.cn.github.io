@@ -6,30 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>tomcat搭建zrlog | ZhangGuangZhi</title>
+  <title>shell脚本之逻辑判断if,case | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] tomcat的项目部署可以在appBase或docBase中，以下我们将实验如何使用这两个目录搭建zrlog。 tomcat的端口已经修改为80">
-<meta name="keywords" content="java,tomcat">
+  <meta name="description" content="[TOC] 判断表达式的两种格式（1）test  -e   /root/1.sh （2）[  -e  /root/1.sh ]        #注意[ ]与判断语句之间有空格 一、逻辑判断表达式1.1、按照文件类型判断   判断选项 作用     -e  file 判断文件或目录是否存在，并且存在为真   -d  file 判断文件是否存在，并且为目录   -f  file 判断文件是否存在，并且">
+<meta name="keywords" content="shell脚本">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tomcat搭建zrlog">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/30/tomcat搭建zrlog/index.html">
+<meta property="og:title" content="shell脚本之逻辑判断if,case">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/09/13/27、shell脚本之if判断/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] tomcat的项目部署可以在appBase或docBase中，以下我们将实验如何使用这两个目录搭建zrlog。 tomcat的端口已经修改为80">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/000707624.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/000845778.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/001440520.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/001756564.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/001837362.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/002035242.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/002232676.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/002659621.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/003453415.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/003354285.png?imageslim">
-<meta property="og:updated_time" content="2017-08-29T16:50:49.055Z">
+<meta property="og:description" content="[TOC] 判断表达式的两种格式（1）test  -e   /root/1.sh （2）[  -e  /root/1.sh ]        #注意[ ]与判断语句之间有空格 一、逻辑判断表达式1.1、按照文件类型判断   判断选项 作用     -e  file 判断文件或目录是否存在，并且存在为真   -d  file 判断文件是否存在，并且为目录   -f  file 判断文件是否存在，并且">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170914/091608430.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170914/092139397.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170914/092736345.png?imageslim">
+<meta property="og:updated_time" content="2017-09-14T02:09:18.198Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tomcat搭建zrlog">
-<meta name="twitter:description" content="[TOC] tomcat的项目部署可以在appBase或docBase中，以下我们将实验如何使用这两个目录搭建zrlog。 tomcat的端口已经修改为80">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170830/000707624.png?imageslim">
+<meta name="twitter:title" content="shell脚本之逻辑判断if,case">
+<meta name="twitter:description" content="[TOC] 判断表达式的两种格式（1）test  -e   /root/1.sh （2）[  -e  /root/1.sh ]        #注意[ ]与判断语句之间有空格 一、逻辑判断表达式1.1、按照文件类型判断   判断选项 作用     -e  file 判断文件或目录是否存在，并且存在为真   -d  file 判断文件是否存在，并且为目录   -f  file 判断文件是否存在，并且">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170914/091608430.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -145,20 +138,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-tomcat搭建zrlog" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-27、shell脚本之if判断" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      tomcat搭建zrlog
+      shell脚本之逻辑判断if,case
     </h1>
   
 
         
-        <a href="/2017/08/30/tomcat搭建zrlog/" class="archive-article-date">
-  	<time datetime="2017-08-29T16:00:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-30</time>
+        <a href="/2017/09/13/27、shell脚本之if判断/" class="archive-article-date">
+  	<time datetime="2017-09-13T12:07:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-13</time>
 </a>
         
       </header>
@@ -166,57 +159,235 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<p>tomcat的项目部署可以在appBase或docBase中，以下我们将实验如何使用这两个目录搭建zrlog。</p>
-<p>tomcat的端口已经修改为80</p>
-<a id="more"></a>
-<h3 id="一、下载zrlog"><a href="#一、下载zrlog" class="headerlink" title="一、下载zrlog"></a>一、下载zrlog</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src/</div><div class="line">wget http://dl.zrlog.com/release/zrlog-1.7.1-baaecb9-release.war</div></pre></td></tr></table></figure>
-<h3 id="二、利用appBase部署"><a href="#二、利用appBase部署" class="headerlink" title="二、利用appBase部署"></a>二、利用appBase部署</h3><h4 id="2-1、虚拟主机配置"><a href="#2-1、虚拟主机配置" class="headerlink" title="2.1、虚拟主机配置"></a>2.1、虚拟主机配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Host name=&quot;www.123.com&quot; appBase=&quot;webapps&quot;</div><div class="line">    unpackWARs=&quot;ture&quot; autoDeploy=&quot;ture&quot;</div><div class="line">    xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</div><div class="line">    &lt;Context path=&quot;&quot; docBase=&quot;&quot; debug=&quot;0&quot;</div><div class="line">    reloadable=&quot;ture&quot; crossContext=&quot;ture&quot;/&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/000707624.png?imageslim" alt="mark"></p>
+<h3 id="判断表达式的两种格式"><a href="#判断表达式的两种格式" class="headerlink" title="判断表达式的两种格式"></a>判断表达式的两种格式</h3><p>（1）test  -e   /root/1.sh</p>
+<p>（2）[  -e  /root/1.sh ]        #注意[ ]与判断语句之间有空格</p>
+<h3 id="一、逻辑判断表达式"><a href="#一、逻辑判断表达式" class="headerlink" title="一、逻辑判断表达式"></a>一、逻辑判断表达式</h3><h4 id="1-1、按照文件类型判断"><a href="#1-1、按照文件类型判断" class="headerlink" title="1.1、按照文件类型判断"></a>1.1、按照文件类型判断</h4><table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-e  file</td>
+<td>判断文件或目录是否存在，并且存在为真</td>
+</tr>
+<tr>
+<td>-d  file</td>
+<td>判断文件是否存在，并且为目录</td>
+</tr>
+<tr>
+<td>-f  file</td>
+<td>判断文件是否存在，并且为文件</td>
+</tr>
+<tr>
+<td>-s  file</td>
+<td>判断文件是否非空，并且非空为真</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>域名为<code>www.123.com</code></li>
-<li>项目目录为/usr/local/tomcat/webapps，开启自动解压以及自动部署。</li>
+<li>-b,-c,-l,-p,-S分别表示块设备文件，字符设备文件，符号链接文件，字符管道文件，套接字符文件</li>
 </ul>
-<h4 id="2-2、移动war包至项目目录"><a href="#2-2、移动war包至项目目录" class="headerlink" title="2.2、移动war包至项目目录"></a>2.2、移动war包至项目目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv zrlog-1.7.1-baaecb9-release.war /usr/local/tomcat/webapps/</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/000845778.png?imageslim" alt="mark"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/tomcat/webapps/</div><div class="line">mv zrlog-1.7.1-baaecb9-release  zrlog</div></pre></td></tr></table></figure>
+<h4 id="1-2、按照文件权限判断"><a href="#1-2、按照文件权限判断" class="headerlink" title="1.2、按照文件权限判断"></a>1.2、按照文件权限判断</h4><p>判断当前登录用户对指定文件的一些权限</p>
+<table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-r  file</td>
+<td>判断文件是否存在，并且可读</td>
+</tr>
+<tr>
+<td>-w  file</td>
+<td>判断文件是否存在，并且可写</td>
+</tr>
+<tr>
+<td>-x  file</td>
+<td>判断文件是否存在，并且可执行</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-3、判断数值大小"><a href="#1-3、判断数值大小" class="headerlink" title="1.3、判断数值大小"></a>1.3、判断数值大小</h4><p>只针对整数判断</p>
+<table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整数1 -eq 整数2</td>
+<td>判断整数1是否等于整数2</td>
+</tr>
+<tr>
+<td>整数1 -ne 整数2</td>
+<td>判断整数1是否不等于整数2</td>
+</tr>
+<tr>
+<td>整数1 -gt 整数2</td>
+<td>判断整数1是否大于整数2</td>
+</tr>
+<tr>
+<td>整数1 -lt 整数2</td>
+<td>判断整数1是否小于整数2</td>
+</tr>
+<tr>
+<td>整数1 -ge 整数2</td>
+<td>判断整数1是否大于等于整数2</td>
+</tr>
+<tr>
+<td>整数1 -le 整数2</td>
+<td>判断整数1是否小于等于整数2</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-4、字符串的比较"><a href="#1-4、字符串的比较" class="headerlink" title="1.4、字符串的比较"></a>1.4、字符串的比较</h4><table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-z  字符串</td>
+<td>判断字符串是否为空，为空判断成立</td>
+</tr>
+<tr>
+<td>-n  “字符串”</td>
+<td>判断字符串是否不为空，不为空判断成立</td>
+</tr>
+<tr>
+<td>字符串1  ==  字符串2</td>
+<td>判断字符串1是否与字符串2相同</td>
+</tr>
+<tr>
+<td>字符串1  !=   字符串2</td>
+<td>判断字符串1是否与字符串2不相同</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>在webapps下的项目需要使用<code>http://ip/</code>项目目录，所以我们将zrlog-1.7.1-baaecb9-release该为zrlog</li>
+<li>“=”表示的是赋值</li>
 </ul>
-<h4 id="2-3、部署zrlog"><a href="#2-3、部署zrlog" class="headerlink" title="2.3、部署zrlog"></a>2.3、部署zrlog</h4><p>在浏览器中输入：<code>http://ip/zrlog</code></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/001440520.png?imageslim" alt="mark"></p>
-<p>2.3.1、创建数据库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql  -uroot -pallen</div><div class="line">&gt; create database  zrlog;</div><div class="line">&gt; use zrlog;</div><div class="line">&gt; grant all on  zrlog.* to  &apos;zrlog&apos;@&apos;127.0.0.1&apos;  identified by  &apos;allen&apos;;</div></pre></td></tr></table></figure>
-<p>填写数据库相关</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/001756564.png?imageslim" alt="mark"></p>
-<p>2.3.2、填写网站信息</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/001837362.png?imageslim" alt="mark"></p>
-<p>2.3.2、部署完成</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/002035242.png?imageslim" alt="mark"></p>
-<p><strong>我们需要使用<code>http://ip/项目名称/</code>才能访问到项目，例如<code>http://ip/zrlog</code></strong></p>
-<h3 id="三、利用docBase部署"><a href="#三、利用docBase部署" class="headerlink" title="三、利用docBase部署"></a>三、利用docBase部署</h3><p>2.1、虚拟主机配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Host name=&quot;www.123.com&quot; appBase=&quot;&quot;</div><div class="line">    unpackWARs=&quot;ture&quot; autoDeploy=&quot;ture&quot;</div><div class="line">    xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</div><div class="line">    &lt;Context path=&quot;&quot; docBase=&quot;/data/wwwroot/123.com&quot; debug=&quot;0&quot;</div><div class="line">    reloadable=&quot;ture&quot; crossContext=&quot;ture&quot;/&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/002232676.png?imageslim" alt="mark"></p>
+<h4 id="1-5、多重条件判断（逻辑与，逻辑或，逻辑非）"><a href="#1-5、多重条件判断（逻辑与，逻辑或，逻辑非）" class="headerlink" title="1.5、多重条件判断（逻辑与，逻辑或，逻辑非）"></a>1.5、多重条件判断（逻辑与，逻辑或，逻辑非）</h4><table>
+<thead>
+<tr>
+<th>条件连接符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>判断1  -a  判断2</td>
+<td>逻辑与，判断1与判断2都成立，结果才为真。判断1 &amp;&amp; 判断2</td>
+</tr>
+<tr>
+<td>判断1  -o  判断2</td>
+<td>逻辑或，判断1与判断2有一个成立，结果就为真。  判断1  \</td>
+<td>\</td>
+<td>判断2</td>
+</tr>
+<tr>
+<td>!  判断</td>
+<td>逻辑非，使原始的判断式取反</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-6、两个文件比较"><a href="#1-6、两个文件比较" class="headerlink" title="1.6、两个文件比较"></a>1.6、两个文件比较</h4><table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件1 -nt 文件2</td>
+<td>判断文件1的修改时间是否比文件2的新</td>
+</tr>
+<tr>
+<td>文件1 -ot 文件2</td>
+<td>判断文件1的修改时间是否比文件2的旧</td>
+</tr>
+<tr>
+<td>文件1 -ef 文件2</td>
+<td>判断文件1的inode是否和文件2的一致，可以用来判断硬链接</td>
+</tr>
+</tbody>
+</table>
+<p>1.7、拓展</p>
+<p>判断一个值是否为数字：test1=\$(echo \$test | sed ‘s/[0-9]//g’)  ; if [ -z  \$test1 ] ;then  …..;  fi</p>
+<p>同理，判断一个值是否为字母可以将[0-9]改为[a-Z]。</p>
+<h3 id="二、if逻辑判断"><a href="#二、if逻辑判断" class="headerlink" title="二、if逻辑判断"></a>二、if逻辑判断</h3><h4 id="2-1、不带else"><a href="#2-1、不带else" class="headerlink" title="2.1、不带else"></a>2.1、不带else</h4><p>符合条件判断语句会执行命令，不符合的无操作。</p>
+<p>格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if 判断语句</div><div class="line">then</div><div class="line">	command</div><div class="line">fi</div></pre></td></tr></table></figure>
 <ul>
-<li>appBase不设置</li>
-<li>使用&lt;Context，将docBase设置为/data/wwwroot/123.com</li>
-<li>因为我们是在一台机器上实验，所以需要重启tomcat</li>
+<li>当then不需要执行命令时，直接输入:即可</li>
 </ul>
-<p>2.2、部署zrlog</p>
-<p>修改配置文件后重启，我们现在访问会出现404.</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/002659621.png?imageslim" alt="mark"></p>
+<p>示例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim if1.sh</div><div class="line">#!/bin/bash</div><div class="line">read -p &quot;please input your score: &quot; a</div><div class="line">if [ $a -lt 60 ]</div><div class="line">then</div><div class="line">echo &quot;you didn&apos;t pass the exam.&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/091608430.png?imageslim" alt="mark"></p>
 <ul>
-<li>这是因为我们已经修改了项目根目录</li>
+<li>首先需要输入一个数字，判断该数字是否小于60，小于60则输出”you didn’t pass the exam.”，否则无输出。</li>
 </ul>
-<p>2.2.1、复制zrlog项目</p>
-<p>因为之前我们已经安装了，所以我们直接复制这些文件即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp  -r /usr/local/tomcat/webapps/zrlog/*  /data/wwwroot/123.com</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/003453415.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170830/003354285.png?imageslim" alt="mark"></p>
-<p><strong>我们直接使用<code>http://ip/</code>即可访问项目</strong></p>
-<h3 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h3><p>项目部署在appBase，docBase的区别</p>
-<p>1、部署在appBase时，appBase指定的目录不能直接放项目文件，而是需要将这些文件放在一个项目目录中（如上的zrlog目录），而且访问时需要使用<code>http://ip/项目名称/</code>，如上的<code>http://www.123.com/zrlog</code>。在appBase指定的目录下，war和jar包我们可以设置自动解压以及部署，访问时如<code>http://www.123.com/zrlog</code>。<strong>网站真正的根目录为appBase指定目录下的ROOT</strong></p>
-<p>2、部署在docBase时，项目文件可以直接放在docBase指定的目录下。访问时直接为<code>http://ip</code>，如<code>http://www.123.com</code>。<strong>网站的根目录就是docBase指定的目录</strong></p>
-<p><strong>部署在docBase的方式跟适合我们的习惯</strong></p>
+<h4 id="2-2、带有else"><a href="#2-2、带有else" class="headerlink" title="2.2、带有else"></a>2.2、带有else</h4><p>符合条件判断语句会执行命令，不符合的也会执行操作。</p>
+<p>格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if 判断语句</div><div class="line">then</div><div class="line">	command</div><div class="line">else</div><div class="line">	command</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>示例2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vim  if2.sh</div><div class="line">#!/bin/bash</div><div class="line">read  -p &quot;please input  your score: &quot; n</div><div class="line">if [ $n -lt 60 ]</div><div class="line">then</div><div class="line">        echo &quot;you didn&apos;t pass then exam&quot;</div><div class="line">else</div><div class="line">        echo &quot;good,you passed the exam&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/092139397.png?imageslim" alt="mark"></p>
+<ul>
+<li>与示例1的区别在于，如果输入大于等于60的数字会有所提示</li>
+</ul>
+<h4 id="2-3、带有elif"><a href="#2-3、带有elif" class="headerlink" title="2.3、带有elif"></a>2.3、带有elif</h4><p>符合条件判断语句会执行命令，如果不符合会接着匹配elif中的条件判断，如果都不符合才会执行else</p>
+<p>格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if 判断语句1</div><div class="line">then</div><div class="line">	command</div><div class="line">elif 判断语句2</div><div class="line">then</div><div class="line">	command</div><div class="line">else</div><div class="line">	command</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>示例3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">vim if3.sh</div><div class="line">#!/bin/bash</div><div class="line">read -p &quot;please input your score: &quot; a</div><div class="line">if [ $a -lt 60 ]</div><div class="line">then</div><div class="line">echo &quot;you didn&apos;t pass the exam.&quot;</div><div class="line">elif [ $a -ge 60 ] &amp;&amp; [ $a -lt 85 ]</div><div class="line">then</div><div class="line">echo  &quot;good,you passed the exam.&quot;</div><div class="line">else</div><div class="line">echo &quot;very good! your score is very high!&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/092736345.png?imageslim" alt="mark"></p>
+<ul>
+<li>该结构下会一次判断，符合那个条件就执行该条件下的命令</li>
+</ul>
+<h4 id="2-4、if判断的使用"><a href="#2-4、if判断的使用" class="headerlink" title="2.4、if判断的使用"></a>2.4、if判断的使用</h4><p>（1）和文件相关的判断</p>
+<p>shell脚本中if可用于判断文件属性，比如判断是否为普通文件还是目录，判断文件是否有读写执行权限等</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if [ -d /home/ ];then echo &quot;ok&quot;;fi</div><div class="line">if [ -f /home/ ];then echo &quot;ok&quot;;fi</div></pre></td></tr></table></figure>
+<p>（2）关于字符串（变量）的判断</p>
+<p>shell脚本if可用于判断字符串是否相同，以及变量是否为空等</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a=&quot;&quot;;if [ -n &quot;$a&quot; ];then echo &quot;a is not null&quot;;else echo &quot;a is null&quot;; fi</div><div class="line">a=root;if [$a == &quot;root&quot; ];then echo &quot;ok&quot;;fi</div></pre></td></tr></table></figure>
+<p>（3）if判断条件可以为一条命令</p>
+<p>我们在if判断的使用时，还可以使用命令作为判断条件</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if grep -q &apos;^root:&apos; /etc/passwd;then echo &quot;user root exist.&quot;;fi</div></pre></td></tr></table></figure>
+<ul>
+<li>grep -q选项的作用是，过滤但不输出。用于if判断中，我们不需要输出结果，只需要知道它有没有执行成功。</li>
+<li>也就是说如果/etc/passwd文件中含有root这个用户，那么条件就成立。</li>
+</ul>
+<h3 id="三、case"><a href="#三、case" class="headerlink" title="三、case"></a>三、case</h3><p>在shell脚本中，除了用if来逻辑判断外，还有一种常用的方式，那就是case</p>
+<p>格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">case 变量 in</div><div class="line">value1)</div><div class="line">	command</div><div class="line">	;;</div><div class="line">value2)</div><div class="line">	command</div><div class="line">	;;</div><div class="line">value3|value4)</div><div class="line">	command</div><div class="line">	;;</div><div class="line">*)</div><div class="line">	Command</div><div class="line">	;;</div><div class="line">esac</div></pre></td></tr></table></figure>
+<ul>
+<li>上面的结构中，不限制value的个数，*表示除了上面的value外的其他值。</li>
+<li>value也是可以使用|连接，代表或者</li>
+<li>需要以”;;”结束</li>
+</ul>
+<p>示例1：判断输入数值时奇数还是偶数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">vim  case.sh</div><div class="line">#!/bin/bash</div><div class="line">read -p &quot;please input a number: &quot; n</div><div class="line">m=`echo &quot;$n&quot;|sed s/[0-9]//g`</div><div class="line">if [ -z $m ]</div><div class="line">        then</div><div class="line">        a=$[$n%2]</div><div class="line">case $a in</div><div class="line">        1)</div><div class="line">        echo &quot;the number is odd&quot;</div><div class="line">        ;;</div><div class="line">        0)</div><div class="line">        echo &quot;the number is even&quot;</div><div class="line">        ;;</div><div class="line">        *)</div><div class="line">        echo &quot;it&apos;s not a number&quot;</div><div class="line">        ;;</div><div class="line">esac</div><div class="line">else</div><div class="line">        echo &quot;please input a number&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>示例2：判断输入的成绩是否合格</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">read -p &quot;Please input a number: &quot; n</div><div class="line">if [ -z &quot;$n&quot; ]</div><div class="line">then</div><div class="line">    echo &quot;Please input a number.&quot;</div><div class="line">    exit 1</div><div class="line">fi</div><div class="line"></div><div class="line">n1=`echo $n|sed &apos;s/[0-9]//g&apos;`</div><div class="line">if [ -n &quot;$n1&quot; ]</div><div class="line">then</div><div class="line"> echo &quot;Please input a number.&quot;</div><div class="line"> exit 1</div><div class="line">fi</div><div class="line"></div><div class="line">if [ $n -lt 60 ] &amp;&amp; [ $n -ge 0 ]</div><div class="line">then</div><div class="line">    tag=1</div><div class="line">elif [ $n -ge 60 ] &amp;&amp; [ $n -lt 80 ]</div><div class="line">then</div><div class="line">    tag=2</div><div class="line">elif [ $n -ge 80 ]  &amp;&amp; [ $n -lt 90 ]</div><div class="line">then</div><div class="line">    tag=3</div><div class="line">elif [ $n -ge 90 ] &amp;&amp; [ $n -le 100 ]</div><div class="line">then</div><div class="line">    tag=4</div><div class="line">else </div><div class="line">    tag=0</div><div class="line">fi</div><div class="line">case $tag in</div><div class="line">    1)</div><div class="line">	echo &quot;you performance didn&apos;t pass the exam.&quot;</div><div class="line">        ;;</div><div class="line">    2)</div><div class="line">        echo &quot;you performance can passed the exam.&quot;</div><div class="line">        ;;</div><div class="line">    3)</div><div class="line">        echo &quot;you performance is good&quot;</div><div class="line">        ;;</div><div class="line">    4)</div><div class="line">        echo &quot;you performance is very good&quot;</div><div class="line">        ;;</div><div class="line">    *)</div><div class="line">        echo &quot;The number range is 0-100.&quot;</div><div class="line">        ;; </div><div class="line">esac</div></pre></td></tr></table></figure>
+<ul>
+<li>case可看做是一个if-elif-elif-…-else</li>
+<li>多数启动脚本都会使用到case</li>
+</ul>
 
       
 
@@ -230,11 +401,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
         		</li>
       		
 		</ul>
@@ -290,7 +457,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/08/30/tomcat搭建zrlog/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/09/13/27、shell脚本之if判断/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -304,18 +471,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/30/17、mysql主从配置/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          mysql主从复制配置
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/08/28/16、配置tomcat/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">配置tomcat</div>
+    <a href="/2017/09/12/26、shell脚本介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">shell脚本介绍</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -331,8 +498,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://zhangguangzhi.github.io/2017/08/30/tomcat搭建zrlog/", 
-    sourceId: "tomcat搭建zrlog",
+    url: "http://zhangguangzhi.github.io/2017/09/13/27、shell脚本之if判断/", 
+    sourceId: "27、shell脚本之if判断",
     productKey: "ture",
     target: "cloud-tie-wrapper"
   };
@@ -353,7 +520,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、下载zrlog"><span class="toc-number">1.</span> <span class="toc-text">一、下载zrlog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、利用appBase部署"><span class="toc-number">2.</span> <span class="toc-text">二、利用appBase部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、虚拟主机配置"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、虚拟主机配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、移动war包至项目目录"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、移动war包至项目目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、部署zrlog"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、部署zrlog</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、利用docBase部署"><span class="toc-number">3.</span> <span class="toc-text">三、利用docBase部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、总结"><span class="toc-number">4.</span> <span class="toc-text">四、总结</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#判断表达式的两种格式"><span class="toc-number">1.</span> <span class="toc-text">判断表达式的两种格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一、逻辑判断表达式"><span class="toc-number">2.</span> <span class="toc-text">一、逻辑判断表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1、按照文件类型判断"><span class="toc-number">2.1.</span> <span class="toc-text">1.1、按照文件类型判断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2、按照文件权限判断"><span class="toc-number">2.2.</span> <span class="toc-text">1.2、按照文件权限判断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3、判断数值大小"><span class="toc-number">2.3.</span> <span class="toc-text">1.3、判断数值大小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4、字符串的比较"><span class="toc-number">2.4.</span> <span class="toc-text">1.4、字符串的比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5、多重条件判断（逻辑与，逻辑或，逻辑非）"><span class="toc-number">2.5.</span> <span class="toc-text">1.5、多重条件判断（逻辑与，逻辑或，逻辑非）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6、两个文件比较"><span class="toc-number">2.6.</span> <span class="toc-text">1.6、两个文件比较</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、if逻辑判断"><span class="toc-number">3.</span> <span class="toc-text">二、if逻辑判断</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、不带else"><span class="toc-number">3.1.</span> <span class="toc-text">2.1、不带else</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、带有else"><span class="toc-number">3.2.</span> <span class="toc-text">2.2、带有else</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、带有elif"><span class="toc-number">3.3.</span> <span class="toc-text">2.3、带有elif</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、if判断的使用"><span class="toc-number">3.4.</span> <span class="toc-text">2.4、if判断的使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、case"><span class="toc-number">4.</span> <span class="toc-text">三、case</span></a></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){

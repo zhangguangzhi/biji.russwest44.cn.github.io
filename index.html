@@ -181,6 +181,297 @@
         <!-- 目录内容结束 -->
 
   
+    <article id="post-27、shell脚本之if判断" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/13/27、shell脚本之if判断/">shell脚本之逻辑判断if,case</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/13/27、shell脚本之if判断/" class="archive-article-date">
+  	<time datetime="2017-09-13T12:07:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="判断表达式的两种格式"><a href="#判断表达式的两种格式" class="headerlink" title="判断表达式的两种格式"></a>判断表达式的两种格式</h3><p>（1）test  -e   /root/1.sh</p>
+<p>（2）[  -e  /root/1.sh ]        #注意[ ]与判断语句之间有空格</p>
+<h3 id="一、逻辑判断表达式"><a href="#一、逻辑判断表达式" class="headerlink" title="一、逻辑判断表达式"></a>一、逻辑判断表达式</h3><h4 id="1-1、按照文件类型判断"><a href="#1-1、按照文件类型判断" class="headerlink" title="1.1、按照文件类型判断"></a>1.1、按照文件类型判断</h4><table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-e  file</td>
+<td>判断文件或目录是否存在，并且存在为真</td>
+</tr>
+<tr>
+<td>-d  file</td>
+<td>判断文件是否存在，并且为目录</td>
+</tr>
+<tr>
+<td>-f  file</td>
+<td>判断文件是否存在，并且为文件</td>
+</tr>
+<tr>
+<td>-s  file</td>
+<td>判断文件是否非空，并且非空为真</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>-b,-c,-l,-p,-S分别表示块设备文件，字符设备文件，符号链接文件，字符管道文件，套接字符文件</li>
+</ul>
+<h4 id="1-2、按照文件权限判断"><a href="#1-2、按照文件权限判断" class="headerlink" title="1.2、按照文件权限判断"></a>1.2、按照文件权限判断</h4><p>判断当前登录用户对指定文件的一些权限</p>
+<table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-r  file</td>
+<td>判断文件是否存在，并且可读</td>
+</tr>
+<tr>
+<td>-w  file</td>
+<td>判断文件是否存在，并且可写</td>
+</tr>
+<tr>
+<td>-x  file</td>
+<td>判断文件是否存在，并且可执行</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-3、判断数值大小"><a href="#1-3、判断数值大小" class="headerlink" title="1.3、判断数值大小"></a>1.3、判断数值大小</h4><p>只针对整数判断</p>
+<table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整数1 -eq 整数2</td>
+<td>判断整数1是否等于整数2</td>
+</tr>
+<tr>
+<td>整数1 -ne 整数2</td>
+<td>判断整数1是否不等于整数2</td>
+</tr>
+<tr>
+<td>整数1 -gt 整数2</td>
+<td>判断整数1是否大于整数2</td>
+</tr>
+<tr>
+<td>整数1 -lt 整数2</td>
+<td>判断整数1是否小于整数2</td>
+</tr>
+<tr>
+<td>整数1 -ge 整数2</td>
+<td>判断整数1是否大于等于整数2</td>
+</tr>
+<tr>
+<td>整数1 -le 整数2</td>
+<td>判断整数1是否小于等于整数2</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-4、字符串的比较"><a href="#1-4、字符串的比较" class="headerlink" title="1.4、字符串的比较"></a>1.4、字符串的比较</h4><table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-z  字符串</td>
+<td>判断字符串是否为空，为空判断成立</td>
+</tr>
+<tr>
+<td>-n  “字符串”</td>
+<td>判断字符串是否不为空，不为空判断成立</td>
+</tr>
+<tr>
+<td>字符串1  ==  字符串2</td>
+<td>判断字符串1是否与字符串2相同</td>
+</tr>
+<tr>
+<td>字符串1  !=   字符串2</td>
+<td>判断字符串1是否与字符串2不相同</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>“=”表示的是赋值</li>
+</ul>
+<h4 id="1-5、多重条件判断（逻辑与，逻辑或，逻辑非）"><a href="#1-5、多重条件判断（逻辑与，逻辑或，逻辑非）" class="headerlink" title="1.5、多重条件判断（逻辑与，逻辑或，逻辑非）"></a>1.5、多重条件判断（逻辑与，逻辑或，逻辑非）</h4><table>
+<thead>
+<tr>
+<th>条件连接符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>判断1  -a  判断2</td>
+<td>逻辑与，判断1与判断2都成立，结果才为真。判断1 &amp;&amp; 判断2</td>
+</tr>
+<tr>
+<td>判断1  -o  判断2</td>
+<td>逻辑或，判断1与判断2有一个成立，结果就为真。  判断1  \</td>
+<td>\</td>
+<td>判断2</td>
+</tr>
+<tr>
+<td>!  判断</td>
+<td>逻辑非，使原始的判断式取反</td>
+</tr>
+</tbody>
+</table>
+<h4 id="1-6、两个文件比较"><a href="#1-6、两个文件比较" class="headerlink" title="1.6、两个文件比较"></a>1.6、两个文件比较</h4><table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件1 -nt 文件2</td>
+<td>判断文件1的修改时间是否比文件2的新</td>
+</tr>
+<tr>
+<td>文件1 -ot 文件2</td>
+<td>判断文件1的修改时间是否比文件2的旧</td>
+</tr>
+<tr>
+<td>文件1 -ef 文件2</td>
+<td>判断文件1的inode是否和文件2的一致，可以用来判断硬链接</td>
+</tr>
+</tbody>
+</table>
+<p>1.7、拓展</p>
+<p>判断一个值是否为数字：test1=\$(echo \$test | sed ‘s/[0-9]//g’)  ; if [ -z  \$test1 ] ;then  …..;  fi</p>
+<p>同理，判断一个值是否为字母可以将[0-9]改为[a-Z]。</p>
+<h3 id="二、if逻辑判断"><a href="#二、if逻辑判断" class="headerlink" title="二、if逻辑判断"></a>二、if逻辑判断</h3><h4 id="2-1、不带else"><a href="#2-1、不带else" class="headerlink" title="2.1、不带else"></a>2.1、不带else</h4><p>符合条件判断语句会执行命令，不符合的无操作。</p>
+<p>格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if 判断语句</div><div class="line">then</div><div class="line">	command</div><div class="line">fi</div></pre></td></tr></table></figure>
+<ul>
+<li>当then不需要执行命令时，直接输入:即可</li>
+</ul>
+<p>示例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim if1.sh</div><div class="line">#!/bin/bash</div><div class="line">read -p &quot;please input your score: &quot; a</div><div class="line">if [ $a -lt 60 ]</div><div class="line">then</div><div class="line">echo &quot;you didn&apos;t pass the exam.&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/091608430.png?imageslim" alt="mark"></p>
+<ul>
+<li>首先需要输入一个数字，判断该数字是否小于60，小于60则输出”you didn’t pass the exam.”，否则无输出。</li>
+</ul>
+<h4 id="2-2、带有else"><a href="#2-2、带有else" class="headerlink" title="2.2、带有else"></a>2.2、带有else</h4><p>符合条件判断语句会执行命令，不符合的也会执行操作。</p>
+<p>格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if 判断语句</div><div class="line">then</div><div class="line">	command</div><div class="line">else</div><div class="line">	command</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>示例2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vim  if2.sh</div><div class="line">#!/bin/bash</div><div class="line">read  -p &quot;please input  your score: &quot; n</div><div class="line">if [ $n -lt 60 ]</div><div class="line">then</div><div class="line">        echo &quot;you didn&apos;t pass then exam&quot;</div><div class="line">else</div><div class="line">        echo &quot;good,you passed the exam&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/092139397.png?imageslim" alt="mark"></p>
+<ul>
+<li>与示例1的区别在于，如果输入大于等于60的数字会有所提示</li>
+</ul>
+<h4 id="2-3、带有elif"><a href="#2-3、带有elif" class="headerlink" title="2.3、带有elif"></a>2.3、带有elif</h4><p>符合条件判断语句会执行命令，如果不符合会接着匹配elif中的条件判断，如果都不符合才会执行else</p>
+<p>格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if 判断语句1</div><div class="line">then</div><div class="line">	command</div><div class="line">elif 判断语句2</div><div class="line">then</div><div class="line">	command</div><div class="line">else</div><div class="line">	command</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>示例3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">vim if3.sh</div><div class="line">#!/bin/bash</div><div class="line">read -p &quot;please input your score: &quot; a</div><div class="line">if [ $a -lt 60 ]</div><div class="line">then</div><div class="line">echo &quot;you didn&apos;t pass the exam.&quot;</div><div class="line">elif [ $a -ge 60 ] &amp;&amp; [ $a -lt 85 ]</div><div class="line">then</div><div class="line">echo  &quot;good,you passed the exam.&quot;</div><div class="line">else</div><div class="line">echo &quot;very good! your score is very high!&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/092736345.png?imageslim" alt="mark"></p>
+<ul>
+<li>该结构下会一次判断，符合那个条件就执行该条件下的命令</li>
+</ul>
+<h4 id="2-4、if判断的使用"><a href="#2-4、if判断的使用" class="headerlink" title="2.4、if判断的使用"></a>2.4、if判断的使用</h4><p>（1）和文件相关的判断</p>
+<p>shell脚本中if可用于判断文件属性，比如判断是否为普通文件还是目录，判断文件是否有读写执行权限等</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if [ -d /home/ ];then echo &quot;ok&quot;;fi</div><div class="line">if [ -f /home/ ];then echo &quot;ok&quot;;fi</div></pre></td></tr></table></figure>
+<p>（2）关于字符串（变量）的判断</p>
+<p>shell脚本if可用于判断字符串是否相同，以及变量是否为空等</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a=&quot;&quot;;if [ -n &quot;$a&quot; ];then echo &quot;a is not null&quot;;else echo &quot;a is null&quot;; fi</div><div class="line">a=root;if [$a == &quot;root&quot; ];then echo &quot;ok&quot;;fi</div></pre></td></tr></table></figure>
+<p>（3）if判断条件可以为一条命令</p>
+<p>我们在if判断的使用时，还可以使用命令作为判断条件</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if grep -q &apos;^root:&apos; /etc/passwd;then echo &quot;user root exist.&quot;;fi</div></pre></td></tr></table></figure>
+<ul>
+<li>grep -q选项的作用是，过滤但不输出。用于if判断中，我们不需要输出结果，只需要知道它有没有执行成功。</li>
+<li>也就是说如果/etc/passwd文件中含有root这个用户，那么条件就成立。</li>
+</ul>
+<h3 id="三、case"><a href="#三、case" class="headerlink" title="三、case"></a>三、case</h3><p>在shell脚本中，除了用if来逻辑判断外，还有一种常用的方式，那就是case</p>
+<p>格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">case 变量 in</div><div class="line">value1)</div><div class="line">	command</div><div class="line">	;;</div><div class="line">value2)</div><div class="line">	command</div><div class="line">	;;</div><div class="line">value3|value4)</div><div class="line">	command</div><div class="line">	;;</div><div class="line">*)</div><div class="line">	Command</div><div class="line">	;;</div><div class="line">esac</div></pre></td></tr></table></figure>
+<ul>
+<li>上面的结构中，不限制value的个数，*表示除了上面的value外的其他值。</li>
+<li>value也是可以使用|连接，代表或者</li>
+<li>需要以”;;”结束</li>
+</ul>
+<p>示例1：判断输入数值时奇数还是偶数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">vim  case.sh</div><div class="line">#!/bin/bash</div><div class="line">read -p &quot;please input a number: &quot; n</div><div class="line">m=`echo &quot;$n&quot;|sed s/[0-9]//g`</div><div class="line">if [ -z $m ]</div><div class="line">        then</div><div class="line">        a=$[$n%2]</div><div class="line">case $a in</div><div class="line">        1)</div><div class="line">        echo &quot;the number is odd&quot;</div><div class="line">        ;;</div><div class="line">        0)</div><div class="line">        echo &quot;the number is even&quot;</div><div class="line">        ;;</div><div class="line">        *)</div><div class="line">        echo &quot;it&apos;s not a number&quot;</div><div class="line">        ;;</div><div class="line">esac</div><div class="line">else</div><div class="line">        echo &quot;please input a number&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p>示例2：判断输入的成绩是否合格</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">read -p &quot;Please input a number: &quot; n</div><div class="line">if [ -z &quot;$n&quot; ]</div><div class="line">then</div><div class="line">    echo &quot;Please input a number.&quot;</div><div class="line">    exit 1</div><div class="line">fi</div><div class="line"></div><div class="line">n1=`echo $n|sed &apos;s/[0-9]//g&apos;`</div><div class="line">if [ -n &quot;$n1&quot; ]</div><div class="line">then</div><div class="line"> echo &quot;Please input a number.&quot;</div><div class="line"> exit 1</div><div class="line">fi</div><div class="line"></div><div class="line">if [ $n -lt 60 ] &amp;&amp; [ $n -ge 0 ]</div><div class="line">then</div><div class="line">    tag=1</div><div class="line">elif [ $n -ge 60 ] &amp;&amp; [ $n -lt 80 ]</div><div class="line">then</div><div class="line">    tag=2</div><div class="line">elif [ $n -ge 80 ]  &amp;&amp; [ $n -lt 90 ]</div><div class="line">then</div><div class="line">    tag=3</div><div class="line">elif [ $n -ge 90 ] &amp;&amp; [ $n -le 100 ]</div><div class="line">then</div><div class="line">    tag=4</div><div class="line">else </div><div class="line">    tag=0</div><div class="line">fi</div><div class="line">case $tag in</div><div class="line">    1)</div><div class="line">	echo &quot;you performance didn&apos;t pass the exam.&quot;</div><div class="line">        ;;</div><div class="line">    2)</div><div class="line">        echo &quot;you performance can passed the exam.&quot;</div><div class="line">        ;;</div><div class="line">    3)</div><div class="line">        echo &quot;you performance is good&quot;</div><div class="line">        ;;</div><div class="line">    4)</div><div class="line">        echo &quot;you performance is very good&quot;</div><div class="line">        ;;</div><div class="line">    *)</div><div class="line">        echo &quot;The number range is 0-100.&quot;</div><div class="line">        ;; </div><div class="line">esac</div></pre></td></tr></table></figure>
+<ul>
+<li>case可看做是一个if-elif-elif-…-else</li>
+<li>多数启动脚本都会使用到case</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/13/27、shell脚本之if判断/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-26、shell脚本介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -203,117 +494,9 @@
       
         <p>[TOC]</p>
 <h3 id="一、什么是shell脚本"><a href="#一、什么是shell脚本" class="headerlink" title="一、什么是shell脚本"></a>一、什么是shell脚本</h3><p>shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本</p>
-<h3 id="二、shell脚本的作用"><a href="#二、shell脚本的作用" class="headerlink" title="二、shell脚本的作用"></a>二、shell脚本的作用</h3><p>shell脚本能帮助我们很方便地管理服务器，因为我们可以指定一个任务计划，定时去执行某个shell脚本以满足需求。例如，我需要在每天的凌晨某个时段备份数据库，并将其压缩。我不可能每天凌晨都来进行这些操作。但是，我可以在任务计划里添加一个脚本，脚本的内容就是帮我备份数据库并压缩。我只需要检查任务计划是否有执行即可。</p>
-<h3 id="三、shell脚本的创建和执行"><a href="#三、shell脚本的创建和执行" class="headerlink" title="三、shell脚本的创建和执行"></a>三、shell脚本的创建和执行</h3><h4 id="3-1、shell脚本的创建"><a href="#3-1、shell脚本的创建" class="headerlink" title="3.1、shell脚本的创建"></a>3.1、shell脚本的创建</h4><p>首先，我们来创建第一个脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/sbin</div><div class="line">vim first.sh</div><div class="line">#!/bin.bash</div><div class="line">#This is first script.</div><div class="line">date </div><div class="line">echo  &quot;Hello  world!&quot;</div></pre></td></tr></table></figure>
-<ul>
-<li>脚本的名称为first.sh，以.sh结尾。这样做只是为了方便管理员知道这是一个脚本文件，并不是说不以.sh结尾的就能能执行。</li>
-<li>脚本第一行内容”#!/bin/bash”，表示该脚本使用bash语法</li>
-<li>脚本第二行”#This is first script.”，在shell脚本中，以#开头的行属于注释</li>
-<li>脚本第三，四行才是真正执行的命令</li>
-</ul>
-<h4 id="3-2、shell脚本的执行"><a href="#3-2、shell脚本的执行" class="headerlink" title="3.2、shell脚本的执行"></a>3.2、shell脚本的执行</h4><p>创建完脚本，我们需要执行才知道是不是有效果。</p>
-<p>以下有两种方法执行shell脚本</p>
-<p>3.2.1、赋予脚本执行权限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod  +x /usr/local/sbin/first.sh</div><div class="line">/usr/local/sbin/first.sh</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/144528350.png?imageslim" alt="mark"></p>
-<ul>
-<li>脚本赋予执行权限后，使用绝对路径执行</li>
-</ul>
-<p>3.2.2、使用bash执行</p>
-<p>（1）bash直接执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#首先去掉执行权限</div><div class="line">chmod  -x /usr/local/sbin/first.sh</div><div class="line">bash  /usr/local/sbin/first.sh</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/144729231.png?imageslim" alt="mark"></p>
-<ul>
-<li>使用bash加脚本绝对路径也可以执行shell脚本</li>
-</ul>
-<p>（2）查看执行过程</p>
-<p>使用bash执行脚本时，我们还可以使用-x查看脚本执行过程</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/144907582.png?imageslim" alt="mark"></p>
-<ul>
-<li>+后面表示执行的命令，接着是该命令的输出</li>
-</ul>
-<p>（3）检查语法</p>
-<p>使用bash执行脚本时，我们还可以使用-n查看脚本是否有语法错误</p>
-<p>我们将first.sh的内容修改为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">vim  /usr/local/sbin/first.sh</div><div class="line">#!/bin/bash</div><div class="line">#This is first script.</div><div class="line">date</div><div class="line">echo &quot;Hello world!&quot;</div><div class="line">if [ $? -eq 0   ]</div><div class="line">then</div><div class="line">        echo &quot;ok&quot;</div><div class="line"></div><div class="line">#if判断少了结束fi</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/145207971.png?imageslim" alt="mark"></p>
-<h3 id="四、date命令的使用"><a href="#四、date命令的使用" class="headerlink" title="四、date命令的使用"></a>四、date命令的使用</h3><p>如上的备份数据库，我们需要有一个时间来确认备份文件属于那一天。这时，我们就可以使用date。</p>
-<p>直接执行date，会显示当前时间</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/150618734.png?imageslim" alt="mark"></p>
-<p>4.1、格式化输出当前时间</p>
-<p>使用date  +%可以格式化输出时间</p>
-<p>（1）以四位数字表示当前所在年份</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%Y</div><div class="line">2017</div></pre></td></tr></table></figure>
-<p>（2）以两位数字表示当前所在年份</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%y</div><div class="line">17</div></pre></td></tr></table></figure>
-<p>（3）表示当前所在月份</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%m</div><div class="line">09</div></pre></td></tr></table></figure>
-<p>（4）表示当前所在日期</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%d</div><div class="line">12</div></pre></td></tr></table></figure>
-<p>（5）表示当前所在小时</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%H</div><div class="line">14</div></pre></td></tr></table></figure>
-<p>（6）表示当前所在秒数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%S</div><div class="line">04</div></pre></td></tr></table></figure>
-<ul>
-<li>%s表示当前的一个时间戳</li>
-</ul>
-<p>（7）表示当前所在周几</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date +%w</div><div class="line">2</div></pre></td></tr></table></figure>
-<ul>
-<li>%W表示一年中的第几周</li>
-</ul>
-<p><strong>以上格式是可以组合起来使用的，并且支持符号链接</strong></p>
-<p>（8）表示一个日期（年月日）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">date  +%F</div><div class="line">[root@allen4 shell]# date  +%F</div><div class="line">2017-09-12</div></pre></td></tr></table></figure>
-<ul>
-<li>+%F等于+%Y-%m-%d</li>
-</ul>
-<p>（9）表示一个时间（时分秒）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date  +%T</div><div class="line">15:05:30</div></pre></td></tr></table></figure>
-<ul>
-<li>+%T等于+%H:%M:%S</li>
-</ul>
-<p>（10）输出一个完整时间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date  +&quot;%Y-%m-%d %H:%M:%S&quot;</div><div class="line">2017-09-12 15:09:04</div></pre></td></tr></table></figure>
-<p>4.2、date输出指定日期<br>（1）输出指定日期</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date  -d  &quot;2017-09-01 19:00:00&quot;</div><div class="line">2017年 09月 01日 星期五 19:00:00 CST</div></pre></td></tr></table></figure>
-<p>（2）输出当前时间的前一天</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date</div><div class="line">2017年 09月 12日 星期二 15:16:16 CST</div><div class="line">[root@allen4 shell]# date  -d  &quot;-1day&quot;</div><div class="line">2017年 09月 11日 星期一 15:17:35 CST</div></pre></td></tr></table></figure>
-<ul>
-<li>前一小时使用”-1 hour”</li>
-<li>前一分钟使用”-1 min”</li>
-<li>前一秒钟使用”-1 second”</li>
-<li>前一年使用”-1 year”</li>
-<li>前一个月使用”-1 month”</li>
-<li>不一定都是”1”</li>
-</ul>
-<p>4.3、时间戳应用</p>
-<p>（1）时间戳转换为日期</p>
-<p>date  +%s会输出一个时间戳</p>
-<p>该时间戳表示自UTC 时间 1970-01-01 00:00:00 以来所经过的秒数。那么我们要怎样做才能知道一个时间戳对应的日期。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date  +%s</div><div class="line">1505200353</div><div class="line">[root@allen4 shell]# date  -d  @1505200353</div><div class="line">2017年 09月 12日 星期二 15:12:33 CST</div></pre></td></tr></table></figure>
-<p>（2）某个日期转换为时间戳</p>
-<p>那么我们怎么将一个日期转化为时间戳呢</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# date   -d   &quot;2017-09-01 19:00:00 &quot;  +%s </div><div class="line">1504263600</div></pre></td></tr></table></figure>
-<h3 id="五、shell脚本中的变量"><a href="#五、shell脚本中的变量" class="headerlink" title="五、shell脚本中的变量"></a>五、shell脚本中的变量</h3><p>在shell脚本中使用变量会使我们的脚本更加专业，更像是一门语言。如果你写了一个长达1000行的shell脚本，并且脚本中多次出现某一个命令或者路径，而你觉得路径不对想修改一下，就得一个一个修改，或者使用批量替换的命令修改。这样做很麻烦，并且脚本也会显得臃肿。如果，你一开始就使用变量。那么你只需要修改该变量的值，这样就方便很多。</p>
-<p>在脚本中定义变量的格式为：”变量名”=”变量的值”。在脚本中引用变量的值需要加上符号$。这跟在shell中自定义变量是一致的。</p>
-<p>以下是shell脚本中的几种变量</p>
-<p>（1）当脚本中使用某个字符串较频繁并且字符串很长时就应该使用变量代替</p>
-<p>（2）使用条件语句时，常使用变量，if  [ $a -gt 1]; then  …. ; fi</p>
-<p>（3）引用某个命令的结果时，用变量代替，n=`wc -l 1.txt `，引用的命令使用反引号</p>
-<p>（4）写和用户交互的脚本时，变量也是必不可少的， read -p “Input a number: “ n; echo \$n   如果没写这个n，可以直接使用$REPLY</p>
-<p>（5）内置变量\$0，\$1，\$2，\$3……   \$0表示脚本本身，\$1表示第一个参数，\$2表示第二个参数，\$n表示第n个参数，第10个起需要使用{}，\$#表示参数个数</p>
-<h3 id="六、shell脚本中的数学运算"><a href="#六、shell脚本中的数学运算" class="headerlink" title="六、shell脚本中的数学运算"></a>六、shell脚本中的数学运算</h3><p>如果我们有一个需求是需要计算两个变量之间的和。因为shell中的变量的值是字符串，所以无法直接进行数学运算。</p>
-<p>实例脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[root@allen4 shell]# cat sum.sh</div><div class="line">#!/bin/bash</div><div class="line">#For get the sum of two number</div><div class="line"></div><div class="line">a=1</div><div class="line">b=2</div><div class="line">sum1=$a+$b</div><div class="line">sum2=$(($a+$b))</div><div class="line">sum3=$[$a+$b]</div><div class="line">echo  &quot;$sum1&quot;</div><div class="line">echo  &quot;$sum2&quot;</div><div class="line">echo  &quot;$sum3&quot;</div></pre></td></tr></table></figure>
-<p>输出结果如下：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170912/155217479.png?imageslim" alt="mark"></p>
-<ul>
-<li>可以看到变量sum1的值还是一个字符串，而sum2和sum3的值才是正常的</li>
-</ul>
-<p><strong>shell脚本如果需要进行数学运算，需要使用\$(( 1+2 ))或者\$[ 1+2 ]</strong></p>
-
+        
+          <a class="article-more-a" href="/2017/09/12/26、shell脚本介绍/#more">more >></a>
+        
       
 
       
@@ -948,150 +1131,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-19、Linux集群之负载均衡集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/05/19、Linux集群之负载均衡集群/">Linux负载均衡集群之LVS介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/05/19、Linux集群之负载均衡集群/" class="archive-article-date">
-  	<time datetime="2017-09-05T15:16:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、负载均衡集群介绍"><a href="#一、负载均衡集群介绍" class="headerlink" title="一、负载均衡集群介绍"></a>一、负载均衡集群介绍</h3><p>负载均衡：负载均衡就是LB（load bablance）集群架构，简单说就是让多台服务器均衡的去承载压力。常用软件有nginx、lvs、keepalived，商业的硬件负载设备F5、netscale。</p>
-<p>如下图就是一个负载均衡集群，主要角色有分发器（DIR），后端服务器（RS）。当用户的请求过来时，会直接发到分发器（Director Server）上，然后它把用户的请求根据预先设置好的算法，智能均衡地发放到后端真正的服务器（real server）上。</p>
-<p>（如果不同的机器，可能用户请求到的数据不一样，为了避免这样的情况发生，所以用到了共享存储，这样保证所有用户请求的数据是一样的。）</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/104257010.png?imageslim" alt="mark"></p>
-<h3 id="二、LVS介绍"><a href="#二、LVS介绍" class="headerlink" title="二、LVS介绍"></a>二、LVS介绍</h3><p>LVS是由国人章文嵩开发。基于Linux2.6内核</p>
-<h4 id="2-1、LVS的三种模式介绍"><a href="#2-1、LVS的三种模式介绍" class="headerlink" title="2.1、LVS的三种模式介绍"></a>2.1、LVS的三种模式介绍</h4><p>2.1.1、NAT模式</p>
-<p>这种模式需要借助iptables的nat表来实现，用户的请求到分发器后，通过预设的iptables规则，把请求的数据包转发到后端的服务器上。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/105243989.png?imageslim" alt="mark"></p>
-<ul>
-<li>RS2访问过程一致</li>
-<li>DIP，RIP1，RIP2在通一网段，并且RS1和RS2的网关为DIP</li>
-<li>客户端发起请求，DIR根据设置将请求分发，并修改数据包目标IP为RIP1，RS1处理后返回数据给DIR，DIR接收后将数据包源IP为VIP，响应给客户端。</li>
-<li>数据包接受和处理后返回都需要经过DIR，所以RS1和RS2的网关需要设置为DIP</li>
-<li>在以上模式中，并发量大时，DIR的机器会成为瓶颈。</li>
-<li>只需要DIR上有公网IP，节省公网IP资源</li>
-</ul>
-<p>2.1.2、LVS IP Tunnel模式</p>
-<p>这种模式，需要有一个公共的IP配置在分发器和所有rs上，我们把它叫做vip</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/110923908.png?imageslim" alt="mark"></p>
-<ul>
-<li>客户端发起请求，分发器接受到请求数据包后，会对数据包做一个加工，将目标IP改为RS1的IP，这样数据包就到了RS上，RS接收数据包，会还原原始数据包，发现目标IP为VIP，所以它直接处理，并将结果返回给客户端。</li>
-</ul>
-<p>2.1.3、DR模式</p>
-<p>这种模式，也需要有一个公共的IP配置在分发器和所有rs上</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/110947741.png?imageslim" alt="mark"></p>
-<ul>
-<li>和IP Tunnel不同的是，它会把数据包的MAC地址修改为rs的MAC地址。</li>
-<li>客户端发起请求，分发器接收请求后分发，将数据包的MAC地址修改为RS1的MAC地址，RS1发现目标IP是VIP，处理后直接放回给客户端。</li>
-<li>在这个过程中数据包的源IP和目标IP不会修改</li>
-<li>RS上需要关闭ARP。</li>
-</ul>
-<h4 id="2-2、LVS的调度算法"><a href="#2-2、LVS的调度算法" class="headerlink" title="2.2、LVS的调度算法"></a>2.2、LVS的调度算法</h4><table>
-<thead>
-<tr>
-<th>调度算法</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>rr(Round-Robin)</td>
-<td>轮询，平等分发</td>
-</tr>
-<tr>
-<td>wrr(Weight Round-Robin)</td>
-<td>加权轮询，设置分发比例</td>
-</tr>
-<tr>
-<td>lc(Least-Connection)</td>
-<td>最小连接，那个链接数少优先分发</td>
-</tr>
-<tr>
-<td>wlc(Weight Least-Connection)</td>
-<td>加权最小连接</td>
-</tr>
-<tr>
-<td>lblc(Locality-Based Least Connections)</td>
-<td>基于局部性的最小连接</td>
-</tr>
-<tr>
-<td>lblcr(Locality-Based Least Connections with Replication)</td>
-<td>带复制的基于局部性最小连接</td>
-</tr>
-<tr>
-<td>dh(Destination Hashing)</td>
-<td>目标地址散列调度</td>
-</tr>
-<tr>
-<td>sh(Source Hashing)</td>
-<td>源地址散列调度</td>
-</tr>
-</tbody>
-</table>
-<p>拓展：</p>
-<p><a href="http://www.it165.net/admin/html/201401/2248.html" target="_blank" rel="external">LVS详细介绍</a></p>
-<p><a href="http://ask.apelearn.com/question/7407" target="_blank" rel="external">LVS的调度算法介绍</a></p>
-<p><a href="http://www.cnblogs.com/lgfeng/archive/2012/10/16/2726308.html" target="_blank" rel="external">关于arp_ignore和 arp_announce</a></p>
-<p><a href="http://www.csdn.net/article/2014-07-24/2820837" target="_blank" rel="external">Nginx、LVS及HAProxy负载均衡软件的优缺点详解</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/05/19、Linux集群之负载均衡集群/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1232,15 +1271,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1252,11 +1291,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1265,14 +1304,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1288,7 +1319,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1300,19 +1335,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1324,11 +1359,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
             
             <div class="clearfix"></div>
