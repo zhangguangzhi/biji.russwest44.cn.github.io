@@ -181,6 +181,142 @@
         <!-- 目录内容结束 -->
 
   
+    <article id="post-26.5、shell脚本之搭建告警系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/15/26.5、shell脚本之搭建告警系统/">shell脚本之搭建告警系统</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/15/26.5、shell脚本之搭建告警系统/" class="archive-article-date">
+  	<time datetime="2017-09-15T08:33:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、告警系统介绍"><a href="#一、告警系统介绍" class="headerlink" title="一、告警系统介绍"></a>一、告警系统介绍</h3><p>（1）需求：使用shell定制各种个性化告警工具，但需要统一化管理、规范化管理。 </p>
+<p>（2）思路：指定一个脚本包，包含主程序、子程序、配置文件、邮件引擎、输出日志等。 </p>
+<p>（3）主程序：作为整个脚本的入口，是整个系统的命脉。 </p>
+<p>（4）配置文件：是一个控制中心，用它来开关各个子程序，指定各个相关联的日志文件。 </p>
+<p>（5）子程序：这个才是真正的监控脚本，用来监控各个指标。 </p>
+<p>（6）邮件引擎：是由一个python程序来实现，它可以定义发邮件的服务器、发邮件人以及发件人密码 输出日志：整个监控系统要有日志输出。</p>
+<p>（7）要求：我们的机器角色多种多样，但是所有机器上都要部署同样的监控系统，也就说所有机器不管什么角色，整个程序框架都是一致的，不同的地方在于根据不同的角色，定制不同的配置文件。</p>
+        
+          <a class="article-more-a" href="/2017/09/15/26.5、shell脚本之搭建告警系统/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/15/26.5、shell脚本之搭建告警系统/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-26.4、shell脚本之函数，数组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/15/26.4、shell脚本之函数，数组/">shell脚本之函数，数组</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/15/26.4、shell脚本之函数，数组/" class="archive-article-date">
+  	<time datetime="2017-09-15T05:48:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、shell脚本中的函数"><a href="#一、shell脚本中的函数" class="headerlink" title="一、shell脚本中的函数"></a>一、shell脚本中的函数</h3><p>shell脚本中的函数就是把一段代码整理到一个小单元中，并给这个单元起一个名字，当用到这段代码时直接调用这个小单元的名字即可。</p>
+        
+          <a class="article-more-a" href="/2017/09/15/26.4、shell脚本之函数，数组/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/15/26.4、shell脚本之函数，数组/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-26.3、shell脚本之循环" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -215,59 +351,9 @@
 <li><p>seq的作用是生成指定范围的连续数字</p>
 </li>
 </ul>
-<p>示例1：求加100的和</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> #!/bin/bash</div><div class="line">sum=0</div><div class="line">for i in `seq 1 100`</div><div class="line">do</div><div class="line">    sum=$[$sum+$i]</div><div class="line">    echo $i</div><div class="line">done</div><div class="line">echo $sum</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/162047784.png?imageslim" alt="mark"></p>
-<p>示例2：查看root下的目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">cd /root/</div><div class="line">for i in `ls /root/`</div><div class="line">do</div><div class="line">        if [ -d $i ]</div><div class="line">        then</div><div class="line">                echo &quot;dir is:&quot;</div><div class="line">                echo `ls -d $i`</div><div class="line">        fi</div><div class="line">done</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/162434953.png?imageslim" alt="mark"></p>
-<h4 id="1-2、语法二"><a href="#1-2、语法二" class="headerlink" title="1.2、语法二"></a>1.2、语法二</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for ((变量起始值;循环条件;变量变化))</div><div class="line">do</div><div class="line">	command</div><div class="line">done</div></pre></td></tr></table></figure>
-<p>示例3：计算1加到100的和</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">sum=0</div><div class="line">for  ((i=1;i&lt;=100;i=i+1))</div><div class="line">do</div><div class="line">        sum=$[$sum+$i]</div><div class="line">done</div><div class="line">echo $sum</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/163111825.png?imageslim" alt="mark"></p>
-<h4 id="1-3、练习"><a href="#1-3、练习" class="headerlink" title="1.3、练习"></a>1.3、练习</h4><p>练习1：批量解压缩脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">#批量解压缩脚本</div><div class="line"></div><div class="line">cd /root/test</div><div class="line">ls *.tar.gz  &gt; ls.log</div><div class="line">for  i  in `cat ls.log`</div><div class="line">do      </div><div class="line">        tar  -zxf $1 &amp;&gt;/dev/null</div><div class="line">done</div><div class="line">rm -rf /root/test/ls.log</div></pre></td></tr></table></figure>
-<p>练习2：批量添加指定数量的用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">#批量增加指定数量的用户</div><div class="line"></div><div class="line">read -p &quot;请输入用户名: &quot;  name</div><div class="line">read -p &quot;请输入创建数量: &quot; num</div><div class="line">read -p &quot;请输入用户名密码: &quot;  pass</div><div class="line">if [ -n &quot;$name&quot; -a  -n  &quot;$num&quot;  -a  -n &quot;$pass&quot; ]</div><div class="line">then</div><div class="line">        y=$(echo $num|sed &apos;s/[0-9]//g&apos;)</div><div class="line">        if [ -z &quot;$y&quot; ]</div><div class="line">        then</div><div class="line">        for ((i=1;i&lt;=$num;i=i+1))</div><div class="line">        #也可以是 for i  in `seq 1 $num`</div><div class="line">        do</div><div class="line">                /usr/sbin/useradd  $name$i  &amp;&gt;/dev/null</div><div class="line">                echo $pass |/usr/bin/passwd  --stdin  $name$i &amp;&gt;/dev/null</div><div class="line">        done</div><div class="line">        fi</div><div class="line">fi</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/164351275.png?imageslim" alt="mark"></p>
-<h3 id="二、while循环"><a href="#二、while循环" class="headerlink" title="二、while循环"></a>二、while循环</h3><p>while属于不定循环，也称为条件循环。只要条件判断式成立，循环就会一直继续，直到天剑判断式不成立，循环才会停止。这就和for的固定循环不太一样了</p>
-<h4 id="2-1、语法"><a href="#2-1、语法" class="headerlink" title="2.1、语法"></a>2.1、语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">while  [ 条件判断式 ]	#条件成立，才会进行循环</div><div class="line">do</div><div class="line">	command</div><div class="line">done</div></pre></td></tr></table></figure>
-<ul>
-<li>当使用:代替条件判断式，该循环为死循环</li>
-</ul>
-<p>示例1：使用死循环监控负载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">while :</div><div class="line">do</div><div class="line">load=`w|head -1|awk -F &apos;load average: &apos; &apos;&#123;print $2&#125;&apos;|cut -d. -f1`</div><div class="line">if [ $load -lt 1 ]</div><div class="line">then</div><div class="line">        top -bn1</div><div class="line">        mail -s &quot;load is high:$load&quot; xxx@11.com</div><div class="line">fi</div><div class="line">sleep 30</div><div class="line">done</div></pre></td></tr></table></figure>
-<p>示例2：利用条件判断计算1加到100的值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">#计算1加到100的值</div><div class="line">sum=0</div><div class="line">i=1</div><div class="line">while [ $i -le 100 ]</div><div class="line">do</div><div class="line">sum=$[$sum+$i]</div><div class="line">i=$[$i+1]</div><div class="line">done</div><div class="line">echo $sum</div></pre></td></tr></table></figure>
-<h4 id="2-2、until—while循环相反"><a href="#2-2、until—while循环相反" class="headerlink" title="2.2、until—while循环相反"></a>2.2、until—while循环相反</h4><p>until循环，和while循环相反。until循环只要条件判断式不成立则进行循环，并执行循环命令。一旦循环条件成立，则终止循环。</p>
-<p>语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">until  [ 条件判断式 ]   #条件不成立，进行循环</div><div class="line">do</div><div class="line">	command</div><div class="line">done</div></pre></td></tr></table></figure>
-<p>示例：利用条件判断计算1加到100的值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">#计算1加到100的值</div><div class="line">sum=0</div><div class="line">i=1</div><div class="line">until [ $i -gt 100 ]</div><div class="line">do</div><div class="line">sum=$[$sum+$i]</div><div class="line">i=$[$i+1]</div><div class="line">done</div><div class="line">echo $sum</div></pre></td></tr></table></figure>
-<h3 id="三、循环的调出，继续，退出"><a href="#三、循环的调出，继续，退出" class="headerlink" title="三、循环的调出，继续，退出"></a>三、循环的调出，继续，退出</h3><h4 id="3-1、跳出循环"><a href="#3-1、跳出循环" class="headerlink" title="3.1、跳出循环"></a>3.1、跳出循环</h4><p>在循环中是break可以跳出循环</p>
-<p>示例1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">for i in `seq 1 5`</div><div class="line">do</div><div class="line">	echo $i</div><div class="line">if [ $i == 3 ]</div><div class="line">then	 </div><div class="line">	break</div><div class="line">fi</div><div class="line">	echo $i </div><div class="line">done</div><div class="line">echo aaaaaaa</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/212532479.png?imageslim" alt="mark"></p>
-<ul>
-<li>当i的值循环到3时，符合条件判断执行了break。所以不会再输出i=3.直接调出循环。输出aaaaaaa</li>
-</ul>
-<h4 id="3-2、继续循环"><a href="#3-2、继续循环" class="headerlink" title="3.2、继续循环"></a>3.2、继续循环</h4><p>continue会忽略continue之下的代码，直接进行下一次循环</p>
-<p>示例2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">for i in `seq 1 5`</div><div class="line">do</div><div class="line">echo $i</div><div class="line">if [ $i == 3 ]</div><div class="line">then</div><div class="line">	continue</div><div class="line">fi</div><div class="line">echo $i</div><div class="line">done</div><div class="line">echo $i</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/212816492.png?imageslim" alt="mark"></p>
-<ul>
-<li>当i的值循环到3时，符合条件判断执行了continue。忽略continue之后的代码，重新循环，i的值为4</li>
-</ul>
-<h4 id="3-3、直接退出"><a href="#3-3、直接退出" class="headerlink" title="3.3、直接退出"></a>3.3、直接退出</h4><p>exit会不仅会退出循环，还会直接退出脚本。我们还可以指定退出的返回值</p>
-<p>示例3：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">for i in `seq 1 5`</div><div class="line">do</div><div class="line">echo $i</div><div class="line">if [ $i == 3 ]</div><div class="line">then </div><div class="line">	exit</div><div class="line">fi</div><div class="line">echo $i </div><div class="line">done</div><div class="line">echo aaaaaaa</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170914/213036806.png?imageslim" alt="mark"></p>
-<ul>
-<li>当i的值循环到3时，符合条件判断执行了exit。直接退出脚本</li>
-</ul>
-<p>拓展：</p>
-<p><a href="http://www.apelearn.com/bbs/thread-7950-1-1.html" target="_blank" rel="external">select的用法</a></p>
-
+        
+          <a class="article-more-a" href="/2017/09/14/26.3、shell脚本之循环/#more">more >></a>
+        
       
 
       
@@ -768,191 +854,9 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-22、LVS结合keepalived" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/22、LVS结合keepalived/">LVS结合keepalived</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/06/22、LVS结合keepalived/" class="archive-article-date">
-  	<time datetime="2017-09-06T08:37:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、keepalived结合LVS介绍"><a href="#一、keepalived结合LVS介绍" class="headerlink" title="一、keepalived结合LVS介绍"></a>一、keepalived结合LVS介绍</h3><p>1.1、为什么要引入keepalived</p>
-<p>之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。</p>
-        
-          <a class="article-more-a" href="/2017/09/06/22、LVS结合keepalived/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/06/22、LVS结合keepalived/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-21、LVS之DR模式搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/21、LVS之DR模式搭建/">LVS之DR模式搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/06/21、LVS之DR模式搭建/" class="archive-article-date">
-  	<time datetime="2017-09-06T08:15:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、DR模式介绍"><a href="#一、DR模式介绍" class="headerlink" title="一、DR模式介绍"></a>一、DR模式介绍</h3><h4 id="1-1、数据流向"><a href="#1-1、数据流向" class="headerlink" title="1.1、数据流向"></a>1.1、数据流向</h4><p>DR模式：调度器将请求来的数据包的目标mac地址改为real server的mac地址，返回的时候不经过调度器，直接返回给客户端。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/162736955.png?imageslim" alt="mark"></p>
-<ul>
-<li>以上是DR模式下，数据包大致流向</li>
-<li>DR模式下，请求需要经过DIR。但是RS处理后直接返回客户端，不需要经过DIR，减少DIR压力</li>
-</ul>
-<h4 id="1-2、DR模式特点"><a href="#1-2、DR模式特点" class="headerlink" title="1.2、DR模式特点"></a>1.2、DR模式特点</h4><p>1、通过在调度器DIR上修改数据包的目的MAC地址实现转发。注意源地址仍然是CIP，目的地址仍然是VIP地址。</p>
-<p>2、请求的报文经过调度器，而RS响应处理后的报文无需经过调度器LB，因此并发访问量大时使用效率很高（和NAT模式比）。</p>
-<p>3、因为DR模式是通过MAC地址改写机制实现转发，因此所有RS节点和调度器LB只能在一个局域网里面。</p>
-<p>4、RS主机需要绑定VIP地址在LO接口上，并且需要配置ARP抑制。</p>
-<p>5、RS节点的默认网关不需要配置成DIP，而是直接配置为上级路由的网关，能让RS直接出网就可以。</p>
-<p>6、由于DR模式的调度器仅做MAC地址的改写，所以调度器LB就不能改写目标端口，那么RS服务器就得使用和VIP相同的端口提供服务。</p>
-<p>7、需要的公网IP较多</p>
-<h3 id="二、LVS的DR模式搭建"><a href="#二、LVS的DR模式搭建" class="headerlink" title="二、LVS的DR模式搭建"></a>二、LVS的DR模式搭建</h3><p>DR模式是通过修改MAC地址进行数据包传输，其中需要关闭RS响应ARP广播</p>
-<h4 id="2-1、实验环境"><a href="#2-1、实验环境" class="headerlink" title="2.1、实验环境"></a>2.1、实验环境</h4><p>DIR：192.168.205.138</p>
-<p>RS1：192.168.205.140</p>
-<p>RS2：192.168.205.141</p>
-<p>VIP：192.168.205.200</p>
-<p>DIR，RS1，RS2上都需要公网ip</p>
-<p>RS需要开启nginx</p>
-<h4 id="2-2、配置DIR"><a href="#2-2、配置DIR" class="headerlink" title="2.2、配置DIR"></a>2.2、配置DIR</h4><p>DIR上需要安装ipvsadm</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install  -y  ipvsadm</div></pre></td></tr></table></figure>
-<p>编写相对应脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#在DIR上编写以下脚本</div><div class="line">vim /usr/local/sbin/lvs_dr.sh </div><div class="line">#写入以下内容</div><div class="line">#! /bin/bash</div><div class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</div><div class="line">ipv=/usr/sbin/ipvsadm</div><div class="line">vip=192.168.205.200</div><div class="line">rs1=192.168.205.140</div><div class="line">rs2=192.168.205.141</div><div class="line">#注意这里的网卡名字，在DIR上添加VIP</div><div class="line">ifconfig ens33:2 $vip broadcast $vip netmask 255.255.255.255 up</div><div class="line">route add -host $vip dev ens33:2</div><div class="line">$ipv -C</div><div class="line">$ipv -A -t $vip:80 -s wrr</div><div class="line">$ipv -a -t $vip:80 -r $rs1:80 -g -w 1</div><div class="line">$ipv -a -t $vip:80 -r $rs2:80 -g -w 1</div></pre></td></tr></table></figure>
-<p>保存后，执行该脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh  /usr/local/sbin/lvs_dr.sh</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/152535843.png?imageslim" alt="mark"></p>
-<h4 id="2-3、配置RS"><a href="#2-3、配置RS" class="headerlink" title="2.3、配置RS"></a>2.3、配置RS</h4><p>两台RS服务器都需要添加脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#在RS上添加以下脚本</div><div class="line">vim /usr/local/sbin/lvs_rs.sh</div><div class="line">#写入以下内容</div><div class="line">#/bin/bash</div><div class="line">vip=192.168.205.200</div><div class="line">#把vip绑定在lo上，是为了实现rs直接把结果返回给客户端</div><div class="line">ifconfig lo:0 $vip broadcast $vip netmask 255.255.255.255 up</div><div class="line">route add -host $vip lo:0</div><div class="line">#以下操作为更改arp内核参数，禁止响应arp广播，目的是为了让rs顺利发送mac地址给客户端</div><div class="line">#参考文档www.cnblogs.com/lgfeng/archive/2012/10/16/2726308.html</div><div class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</div><div class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</div><div class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</div><div class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</div></pre></td></tr></table></figure>
-<p>保存后执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh  /usr/local/sbin/lvs_rs.sh</div></pre></td></tr></table></figure>
-<h4 id="2-4、测试"><a href="#2-4、测试" class="headerlink" title="2.4、测试"></a>2.4、测试</h4><p>不能在调度端和两个服务端用curl测试。因为两个服务端都配置了vip，访问时访问的都是自己，而调度端的子网掩码是255.255.255.255，数据包可以发出去但是收不回来。</p>
-<p>需要其他的服务器用curl测试：curl 192.168.205.200，lo回环接口：可以用于本地进程之间通讯的虚拟网络接口</p>
-<p>修改nginx上的测试页</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RS1：echo &quot;this is RS1.&quot; &gt;/usr/local/nginx/html/index.html</div><div class="line">RS2：echo &quot;this is RS2.&quot; &gt;/usr/local/nginx/html/index.html</div></pre></td></tr></table></figure>
-<p>使用其他服务器curl</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/154020038.png?imageslim" alt="mark"></p>
-<h4 id="2-5、总结"><a href="#2-5、总结" class="headerlink" title="2.5、总结"></a>2.5、总结</h4><p>DR模式将报文直接路由给目标真实服务器。在DR模式中，调度器根据各个真实服务器的负载情况，连接数多少等，动态地选择一台服务器，不修改目标IP地址和目标端口，也不封装IP报文，而是将请求报文的数据帧的目标MAC地址改为真实服务器的MAC地址。然后再将修改的数据帧在服务器组的局域网上发送。因为数据帧的MAC地址是真实服务器的MAC地址，并且又在同一个局域网。那么根据局域网的通讯原理，真实服务器是一定能够收到由LB发出的数据包。真实服务器接收到请求数据包的时候，解开IP包头查看到的目标IP是VIP。然后真实服务器响应请求，之后根据自己的路由信息将这个响应数据包发送回给客户，并且源IP地址还是VIP。</p>
-<p><strong>为什么服务端要设置回环地址为vip并禁止arp协议：</strong></p>
-<p>因为只有自己的IP符合数据包中目标IP才会接收进来，所以我们需要在本地的回环借口上面配置VIP。由于网络接口都会进行ARP广播响应，但集群的其他机器都有这个VIP的lo接口，都响应就会冲突。所以我们需要把真实服务器的lo接口的ARP响应关闭掉。</p>
-<p>拓展：</p>
-<p><a href="http://storysky.blog.51cto.com/628458/338726" target="_blank" rel="external">只用一个公网IP搭建DR模式</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/06/21、LVS之DR模式搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1066,14 +970,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
@@ -1082,15 +978,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1098,7 +998,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1118,7 +1018,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1127,6 +1027,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1162,11 +1066,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1178,15 +1082,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>
