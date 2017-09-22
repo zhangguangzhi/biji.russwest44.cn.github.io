@@ -131,6 +131,73 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-24、Linux监控平台搭建之配置zabbix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/">Linux监控平台搭建之配置zabbix</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/" class="archive-article-date">
+  	<time datetime="2017-09-08T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>安装zabbix的服务端以及客户端后，我们还需要做一些配置，方便我们使用</p>
+<h3 id="一、忘记Admin密码怎么办"><a href="#一、忘记Admin密码怎么办" class="headerlink" title="一、忘记Admin密码怎么办"></a>一、忘记Admin密码怎么办</h3><p>因为Admin的密码是保存在mysql中的，所以只需要进入mysql命令行，选择zabbix库进行重置即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -pallen</div><div class="line">use zabbix;</div><div class="line">&gt; update users set passwd=md5(‘new passwd’) where alias=‘Admin’;</div></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-23、Linux监控平台搭建之zabbix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -322,7 +389,7 @@
       
         <p>[TOC]</p>
 <h3 id="一、DR模式介绍"><a href="#一、DR模式介绍" class="headerlink" title="一、DR模式介绍"></a>一、DR模式介绍</h3><h4 id="1-1、数据流向"><a href="#1-1、数据流向" class="headerlink" title="1.1、数据流向"></a>1.1、数据流向</h4><p>DR模式：调度器将请求来的数据包的目标mac地址改为real server的mac地址，返回的时候不经过调度器，直接返回给客户端。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/162736955.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/143007995.png?imageslim" alt="mark"></p>
 <ul>
 <li>以上是DR模式下，数据包大致流向</li>
 <li>DR模式下，请求需要经过DIR。但是RS处理后直接返回客户端，不需要经过DIR，减少DIR压力</li>
@@ -357,7 +424,7 @@
 <p>修改nginx上的测试页</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RS1：echo &quot;this is RS1.&quot; &gt;/usr/local/nginx/html/index.html</div><div class="line">RS2：echo &quot;this is RS2.&quot; &gt;/usr/local/nginx/html/index.html</div></pre></td></tr></table></figure>
 <p>使用其他服务器curl</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/154020038.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/143025586.png?imageslim" alt="mark"></p>
 <h4 id="2-5、总结"><a href="#2-5、总结" class="headerlink" title="2.5、总结"></a>2.5、总结</h4><p>DR模式将报文直接路由给目标真实服务器。在DR模式中，调度器根据各个真实服务器的负载情况，连接数多少等，动态地选择一台服务器，不修改目标IP地址和目标端口，也不封装IP报文，而是将请求报文的数据帧的目标MAC地址改为真实服务器的MAC地址。然后再将修改的数据帧在服务器组的局域网上发送。因为数据帧的MAC地址是真实服务器的MAC地址，并且又在同一个局域网。那么根据局域网的通讯原理，真实服务器是一定能够收到由LB发出的数据包。真实服务器接收到请求数据包的时候，解开IP包头查看到的目标IP是VIP。然后真实服务器响应请求，之后根据自己的路由信息将这个响应数据包发送回给客户，并且源IP地址还是VIP。</p>
 <p><strong>为什么服务端要设置回环地址为vip并禁止arp协议：</strong></p>
 <p>因为只有自己的IP符合数据包中目标IP才会接收进来，所以我们需要在本地的回环借口上面配置VIP。由于网络接口都会进行ARP广播响应，但集群的其他机器都有这个VIP的lo接口，都响应就会冲突。所以我们需要把真实服务器的lo接口的ARP响应关闭掉。</p>
@@ -934,74 +1001,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-使用innobackupex在线对mysql做主从复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/31/使用innobackupex在线对mysql做主从复制/">使用innobackupex在线对mysql做主从复制</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/31/使用innobackupex在线对mysql做主从复制/" class="archive-article-date">
-  	<time datetime="2017-08-31T02:24:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>使用mysqldump对于导出10G以下的数据库或者几个表，还是适用的，而且更快捷。一旦数据量达到100-500G，无论是对原库的压力还是导出的性能，mysqldump就显得力不从心了。因此我们可以使用Xtrabackup备份工具，可进行全量、增量、单表备份和还原。是实现MySQL在线热备工作的不二选择。</p>
-<p>2.2版本 xtrabackup 能对InnoDB和XtraDB存储引擎的数据库非阻塞地备份，innobackupex通过perl封装了一层xtrabackup，对MyISAM的备份通过加表读锁的方式实现。2.3版本 xtrabackup 命令直接支持MyISAM引擎。</p>
-<p>XtraBackup优势 ：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1.无需停止数据库进行InnoDB热备</div><div class="line">2.增量备份MySQL</div><div class="line">3.流压缩到传输到其它服务器</div><div class="line">4.能比较容易地创建主从同步</div><div class="line">5.备份MySQL时不会增大服务器负载</div></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2017/08/31/使用innobackupex在线对mysql做主从复制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/31/使用innobackupex在线对mysql做主从复制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1110,19 +1109,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1138,15 +1137,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1158,15 +1157,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1178,11 +1177,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1198,10 +1201,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
@@ -1210,7 +1209,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1218,15 +1221,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1239,6 +1234,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
             
             <div class="clearfix"></div>

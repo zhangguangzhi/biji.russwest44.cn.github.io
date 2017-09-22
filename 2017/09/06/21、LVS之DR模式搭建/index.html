@@ -15,14 +15,14 @@
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/09/06/21、LVS之DR模式搭建/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
 <meta property="og:description" content="[TOC] 一、DR模式介绍1.1、数据流向DR模式：调度器将请求来的数据包的目标mac地址改为real server的mac地址，返回的时候不经过调度器，直接返回给客户端。   以上是DR模式下，数据包大致流向 DR模式下，请求需要经过DIR。但是RS处理后直接返回客户端，不需要经过DIR，减少DIR压力  1.2、DR模式特点1、通过在调度器DIR上修改数据包的目的MAC地址实现转发。注意源地">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/162736955.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/143007995.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/152535843.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/154020038.png?imageslim">
-<meta property="og:updated_time" content="2017-09-12T03:16:12.641Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/143025586.png?imageslim">
+<meta property="og:updated_time" content="2017-09-22T06:31:43.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LVS之DR模式搭建">
 <meta name="twitter:description" content="[TOC] 一、DR模式介绍1.1、数据流向DR模式：调度器将请求来的数据包的目标mac地址改为real server的mac地址，返回的时候不经过调度器，直接返回给客户端。   以上是DR模式下，数据包大致流向 DR模式下，请求需要经过DIR。但是RS处理后直接返回客户端，不需要经过DIR，减少DIR压力  1.2、DR模式特点1、通过在调度器DIR上修改数据包的目的MAC地址实现转发。注意源地">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170906/162736955.png?imageslim">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/143007995.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -160,7 +160,7 @@
       
         <p>[TOC]</p>
 <h3 id="一、DR模式介绍"><a href="#一、DR模式介绍" class="headerlink" title="一、DR模式介绍"></a>一、DR模式介绍</h3><h4 id="1-1、数据流向"><a href="#1-1、数据流向" class="headerlink" title="1.1、数据流向"></a>1.1、数据流向</h4><p>DR模式：调度器将请求来的数据包的目标mac地址改为real server的mac地址，返回的时候不经过调度器，直接返回给客户端。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/162736955.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/143007995.png?imageslim" alt="mark"></p>
 <ul>
 <li>以上是DR模式下，数据包大致流向</li>
 <li>DR模式下，请求需要经过DIR。但是RS处理后直接返回客户端，不需要经过DIR，减少DIR压力</li>
@@ -195,7 +195,7 @@
 <p>修改nginx上的测试页</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RS1：echo &quot;this is RS1.&quot; &gt;/usr/local/nginx/html/index.html</div><div class="line">RS2：echo &quot;this is RS2.&quot; &gt;/usr/local/nginx/html/index.html</div></pre></td></tr></table></figure>
 <p>使用其他服务器curl</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/154020038.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/143025586.png?imageslim" alt="mark"></p>
 <h4 id="2-5、总结"><a href="#2-5、总结" class="headerlink" title="2.5、总结"></a>2.5、总结</h4><p>DR模式将报文直接路由给目标真实服务器。在DR模式中，调度器根据各个真实服务器的负载情况，连接数多少等，动态地选择一台服务器，不修改目标IP地址和目标端口，也不封装IP报文，而是将请求报文的数据帧的目标MAC地址改为真实服务器的MAC地址。然后再将修改的数据帧在服务器组的局域网上发送。因为数据帧的MAC地址是真实服务器的MAC地址，并且又在同一个局域网。那么根据局域网的通讯原理，真实服务器是一定能够收到由LB发出的数据包。真实服务器接收到请求数据包的时候，解开IP包头查看到的目标IP是VIP。然后真实服务器响应请求，之后根据自己的路由信息将这个响应数据包发送回给客户，并且源IP地址还是VIP。</p>
 <p><strong>为什么服务端要设置回环地址为vip并禁止arp协议：</strong></p>
 <p>因为只有自己的IP符合数据包中目标IP才会接收进来，所以我们需要在本地的回环借口上面配置VIP。由于网络接口都会进行ARP广播响应，但集群的其他机器都有这个VIP的lo接口，都响应就会冲突。所以我们需要把真实服务器的lo接口的ARP响应关闭掉。</p>
@@ -457,19 +457,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -485,15 +485,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,15 +505,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,11 +525,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,10 +549,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
@@ -557,7 +557,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -565,15 +569,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -586,6 +582,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
             
             <div class="clearfix"></div>

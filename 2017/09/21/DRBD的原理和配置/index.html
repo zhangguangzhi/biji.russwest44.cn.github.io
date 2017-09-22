@@ -6,25 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LAMP之安装MySQL | ZhangGuangZhi</title>
+  <title>DRBD的原理和配置 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MySQL的几个常用安装包：rpm，源码，二进制免编译 二进制免编译包：软件先进行编译，再打包压缩。好处在于不用花时间编译配置。二进制包区分平台，使用uname  -a查看平台，X86为64位，i686为32位。">
-<meta name="keywords" content="LAMP">
+  <meta name="description" content="[TOC] DRBD概述Distributed Replicated Block Device(DRBD)是一种基于软件的，无共享，复制的存储解决方案，在服务器之间的对块设备（硬盘，分区，逻辑卷等）进行镜像。DRBD工作在内核 当中的，类似于一种驱动模块。DRBD工作的位置在文件系统的buffer cache和磁盘调度器之间，通过tcp/ip发给另外一台主机到对方的tcp/ip最终发送给对方的dr">
+<meta name="keywords" content="DRBD">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LAMP之安装MySQL">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/25/11.2、LAMP之安装MySQL/index.html">
+<meta property="og:title" content="DRBD的原理和配置">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/09/21/DRBD的原理和配置/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="MySQL的几个常用安装包：rpm，源码，二进制免编译 二进制免编译包：软件先进行编译，再打包压缩。好处在于不用花时间编译配置。二进制包区分平台，使用uname  -a查看平台，X86为64位，i686为32位。">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170725/223947669.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170725/231247683.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170726/232443943.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170726/232351011.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170727/000535536.png?imageslim">
-<meta property="og:updated_time" content="2017-08-11T02:39:13.908Z">
+<meta property="og:description" content="[TOC] DRBD概述Distributed Replicated Block Device(DRBD)是一种基于软件的，无共享，复制的存储解决方案，在服务器之间的对块设备（硬盘，分区，逻辑卷等）进行镜像。DRBD工作在内核 当中的，类似于一种驱动模块。DRBD工作的位置在文件系统的buffer cache和磁盘调度器之间，通过tcp/ip发给另外一台主机到对方的tcp/ip最终发送给对方的dr">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/102520407.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/105112060.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/113450917.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/112013824.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/113524174.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/113550792.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/114000993.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/114127341.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/112302793.png?imageslim">
+<meta property="og:updated_time" content="2017-09-22T03:53:58.048Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LAMP之安装MySQL">
-<meta name="twitter:description" content="MySQL的几个常用安装包：rpm，源码，二进制免编译 二进制免编译包：软件先进行编译，再打包压缩。好处在于不用花时间编译配置。二进制包区分平台，使用uname  -a查看平台，X86为64位，i686为32位。">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170725/223947669.png?imageslim">
+<meta name="twitter:title" content="DRBD的原理和配置">
+<meta name="twitter:description" content="[TOC] DRBD概述Distributed Replicated Block Device(DRBD)是一种基于软件的，无共享，复制的存储解决方案，在服务器之间的对块设备（硬盘，分区，逻辑卷等）进行镜像。DRBD工作在内核 当中的，类似于一种驱动模块。DRBD工作的位置在文件系统的buffer cache和磁盘调度器之间，通过tcp/ip发给另外一台主机到对方的tcp/ip最终发送给对方的dr">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170922/102520407.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -140,119 +144,144 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-11.2、LAMP之安装MySQL" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-DRBD的原理和配置" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      LAMP之安装MySQL
+      DRBD的原理和配置
     </h1>
   
 
         
-        <a href="/2017/07/25/11.2、LAMP之安装MySQL/" class="archive-article-date">
-  	<time datetime="2017-07-25T14:03:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-25</time>
+        <a href="/2017/09/21/DRBD的原理和配置/" class="archive-article-date">
+  	<time datetime="2017-09-21T12:27:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>MySQL的几个常用安装包：rpm，源码，二进制免编译</p>
-<p>二进制免编译包：软件先进行编译，再打包压缩。好处在于不用花时间编译配置。二进制包区分平台，使用uname  -a查看平台，X86为64位，i686为32位。</p>
+        <p>[TOC]</p>
+<h3 id="DRBD概述"><a href="#DRBD概述" class="headerlink" title="DRBD概述"></a>DRBD概述</h3><p>Distributed Replicated Block Device(DRBD)是一种基于软件的，无共享，复制的存储解决方案，在服务器之间的对块设备（硬盘，分区，逻辑卷等）进行镜像。DRBD工作在内核 当中的，类似于一种驱动模块。DRBD工作的位置在文件系统的buffer cache和磁盘调度器之间，通过tcp/ip发给另外一台主机到对方的tcp/ip最终发送给对方的drbd，再由对方的drbd存储在本地对应磁盘 上，类似于一个网络RAID-1功能。在高可用(HA)中使用DRBD功能，可以代替使用一个共享盘阵。本地(主节点)与远程主机(备节点)的数据可以保 证实时同步。当本地系统出现故障时,远程主机上还会保留有一份相同的数据,可以继续使用。</p>
 <a id="more"></a>
-<p>[TOC]</p>
-<p>安装mysql</p>
-<h3 id="1、下载MySQL二进制包"><a href="#1、下载MySQL二进制包" class="headerlink" title="1、下载MySQL二进制包"></a>1、下载MySQL二进制包</h3><p>软件包一般都是上官网查找，然后得到下载地址</p>
-<p>wget <a href="http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz" target="_blank" rel="external">http://mirrors.sohu.com/mysql/MySQL-5.6/mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz</a></p>
-<h3 id="2、解压MySQL二进制包"><a href="#2、解压MySQL二进制包" class="headerlink" title="2、解压MySQL二进制包"></a>2、解压MySQL二进制包</h3><ul>
-<li><p>该步骤可以得到已经编译好的软件目录</p>
-<p>tar -zxvf mysql-5.6.35-linux-glibc2.5-x86_64.tar.gz</p>
+<p>大致工作原理如下图：</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/102520407.png?imageslim" alt="mark"></p>
+<ul>
+<li>一般情况下文件写入磁盘的步骤是：写操作 –&gt; 文件系统 –&gt; 内存缓存中 –&gt; 磁盘调度器 –&gt; 磁盘驱动器 –&gt; 写入磁盘。数据经过buffer cache后由内核中的DRBD模块通过tcp/ip协议栈经过网卡和对方建立数据同步</li>
+<li>在drbd构造的集群中，资源具有角色的概念，分别为primary和secondary。<br>所有设为primary的资源将不受限制进行读写操作。可以创建文件系统，可以使用裸设备,甚至直接io。所有设为secondary的设备中不能挂载，不能读写</li>
+</ul>
+<h3 id="一、DRBD的工作模式"><a href="#一、DRBD的工作模式" class="headerlink" title="一、DRBD的工作模式"></a>一、DRBD的工作模式</h3><p>DRBD一般情况下只支持2个节点，工作模式主要有主从模型，主主模型</p>
+<p>1.1、主从模型（primary/secondary）</p>
+<p>这种机制，在某一时刻只允许有一个主节点。主节点的作用是可以挂载使用，写入数据等；从节点知识作为主节点的镜像，是主节点的备份。</p>
+<p>这样的工作机制的好处是可以有效的避免磁盘出现单点故障，不会文件系统的错乱。</p>
+<p>1.2、双主模型</p>
+<p>所谓双主模型是2个节点都可以当做主节点来挂载使用。那么，思考这样一个问题？当第一个主节点对某一文件正在执行写操作，此时另一个节点也正在对同一文件也要执行写操作，结果会如何呢？？</p>
+<p>一般这种情况会造成文件系统的错乱，导致数据不能正常使用。原因是：对文件的加速机制是由操作系统内核所管理的，一个节点对文件加速之后，另一个节点并不知道对方的锁信息。</p>
+<p>解决办法是：使用集群文件系统。集群文件系统使用分布式文件锁管理器，当一个节点对文件加锁之后会通过某种机制来通知其他节点锁信息，从而实现文件锁共享。</p>
+<h3 id="二、DRBD的复制协议"><a href="#二、DRBD的复制协议" class="headerlink" title="二、DRBD的复制协议"></a>二、DRBD的复制协议</h3><p>具体有以下三种协议：</p>
+<p>A协议：异步复制（asynchronous）如上图 文件写操作执行到A点是就认为写入磁盘成功。性能好，数据可靠性差。</p>
+<p>B协议：半同步复制（semi sync）如上图 文件写操作执行到B点是就认为写入磁盘成功。性能好，数据可靠性介于A和C之间。</p>
+<p>C协议：同步复制（ sync）如上图 文件写操作执行到C点是就认为写入磁盘成功。性能差，数据可靠性高。也是drbd默认使用的复制协议</p>
+<h3 id="三、DRBD主从模型配置"><a href="#三、DRBD主从模型配置" class="headerlink" title="三、DRBD主从模型配置"></a>三、DRBD主从模型配置</h3><h4 id="3-1、实验环境"><a href="#3-1、实验环境" class="headerlink" title="3.1、实验环境"></a>3.1、实验环境</h4><p>primary：centos7-64，192.168.205.140（allen5）</p>
+<p>secondary：centos7-64，192.168.205.141（allen6）</p>
+<h4 id="3-2、准备工作"><a href="#3-2、准备工作" class="headerlink" title="3.2、准备工作"></a>3.2、准备工作</h4><p>（1）设置主机名</p>
+<p>drbd的2个节点通讯是基于主机名的，所以我们需要设置两个节点的主机名和主机名解析2文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#在primary上操作</div><div class="line">hostname allen5</div><div class="line">echo &quot;allen5&quot;  &gt;/etc/hostname</div><div class="line">vim /etc/hosts</div><div class="line">#加入以下内容</div><div class="line">192.168.205.140   allen5</div><div class="line">192.168.205.141   allen6</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#在secondary上操作</div><div class="line">hostname allen6</div><div class="line">echo &quot;allen6&quot;  &gt;/etc/hostname</div><div class="line">vim /etc/hosts</div><div class="line">#加入以下内容</div><div class="line">192.168.205.140   allen5</div><div class="line">192.168.205.141   allen6</div></pre></td></tr></table></figure>
+<p>（2）准备好相同大小的分区</p>
+<p>只需要分区，不需要格式化</p>
+<p>primary和secondary都进行以下操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">fdisk /dev/sdb/</div><div class="line">&quot;n&quot;-&quot;p&quot;-&quot;1&quot;-&quot;回车&quot;-&quot;+2G&quot;-&quot;w&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>经过以上操作后，会有一个/dev/sdb1的分区</li>
+</ul>
+<p>（3）关闭防火墙和selinux</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl stop  firewalld</div><div class="line">sentence 0</div></pre></td></tr></table></figure>
+<h4 id="3-3、安装drbd"><a href="#3-3、安装drbd" class="headerlink" title="3.3、安装drbd"></a>3.3、安装drbd</h4><p>以下操作，两个节点都需要进行</p>
+<p>（1）安装依赖包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install gcc make automake autoconf kernel-devel kernel-headers flex libxslt libxslt-devel asciidoc</div></pre></td></tr></table></figure>
+<p>（2）更新内核</p>
+<p>因为我们使用yum安装的kernel-devel会比我们系统的内核新。所以我们需要更新下内核并重新启动服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum  install -y  kernel*</div><div class="line">init 6</div></pre></td></tr></table></figure>
+<p>（3）下载drbd-utils，drbd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://oss.linbit.com/drbd/drbd-utils-9.0.0.tar.gz</div><div class="line">wget http://www.linbit.com/downloads/drbd/9.0/drbd-9.0.9-1.tar.gz</div></pre></td></tr></table></figure>
+<p>（4）安装drbd-util</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tar -zxvf drbd-utils-9.0.0.tar.gz</div><div class="line">cd drbd-utils-9.0.0.tar.gz</div><div class="line">./autogen.sh</div><div class="line">./configure --prefix=/usr/ --localstatedir=/var --sysconfdir=/etc</div><div class="line">make KDIR=/usr/src/kernels/3.10.0-229.14.1.el7.x86_64</div><div class="line">make install</div><div class="line">cp drbd-utils-8.9.4/scripts/drbd /etc/init.d/</div></pre></td></tr></table></figure>
+<p>（5）安装drbd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">tar  -zxvf drbd-9.0.9-1.tar.gz</div><div class="line">cd drbd-9.0.9-1</div><div class="line">make KDIR=/usr/src/kernels/3.10.0-229.14.1.el7.x86_64</div><div class="line">make install</div><div class="line">make -C drbd install</div></pre></td></tr></table></figure>
+<p>（6）查看drbd安装路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">whereis  drbd</div><div class="line">drbd: /usr/lib/drbd /etc/drbd.d /etc/drbd.conf /usr/local/drbd /usr/share/man/man8/drbd.8</div></pre></td></tr></table></figure>
+<h3 id="四、配置drbd"><a href="#四、配置drbd" class="headerlink" title="四、配置drbd"></a>四、配置drbd</h3><p>由于primary和secondary上的配置文件需要保持一致，所以我们修改一个节点之后在复制到另一个节点即可。</p>
+<h4 id="4-1、drbd配置文件"><a href="#4-1、drbd配置文件" class="headerlink" title="4.1、drbd配置文件"></a>4.1、drbd配置文件</h4><p>（1）主配置文件drbd.conf</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/105112060.png?imageslim" alt="mark"></p>
+<p>（1）全局配置文件global_common.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">cat global_common.conf|grep -v  &quot;#&quot;</div><div class="line"></div><div class="line">global &#123;</div><div class="line">	usage-count no;</div><div class="line">&#125;</div><div class="line"></div><div class="line">common &#123;</div><div class="line">	handlers &#123;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	startup &#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	options &#123;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	disk &#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	net &#123;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>全局配置项（global）</p>
+<p>基本上我们可以做的也就是配置usage-count是yes还是no了，usage-count参数其实只是为了让linbit公司收集目前drbd的使用情况。当drbd在安装和升级的时候会通过http协议发送信息到linbit公司的服务器上面。</p>
+</li>
+<li><p>公共配置项（common）</p>
+<p>这里的common，指的是drbd所管理的多个资源之间的common。配置项里面主要是配置drbd的所有resource可以设置为相同的参数项，比如protocol，syncer等等。</p>
 </li>
 </ul>
-<h3 id="3、重命名目录"><a href="#3、重命名目录" class="headerlink" title="3、重命名目录"></a>3、重命名目录</h3><ul>
-<li>该步骤可以将软件指定安装位置</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 src]# mv  mysql-5.6.35-linux-glibc2.5-x86_64/   /usr/local/mysql</div><div class="line">[root@allen1 src]# ls /usr/local/mysql/</div><div class="line">bin      data  include  man         README   share      support-files</div><div class="line">COPYING  docs  lib      mysql-test  scripts  sql-bench</div></pre></td></tr></table></figure>
-<h3 id="4、创建用户"><a href="#4、创建用户" class="headerlink" title="4、创建用户"></a>4、创建用户</h3><ul>
-<li>该步骤主要是创建MySQL使用用户</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd  mysql</div></pre></td></tr></table></figure>
-<h3 id="5、创建目录"><a href="#5、创建目录" class="headerlink" title="5、创建目录"></a>5、创建目录</h3><ul>
-<li>该步骤创建的目录为MySQL数据存放目录</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/</div></pre></td></tr></table></figure>
-<h3 id="6、初始化MySQL"><a href="#6、初始化MySQL" class="headerlink" title="6、初始化MySQL"></a>6、初始化MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mysql]# cd /usr/local/mysql</div><div class="line">[root@allen1 mysql]# ./scripts/mysql_install_db --user=mysql  --datadir=/data/mysql</div></pre></td></tr></table></figure>
+<p>（3）新建资源配置文件drbd.res</p>
+<p>下面为本次实验使用的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">vim  /etc/drbd.d/drbd.res</div><div class="line">resource r1 &#123;                                </div><div class="line">         net &#123;</div><div class="line">               cram-hmac-alg sha1;           </div><div class="line">               shared-secret &quot;123456&quot;;      </div><div class="line">         &#125;</div><div class="line">         volume 1 &#123;                        </div><div class="line">               device    /dev/drbd1;      </div><div class="line">               disk      /dev/sdb1;      </div><div class="line">               meta-disk internal;      </div><div class="line">         &#125; </div><div class="line">         on allen5 &#123;</div><div class="line">               node-id    0;</div><div class="line">               address    192.168.205.140:7000;      #设置drbd监听地址和端口</div><div class="line">          &#125;</div><div class="line">          on allen6 &#123;</div><div class="line">               node-id    1;</div><div class="line">               address    192.168.205.141:7000;</div><div class="line">          &#125;</div><div class="line">          connection &#123;</div><div class="line">               host allen5  port 7000;</div><div class="line">               host allen6  port 7000;</div><div class="line">               net &#123;</div><div class="line">                       protocol C;              </div><div class="line">               &#125;</div><div class="line">          &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>-user=MySQL使用用户</li>
-<li>-datadir=MySQL数据存放目录</li>
+<li>resource r1，定义资源组名称为r1</li>
+<li>net，定义加密管理</li>
+<li>volume 1，定义卷组</li>
+<li>on后面跟主机名（需要和uname -n相同）</li>
+<li>protocol C，定义使用第三中协议</li>
 </ul>
-<p>初始化时出现以下错误：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170725/223947669.png?imageslim" alt="mark"></p>
-<p>解决办法：yum install -y perl-Data-Dumper.x86_64</p>
-<p><strong>查看是否初始化成功：</strong></p>
-<p>（1）查看两个“OK”</p>
-<p>（2）使用echo $?，输出是否为0</p>
-<h3 id="7、拷贝配置文件和启动脚本"><a href="#7、拷贝配置文件和启动脚本" class="headerlink" title="7、拷贝配置文件和启动脚本"></a>7、拷贝配置文件和启动脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp support-files/my-default.cnf  /etc/my.cnf 			#配置文件</div><div class="line">cp support-files/mysql.server /etc/init.d/mysqld		#启动脚本</div></pre></td></tr></table></figure>
+<h4 id="4-2、配置resource"><a href="#4-2、配置resource" class="headerlink" title="4.2、配置resource"></a>4.2、配置resource</h4><p>两个节点的服务器都需要执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#用指定大小的块拷贝一个文件</div><div class="line">dd if=/dev/zero of=/dev/sdb1 bs=1M count=100  </div><div class="line">#创建设备元数据</div><div class="line">drbdadm -c /etc/drbd.conf create-md all</div><div class="line">#创建r1设备元</div><div class="line">drbdadm create-md r1</div><div class="line">启用r1资源</div><div class="line">drbdadm up r1 </div><div class="line">#查看状态</div><div class="line">drbd-overview</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/113450917.png?imageslim" alt="mark"></p>
+<p><strong>drbdadm   down   r1</strong>，可以停止res</p>
+<h3 id="五、同步测试"><a href="#五、同步测试" class="headerlink" title="五、同步测试"></a>五、同步测试</h3><h4 id="5-1、配置primary-node"><a href="#5-1、配置primary-node" class="headerlink" title="5.1、配置primary node"></a>5.1、配置primary node</h4><p>（1）设置allen5位primary node;在allen5上执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drbdadm primary r1</div></pre></td></tr></table></figure>
 <ul>
-<li>配置文件的默认位置为/etc/my.cnf，如果配置文件没有放在这。启动时需要指定配置文件位置，–defaults-file=filename</li>
+<li><p>设置时出现以下错误</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/112013824.png?imageslim" alt="mark"></p>
+<p>添加–force即可</p>
+</li>
 </ul>
-<h3 id="8、修改启动脚本中的datadir和basedir"><a href="#8、修改启动脚本中的datadir和basedir" class="headerlink" title="8、修改启动脚本中的datadir和basedir"></a>8、修改启动脚本中的datadir和basedir</h3><p>datadir：数据存放目录</p>
-<p>basedir：软件安装目录</p>
-<h3 id="9、将MySQL加入服务列表及开机启动"><a href="#9、将MySQL加入服务列表及开机启动" class="headerlink" title="9、将MySQL加入服务列表及开机启动"></a>9、将MySQL加入服务列表及开机启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mysql]# chkconfig  --add   mysqld</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170725/231247683.png?imageslim" alt="mark"></p>
-<h3 id="10、启动MySQL"><a href="#10、启动MySQL" class="headerlink" title="10、启动MySQL"></a>10、启动MySQL</h3><p>（1）service mysql  start</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mysql]# service mysqld start</div><div class="line">Starting MySQL.Logging to &apos;/data/mysql/allen1.err&apos;.</div><div class="line"> SUCCESS! </div><div class="line">[root@allen1 mysql]# ps aux   |grep  &quot;mysql&quot;</div></pre></td></tr></table></figure>
-<p>（2）/usr/local/mysql/bin/mysqld_safe –defaults-file=/etc/my.cnf  –user=mysql –datadir=/data/mysql &amp;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mysql]# /usr/local/mysql/bin/mysqld_safe --defaults-file=/etc/my.cnf  --user=mysql --datadir=/data/mysql &amp;</div><div class="line">[1] 4254</div><div class="line">[root@allen1 mysql]# 170725 23:19:21 mysqld_safe Logging to &apos;/data/mysql/allen1.err&apos;.</div><div class="line">170725 23:19:21 mysqld_safe Starting mysqld daemon with databases from /data/mysql</div><div class="line">[root@allen1 mysql]# ps aux   |grep  &quot;mysql&quot;</div></pre></td></tr></table></figure>
-<ul>
-<li>–defaults-file=配置文件位置</li>
-</ul>
-<h3 id="11、关闭MySQL"><a href="#11、关闭MySQL" class="headerlink" title="11、关闭MySQL"></a>11、关闭MySQL</h3><p>（1）service  mysqld  stop</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mysql]# service mysqld stop</div><div class="line">Shutting down MySQL.. SUCCESS! </div><div class="line">[root@allen1 mysql]# ps aux   |grep  &quot;mysql&quot;</div><div class="line">root      4608  0.0  0.0 112664   976 pts/0    R+   23:23   0:00 grep --color=auto mysql</div></pre></td></tr></table></figure>
-<p>（2）killall  mysqld</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@allen1 mysql]# killall mysqld</div><div class="line">[root@allen1 mysql]# ps aux   |grep  &quot;mysql&quot;</div><div class="line">root      4608  0.0  0.0 112664   976 pts/0    R+   23:23   0:00 grep --color=auto mysql</div></pre></td></tr></table></figure>
-<p>（3）kill与killall的区别</p>
-<p><code>kill  PID</code>也是可以结束进程的，但是有些服务是由多个进程支持。例如，MySQL服务就有多个进程，MySQL在写数据时，如果一个进程被kill了，那么还在内存未写入的数据就会丢失。而使用<code>killall  服务名</code>，会等待内存的数据写入磁盘后在结束所有服务进程。</p>
-<p><strong>如果使用<code>killall  mysql</code>还是杀不死进程，这个时候不要使用-9强制杀死，因为数据量大，所以这个时候我们只能等待。等数据处理完之后，进程自动会被kill掉。</strong></p>
-<h2 id="安装Maria-DB"><a href="#安装Maria-DB" class="headerlink" title="安装Maria DB"></a>安装Maria DB</h2><p>1、下载二进制安装包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget https://downloads.mariadb.com/MariaDB/mariadb-10.2.6/bintar-linux-glibc_214-x86_64/mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
-<p>2、解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zcvf  mariadb-10.2.6-linux-glibc_214-x86_64.tar.gz</div></pre></td></tr></table></figure>
-<p>3、重命名目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv mariadb-10.2.6-linux-glibc_214-x86_64 /usr/local/mariadb</div></pre></td></tr></table></figure>
-<p>4、创建用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd  mysql</div></pre></td></tr></table></figure>
-<p>5、创建数据目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir /data/mariadb</div></pre></td></tr></table></figure>
-<p>6、初始化MariaDB</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/mariadb</div><div class="line">./scripts/mysql_install_db --user=mysql --basedir=/usr/local/mariadb/ --datadir=/data/mariadb</div><div class="line">#需要指定basedir</div></pre></td></tr></table></figure>
-<p>使用echo $?查看是否成功</p>
-<p>7、拷贝配置文件和启动脚本</p>
-<p>配置文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cp support-files/my-small.cnf /usr/local/mariadb/my.cnf</div><div class="line">cp support-files/my-small.cnf  /etc/my.cnf</div><div class="line">#可以在该配置文件中修改监听端口和socket文件位置，避免与MySQL冲突</div></pre></td></tr></table></figure>
-<p>启动脚本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp support-files/mysql.server /etc/init.d/mariadb</div></pre></td></tr></table></figure>
-<ul>
-<li>在该脚本中定义datadir和basedir的位置，同时可以定义一个变量conf=/usr/local/mariadb/my.cnf，并且在启动时自动加载配置文件–default-file=$conf</li>
-</ul>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170726/232443943.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170726/232351011.png?imageslim" alt="mark"></p>
-<p>8、启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> /etc/init.d/mariadb start</div><div class="line">#使用ps  aux |grep &quot;mariadb&quot;查看是否启动成功</div><div class="line">[root@allen1 mariadb]# ps aux |grep &quot;mariadb&quot;</div><div class="line">root      6103  0.0  0.1 115380  1732 ?        S    23:48   0:00 /bin/sh /usr/local/mariadb//bin/mysqld_safe --defaults-file=/usr/local/mariadb//my.cnf --datadir=/data/mariadb/ --pid-file=/data/mariadb//allen1.pid</div><div class="line">mysql     6219  3.0  5.8 1125020 58772 ?       Sl   23:48   0:00 /usr/local/mariadb/bin/mysqld --defaults-file=/usr/local/mariadb//my.cnf --basedir=/usr/local/mariadb --datadir=/data/mariadb/ --plugin-dir=/usr/local/mariadb/lib/plugin --user=mysql --log-error=/data/mariadb//allen1.err --pid-file=/data/mariadb//allen1.pid --socket=/tmp/mysql.sock --port=3306</div><div class="line">root      6258  0.0  0.0 112664   976 pts/0    S+   23:48   0:00 grep --color=auto mariadb</div></pre></td></tr></table></figure>
-<p>9、在启动脚本中定义配置文件</p>
-<p>（1）增加一个变量conf=配置文件地址</p>
-<p>（2）找到“start”启动部分，加上–defaults-file=”$conf”</p>
-<p>10、mariadb的默认配置文件区别</p>
-<p>如图所示：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170727/000535536.png?imageslim" alt="mark"></p>
-<ul>
-<li>这些默认配置文件的主要区别在于其中buff和cache的值不同。MySQL也是有多个默认配置文件</li>
-</ul>
-<p><a href="http://ask.apelearn.com/question/1059" target="_blank" rel="external">Linux下MYSQL5.5源码安装</a></p>
-<p><a href="http://ask.apelearn.com/question/10105" target="_blank" rel="external">mysql5.7二进制包安装</a></p>
+<p>（2）查看allen5是否成为primary</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/113524174.png?imageslim" alt="mark"></p>
+<p>（3）格式化并挂载（allen5）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#创建挂载点</div><div class="line">mkdir /drbd </div><div class="line">#格式化/dev/drbd1</div><div class="line">mkfs.ext4 /dev/drbd1</div><div class="line">#挂载</div><div class="line">mount /dev/drbd1 /drbd</div><div class="line">#查看状态</div><div class="line">drbd-overview</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/113550792.png?imageslim" alt="mark"></p>
+<p>（4）在挂载点创建测试文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd /drbd/</div><div class="line">touch test.txt  1.txt  2.txt</div><div class="line">echo &quot;test&quot;  &gt;test.txt	;</div><div class="line">echo &quot;test1&quot;  &gt;1.txt ;</div><div class="line">echo &quot;test2&quot;  &gt;2.txt ;</div></pre></td></tr></table></figure>
+<h4 id="5-2、进行同步测试"><a href="#5-2、进行同步测试" class="headerlink" title="5.2、进行同步测试"></a>5.2、进行同步测试</h4><p>（1）在allen5上卸载/dev/drbd1，并降级为secondary</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#卸载/dev/drbd1</div><div class="line">cd ../</div><div class="line">umount /dev/drbd1</div><div class="line">#将主节点降级为备节点</div><div class="line">drbdadm secondary r1 </div><div class="line">#查看状态</div><div class="line">drbd-overview</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/114000993.png?imageslim" alt="mark"></p>
+<p>（2）将allen6升级为primary，并挂载/dev/drbd1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#创建挂载点</div><div class="line">mkdir  /drbd</div><div class="line">#挂载</div><div class="line">mount  /dev/drbd1  /drbd</div><div class="line">#将allen6升级为primary</div><div class="line">drbdadm primary r1</div><div class="line">#查看状态</div><div class="line">drbd-overview</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/114127341.png?imageslim" alt="mark"></p>
+<p>（3）查看是否有我们之前在allen5创建的文件</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/112302793.png?imageslim" alt="mark"></p>
+<p>已实现同步</p>
+<p>（4）查看状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#查看节点状态</div><div class="line">drbdadm role r1 </div><div class="line">#查看硬盘状态</div><div class="line">drbdadm dstate r1</div></pre></td></tr></table></figure>
+<p>（5）本地和对等节点的硬盘可能为下列状态之一:</p>
+<p>diskless(无盘)：本地没有块设备分配给DRBD使用，表示无可用设备，或是使用drbdadm命令手工分离;或是底层的I/O错误导致自动分离。</p>
+<p>attaching：读取无数据时的瞬间状态。</p>
+<p>failed(失败)：本地块设备报告I/O错误的下一个状态，其下一个状态为diskless无盘。</p>
+<p>negotiating：在已连接的DRBD设置进行attach读取无数据前的瞬间状态。</p>
+<p>inconsistent：数据不一致,在两个节点上(初始的完全同步前)这种状态出现后立即创建一个新的资源。</p>
+<p>outdated：数据资源一致，但已过时。</p>
+<p>dunknown：当对等节点网络连接不可用时会出现该状态</p>
+<p>consistent：一个没有连接的节点数据一致，当建立连接时，它决定数据是uptodate或outdated</p>
+<p>uptodate：一致的最新的数据状态，为正常状态</p>
+<p>参考</p>
+<p><a href="http://wangzhijian.blog.51cto.com/6427016/1710926" target="_blank" rel="external">DRBD编译安装配置</a></p>
+<p><a href="http://wangzhijian.blog.51cto.com/6427016/1711284" target="_blank" rel="external">DRBD编译安装中出现的问题及解决小结</a></p>
+<p><a href="http://www.cnblogs.com/guoting1202/p/3975685.html" target="_blank" rel="external"><a href="http://www.cnblogs.com/guoting1202/p/3975685.html" target="_blank" rel="external">DRBD原理知识</a></a></p>
+<p><a href="http://czmmiao.iteye.com/blog/1773079" target="_blank" rel="external">DRBD架构详解</a></p>
 
       
 
@@ -266,7 +295,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LAMP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DRBD</a>
         		</li>
       		
 		</ul>
@@ -322,7 +351,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/07/25/11.2、LAMP之安装MySQL/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/09/21/DRBD的原理和配置/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -336,18 +365,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/26/11.3、LAMP之Apache安装/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          LAMP之Apache安装
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/07/25/11.1、LANMP之LAMp简介/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LANMP之LAMP简介</div>
+    <a href="/2017/09/20/26.6shell脚本之expect分发系统/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">shell脚本之expect分发系统</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -363,8 +392,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://zhangguangzhi.github.io/2017/07/25/11.2、LAMP之安装MySQL/", 
-    sourceId: "11.2、LAMP之安装MySQL",
+    url: "http://zhangguangzhi.github.io/2017/09/21/DRBD的原理和配置/", 
+    sourceId: "DRBD的原理和配置",
     productKey: "ture",
     target: "cloud-tie-wrapper"
   };
@@ -377,30 +406,6 @@
   
 
 <!-- 目录内容 -->
-        
-            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
-            <span class="btn-bg"></span>
-            <span class="btn-text">文章导航</span>
-            </p>
-            <div id="toc-article" class="toc-article">
-                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
-                <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、下载MySQL二进制包"><span class="toc-number">1.</span> <span class="toc-text">1、下载MySQL二进制包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、解压MySQL二进制包"><span class="toc-number">2.</span> <span class="toc-text">2、解压MySQL二进制包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、重命名目录"><span class="toc-number">3.</span> <span class="toc-text">3、重命名目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、创建用户"><span class="toc-number">4.</span> <span class="toc-text">4、创建用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、创建目录"><span class="toc-number">5.</span> <span class="toc-text">5、创建目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、初始化MySQL"><span class="toc-number">6.</span> <span class="toc-text">6、初始化MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7、拷贝配置文件和启动脚本"><span class="toc-number">7.</span> <span class="toc-text">7、拷贝配置文件和启动脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8、修改启动脚本中的datadir和basedir"><span class="toc-number">8.</span> <span class="toc-text">8、修改启动脚本中的datadir和basedir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9、将MySQL加入服务列表及开机启动"><span class="toc-number">9.</span> <span class="toc-text">9、将MySQL加入服务列表及开机启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10、启动MySQL"><span class="toc-number">10.</span> <span class="toc-text">10、启动MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11、关闭MySQL"><span class="toc-number">11.</span> <span class="toc-text">11、关闭MySQL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Maria-DB"><span class="toc-number"></span> <span class="toc-text">安装Maria DB</span></a>
-           </div>
-           <script type="text/javascript">
-            function showToc(){
-                var toc_article = document.getElementById("toc-article");
-                var show_toc_btn = document.getElementById("show-toc-btn");
-                toc_article.setAttribute("style","display:block");
-                show_toc_btn.setAttribute("style","display:none");
-                };
-            function showBtn(){
-                var toc_article = document.getElementById("toc-article");
-                var show_toc_btn = document.getElementById("show-toc-btn");
-                toc_article.setAttribute("style","display:none");
-                show_toc_btn.setAttribute("style","display:block");
-                };
-           </script>
              
         <!-- 目录内容结束 -->
 
