@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170920/152357832.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170920/152431930.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170920/153823718.png?imageslim">
-<meta property="og:updated_time" content="2017-09-20T07:38:39.762Z">
+<meta property="og:updated_time" content="2017-09-23T10:14:22.224Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell脚本之expect分发系统">
 <meta name="twitter:description" content="[TOC] 代码上线，简单的方法我们可以使用rsync将新代码推送这指定服务器。在rsync同步时，有一些交互信息需要我们去处理。这个时候，我们就可以使用expect来自动处理这些交互信息。而且ssh登录，ftp登录等都符合交互的定义。">
@@ -185,20 +185,20 @@
 <li>使用expect就可以接收send发出的字符串</li>
 </ul>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170920/113519382.png?imageslim" alt="mark"></p>
-<h4 id="1-4、-传递参数"><a href="#1-4、-传递参数" class="headerlink" title="1.4、 传递参数"></a>1.4、 传递参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">vim  test3.expect</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line">set user [lindex $argv 0]</div><div class="line">set host [lindex $argv 1]</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">set cm [lindex $argv 2]</div><div class="line">spawn ssh $user@$host</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot;&#125;</div><div class="line">&quot;password:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">expect &quot;]*&quot;</div><div class="line">send &quot;$cm\r&quot;</div><div class="line">expect &quot;]*&quot;</div><div class="line">send &quot;exit\r&quot;</div></pre></td></tr></table></figure>
+<h4 id="1-4、-传递参数"><a href="#1-4、-传递参数" class="headerlink" title="1.4、 传递参数"></a>1.4、 传递参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">vim  test3.expect</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line">set user [lindex $argv 0]</div><div class="line">set host [lindex $argv 1]</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">set cm [lindex $argv 2]</div><div class="line">spawn ssh $user@$host</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot;; exp_continue&#125;</div><div class="line">&quot;assword:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">expect &quot;]*&quot;</div><div class="line">send &quot;$cm\r&quot;</div><div class="line">expect &quot;]*&quot;</div><div class="line">send &quot;exit\r&quot;</div></pre></td></tr></table></figure>
 <ul>
 <li>set user [lindex $argv 0]，表示设置变量user的值为脚本的第一个参数，后面的变量以此类推</li>
-<li>ssh登录后，如果执行的命令用时比较久。那么expect超时时间只用10s，可以在执行命令下面使用timeout设置超时时间，-1为没有超时时间</li>
+<li>ssh登录后，如果执行的命令用时比较久。那么expect超时时间只用10s，可以在执行命令下面使用<code>set timeout</code>设置超时时间，-1为没有超时时间.（set timeout -1）</li>
 <li>因为第三个参数为shell命令，如果有选项的话，需要使用双引号括起来表示一个整体。如果执行多个命令，还需要用到分号，例如”command1;command2;command3…”</li>
 </ul>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170920/114823421.png?imageslim" alt="mark"></p>
-<h4 id="1-5、自动同步文件"><a href="#1-5、自动同步文件" class="headerlink" title="1.5、自动同步文件"></a>1.5、自动同步文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">vim  test4.expect</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">spawn rsync -av root@192.168.205.141:/tmp/12.txt  /tmp</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot;&#125;</div><div class="line">&quot;password:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line">expect eof</div></pre></td></tr></table></figure>
+<h4 id="1-5、自动同步文件"><a href="#1-5、自动同步文件" class="headerlink" title="1.5、自动同步文件"></a>1.5、自动同步文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">vim  test4.expect</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">spawn rsync -av root@192.168.205.141:/tmp/12.txt  /tmp</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot;; exp_continue&#125;</div><div class="line">&quot;assword:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line">expect eof</div></pre></td></tr></table></figure>
 <ul>
 <li>使用rsync命令同步，过程与ssh登录类似。只是spawn的语句为rsync同步命令</li>
 <li>使用绝对路径表示要同步的文件</li>
 </ul>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170920/143920207.png?imageslim" alt="mark"></p>
-<h4 id="1-6、指定host和要同步的文件"><a href="#1-6、指定host和要同步的文件" class="headerlink" title="1.6、指定host和要同步的文件"></a>1.6、指定host和要同步的文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">set host [lindex $argv 0]</div><div class="line">set file [lindex $argv 1]</div><div class="line">spawn rsync -av $file root@$host:$file</div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot;&#125;</div><div class="line">&quot;password:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line">expect eof</div></pre></td></tr></table></figure>
+<h4 id="1-6、指定host和要同步的文件"><a href="#1-6、指定host和要同步的文件" class="headerlink" title="1.6、指定host和要同步的文件"></a>1.6、指定host和要同步的文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">set host [lindex $argv 0]</div><div class="line">set file [lindex $argv 1]</div><div class="line">spawn rsync -av $file root@$host:$file</div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot;; exp_continue&#125;</div><div class="line">&quot;assword:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line">expect eof</div></pre></td></tr></table></figure>
 <ul>
 <li>将host和要同步的文件赋值为参数</li>
 <li>该过程一次只能同步一个文件</li>
@@ -215,7 +215,7 @@
 <p>上线机器2：allen1（192.168.205.136）</p>
 <p>上线代码为：/tmp/list.txt</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/tmp/code/nginx.sh</div><div class="line">/tmp/code/php.sh</div><div class="line">/tmp/code/load.sh</div><div class="line">/tmp/code/502.sh</div></pre></td></tr></table></figure>
-<h4 id="2-2、文件分发系统的实现"><a href="#2-2、文件分发系统的实现" class="headerlink" title="2.2、文件分发系统的实现"></a>2.2、文件分发系统的实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">vim rsync.expect</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">set host [lindex $argv 0]</div><div class="line">set file [lindex $argv 1]</div><div class="line">spawn rsync -av --files-from=$file / root@$host:/</div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot;&#125;</div><div class="line">&quot;password:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">expect eof</div></pre></td></tr></table></figure>
+<h4 id="2-2、文件分发系统的实现"><a href="#2-2、文件分发系统的实现" class="headerlink" title="2.2、文件分发系统的实现"></a>2.2、文件分发系统的实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">vim rsync.expect</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">set host [lindex $argv 0]</div><div class="line">set file [lindex $argv 1]</div><div class="line">spawn rsync -av --files-from=$file / root@$host:/</div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot;; exp_continue&#125;</div><div class="line">&quot;assword:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">expect eof</div></pre></td></tr></table></figure>
 <ul>
 <li>-R是根据情况添加，如果目标机器已经有绝对路径的目录时就不需要再使用-R</li>
 <li>目标机器的登录密码需要一样，或者我们可以配置为密钥登录</li>
@@ -230,7 +230,7 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170920/152431930.png?imageslim" alt="mark"></p>
 <h4 id="2-5、命令批量执行"><a href="#2-5、命令批量执行" class="headerlink" title="2.5、命令批量执行"></a>2.5、命令批量执行</h4><p>当我们同步完代码后，需要我们重新加载一下服务。或者临时登录到其他机器查看状态。我们都是可以批量进行的，也是使用shell脚本调用expect文件</p>
 <p>（1）expect文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">vim test6.expect</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line">set host [ lindex $argv 0 ]</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">set cm [ lindex $argv 1 ]</div><div class="line">spawn ssh root@$host</div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot; &#125;</div><div class="line">&quot;password:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">expect &quot;]*&quot;</div><div class="line">send &quot;$cm\r&quot;</div><div class="line">expect &quot;]*&quot;</div><div class="line">send &quot;exit\r&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">vim test6.expect</div><div class="line"></div><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line">set host [ lindex $argv 0 ]</div><div class="line">set passwd &quot;123456&quot;</div><div class="line">set cm [ lindex $argv 1 ]</div><div class="line">spawn ssh root@$host</div><div class="line">expect &#123;</div><div class="line">&quot;yes/no&quot; &#123; send &quot;yes\r&quot;; exp_continue&#125;</div><div class="line">&quot;assword:&quot; &#123; send &quot;$passwd\r&quot; &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">expect &quot;]*&quot;</div><div class="line">send &quot;$cm\r&quot;</div><div class="line">expect &quot;]*&quot;</div><div class="line">send &quot;exit\r&quot;</div></pre></td></tr></table></figure>
 <ul>
 <li>保存后，赋予执行权限</li>
 </ul>
@@ -502,14 +502,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
               </li>
              
@@ -518,15 +510,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,23 +526,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,11 +542,31 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -598,15 +598,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -622,11 +618,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>
