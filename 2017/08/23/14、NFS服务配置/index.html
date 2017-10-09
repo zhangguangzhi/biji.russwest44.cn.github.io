@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/154336639.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/154846007.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/105251639.png?imageslim">
-<meta property="og:updated_time" content="2017-08-24T03:23:42.840Z">
+<meta property="og:updated_time" content="2017-09-27T15:58:03.246Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NFS服务配置">
 <meta name="twitter:description" content="[TOC] 一、NFS介绍NFS是Network File System的缩写，NFS最早由Sun公司开发，分2,3,4三个版本，2和3由Sun起草开发，4.0开始Netapp公司参与并主导开发，最新为4.1版本 1.1、什么是NFSnfs的主要功能是通过网路让不同的机器系统之间可以彼此共享文件和目录。nfs服务器可以允许nfs客户端将远端nfs服务器的共享目录挂载到本地的nfs客户端中。在本地的">
@@ -228,7 +228,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  /home/nfstestdir</div><div class="line">chmod 777 /home/nfstestdir</div></pre></td></tr></table></figure>
 <p>/var/lib/nfs/rmtab记录共享目录被挂载情况</p>
 <p>/var/lib/nfs/etab记录设置了那些目录共享以及配置参数</p>
-<h4 id="2-3、启动服务"><a href="#2-3、启动服务" class="headerlink" title="2.3、启动服务"></a>2.3、启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#先启动rpcbind，再启动nfs</div><div class="line"># rpcinfo  -p可以查看rpcbind启动信息</div><div class="line">systemctl  start rpcbind</div><div class="line">systemctl  start nfs</div><div class="line">#设置服务开启不启动</div><div class="line">systemctl  enable rpcbind</div><div class="line">systemctl  enable nfs</div></pre></td></tr></table></figure>
+<h4 id="2-3、启动服务"><a href="#2-3、启动服务" class="headerlink" title="2.3、启动服务"></a>2.3、启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#先启动rpcbind，再启动nfs</div><div class="line"># rpcinfo  -p可以查看rpcbind启动信息</div><div class="line">systemctl  start rpcbind</div><div class="line">systemctl  start nfs</div><div class="line">#设置服务开机自启动</div><div class="line">systemctl  enable rpcbind</div><div class="line">systemctl  enable nfs</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/151909620.png?imageslim" alt="mark"></p>
 <h4 id="2-4、客户端挂载"><a href="#2-4、客户端挂载" class="headerlink" title="2.4、客户端挂载"></a>2.4、客户端挂载</h4><p>2.4.1、安装nfs-utils</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install  -y nfs-utils</div></pre></td></tr></table></figure>
@@ -269,7 +269,7 @@
 <ul>
 <li>只有之前共享的目录</li>
 </ul>
-<p>如果需要使刚刚增加的共享目录生效，我们需要重启NFS服务。或者使用exprotfs命令。</p>
+<p>如果需要使刚刚增加的共享目录生效，我们需要重启NFS服务。或者使用exportfs命令。</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170824/105251639.png?imageslim" alt="mark"></p>
 <h3 id="四、NFS客户端挂载可能会出现的问题"><a href="#四、NFS客户端挂载可能会出现的问题" class="headerlink" title="四、NFS客户端挂载可能会出现的问题"></a>四、NFS客户端挂载可能会出现的问题</h3><p>该问题主要出现在NFS4版本会有，客户端挂载共享目录后，不管是root用户还是普通用户，创建新文件时属主和属组都是nobody</p>
 <p>解决的办法：</p>
@@ -538,6 +538,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
@@ -546,7 +550,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -558,10 +562,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
@@ -570,7 +570,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,7 +578,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,11 +590,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,15 +602,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -618,11 +610,31 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nosql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,11 +646,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -646,23 +654,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -674,7 +682,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

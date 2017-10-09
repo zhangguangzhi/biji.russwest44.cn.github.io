@@ -131,6 +131,292 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-10.4、日常管理之ps命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/11/10.4、日常管理之ps命令/">日常管理之ps命令</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/11/10.4、日常管理之ps命令/" class="archive-article-date">
+  	<time datetime="2017-07-11T14:00:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>ps：系统进程查看</p>
+<h3 id="1、用法"><a href="#1、用法" class="headerlink" title="1、用法"></a>1、用法</h3><p>常用用法：<code>ps  aux</code>|<code>ps  -elf</code></p>
+<p>ps是显示瞬间进程的状态，并不动态连续；如果想对进程进行实时监控应该用top命令。</p>
+        
+          <a class="article-more-a" href="/2017/07/11/10.4、日常管理之ps命令/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/11/10.4、日常管理之ps命令/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-10.3、日常管理之iostat,iotop,free" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/11/10.3、日常管理之iostat,iotop,free/">日常管理之iostat，iotop，free</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/11/10.3、日常管理之iostat,iotop,free/" class="archive-article-date">
+  	<time datetime="2017-07-11T13:13:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、iostat-iotop"><a href="#一、iostat-iotop" class="headerlink" title="一、iostat/iotop"></a>一、iostat/iotop</h2><h3 id="1、iostat"><a href="#1、iostat" class="headerlink" title="1、iostat"></a>1、iostat</h3><p>查看磁盘io，即读写能力</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# iostat  -x</div><div class="line">Linux 3.10.0-514.el7.x86_64 (allen1) 	2017年07月11日 	_x86_64_	(1 CPU)</div><div class="line"></div><div class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</div><div class="line">           0.18    0.00    0.36    0.27    0.00   99.19</div><div class="line"></div><div class="line">Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util</div><div class="line">sda               0.00     0.02    1.05    0.33    39.59     2.75    61.48     0.03   19.92   14.00   39.07   4.31   0.59</div><div class="line">sdb               0.00     0.00    0.05    0.00     0.33     0.00    12.53     0.00    4.37    4.37    0.00   3.97   0.02</div><div class="line">scd0              0.00     0.00    0.00    0.00     0.01     0.00     8.00     0.00   19.64   19.64    0.00  19.64   0.00</div><div class="line">dm-0              0.00     0.00    0.01    0.00     0.08     0.00    15.20     0.00   19.27   19.27    0.00  17.87   0.02</div></pre></td></tr></table></figure>
+<p>%util：i/o等待进程占用cpu的时间比</p>
+        
+          <a class="article-more-a" href="/2017/07/11/10.3、日常管理之iostat,iotop,free/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/11/10.3、日常管理之iostat,iotop,free/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-10.2、日常管理之sar" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/10/10.2、日常管理之sar/">日常管理之sar</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/10/10.2、日常管理之sar/" class="archive-article-date">
+  	<time datetime="2017-07-10T13:31:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、sar工具是什么"><a href="#一、sar工具是什么" class="headerlink" title="一、sar工具是什么"></a>一、sar工具是什么</h2><p>sar是非常有用的Linux系统性能瓶颈，故障分析的工具。</p>
+<p>查看操作系统报告指标的各种工具(top, vmstat…)中，最普遍，最方便的。</p>
+        
+          <a class="article-more-a" href="/2017/07/10/10.2、日常管理之sar/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/10/10.2、日常管理之sar/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-10.1、日常管理之w,uptime,top,vmstat" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/10/10.1、日常管理之w,uptime,top,vmstat/">日常管理之系统监控w,uptime,vmstat,top</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/10/10.1、日常管理之w,uptime,top,vmstat/" class="archive-article-date">
+  	<time datetime="2017-07-10T13:22:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="一、w命令使用"><a href="#一、w命令使用" class="headerlink" title="一、w命令使用"></a>一、w命令使用</h2><h3 id="1、w命令输出详情"><a href="#1、w命令输出详情" class="headerlink" title="1、w命令输出详情"></a>1、w命令输出详情</h3><p>w：查看系统负载以及登录详情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# w</div><div class="line"> 21:24:33 up  1:01,  3 users,  load average: 0.02, 0.02, 0.05</div><div class="line">USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT</div><div class="line">root     tty1                      21:24    9.00s  0.08s  0.08s -bash</div><div class="line">root     pts/0    192.168.205.1    20:27    1.00s  0.14s  0.02s w</div><div class="line">root     pts/1    192.168.205.1    20:38   46:25   0.06s  0.06s -bash</div></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2017/07/10/10.1、日常管理之w,uptime,top,vmstat/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统监控</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统负载</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/10/10.1、日常管理之w,uptime,top,vmstat/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-nginx自定义404页面" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -500,11 +786,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">awk</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">awk</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -519,285 +805,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/07/06/文本处理命令之awk/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-文本处理命令之sed" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/04/文本处理命令之sed/">文本处理命令之sed</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/04/文本处理命令之sed/" class="archive-article-date">
-  	<time datetime="2017-07-04T08:52:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h2 id="一、什么是sed，以及sed是如何工作的？"><a href="#一、什么是sed，以及sed是如何工作的？" class="headerlink" title="一、什么是sed，以及sed是如何工作的？"></a>一、什么是sed，以及sed是如何工作的？</h2><p>1、sed是一个流编辑器，它可以对从标准输入流中得到数据进行处理，然后把处理以后得到的结果输出到标准输出，而标准输出通常关联到终端屏幕，因此处理后的结果也会显示到屏幕上。</p>
-<p>2、sed的工作模式，当sed命令执行时，它会从输入文件中（或者标准输入）读取一行数据，并把这行数据复制一份保存在它内部的一个工作缓存中。sed命令把它的这个缓存叫做模式空间，所有的数据都是在这个缓存处理的。然后sed命令会根据指定的编辑命令对缓存中的数据精心处理。当这行数据处理完以后，sed会读取下一行数据，重复整个过程，直到所有的数据被处理完为止。当有多个编辑命令时，会将上一个编辑命令处理完的结果作为下一个编辑命令的输入，重复数据处理过程，并且严格按照顺序执行，先执行完前面的，再执行后面的，所以需要注意顺序，避免得不到预期的结果。</p>
-        
-          <a class="article-more-a" href="/2017/07/04/文本处理命令之sed/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/04/文本处理命令之sed/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-sort默认不按ascii表排序如何解决" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/03/sort默认不按ascii表排序如何解决/">sort默认不按ascii表排序如何解决</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/03/sort默认不按ascii表排序如何解决/" class="archive-article-date">
-  	<time datetime="2017-07-03T15:00:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在很多资料中查询都说sort在不加选项时默认是以ascii表排序的，但是今天实验了一下并非如此。</p>
-<p>系统为centos7  64位</p>
-        
-          <a class="article-more-a" href="/2017/07/03/sort默认不按ascii表排序如何解决/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sort</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/03/sort默认不按ascii表排序如何解决/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-在shell脚本中调用另一个脚本的三种不同方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/">在shell脚本中调用另一个脚本的三种不同方法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/" class="archive-article-date">
-  	<time datetime="2017-07-03T14:21:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h2 id="一、调用方式"><a href="#一、调用方式" class="headerlink" title="一、调用方式"></a>一、调用方式</h2><p>1、fork（bash）：如果shell包含执行命令，那么指明了不会影响父级的命令，在子命令执行后在执行父级命令。子级的环境变量不会影响到父级。被执行的脚本在子shell中。</p>
-<p>2、exec：执行子级的命令后，不在执行父级命令。被调用的脚本与父脚本在同一个shell内执行，当使用exec调用一个新脚本后，父脚本中exec行之后的内容就不会执行。</p>
-<p>3、source：执行子级命令后继续执行父级命令，同时子级设置的环境变量会影响到父级的环境变量。在同一个shell中执行，所以被调用的脚本中声明的变量和环境变量都可以在主脚本中得到和使用。</p>
-        
-          <a class="article-more-a" href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/03/在shell脚本中调用另一个脚本的三种不同方法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-文本处理命令之grep" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/03/文本处理命令之grep/">文本处理命令之grep</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/03/文本处理命令之grep/" class="archive-article-date">
-  	<time datetime="2017-07-03T11:44:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>grep的作用是可以匹配文件内容中指定的字符串，并显示字符串所在的行。如果只是匹配字符串，那么作用就很有限。所以grep也是支持正则表达式的。</p>
-        
-          <a class="article-more-a" href="/2017/07/03/文本处理命令之grep/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grep</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">正则</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文本处理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/03/文本处理命令之grep/">展开全文 >></a>
         </p>
       
 
@@ -919,6 +926,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
@@ -927,7 +938,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -939,10 +950,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
@@ -951,7 +958,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -959,7 +966,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -971,11 +978,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -983,15 +990,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -999,11 +998,31 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nosql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1015,11 +1034,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1027,23 +1042,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1055,7 +1070,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>
