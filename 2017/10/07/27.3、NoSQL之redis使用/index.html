@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171007/192041781.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171007/192752787.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171007/192439015.png?imageslim">
-<meta property="og:updated_time" content="2017-10-07T12:00:43.855Z">
+<meta property="og:updated_time" content="2017-10-09T14:23:49.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NoSQL之redis使用">
 <meta name="twitter:description" content="[TOC] 一、redis存储session1.1、安装拓展模块1.1.1、下载拓展模块 12cd /usr/local/srcwget https://coding.net/u/aminglinux/p/yuanke_centos7/git/raw/master/21NOSQL/phpredis.zip 1.1.2、安装 12345unzip phpredis.zipcd phpredis-de">
@@ -173,6 +173,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget https://coding.net/u/aminglinux/p/yuanke_centos7/git/raw/master/21NOSQL/phpredis.zip</div></pre></td></tr></table></figure>
 <p>1.1.2、安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">unzip phpredis.zip</div><div class="line">cd phpredis-develop</div><div class="line">/usr/local/php-fpm/bin/phpize</div><div class="line">./configure --with-php-config=/usr/local/php-fpm/bin/php-config</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>1.1.3、修改配置文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/php-fpm/etc/php.ini</div><div class="line">#加入以下内容</div><div class="line">extension=redis.so</div></pre></td></tr></table></figure>
 <ul>
@@ -384,7 +385,7 @@
   
   
     <a href="/2017/10/06/27.2、NoSQL之redis介绍/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">NoSQL之redis介绍</div>
+      <div class="article-nav-title"></div>
       <i class="icon-circle-right"></i>
     </a>
   

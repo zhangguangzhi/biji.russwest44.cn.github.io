@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/200904876.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/200929058.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170719/201022399.png?imageslim">
-<meta property="og:updated_time" content="2017-08-11T02:42:53.418Z">
+<meta property="og:updated_time" content="2017-10-10T08:17:59.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日常管理之rsync同步">
 <meta name="twitter:description" content="[TOC] 一、rsync的作用rsync是强大的同步工具，不仅可以远程同步数据（类似scp），还可以本地同步数据（类似cp），但是不同于cp或者scp的一点是，它不会覆盖以前的数据（如果数据已经存在），而是先判断已经存在的数据和新数据的差异，只有数据不同时才会把不相同的部分覆盖，即支持增量同步，只同步变化的数据。如果没有rsync命令，使用“yum  install -y rsync”安装。 二">
@@ -237,7 +237,7 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170718/202058828.png?imageslim" alt="mark"></p>
 <h2 id="六、rsync-ssh方式同步"><a href="#六、rsync-ssh方式同步" class="headerlink" title="六、rsync-ssh方式同步"></a>六、rsync-ssh方式同步</h2><p>需安装openssh-clients，并且知道对方机器登录密码</p>
 <h3 id="1、实验环境"><a href="#1、实验环境" class="headerlink" title="1、实验环境"></a>1、实验环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">A：192.168.205.3</div><div class="line">B：192.168.205.137</div></pre></td></tr></table></figure>
-<h3 id="2、实验"><a href="#2、实验" class="headerlink" title="2、实验"></a>2、实验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#rsync -avpz 111/  root@192.168.205.130:/tmp/111      #上传</div><div class="line">#rsync -acpz  root@192.168.205.130:/tmp/111  111/     #下载</div></pre></td></tr></table></figure>
+<h3 id="2、实验"><a href="#2、实验" class="headerlink" title="2、实验"></a>2、实验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#rsync -avpz 111/  root@192.168.205.130:/tmp/111      #上传</div><div class="line">#rsync -avpz  root@192.168.205.130:/tmp/111  111/     #下载</div></pre></td></tr></table></figure>
 <h3 id="3、如何指定传输端口"><a href="#3、如何指定传输端口" class="headerlink" title="3、如何指定传输端口"></a>3、如何指定传输端口</h3><p>-e “ssh -p 10022”     </p>
 <p>-e连接ssh指定端口命令</p>
 <h3 id="4、使用ssh同步时不用验证密码"><a href="#4、使用ssh同步时不用验证密码" class="headerlink" title="4、使用ssh同步时不用验证密码"></a>4、使用ssh同步时不用验证密码</h3><p>AB两台机器使用密匙验证即可</p>
