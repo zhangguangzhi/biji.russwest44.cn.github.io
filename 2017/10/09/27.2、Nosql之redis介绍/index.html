@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>Nosql之redis使用 | ZhangGuangZhi</title>
+  <title>Nosql之redis介绍 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Nosql之redis使用">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/10/11/27.2、Nosql之redis使用/index.html">
+  <meta name="description" content="[TOC] 一、redis介绍redis和memcached类似，也属于k-v数据存储，Redis官网redis.io, 当前最新稳定版4.0.1。 相比memcached，支持更多value类型，除了和string外，还支持hash、lists（链表）、sets（集合）和sorted sets（有序集合）。 并且redis支持持久化： 全量数据（RDB）：把内存中的数据写入磁盘，便于下次读取文件">
+<meta name="keywords" content="nosql,redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nosql之redis介绍">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/10/09/27.2、Nosql之redis介绍/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:updated_time" content="2017-10-11T13:37:01.293Z">
+<meta property="og:description" content="[TOC] 一、redis介绍redis和memcached类似，也属于k-v数据存储，Redis官网redis.io, 当前最新稳定版4.0.1。 相比memcached，支持更多value类型，除了和string外，还支持hash、lists（链表）、sets（集合）和sorted sets（有序集合）。 并且redis支持持久化： 全量数据（RDB）：把内存中的数据写入磁盘，便于下次读取文件">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/220649331.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/221724864.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/222510469.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/222519939.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/222934829.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/223327125.png?imageslim">
+<meta property="og:updated_time" content="2017-10-11T14:35:10.008Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nosql之redis使用">
+<meta name="twitter:title" content="Nosql之redis介绍">
+<meta name="twitter:description" content="[TOC] 一、redis介绍redis和memcached类似，也属于k-v数据存储，Redis官网redis.io, 当前最新稳定版4.0.1。 相比memcached，支持更多value类型，除了和string外，还支持hash、lists（链表）、sets（集合）和sorted sets（有序集合）。 并且redis支持持久化： 全量数据（RDB）：把内存中的数据写入磁盘，便于下次读取文件">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/220649331.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -130,27 +141,81 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-27.2、Nosql之redis使用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-27.2、Nosql之redis介绍" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Nosql之redis使用
+      Nosql之redis介绍
     </h1>
   
 
         
-        <a href="/2017/10/11/27.2、Nosql之redis使用/" class="archive-article-date">
-  	<time datetime="2017-10-11T13:37:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-11</time>
+        <a href="/2017/10/09/27.2、Nosql之redis介绍/" class="archive-article-date">
+  	<time datetime="2017-10-09T13:37:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>[TOC]</p>
+<h3 id="一、redis介绍"><a href="#一、redis介绍" class="headerlink" title="一、redis介绍"></a>一、redis介绍</h3><p>redis和memcached类似，也属于k-v数据存储，Redis官网redis.io, 当前最新稳定版4.0.1。</p>
+<p>相比memcached，支持更多value类型，除了和string外，还支持hash、lists（链表）、sets（集合）和sorted sets（有序集合）。</p>
+<p>并且redis支持持久化：</p>
+<p>全量数据（RDB）：把内存中的数据写入磁盘，便于下次读取文件进行加载。</p>
+<p>增量请求（AOF）：增量请求文件则是把内存中的数据序列化为操作请求，用于读取文件进行replay得到数据，这种类似于mysql binlog</p>
+<p>redis的存储分为内存存储，硬盘存储（RDB）和log（AOF）文件三部分</p>
+<h3 id="二、redis安装"><a href="#二、redis安装" class="headerlink" title="二、redis安装"></a>二、redis安装</h3><p>2.1、使用源码包安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://download.redis.io/releases/redis-4.0.1.tar.gz</div><div class="line">tar redis-4.0.1.tar.gz</div><div class="line">cd redis-4.0.1</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<p>2.2、修改配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">cp redis.conf /etc/redis.conf</div><div class="line">vim /etc/redis.conf</div><div class="line">修改如下配置</div><div class="line"></div><div class="line">#以后台形式启动</div><div class="line">daemonize yes</div><div class="line">#指定日志文件位置</div><div class="line">logfile &quot;/var/log/redis.log&quot;</div><div class="line">#设置RDB存放目录</div><div class="line">dir /data/redis_data/</div><div class="line">#打开AOF</div><div class="line">appendonly yes</div></pre></td></tr></table></figure>
+<p>2.3、其他操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#创建/data/redis_data/</div><div class="line">mkdir /data/redis_data</div><div class="line">sysctl vm.overcommit_memory=1</div><div class="line">echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</div><div class="line">redis-server /etc/redis.conf</div></pre></td></tr></table></figure>
+<p>2.4、启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server  &amp;</div></pre></td></tr></table></figure>
+<ul>
+<li>停止：killall redis</li>
+</ul>
+<p>2.5、连接redis</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-cli  -h host  -p port</div></pre></td></tr></table></figure>
+<h3 id="三、redis持久化"><a href="#三、redis持久化" class="headerlink" title="三、redis持久化"></a>三、redis持久化</h3><p>Redis提供了两种持久化的方式，分别是RDB（Redis DataBase）和AOF（Append Only File）</p>
+<p>3.1、RDB</p>
+<p>简而言之，就是在不同的时间点，将redis存储的数据生成快照并存储到磁盘等介质上。</p>
+<p>RDB持久化相关参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">save 900 1 		#表示每15分钟且至少有1个key改变，就触发一次持久化 </div><div class="line">save 300 10 	#表示每5分钟且至少有10个key改变，就触发一次持久化</div><div class="line">save 60 10000	#表示每60秒至少有10000个key改变，就触发一次持久</div><div class="line">save &quot;&quot; 		#这样可以禁用rdb持久化</div><div class="line">dbfilename dump.rdb</div><div class="line">dir /data/redis_data</div></pre></td></tr></table></figure>
+<p>3.2、AOF</p>
+<p>AOF则是换了一个角度来实现持久化，那就是将redis执行过的所有写指令记录下来，在下次redis重新启动时，只要把这些写指令从前到后再重复执行一遍，就可以实现数据恢复了。</p>
+<p>AOF持久化相关参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">appendonly yes						#如果是yes，则开启aof持久化</div><div class="line">appendfilename “appendonly.aof”		 # 指定aof文件名字</div><div class="line">appendfsync everysec </div><div class="line">#指定fsync()调用模式，有三种no(不调用fsync),always(每次写都会调用fsync),everysec(每秒钟调用一次fsync)。第一种最快，第二种数据最安全，但性能会差一些，第三种为这种方案，默认为第三种。</div></pre></td></tr></table></figure>
+<p>其实RDB和AOF两种方式也可以同时使用，在这种情况下，如果redis重启的话，则会优先采用AOF方式来进行数据恢复，这是因为AOF方式的数据恢复完整度更高。 如果你没有数据持久化的需求，也完全可以关闭RDB和AOF方式，这样的话，redis将变成一个纯内存数据库，就像memcache一样。</p>
+<h3 id="四、redis数据类型"><a href="#四、redis数据类型" class="headerlink" title="四、redis数据类型"></a>四、redis数据类型</h3><h4 id="4-1、string"><a href="#4-1、string" class="headerlink" title="4.1、string"></a>4.1、string</h4><p>string为最简单的类型，与Memcached一样的类型，一个key对应一个value，其支持的操作与Memcached的操作类似，它的功能更丰富。设置可以存二进制的对象。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># redis-cli</div><div class="line">#设置mykey的值为allen</div><div class="line">set mykey &quot;allen&quot;</div><div class="line">#查看mykey的值</div><div class="line">get mykey </div><div class="line">#批量设置key的值</div><div class="line">mset key1 1 key2 a key3 c</div><div class="line">#批量查看key的值</div><div class="line">mget key1 key2 key3</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/220649331.png?imageslim" alt="mark"></p>
+<h4 id="4-2、list"><a href="#4-2、list" class="headerlink" title="4.2、list"></a>4.2、list</h4><p>list是一个链表结构，主要功能是push、pop、获取一个范围的所有值等等。操作中key理解为链表的名字。</p>
+<p><strong>使用 list 结构，我们可以轻松地实现最新消息排行等功能（比如新浪微博的 TimeLine ）。list 的另一个应用就是消息队列，可以利用 list 的 push操作，将任务存在 list 中，然后工作线程再用pop操作将任务取出进行执行。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#创建一个list，并在左侧加入值</div><div class="line">lpush list1 &quot;allen&quot;</div><div class="line">lpush list1 &quot;1 2 3&quot;</div><div class="line">lpush list1 &quot;aaa bbb&quot;</div><div class="line">#查看list的值，0表示第一个值的下标，-1表示最后一个</div><div class="line">lrange list1 0 -1</div><div class="line">#从左侧取出一个值，取出后就在list中删除</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/221724864.png?imageslim" alt="mark"></p>
+<ul>
+<li>list还可以在右侧加入/取出值，可以理解为左侧加入的值会在显示的第一列，右侧加入的值会在最后一列</li>
+</ul>
+<h4 id="4-3、set"><a href="#4-3、set" class="headerlink" title="4.3、set"></a>4.3、set</h4><p> set是无序集合，和我们数学中的集合概念相似，对集合的操作有添加删除元素，有对多个集合求交并差等操作。操作中key理解为集合的名字。</p>
+<p><strong>比如在微博应用中，可以将一个用户所有的关注人存在一个集合中，将其所有粉丝存在一个集合。因为 Redis 非常人性化的为集合提供了求交集、并集、差集等操作，那么就可以非常方便的实现如共同关注、共同喜好、二度好友等功能，对上面的所有集合操作，你还可以使用不同的命令选择将结果返回给客户端还是存集到一个新的集合中。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#创建一个集合，并添加元素</div><div class="line">sadd set1 a</div><div class="line">sadd set1 b</div><div class="line">sadd set1 c</div><div class="line">sadd set1 d</div><div class="line">#查看集合里的内容</div><div class="line">smembers set1</div><div class="line">#删除元素，需要指定元素</div><div class="line">srem set1 c</div><div class="line">#集合可以批量添加元素</div><div class="line">sadd set2 a 2 b</div><div class="line">#求交集</div><div class="line">sinter set1 set2</div><div class="line">#求并集</div><div class="line">sunion set1 set2</div><div class="line">#求差集，求差集的时候是以前面的集合为主</div><div class="line">sdiff set1 set2</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/222510469.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/222519939.png?imageslim" alt="mark"></p>
+<h4 id="4-4、sort-set"><a href="#4-4、sort-set" class="headerlink" title="4.4、sort set"></a>4.4、sort set</h4><p>sorted set是有序集合，它比set多了一个权重参数score，使得集合中的元素能够按 score 进行有序排列</p>
+<p><strong>比如一个存储全班同学成绩的 Sorted Sets，其集合 value 可以是同学的学号，而 score 就可以是其考试得分，这样在数据插入集合的时候，就已经进行了天然的排序。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#创建一个有序的set,并添加元素</div><div class="line">zadd set3 12 abc</div><div class="line">zadd set3 2 &quot;cde 123&quot;</div><div class="line">zadd set3 24 &quot;123-aaa&quot;</div><div class="line">zadd set3 4 &quot;a123a&quot;</div><div class="line">#查看集合里的元素，顺序是根据score的大小</div><div class="line">zrange set3 0 -1</div><div class="line">#倒序查看元素</div><div class="line">zrevrange set3 0 -1</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/222934829.png?imageslim" alt="mark"></p>
+<h4 id="4-5、hash"><a href="#4-5、hash" class="headerlink" title="4.5、hash"></a>4.5、hash</h4><p>在 Memcached 中，我们经常将一些结构化的信息打包成 hashmap，在客户端序列化后存储为一个字符串的值（一般是 JSON 格式）</p>
+<p><strong>比如用户的昵称、年龄、性别、积分等</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#创建一个hash，并添加key-value</div><div class="line">hset hash1 name aming</div><div class="line">#查看hash中key的值</div><div class="line">hget hash1 name</div><div class="line">hset hash1  age 30</div><div class="line">hget hash1 age</div><div class="line">#查看hash所有的key-value</div><div class="line">hgetall hash1</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/223327125.png?imageslim" alt="mark"></p>
+
       
 
       
@@ -158,6 +223,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -208,7 +288,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/10/11/27.2、Nosql之redis使用/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/10/09/27.2、Nosql之redis介绍/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -249,8 +329,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://zhangguangzhi.github.io/2017/10/11/27.2、Nosql之redis使用/", 
-    sourceId: "27.2、Nosql之redis使用",
+    url: "http://zhangguangzhi.github.io/2017/10/09/27.2、Nosql之redis介绍/", 
+    sourceId: "27.2、Nosql之redis介绍",
     productKey: "ture",
     target: "cloud-tie-wrapper"
   };
@@ -263,6 +343,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、redis介绍"><span class="toc-number">1.</span> <span class="toc-text">一、redis介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、redis安装"><span class="toc-number">2.</span> <span class="toc-text">二、redis安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、redis持久化"><span class="toc-number">3.</span> <span class="toc-text">三、redis持久化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、redis数据类型"><span class="toc-number">4.</span> <span class="toc-text">四、redis数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1、string"><span class="toc-number">4.1.</span> <span class="toc-text">4.1、string</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2、list"><span class="toc-number">4.2.</span> <span class="toc-text">4.2、list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3、set"><span class="toc-number">4.3.</span> <span class="toc-text">4.3、set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4、sort-set"><span class="toc-number">4.4.</span> <span class="toc-text">4.4、sort set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5、hash"><span class="toc-number">4.5.</span> <span class="toc-text">4.5、hash</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 
