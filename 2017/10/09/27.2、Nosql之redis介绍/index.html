@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/222519939.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/222934829.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171011/223327125.png?imageslim">
-<meta property="og:updated_time" content="2017-10-11T14:35:10.008Z">
+<meta property="og:updated_time" content="2017-10-11T14:42:01.317Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nosql之redis介绍">
 <meta name="twitter:description" content="[TOC] 一、redis介绍redis和memcached类似，也属于k-v数据存储，Redis官网redis.io, 当前最新稳定版4.0.1。 相比memcached，支持更多value类型，除了和string外，还支持hash、lists（链表）、sets（集合）和sorted sets（有序集合）。 并且redis支持持久化： 全量数据（RDB）：把内存中的数据写入磁盘，便于下次读取文件">
@@ -168,6 +168,7 @@
 <p>全量数据（RDB）：把内存中的数据写入磁盘，便于下次读取文件进行加载。</p>
 <p>增量请求（AOF）：增量请求文件则是把内存中的数据序列化为操作请求，用于读取文件进行replay得到数据，这种类似于mysql binlog</p>
 <p>redis的存储分为内存存储，硬盘存储（RDB）和log（AOF）文件三部分</p>
+<a id="more"></a>
 <h3 id="二、redis安装"><a href="#二、redis安装" class="headerlink" title="二、redis安装"></a>二、redis安装</h3><p>2.1、使用源码包安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://download.redis.io/releases/redis-4.0.1.tar.gz</div><div class="line">tar redis-4.0.1.tar.gz</div><div class="line">cd redis-4.0.1</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
 <p>2.2、修改配置文件</p>
@@ -175,7 +176,7 @@
 <p>2.3、其他操作</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#创建/data/redis_data/</div><div class="line">mkdir /data/redis_data</div><div class="line">sysctl vm.overcommit_memory=1</div><div class="line">echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</div><div class="line">redis-server /etc/redis.conf</div></pre></td></tr></table></figure>
 <p>2.4、启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server  &amp;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server  /etc/redis.conf</div></pre></td></tr></table></figure>
 <ul>
 <li>停止：killall redis</li>
 </ul>
@@ -302,17 +303,17 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/12/27.3、NoSQL之redis操作/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          NoSQL之redis操作
         
       </div>
     </a>
   
   
-    <a href="/2017/10/08/27.4、NoSQL之MongoDB介绍安装/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">NoSQL之MongoDB介绍安装</div>
       <i class="icon-circle-right"></i>
     </a>
@@ -499,7 +500,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,23 +508,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ftp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,7 +520,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,23 +556,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">正则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -595,11 +588,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">

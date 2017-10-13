@@ -181,6 +181,471 @@
         <!-- 目录内容结束 -->
 
   
+    <article id="post-redis集群高可用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/12/redis集群高可用/">redis集群高可用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/12/redis集群高可用/" class="archive-article-date">
+  	<time datetime="2017-10-12T05:53:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>方案说明</p>
+<p>1、sentinel负责对redis集群中的主从服务监控，提醒和自动故障转移</p>
+<p>2、redis集群负责对外提供相关服务</p>
+<h3 id="一、sentinel原理介绍"><a href="#一、sentinel原理介绍" class="headerlink" title="一、sentinel原理介绍"></a>一、sentinel原理介绍</h3><p>sentinel是一个分布式系统，可以在一个架构中运行多个sentinel进程，这些进程使用流言协议（gossip protocols）来接收关于redis主服务器是否下线的信息，并使用投票协议（agreement protocols）来决定是否执行自动故障迁移，以及选举哪个从服务器成为新的主服务器。</p>
+<p><strong>流言协议：</strong>sentinel服务通过ping命令来确认监控的服务器是否正常，当足够多数量的sentinel都确认监控的同一服务器停止服务了（主观下线），则判定此服务器停止服务。</p>
+<p><strong>投票协议：</strong>其实就选举，sentinel集群根据一定的规则从redis群中选择一个新的服务器成为主服务器，并使其它的服务器做为新的从服务器，并修改自身的配置文件。</p>
+<h3 id="二、实验角色"><a href="#二、实验角色" class="headerlink" title="二、实验角色"></a>二、实验角色</h3><p><strong>master服务器</strong>：192.168.205.110</p>
+<p>redis-master：192.168.205.110:6379</p>
+<p>redis-slave1：192.168.205.110:63791</p>
+<p>redis-slave2：192.168.205.110:63792</p>
+<p>sentinel服务：</p>
+<p>s   192.168.205.110:26379</p>
+<p>s1  192.168.205.110:26378</p>
+<p><strong>slave服务器：</strong>192.168.205.109</p>
+<p>redis-slave3：192.168.205.109:63793</p>
+<p>redis-slave4：192.168.205.109:63794</p>
+<p>sentinel服务：</p>
+<p>s2   192.168.205.109:26379</p>
+<p>s3  192.168.205.109:26378</p>
+<h3 id="三、redis-sentinel服务配置"><a href="#三、redis-sentinel服务配置" class="headerlink" title="三、redis-sentinel服务配置"></a>三、redis-sentinel服务配置</h3><p><strong>master和slave都需要进行操作，根据实验角色修改配置文件</strong></p>
+<h4 id="3-1、安装redis服务"><a href="#3-1、安装redis服务" class="headerlink" title="3.1、安装redis服务"></a>3.1、安装redis服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://download.redis.io/releases/redis-4.0.1.tar.gz</div><div class="line">tar redis-4.0.1.tar.gz</div><div class="line">cd redis-4.0.1</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h4 id="3-2、复制配置文件"><a href="#3-2、复制配置文件" class="headerlink" title="3.2、复制配置文件"></a>3.2、复制配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cp redis.conf /etc/</div><div class="line">cd /etc</div><div class="line">cp redis.conf redis-slave1</div><div class="line">cp redis.conf redis-slave2</div></pre></td></tr></table></figure>
+<h4 id="3-3、修改配置文件"><a href="#3-3、修改配置文件" class="headerlink" title="3.3、修改配置文件"></a>3.3、修改配置文件</h4><p>3.3.1、修改redis.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim  /etc/redis.conf</div><div class="line">daemonize yes  </div><div class="line">pidfile /var/run/redis.pid</div><div class="line">bind 192.168.205.110</div><div class="line">dbfilename dump.rdb</div><div class="line">dir /data/redis_data_master</div><div class="line">port 6379</div></pre></td></tr></table></figure>
+<p>3.3.2、修改redis-slave1.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">daemonize yes</div><div class="line">pidfile /var/run/redis-slave1.pid</div><div class="line">port 63791</div><div class="line">bind 192.168.205.110</div><div class="line">dbfilename dump-slave1.rdb</div><div class="line">dir /data/redis_data_slave1</div><div class="line">slaveof 192.168.205.110 6379</div><div class="line">slave-read-only yes</div></pre></td></tr></table></figure>
+<p>3.3.3、修改redis-slave2.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">daemonize yes</div><div class="line">pidfile /var/run/redis-slave2.pid</div><div class="line">port 63791</div><div class="line">bind 192.168.205.110</div><div class="line">dbfilename dump-slave1.rdb</div><div class="line">dir /data/redis_data_slave2</div><div class="line">slaveof 192.168.205.110 6379</div><div class="line">slave-read-only yes</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#创建配置文件中的dir</div><div class="line">mkdir /data/redis_data_&#123;master,slave1,slave2&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-5、redis-sentinel服务配置"><a href="#3-5、redis-sentinel服务配置" class="headerlink" title="3.5、redis-sentinel服务配置"></a>3.5、redis-sentinel服务配置</h4><p>3.5.1、拷贝sentinel配置问价</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mkdir -p /var/log/redis</div><div class="line">cp /usr/local/src/redis-4.0.1/src/redis-sentinel /usr/bin/</div><div class="line">cp /usr/local/src/redis-4.0.1/sentinel.conf   /etc/sentinel-s.conf</div><div class="line">cd /etc/</div><div class="line">cp sentinel.conf  sentinel-s1.conf</div></pre></td></tr></table></figure>
+<p>3.5.1、修改sentinel配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">vim  /etc/sentinel-s.conf</div><div class="line"></div><div class="line">bind 192.168.205.110</div><div class="line">port 26379</div><div class="line">daemonize yes</div><div class="line">dir /data/redis_sentinel-s</div><div class="line">logfile /var/log/redis/sentinel.log</div><div class="line">sentinel monitor mymaster 192.168.205.110 6379 2</div><div class="line">sentinel down-after-milliseconds mymaster 10000</div><div class="line">sentinel parallel-syncs mymaster 1</div><div class="line">sentinel failover-timeout mymaster 180000</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">vim  /etc/sentinel-s1.conf</div><div class="line"></div><div class="line">bind 192.168.205.110</div><div class="line">port 26378</div><div class="line">daemonize yes</div><div class="line">dir /data/redis_sentinel-s</div><div class="line">logfile /var/log/redis/sentinel.log</div><div class="line">sentinel monitor mymaster 192.168.205.110 6379 2</div><div class="line">sentinel down-after-milliseconds mymaster 10000</div><div class="line">sentinel parallel-syncs mymaster 1</div><div class="line">sentinel failover-timeout mymaster 180000</div></pre></td></tr></table></figure>
+<h3 id="四、启动服务"><a href="#四、启动服务" class="headerlink" title="四、启动服务"></a>四、启动服务</h3><p>配置完成后，需要我们呢启动redis-server和redis-sentinel</p>
+<h4 id="4-1、启动redis-server"><a href="#4-1、启动redis-server" class="headerlink" title="4.1、启动redis-server"></a>4.1、启动redis-server</h4><p>master：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /etc/</div><div class="line">redis-server redis.conf</div><div class="line">redis-server redis-slave1.conf</div><div class="line">redis-server redis-slave2.conf</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171012/145432619.png?imageslim" alt="mark"></p>
+<p>slave：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /etc/</div><div class="line">redis-server redis-slave3.conf</div><div class="line">redis-server redis-slave4.conf</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171012/145523674.png?imageslim" alt="mark"></p>
+<h4 id="4-2、启动redis-sentinel"><a href="#4-2、启动redis-sentinel" class="headerlink" title="4.2、启动redis-sentinel"></a>4.2、启动redis-sentinel</h4><p>master：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">redis-sentinel sentinel-s.conf</div><div class="line">redis-sentinel sentinel-s1.conf</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171012/153358417.png?imageslim" alt="mark"></p>
+<p>slave：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">redis-sentinel sentinel-s3.conf</div><div class="line">redis-sentinel sentinel-s4.conf</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171012/153418108.png?imageslim" alt="mark"></p>
+<p>此时，检查以下任意一个sentinel的配置文件，都会添加关于这个集群的信息</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171012/150019858.png?imageslim" alt="mark"></p>
+<h3 id="五、故障测试"><a href="#五、故障测试" class="headerlink" title="五、故障测试"></a>五、故障测试</h3><p>5.1、模拟master故障</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-cli -h  192.168.205.110 -p 6379 shutdown</div></pre></td></tr></table></figure>
+<p>经过投票，新的master生成</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171012/152701190.png?imageslim" alt="mark"></p>
+<p>5.2、重新启动master</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">redis-server redis.conf</div><div class="line">redis-cli -h 192.168.205.110 -p 6379 info Replication</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171012/152900174.png?imageslim" alt="mark"></p>
+<p>原来的master变成了slave，并不会抢占。</p>
+<h3 id="六、测试读写分离"><a href="#六、测试读写分离" class="headerlink" title="六、测试读写分离"></a>六、测试读写分离</h3><p>因为我们在配置文件中设置了slave为只读。所以我们可以登录进行以下操作认证读写分离</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[root@shiyan109 etc]# redis-cli -h 192.168.205.109 -p 63793</div><div class="line">192.168.205.109:63793&gt; get key1</div><div class="line">&quot;1&quot;</div><div class="line">192.168.205.109:63793&gt; set key1 2</div><div class="line">OK</div><div class="line">192.168.205.109:63793&gt; get key1</div><div class="line">&quot;2&quot;</div><div class="line">[root@shiyan110 etc]# redis-cli -h 192.168.205.110 -p 6379 </div><div class="line">192.168.205.110:6379&gt; get key1</div><div class="line">&quot;2&quot;</div><div class="line">192.168.205.110:6379&gt; set key1 3</div><div class="line">(error) READONLY You can&apos;t write against a read only slave.</div></pre></td></tr></table></figure>
+<ul>
+<li>说明新主已经提升成功，原来的主故障恢复后已经是从服务器，而且也是只读状态，没有破坏之前的主写从读的状态</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/12/redis集群高可用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-27.3、NoSQL之redis操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/12/27.3、NoSQL之redis操作/">NoSQL之redis操作</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/12/27.3、NoSQL之redis操作/" class="archive-article-date">
+  	<time datetime="2017-10-12T01:05:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、redis类型常用操作"><a href="#一、redis类型常用操作" class="headerlink" title="一、redis类型常用操作"></a>一、redis类型常用操作</h3><h4 id="1-1、string类型操作"><a href="#1-1、string类型操作" class="headerlink" title="1.1、string类型操作"></a>1.1、string类型操作</h4><p>（1）设置key</p>
+<p>格式：set key value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set key1 allen</div></pre></td></tr></table></figure>
+<ul>
+<li>如果key1本来就存在，那么第二次赋值会覆盖原有的值</li>
+</ul>
+<p>（2）查看key</p>
+<p>格式：get  key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">get key1</div></pre></td></tr></table></figure>
+<p>（3）设置key时，验证key是否已存在</p>
+<p>格式：setnx  key  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">setnx key2 aaa</div><div class="line">setnx key2 bbb</div></pre></td></tr></table></figure>
+<ul>
+<li>如果返回1，说明key2不存在，会直接创建</li>
+<li>如果返回0，说明key2已经存在，不做操作</li>
+</ul>
+<p>（4）设置key的过期时间</p>
+<p>格式：set  key  value  ex  time</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set key3 allen1 ex 30</div></pre></td></tr></table></figure>
+<p>（5）重新给key设置过期时间</p>
+<p>格式：setex  key  value  time</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setex  key3 allen1 40</div></pre></td></tr></table></figure>
+<ul>
+<li>如果key3已经存在，会覆盖新的值与过期时间</li>
+</ul>
+<p>（6）批量创建key和查看key</p>
+<p>批量创建key格式：mset  key1  value1  key2  value2  …..</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mset  k1 1 k2 a k3 c</div></pre></td></tr></table></figure>
+<p>批量查看key格式：mget  key1  key2  key3  ……</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mget k1 k2 k3</div></pre></td></tr></table></figure>
+<h4 id="1-2、list类型操作"><a href="#1-2、list类型操作" class="headerlink" title="1.2、list类型操作"></a>1.2、list类型操作</h4><p>（1）从左侧加入一个元素</p>
+<p>格式：lpush   key   value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lpush list1  a</div></pre></td></tr></table></figure>
+<p>（2）从右侧加入一个元素</p>
+<p>格式：rpush  key  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpush list1 b</div></pre></td></tr></table></figure>
+<p>（3）查看元素</p>
+<p>格式：lrange  key  start  stop</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lrange list1 0 -1</div></pre></td></tr></table></figure>
+<ul>
+<li>start和stop表示元素下标，第一个元素的下标为0，最后一个元素的下标为-1</li>
+</ul>
+<p>（4）从左侧取出第一个元素</p>
+<p>格式：lpop  key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lpop  list1</div></pre></td></tr></table></figure>
+<p>（5）从右侧取出第一个元素</p>
+<p>格式：rpop  key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rpop  list1</div></pre></td></tr></table></figure>
+<ul>
+<li>元素取出后，原有的list中就会删除</li>
+</ul>
+<p>（6）插入元素</p>
+<p>格式：linsert  key  before/after  已有元素值  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">linsert list1  before a abc</div></pre></td></tr></table></figure>
+<ul>
+<li>在list1中的a前面插入abc</li>
+</ul>
+<p>（7）修改元素的值</p>
+<p>格式：lset   key  元素下标   bbb</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lset  list1  1  bbb</div></pre></td></tr></table></figure>
+<ul>
+<li>将list1的第3个元素的值修改为bbb</li>
+</ul>
+<p>（8）查看指定元素</p>
+<p>格式：lindex   key  元素下标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lindex  list1  2</div></pre></td></tr></table></figure>
+<ul>
+<li>查看list1中第3个元素的值</li>
+</ul>
+<p>（9）统计元素个数</p>
+<p>格式：llen   key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">llen  list1</div></pre></td></tr></table></figure>
+<h4 id="1-3、set类型操作"><a href="#1-3、set类型操作" class="headerlink" title="1.3、set类型操作"></a>1.3、set类型操作</h4><p>（1）向集合添加元素</p>
+<p>格式：sadd   key  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sadd  set1 aaa</div><div class="line">sadd  set1 bbb</div><div class="line">sadd  set1 ccc</div></pre></td></tr></table></figure>
+<ul>
+<li>添加多个时，元素是随机排列的</li>
+</ul>
+<p>（2）查看集合中的元素</p>
+<p>格式：smembers  key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">smembers  set1</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171012/094521458.png?imageslim" alt="mark"></p>
+<p>（3）删除元素</p>
+<p>格式：srem  key  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">srem  set1  aaa</div></pre></td></tr></table></figure>
+<p>（4）随机取出一个元素，删除</p>
+<p>格式：spop  key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">spop  set1</div></pre></td></tr></table></figure>
+<p>（5）随机取出一个元素，不删除</p>
+<p>格式：srandmember   key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">srandmember  set1</div></pre></td></tr></table></figure>
+<p>（6）求差集，以前面的集合为准</p>
+<p>格式：sdiff   key1  key2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sdiff  set1  set2</div></pre></td></tr></table></figure>
+<p>（7）求差集并存储，存储的集合需要放在最前面(key3)</p>
+<p>格式：sdiffstore  key3  key1  key2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sdiff  set3  set1  set2</div></pre></td></tr></table></figure>
+<p>（8）求并集</p>
+<p>格式：sunion   key1   key2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sunion  set1  set2</div></pre></td></tr></table></figure>
+<ul>
+<li>求并集并存储的格式：sunionstore    key3  key1  key2</li>
+</ul>
+<p>（9）求交集</p>
+<p>格式：sinter   key1   key2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sinter  set1  set2</div></pre></td></tr></table></figure>
+<ul>
+<li>求交集并存储的格式：sinterstore   key3  key1  key2</li>
+</ul>
+<p>（10）判断一个元素是否属于一个集合</p>
+<p>格式：sismember   key   value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sismember  set1  aaa</div></pre></td></tr></table></figure>
+<ul>
+<li>返回1表示成立，返回0表示不成立</li>
+</ul>
+<p>（11）查看集合中元素的个数</p>
+<p>格式：scard   key  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scard  set1</div></pre></td></tr></table></figure>
+<h4 id="1-4、zset类型操作"><a href="#1-4、zset类型操作" class="headerlink" title="1.4、zset类型操作"></a>1.4、zset类型操作</h4><p>（1）创建集合，并添加元素</p>
+<p>格式：zadd   key   score  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">zadd  zset1   8  111</div><div class="line">zadd  zset1   6  222</div><div class="line">zadd  zset1   5  333</div></pre></td></tr></table></figure>
+<ul>
+<li>查看时，元素是按照score的大小排序</li>
+</ul>
+<p>（2）显示所有元素</p>
+<p>格式：zrange   key   start   stop</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zrange  zset1   0  -1</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171012/100631968.png?imageslim" alt="mark"></p>
+<ul>
+<li>反序显示所有元素：zrevrange  key  start   stop </li>
+</ul>
+<p>（3）删除指定元素</p>
+<p>格式：zrem  key  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zrem  zset1   111</div></pre></td></tr></table></figure>
+<p>（4）查看指定元素的下标，下标值从0开始，按score正向排序</p>
+<p>格式：zrank  key  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zrank  zset1  222</div></pre></td></tr></table></figure>
+<p>（5）同上，按score反向排序</p>
+<p>格式：zrevrank  key  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zrevrank   zset1  222</div></pre></td></tr></table></figure>
+<p>（6）统计集合中所以元素的个数</p>
+<p>格式：zcard  key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zcrad  zset1</div></pre></td></tr></table></figure>
+<p>（7）返回score的值在1-10的元素个数</p>
+<p>格式：zcount   key   start  stop</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zcount  zset1  1  10</div></pre></td></tr></table></figure>
+<p>（8）返回score的值在1-10的元素</p>
+<p>格式：zrangebyscore   key  start  stop</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zrangebyscore  zset1  1  10</div></pre></td></tr></table></figure>
+<p>（9）删除指定下标范围的元素</p>
+<p>格式：zremrangeburank    key    min   max</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zremrangebyrank   zsset   0  2</div></pre></td></tr></table></figure>
+<ul>
+<li>删除下标范围为0-2的元素</li>
+</ul>
+<p>（10）删除指定score范围的元素</p>
+<p>格式：zremrangebyscore   key  min    max</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zremrangebyscore   zset1  1  10</div></pre></td></tr></table></figure>
+<ul>
+<li>删除score范围在1-10的元素</li>
+</ul>
+<h4 id="1-5、hash类型操作"><a href="#1-5、hash类型操作" class="headerlink" title="1.5、hash类型操作"></a>1.5、hash类型操作</h4><p>（1）建立hash</p>
+<p>格式：hset  key  域  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hset  user1  name   allen</div><div class="line">hset  user1  age    30</div><div class="line">hset  user1  job    it</div></pre></td></tr></table></figure>
+<p>（2）查看指定域的值</p>
+<p>格式：hget  key   域   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hget user1  name</div></pre></td></tr></table></figure>
+<p>（3）查看所有域的值</p>
+<p>格式：hgetall   key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hgetall   user1</div></pre></td></tr></table></figure>
+<p>（4）批量创建域-value</p>
+<p>格式：hmset  key  域1  value1   域2   value2  …..</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hmset  user2 name zhangsan age 31 job it</div></pre></td></tr></table></figure>
+<ul>
+<li>注意，域与value之间只能有一个空格</li>
+</ul>
+<p>（5）批量查看域的值</p>
+<p>格式：hmget   key   域1   域2  域3   ….</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hmget  user2   name  age  job</div></pre></td></tr></table></figure>
+<p>（6）删除指定的域</p>
+<p>格式：hdel   key   域</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hdel   user2   name</div></pre></td></tr></table></figure>
+<p>（7）打印所有的域</p>
+<p>格式：hkeys  key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hkeys  user1</div></pre></td></tr></table></figure>
+<p>（8）打印所有的value</p>
+<p>格式：hvals   key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hvals  user1</div></pre></td></tr></table></figure>
+<p>（9）查看hash中有多少个域</p>
+<p>格式：hlen  key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hlen   user1</div></pre></td></tr></table></figure>
+<h3 id="二、redis关于key的操作"><a href="#二、redis关于key的操作" class="headerlink" title="二、redis关于key的操作"></a>二、redis关于key的操作</h3><p>（1）查看所有key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keys  *</div></pre></td></tr></table></figure>
+<p>（2）模糊匹配key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keys   my*</div></pre></td></tr></table></figure>
+<p>（3）查看key是否创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exists  key</div></pre></td></tr></table></figure>
+<ul>
+<li>存在返回1，否则返回0</li>
+</ul>
+<p>（4）删除key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">del  key</div></pre></td></tr></table></figure>
+<p>（5）设置key过期</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">expire  key   time</div></pre></td></tr></table></figure>
+<p>（6）查看键还有多长时间过期</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tll  key</div></pre></td></tr></table></figure>
+<ul>
+<li>单位为s，当key已经过期或不存在时，返回-2，当key存在时但没有设置过期时间返回-1</li>
+</ul>
+<p>（7）取消key的过期时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">persist   key</div></pre></td></tr></table></figure>
+<p>（8）随机返回一个key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">randomkey</div></pre></td></tr></table></figure>
+<p>（9）重命名key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">raname  oldkeyname   newkename</div></pre></td></tr></table></figure>
+<p>（10）查看key的类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type  key1</div></pre></td></tr></table></figure>
+<h3 id="三、redis关于服务的操作"><a href="#三、redis关于服务的操作" class="headerlink" title="三、redis关于服务的操作"></a>三、redis关于服务的操作</h3><p>（1）选择数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select   0</div></pre></td></tr></table></figure>
+<ul>
+<li>选择0数据库</li>
+</ul>
+<p>（2）移动key到指定数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">move   key   1</div></pre></td></tr></table></figure>
+<ul>
+<li>将key移动到1数据库</li>
+</ul>
+<p>（3）返回数据库中key的数目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dbsize</div></pre></td></tr></table></figure>
+<p>（4）返回redis数据库状态信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">info</div></pre></td></tr></table></figure>
+<p>（5）清空当前数据库中的所有key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flushdb</div></pre></td></tr></table></figure>
+<p>（6）清空所有数据库中的所有key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flushall</div></pre></td></tr></table></figure>
+<p>（7）保存数据到RDB文件中，在后台执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bgsave</div></pre></td></tr></table></figure>
+<ul>
+<li>save，在前台执行</li>
+</ul>
+<p>（8）获取所有配置参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config get *</div></pre></td></tr></table></figure>
+<p>（9）获取指定配置参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config get dir</div></pre></td></tr></table></figure>
+<p>（10）更改配置参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config set dir  /data/redis_data</div></pre></td></tr></table></figure>
+<p>（11）数据恢复</p>
+<p>首先定义或者确定dir目录和dbfilename，然后把备份的rdb文件放到dir目录下面，重启redis服务即可恢复数据</p>
+<h3 id="四、redis安全设置"><a href="#四、redis安全设置" class="headerlink" title="四、redis安全设置"></a>四、redis安全设置</h3><p>以下设置可以在配置文件中设置</p>
+<p>（1）设置监听端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bind  127.0.0.1</div></pre></td></tr></table></figure>
+<p>（2）设置监听端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">port  160000</div></pre></td></tr></table></figure>
+<p>（3）设置密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">requirepass   allen&gt;com</div></pre></td></tr></table></figure>
+<ul>
+<li><p>设置密码后，需要重启redis。登录时需要使用-a选项指定密码才能获得操作权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-cli  -a   &apos;allen&gt;com&apos;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>（3）将config命令改名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">raname-command  CONFIG  allen</div></pre></td></tr></table></figure>
+<p>（4）禁掉config命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">raname-command  CONFIG  &quot;&quot;</div></pre></td></tr></table></figure>
+<h3 id="五、redis慢查询日志"><a href="#五、redis慢查询日志" class="headerlink" title="五、redis慢查询日志"></a>五、redis慢查询日志</h3><p>5.1、配置慢查询</p>
+<p>编辑配置文件/etc/redis.conf</p>
+<p>针对慢查询日志，可以设置两个参数，一个是执行时长，单位是微秒，另一个是慢查询日志的长度。当一个新的命令被写入日志时，最老的一条会从命令日志队列中被移除。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#单位ms，表示慢于1000ms则记录日志</div><div class="line">slowlog-log-slower-than 1000 </div><div class="line">#定义日志长度，表示最多存128条</div><div class="line">slowlog-max-len 128</div></pre></td></tr></table></figure>
+<p>5.2、查看慢查询日志</p>
+<p>登录redis后，可以使用以下命令查看慢查询日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#列出所有的慢查询日志</div><div class="line">slowlog get </div><div class="line">#只列出2条</div><div class="line">slowlog get </div><div class="line">#查看慢查询日志条数</div><div class="line">slowlog len</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/12/27.3、NoSQL之redis操作/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-27.2、Nosql之redis介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -208,54 +673,9 @@
 <p>全量数据（RDB）：把内存中的数据写入磁盘，便于下次读取文件进行加载。</p>
 <p>增量请求（AOF）：增量请求文件则是把内存中的数据序列化为操作请求，用于读取文件进行replay得到数据，这种类似于mysql binlog</p>
 <p>redis的存储分为内存存储，硬盘存储（RDB）和log（AOF）文件三部分</p>
-<h3 id="二、redis安装"><a href="#二、redis安装" class="headerlink" title="二、redis安装"></a>二、redis安装</h3><p>2.1、使用源码包安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://download.redis.io/releases/redis-4.0.1.tar.gz</div><div class="line">tar redis-4.0.1.tar.gz</div><div class="line">cd redis-4.0.1</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<p>2.2、修改配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">cp redis.conf /etc/redis.conf</div><div class="line">vim /etc/redis.conf</div><div class="line">修改如下配置</div><div class="line"></div><div class="line">#以后台形式启动</div><div class="line">daemonize yes</div><div class="line">#指定日志文件位置</div><div class="line">logfile &quot;/var/log/redis.log&quot;</div><div class="line">#设置RDB存放目录</div><div class="line">dir /data/redis_data/</div><div class="line">#打开AOF</div><div class="line">appendonly yes</div></pre></td></tr></table></figure>
-<p>2.3、其他操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#创建/data/redis_data/</div><div class="line">mkdir /data/redis_data</div><div class="line">sysctl vm.overcommit_memory=1</div><div class="line">echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</div><div class="line">redis-server /etc/redis.conf</div></pre></td></tr></table></figure>
-<p>2.4、启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server  &amp;</div></pre></td></tr></table></figure>
-<ul>
-<li>停止：killall redis</li>
-</ul>
-<p>2.5、连接redis</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-cli  -h host  -p port</div></pre></td></tr></table></figure>
-<h3 id="三、redis持久化"><a href="#三、redis持久化" class="headerlink" title="三、redis持久化"></a>三、redis持久化</h3><p>Redis提供了两种持久化的方式，分别是RDB（Redis DataBase）和AOF（Append Only File）</p>
-<p>3.1、RDB</p>
-<p>简而言之，就是在不同的时间点，将redis存储的数据生成快照并存储到磁盘等介质上。</p>
-<p>RDB持久化相关参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">save 900 1 		#表示每15分钟且至少有1个key改变，就触发一次持久化 </div><div class="line">save 300 10 	#表示每5分钟且至少有10个key改变，就触发一次持久化</div><div class="line">save 60 10000	#表示每60秒至少有10000个key改变，就触发一次持久</div><div class="line">save &quot;&quot; 		#这样可以禁用rdb持久化</div><div class="line">dbfilename dump.rdb</div><div class="line">dir /data/redis_data</div></pre></td></tr></table></figure>
-<p>3.2、AOF</p>
-<p>AOF则是换了一个角度来实现持久化，那就是将redis执行过的所有写指令记录下来，在下次redis重新启动时，只要把这些写指令从前到后再重复执行一遍，就可以实现数据恢复了。</p>
-<p>AOF持久化相关参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">appendonly yes						#如果是yes，则开启aof持久化</div><div class="line">appendfilename “appendonly.aof”		 # 指定aof文件名字</div><div class="line">appendfsync everysec </div><div class="line">#指定fsync()调用模式，有三种no(不调用fsync),always(每次写都会调用fsync),everysec(每秒钟调用一次fsync)。第一种最快，第二种数据最安全，但性能会差一些，第三种为这种方案，默认为第三种。</div></pre></td></tr></table></figure>
-<p>其实RDB和AOF两种方式也可以同时使用，在这种情况下，如果redis重启的话，则会优先采用AOF方式来进行数据恢复，这是因为AOF方式的数据恢复完整度更高。 如果你没有数据持久化的需求，也完全可以关闭RDB和AOF方式，这样的话，redis将变成一个纯内存数据库，就像memcache一样。</p>
-<h3 id="四、redis数据类型"><a href="#四、redis数据类型" class="headerlink" title="四、redis数据类型"></a>四、redis数据类型</h3><h4 id="4-1、string"><a href="#4-1、string" class="headerlink" title="4.1、string"></a>4.1、string</h4><p>string为最简单的类型，与Memcached一样的类型，一个key对应一个value，其支持的操作与Memcached的操作类似，它的功能更丰富。设置可以存二进制的对象。</p>
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># redis-cli</div><div class="line">#设置mykey的值为allen</div><div class="line">set mykey &quot;allen&quot;</div><div class="line">#查看mykey的值</div><div class="line">get mykey </div><div class="line">#批量设置key的值</div><div class="line">mset key1 1 key2 a key3 c</div><div class="line">#批量查看key的值</div><div class="line">mget key1 key2 key3</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/220649331.png?imageslim" alt="mark"></p>
-<h4 id="4-2、list"><a href="#4-2、list" class="headerlink" title="4.2、list"></a>4.2、list</h4><p>list是一个链表结构，主要功能是push、pop、获取一个范围的所有值等等。操作中key理解为链表的名字。</p>
-<p><strong>使用 list 结构，我们可以轻松地实现最新消息排行等功能（比如新浪微博的 TimeLine ）。list 的另一个应用就是消息队列，可以利用 list 的 push操作，将任务存在 list 中，然后工作线程再用pop操作将任务取出进行执行。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#创建一个list，并在左侧加入值</div><div class="line">lpush list1 &quot;allen&quot;</div><div class="line">lpush list1 &quot;1 2 3&quot;</div><div class="line">lpush list1 &quot;aaa bbb&quot;</div><div class="line">#查看list的值，0表示第一个值的下标，-1表示最后一个</div><div class="line">lrange list1 0 -1</div><div class="line">#从左侧取出一个值，取出后就在list中删除</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/221724864.png?imageslim" alt="mark"></p>
-<ul>
-<li>list还可以在右侧加入/取出值，可以理解为左侧加入的值会在显示的第一列，右侧加入的值会在最后一列</li>
-</ul>
-<h4 id="4-3、set"><a href="#4-3、set" class="headerlink" title="4.3、set"></a>4.3、set</h4><p> set是无序集合，和我们数学中的集合概念相似，对集合的操作有添加删除元素，有对多个集合求交并差等操作。操作中key理解为集合的名字。</p>
-<p><strong>比如在微博应用中，可以将一个用户所有的关注人存在一个集合中，将其所有粉丝存在一个集合。因为 Redis 非常人性化的为集合提供了求交集、并集、差集等操作，那么就可以非常方便的实现如共同关注、共同喜好、二度好友等功能，对上面的所有集合操作，你还可以使用不同的命令选择将结果返回给客户端还是存集到一个新的集合中。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#创建一个集合，并添加元素</div><div class="line">sadd set1 a</div><div class="line">sadd set1 b</div><div class="line">sadd set1 c</div><div class="line">sadd set1 d</div><div class="line">#查看集合里的内容</div><div class="line">smembers set1</div><div class="line">#删除元素，需要指定元素</div><div class="line">srem set1 c</div><div class="line">#集合可以批量添加元素</div><div class="line">sadd set2 a 2 b</div><div class="line">#求交集</div><div class="line">sinter set1 set2</div><div class="line">#求并集</div><div class="line">sunion set1 set2</div><div class="line">#求差集，求差集的时候是以前面的集合为主</div><div class="line">sdiff set1 set2</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/222510469.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/222519939.png?imageslim" alt="mark"></p>
-<h4 id="4-4、sort-set"><a href="#4-4、sort-set" class="headerlink" title="4.4、sort set"></a>4.4、sort set</h4><p>sorted set是有序集合，它比set多了一个权重参数score，使得集合中的元素能够按 score 进行有序排列</p>
-<p><strong>比如一个存储全班同学成绩的 Sorted Sets，其集合 value 可以是同学的学号，而 score 就可以是其考试得分，这样在数据插入集合的时候，就已经进行了天然的排序。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#创建一个有序的set,并添加元素</div><div class="line">zadd set3 12 abc</div><div class="line">zadd set3 2 &quot;cde 123&quot;</div><div class="line">zadd set3 24 &quot;123-aaa&quot;</div><div class="line">zadd set3 4 &quot;a123a&quot;</div><div class="line">#查看集合里的元素，顺序是根据score的大小</div><div class="line">zrange set3 0 -1</div><div class="line">#倒序查看元素</div><div class="line">zrevrange set3 0 -1</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/222934829.png?imageslim" alt="mark"></p>
-<h4 id="4-5、hash"><a href="#4-5、hash" class="headerlink" title="4.5、hash"></a>4.5、hash</h4><p>在 Memcached 中，我们经常将一些结构化的信息打包成 hashmap，在客户端序列化后存储为一个字符串的值（一般是 JSON 格式）</p>
-<p><strong>比如用户的昵称、年龄、性别、积分等</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#创建一个hash，并添加key-value</div><div class="line">hset hash1 name aming</div><div class="line">#查看hash中key的值</div><div class="line">hget hash1 name</div><div class="line">hset hash1  age 30</div><div class="line">hget hash1 age</div><div class="line">#查看hash所有的key-value</div><div class="line">hgetall hash1</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171011/223327125.png?imageslim" alt="mark"></p>
-
+        
+          <a class="article-more-a" href="/2017/10/09/27.2、Nosql之redis介绍/#more">more >></a>
+        
       
 
       
@@ -300,19 +720,19 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-27.4、NoSQL之MongoDB介绍安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-27.5、NoSQL之MongoDB介绍安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/08/27.4、NoSQL之MongoDB介绍安装/">NoSQL之MongoDB介绍安装</a>
+      <a class="article-title" href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/">NoSQL之MongoDB介绍安装</a>
     </h1>
   
 
         
-        <a href="/2017/10/08/27.4、NoSQL之MongoDB介绍安装/" class="archive-article-date">
+        <a href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/" class="archive-article-date">
   	<time datetime="2017-10-08T03:15:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-08</time>
 </a>
         
@@ -327,7 +747,7 @@
 <p>MongoDB将数据存储为一个文档，数据结构由键值（key-value）对组成。MongoDB文档类似于JSON对象。字符段值可以包含其他文档，数组以及文档数组。由于基于分布式，所以很容易扩展。</p>
 <p><a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="external">JSON介绍</a></p>
         
-          <a class="article-more-a" href="/2017/10/08/27.4、NoSQL之MongoDB介绍安装/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/#more">more >></a>
         
       
 
@@ -355,7 +775,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/08/27.4、NoSQL之MongoDB介绍安装/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/">展开全文 >></a>
         </p>
       
 
@@ -373,19 +793,19 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-27.3、NoSQL之redis使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-27.4、NoSQL之redis使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/07/27.3、NoSQL之redis使用/">NoSQL之redis使用</a>
+      <a class="article-title" href="/2017/10/07/27.4、NoSQL之redis使用/">NoSQL之redis使用</a>
     </h1>
   
 
         
-        <a href="/2017/10/07/27.3、NoSQL之redis使用/" class="archive-article-date">
+        <a href="/2017/10/07/27.4、NoSQL之redis使用/" class="archive-article-date">
   	<time datetime="2017-10-07T08:40:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-07</time>
 </a>
         
@@ -399,7 +819,7 @@
 <p>1.1.2、安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">unzip phpredis.zip</div><div class="line">cd phpredis-develop</div><div class="line">/usr/local/php-fpm/bin/phpize</div><div class="line">./configure --with-php-config=/usr/local/php-fpm/bin/php-config</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
         
-          <a class="article-more-a" href="/2017/10/07/27.3、NoSQL之redis使用/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/07/27.4、NoSQL之redis使用/#more">more >></a>
         
       
 
@@ -427,7 +847,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/07/27.3、NoSQL之redis使用/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/07/27.4、NoSQL之redis使用/">展开全文 >></a>
         </p>
       
 
@@ -722,146 +1142,9 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-26.6、shell脚本之expect分发系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/20/26.6、shell脚本之expect分发系统/">shell脚本之expect分发系统</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/20/26.6、shell脚本之expect分发系统/" class="archive-article-date">
-  	<time datetime="2017-09-20T02:56:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>代码上线，简单的方法我们可以使用rsync将新代码推送这指定服务器。在rsync同步时，有一些交互信息需要我们去处理。这个时候，我们就可以使用expect来自动处理这些交互信息。而且ssh登录，ftp登录等都符合交互的定义。</p>
-        
-          <a class="article-more-a" href="/2017/09/20/26.6、shell脚本之expect分发系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/20/26.6、shell脚本之expect分发系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-26.5、shell脚本之搭建告警系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/15/26.5、shell脚本之搭建告警系统/">shell脚本之搭建告警系统</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/15/26.5、shell脚本之搭建告警系统/" class="archive-article-date">
-  	<time datetime="2017-09-15T08:33:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、告警系统介绍"><a href="#一、告警系统介绍" class="headerlink" title="一、告警系统介绍"></a>一、告警系统介绍</h3><p>（1）需求：使用shell定制各种个性化告警工具，但需要统一化管理、规范化管理。 </p>
-<p>（2）思路：指定一个脚本包，包含主程序、子程序、配置文件、邮件引擎、输出日志等。 </p>
-<p>（3）主程序：作为整个脚本的入口，是整个系统的命脉。 </p>
-<p>（4）配置文件：是一个控制中心，用它来开关各个子程序，指定各个相关联的日志文件。 </p>
-<p>（5）子程序：这个才是真正的监控脚本，用来监控各个指标。 </p>
-<p>（6）邮件引擎：是由一个python程序来实现，它可以定义发邮件的服务器、发邮件人以及发件人密码 输出日志：整个监控系统要有日志输出。</p>
-<p>（7）要求：我们的机器角色多种多样，但是所有机器上都要部署同样的监控系统，也就说所有机器不管什么角色，整个程序框架都是一致的，不同的地方在于根据不同的角色，定制不同的配置文件。</p>
-<h4 id=""><a href="#" class="headerlink" title=""></a>
-        
-          <a class="article-more-a" href="/2017/09/15/26.5、shell脚本之搭建告警系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/15/26.5、shell脚本之搭建告警系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -995,7 +1278,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1003,23 +1286,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ftp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1031,7 +1298,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1051,23 +1334,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">正则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1091,11 +1366,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
