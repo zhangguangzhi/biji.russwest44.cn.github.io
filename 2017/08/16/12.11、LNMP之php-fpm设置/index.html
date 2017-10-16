@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170816/221959253.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170816/223548280.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170816/223741701.png?imageslim">
-<meta property="og:updated_time" content="2017-08-16T14:42:04.620Z">
+<meta property="og:updated_time" content="2017-10-16T06:55:09.008Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之php-fpm设置">
 <meta name="twitter:description" content="[TOC] 和LAMP中不同的是，在LNMP架构中，php-fpm是作为一个独立的服务存在的。既然是独立服务，那么就会有自己的配置文件。php-fpm的配置文件为/usr/local/php-fpm/etc/php-fpm.conf，它同样支持include语句，类似nginx.conf的include。">
@@ -215,7 +215,7 @@
 <li>pm = dynamic：表示启动几个php-fpm的子进程，如果是dynamic，下面的配置会生效。pm.max_children表示最大可以启动几个子进程。</li>
 <li>pm.start_servers = 20：表示一开始启动几个子进程</li>
 <li>pm.min_spare_servers = 5：表示当php-fpm空闲时最少要有几个子进程，即如果空闲进程小于此值，则创建新的子进程。</li>
-<li>pm.max_spare_servers = 3：表示当php-fpm空闲时最多有几个子进程，即如果空闲进程大于此值，则会进行清理。</li>
+<li>pm.max_spare_servers = 35：表示当php-fpm空闲时最多有几个子进程，即如果空闲进程大于此值，则会进行清理。</li>
 <li>pm.max_requests = 500：表示一个子进程最多可以接受多少个请求，比如设置为500，那么一个进程受理500个请求后就会自动销毁。</li>
 </ul>
 <h3 id="二、php-fpm的进程管理"><a href="#二、php-fpm的进程管理" class="headerlink" title="二、php-fpm的进程管理"></a>二、php-fpm的进程管理</h3><p>在pool配置文件中有这样一段配置</p>
@@ -364,8 +364,8 @@
     </a>
   
   
-    <a href="/2017/08/15/12.10、LNMP之nginx配置SSL/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LNMP之nginx配置SSL</div>
+    <a href="/2017/08/16/LNMP之ngin的rewrite/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LNMP之ngin的rewrite</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -531,11 +531,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,7 +539,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,11 +559,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,23 +571,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,35 +627,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,7 +635,35 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,7 +675,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>
