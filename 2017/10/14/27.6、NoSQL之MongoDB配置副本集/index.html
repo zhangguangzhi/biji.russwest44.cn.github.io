@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171014/173142034.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171014/173317417.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171014/173534524.png?imageslim">
-<meta property="og:updated_time" content="2017-10-14T14:04:46.341Z">
+<meta property="og:updated_time" content="2017-10-16T06:44:30.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NoSQL之MongoDB配置副本集">
 <meta name="twitter:description" content="[TOC] 一、mongodb副本集介绍早期MongoDB版本使用master-slave，一主一从和mysql类似，但是slave在此架构中为只读，当主宕机后，从不能自动切换为主。所以，目前已经淘汰了master-slave模式，改为副本集，这种模式下有一个主（primary），一个从（secondary），只读。支持给它们设置权重，当主宕机后，权重高的从切换为主。 在此架构中还可以加入一个仲裁">
@@ -169,6 +169,7 @@
 <h3 id="一、mongodb副本集介绍"><a href="#一、mongodb副本集介绍" class="headerlink" title="一、mongodb副本集介绍"></a>一、mongodb副本集介绍</h3><p>早期MongoDB版本使用master-slave，一主一从和mysql类似，但是slave在此架构中为只读，当主宕机后，从不能自动切换为主。所以，目前已经淘汰了master-slave模式，改为副本集，这种模式下有一个主（primary），一个从（secondary），只读。支持给它们设置权重，当主宕机后，权重高的从切换为主。</p>
 <p>在此架构中还可以加入一个仲裁（arbiter）的角色，它只负责裁决，而不存储数据。</p>
 <p>在此架构中读写数据都是在主上，要想实现负载均衡的目的需要手动指定读库的目标server</p>
+<a id="more"></a>
 <p>以下是副本集的结构图：</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171014/163726845.png?imageslim" alt="mark"></p>
 <ul>

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZhangGuangZhi">
 <meta property="og:description" content="[TOC]  一、语法规则1location  前缀  /uri/    &amp;#123; … &amp;#125;  前缀有一下几项：[=|^~|~|~*|@] =：表示精确匹配字符，主要用于匹配文件 ^~：表示普通字符匹配，如果该选项匹配，只匹配该选项，不匹配别的选项，一般用来匹配目录 ~：表示匹配一个正则表达式，并区分大小写 ~*：表示匹配一个正则匹配，不区分大小写 @：表示定义一个命名的 locati">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171016/131840040.png?imageslim">
-<meta property="og:updated_time" content="2017-10-16T05:34:36.150Z">
+<meta property="og:updated_time" content="2017-10-16T06:43:01.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之nginx的location匹配">
 <meta name="twitter:description" content="[TOC]  一、语法规则1location  前缀  /uri/    &amp;#123; … &amp;#125;  前缀有一下几项：[=|^~|~|~*|@] =：表示精确匹配字符，主要用于匹配文件 ^~：表示普通字符匹配，如果该选项匹配，只匹配该选项，不匹配别的选项，一般用来匹配目录 ~：表示匹配一个正则表达式，并区分大小写 ~*：表示匹配一个正则匹配，不区分大小写 @：表示定义一个命名的 locati">
@@ -169,6 +169,7 @@
 <p>无前缀：表示普通匹配。</p>
 </li>
 </ul>
+<a id="more"></a>
 <h3 id="二、location匹配顺序"><a href="#二、location匹配顺序" class="headerlink" title="二、location匹配顺序"></a>二、location匹配顺序</h3><p>1、先匹配普通location，再匹配正则匹配（并且使用正则匹配的结果）。</p>
 <p>2、普通location的优先级为”=”大于”不加前缀”大于”^~”</p>
 <p>3、当匹配到普通location“=”或者“^~”时，就不再进行后面的正则匹配。匹配到”不加前缀”的普通location继续匹配正则</p>
