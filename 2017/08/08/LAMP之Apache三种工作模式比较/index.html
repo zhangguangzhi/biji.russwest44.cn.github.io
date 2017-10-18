@@ -15,14 +15,14 @@
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/08/LAMP之Apache三种工作模式比较/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
 <meta property="og:description" content="转载阿铭Linux公众号。 [TOC]  查看你的httpd使用了哪种模式：  1/usr/local/apache2/bin/httpd -V |grep &amp;apos;Server MPM&amp;apos;  使用哪种模式，需要在编译的时候指定  1--with-mpm=prefork|worker|event  当然也可以编译的时候，让三者都支持：  1--enable-mpms-shared=al">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6SCCAOhpnmD9F9ZKE7dWDbr1Rrwn3JKRYQeKGibVlXFd4kdwCicMK5csjA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6Sn5onUwxUKkhLDNvZwlNia4ON7SYRUhx7Lib2yuvnvn4wMey7PNDkmDicg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6SmGZIvUSSXhsfDRybjicyb5cUJIU8HE9t4CRongylicZQ5vAFr9ZzK1KQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
-<meta property="og:updated_time" content="2017-08-11T02:44:08.579Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/144318177.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/144354802.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/144415224.png?imageslim">
+<meta property="og:updated_time" content="2017-10-18T06:44:24.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache三种工作模式比较">
 <meta name="twitter:description" content="转载阿铭Linux公众号。 [TOC]  查看你的httpd使用了哪种模式：  1/usr/local/apache2/bin/httpd -V |grep &amp;apos;Server MPM&amp;apos;  使用哪种模式，需要在编译的时候指定  1--with-mpm=prefork|worker|event  当然也可以编译的时候，让三者都支持：  1--enable-mpms-shared=al">
-<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6SCCAOhpnmD9F9ZKE7dWDbr1Rrwn3JKRYQeKGibVlXFd4kdwCicMK5csjA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/144318177.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -178,19 +178,19 @@
 <a id="more"></a> 
 <p>再来比较一下三种模式的差异</p>
 <h3 id="1、prefork"><a href="#1、prefork" class="headerlink" title="1、prefork"></a>1、prefork</h3><p>prefork模式可以算是很古老但是非常稳定的Apache模式。Apache在启动之初，就预先fork一些子进程，然后等待请求进来。之所以这样做，是为了减少频繁创建和销毁进程的开销。每个子进程只有一个线程，在一个时间点内，只能处理一个请求。<br>优点：成熟稳定，兼容所有新老模块。同时，不需要担心线程安全的问题。（我们常用的mod_php，PHP的拓展不需要支持线程安全）<br>缺点：一个进程相对占用更多的系统资源，消耗更多的内存。而且，它并不擅长处理高并发请求，在这种场景下，它会将请求放进队列中，一直等到有可用进程，请求才会被处理。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6SCCAOhpnmD9F9ZKE7dWDbr1Rrwn3JKRYQeKGibVlXFd4kdwCicMK5csjA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="img"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/144318177.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;IfModule mpm_prefork_module&gt;</div><div class="line">    StartServers          5			#服务器开始进程</div><div class="line">    MinSpareServers       5		    #最小空闲进程</div><div class="line">    MaxSpareServers      10		    #最大空闲进程</div><div class="line">    MaxClients          150		    #最大处理请求数，对性能影响最大，默认最大256，再多排队</div><div class="line">    MaxRequestsPerChild   0		    #进程处理的最大请求数，0无限制，可以设置大一点，不用回收</div><div class="line">&lt;/IfModule&gt;</div></pre></td></tr></table></figure>
 <h3 id="2、worker"><a href="#2、worker" class="headerlink" title="2、worker"></a>2、worker</h3><p>worker模式比起上一个，是使用了多进程和多线程的混合模式。它也预先fork了几个子进程（数量比较少），然后每个子进程创建一些线程，同时包括一个监听线程。每个请求过来，会被分配到1个线程来服务。线程比起进程会更轻量，因为线程通常会共享父进程的内存空间，因此，内存的占用会减少一些。在高并发的场景下，因为比起prefork有更多的可用线程，表现会更优秀一些。<br>有些人会觉得奇怪，那么这里为什么不完全使用多线程呢，还要引入多进程？<br>原因主要是需要考虑稳定性，如果一个线程异常挂了，会导致父进程连同其他正常的子线程都挂了（它们都是同一个进程下的）。为了防止这场异常场景出现，就不能全部使用线程，使用多个进程再加多线程，如果某个线程出现异常，受影响的只是Apache的一部分服务，而不是整个服务。</p>
 <p>优点：占据更少的内存，高并发下表现更优秀。</p>
 <p>缺点：必须考虑线程安全的问题，因为多个子线程是共享父进程的内存地址的。如果使用keep-alive的长连接方式，某个线程会一直被占据，也许中间几乎没有请求，需要一直等待到超时才会被释放。如果过多的线程，被这样占据，也会导致在高并发场景下的无服务线程可用。（该问题在prefork模式下，同样会发生）</p>
 <p>注：keep-alive的长连接方式，是为了让下一次的socket通信复用之前创建的连接，从而，减少连接的创建和销毁的系统开销。保持连接，会让某个进程或者线程一直处于等待状态，即使没有数据过来。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6Sn5onUwxUKkhLDNvZwlNia4ON7SYRUhx7Lib2yuvnvn4wMey7PNDkmDicg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="img"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/144354802.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;IfModule mpm_worker_module&gt;</div><div class="line">    StartServers          2			#开始进程数</div><div class="line">    MaxClients          150			#最大处理请求数</div><div class="line">    MinSpareThreads      25		#最小空闲线程数</div><div class="line">    MaxSpareThreads      75		#最大空闲线程数</div><div class="line">    ThreadsPerChild      25		#每个进程可以产生多少线程，最大可以是20000，性能密切相关</div><div class="line">    MaxRequestsPerChild   0		#线程处理的最大请求数， 0无限制</div><div class="line">&lt;/IfModule&gt;</div></pre></td></tr></table></figure>
 <h3 id="3、event"><a href="#3、event" class="headerlink" title="3、event"></a>3、event</h3><p>这个是Apache中最新的模式，在现在版本里的已经是稳定可用的模式。它和worker模式很像，最大的区别在于，它解决了keep-alive场景下，长期被占用的线程的资源浪费问题（某些线程因为被keep-alive，空挂在哪里等待，中间几乎没有请求过来，甚至等到超时）。event MPM中，会有一个专门的线程来管理这些keep-alive类型的线程，当有真实请求过来的时候，将请求传递给服务线程，执行完毕后，又允许它释放。这样增强了高并发场景下的请求处理能力。</p>
 <p>event MPM在遇到某些不兼容的模块时，会失效，将会回退到worker模式，一个工作线程处理一个请求。官方自带的模块，全部是支持event MPM的。</p>
 <p>注意一点，event MPM需要Linux系统（Linux 2.6+）对EPoll的支持，才能启用。</p>
 <p>还有，需要补充的是HTTPS的连接（SSL），它的运行模式仍然是类似worker的方式，线程会被一直占用，直到连接关闭。部分比较老的资料里，说event MPM不支持SSL，那个说法是几年前的说法，现在已经支持了。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/ZTYjw6KickuAbtb8NQMibO5nicu6XdXWia6SmGZIvUSSXhsfDRybjicyb5cUJIU8HE9t4CRongylicZQ5vAFr9ZzK1KQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="img"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/144415224.png?imageslim" alt="mark"></p>
 
       
 

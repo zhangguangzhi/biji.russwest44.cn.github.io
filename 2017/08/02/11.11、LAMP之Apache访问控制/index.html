@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/110353561.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/110410321.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170803/110424940.png?imageslim">
-<meta property="og:updated_time" content="2017-08-11T02:37:43.612Z">
+<meta property="og:updated_time" content="2017-10-18T06:26:22.452Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache访问控制">
 <meta name="twitter:description" content="[TOC] 一、访问控制的作用发现来源IP有非法请求，或有些目录只能特定IP访问时，这个时候就可以采用访问控制。">
@@ -183,7 +183,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Order  Deny,Allow</div><div class="line">Deny from 127.0.0.1</div><div class="line">#allow没有具体规则，所以除了127.0.0.1拒绝，其他都接受，设置黑名单</div></pre></td></tr></table></figure>
 <p>例子7：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Order  Allow，Deny</div><div class="line">Allow from 127.0.0.1</div><div class="line">#deny没有具体规则，所以除了127.0.0.1接受，其他都拒绝，设置白名单</div></pre></td></tr></table></figure>
-<h2 id="三、应用"><a href="#三、应用" class="headerlink" title="三、应用"></a>三、应用</h2><h3 id="1、"><a href="#1、" class="headerlink" title="1、"></a>1、<directory></directory></h3><p>某个目录在限制，比如该目录很重要，只允许公司的ip访问，当然这个目录可以是网站的根目录，也就是整个站点都要做限制了。</p>
+<h2 id="三、应用"><a href="#三、应用" class="headerlink" title="三、应用"></a>三、应用</h2><h3 id="1、-lt-directory-gt"><a href="#1、-lt-directory-gt" class="headerlink" title="1、&lt;directory&gt;"></a>1、&lt;directory&gt;</h3><p>某个目录在限制，比如该目录很重要，只允许公司的ip访问，当然这个目录可以是网站的根目录，也就是整个站点都要做限制了。</p>
 <p>编辑虚拟机配置文件，vim  /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
 <p>加入以下配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;Directory /data/www&gt;</div><div class="line">    	Order Deny,Allow</div><div class="line">        Deny from all</div><div class="line">    	Allow from 127.0.0.1</div><div class="line">&lt;/Directory&gt;</div></pre></td></tr></table></figure>
@@ -193,13 +193,13 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/110334959.png?imageslim" alt="mark"></p>
 <p>重启Apache，测试</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/110353561.png?imageslim" alt="mark"></p>
-<h3 id="2、"><a href="#2、" class="headerlink" title="2、"></a>2、<filesmatch></filesmatch></h3><p>针对请求的uri去限制，例如站点的管理后台是admin.php,</p>
+<h3 id="2、-lt-filesmatch-gt"><a href="#2、-lt-filesmatch-gt" class="headerlink" title="2、&lt;filesmatch&gt;"></a>2、&lt;filesmatch&gt;</h3><p>针对请求的uri去限制，例如站点的管理后台是admin.php,</p>
 <p>那我们就可以针对这个admin.php做限制</p>
 <p>编辑虚拟机配置文件，vim  /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
 <p>加入以下配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;filesmatch &quot;(.*)admin(.*)&quot;&gt;</div><div class="line">Order Deny,Allow</div><div class="line">        Deny from all</div><div class="line">    	Allow from 127.0.0.1</div><div class="line">&lt;/filesmatch&gt;</div></pre></td></tr></table></figure>
 <ul>
-<li>\<filesmatch>匹配的是文件</filesmatch></li>
+<li>&lt;filesmatch&gt;匹配的是文件</li>
 </ul>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170803/110410321.png?imageslim" alt="mark"></p>
 <p>重启Apache，测试</p>
@@ -338,7 +338,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、访问控制的作用"><span class="toc-number">1.</span> <span class="toc-text">一、访问控制的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、语法"><span class="toc-number">2.</span> <span class="toc-text">二、语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、应用"><span class="toc-number">3.</span> <span class="toc-text">三、应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、"><span class="toc-number">3.1.</span> <span class="toc-text">1、</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、"><span class="toc-number">3.2.</span> <span class="toc-text">2、</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、访问控制的作用"><span class="toc-number">1.</span> <span class="toc-text">一、访问控制的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、语法"><span class="toc-number">2.</span> <span class="toc-text">二、语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、应用"><span class="toc-number">3.</span> <span class="toc-text">三、应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、-lt-directory-gt"><span class="toc-number">3.1.</span> <span class="toc-text">1、<directory></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、-lt-filesmatch-gt"><span class="toc-number">3.2.</span> <span class="toc-text">2、<filesmatch></span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){

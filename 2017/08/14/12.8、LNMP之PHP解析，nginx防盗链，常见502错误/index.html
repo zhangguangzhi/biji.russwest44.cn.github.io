@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/142302492.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/143424945.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/143457943.png?imageslim">
-<meta property="og:updated_time" content="2017-08-14T06:40:57.617Z">
+<meta property="og:updated_time" content="2017-10-18T07:03:35.204Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之PHP解析，nginx防盗链，常见502错误">
 <meta name="twitter:description" content="[TOC] 一、nginx防盗链nginx配置防盗链原理与httpd一样，也是利用referer。 location具有特定的匹配规则，我们在配置防盗链和过期时间，不记录日志时会有部分重合，所以需要将两部分组合在一起">
@@ -174,7 +174,7 @@
 <a id="more"></a>
 <p>1.1、修改配置文件</p>
 <p>写入以下配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">location ~  ^.+\.(gif|jpg|jpeg|png|bmp|swf|flv|rar|zip|doc|pdf|gz|bz2|xls)$</div><div class="line">    &#123;</div><div class="line">        expires  7d;</div><div class="line">        valid_referer  none  blocked  server_name  *.test.com  test.com  ;</div><div class="line">        if ( $valid_referer) </div><div class="line">        &#123;</div><div class="line">             return  403;</div><div class="line">        &#125;    </div><div class="line">        access_log  off;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">location ~  ^.+\.(gif|jpg|jpeg|png|bmp|swf|flv|rar|zip|doc|pdf|gz|bz2|xls)$</div><div class="line">    &#123;</div><div class="line">        expires  7d;</div><div class="line">        valid_referer  none  blocked  server_name  *.test.com  test.com  ;</div><div class="line">        if ( $invalid_referer) </div><div class="line">        &#123;</div><div class="line">             return  403;</div><div class="line">        &#125;    </div><div class="line">        access_log  off;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170814/130603689.png?imageslim" alt="mark"></p>
 <ul>
 <li>valid_referers设置的值为非“*.test.com”，如果有多个可以在后面添加，用空格分开</li>

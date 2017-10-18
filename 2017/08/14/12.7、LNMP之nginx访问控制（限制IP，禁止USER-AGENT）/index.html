@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/112617247.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/113123379.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170814/113412644.png?imageslim">
-<meta property="og:updated_time" content="2017-08-14T04:47:40.164Z">
+<meta property="og:updated_time" content="2017-10-18T07:01:18.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LNMP之nginx访问控制（限制IP，禁止USER_AGENT）">
 <meta name="twitter:description" content="[TOC] nginx和httpd一样，也需要限制某些IP不能访问域名或者只允许某系IP访问。配置和httpd很像，但是更加简洁。">
@@ -178,7 +178,7 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170814/110937712.png?imageslim" alt="mark"></p>
 <ul>
 <li><p>在配置httpd时，还有一个Order来定义allow和deny的顺序，但是在nginx里面是</p>
-<p>没有的，只要匹配规则就结束了。加入来源IP是192.168.205.137，它会从上到下</p>
+<p>没有的，只要匹配规则就结束了。假如来源IP是192.168.205.137，它会从上到下</p>
 <p>逐一去匹配，第一个IP（127.0.0.1）不匹配，在第三行（all）匹配，匹配到的规则</p>
 <p>是deny，所以最终会返回一个403的状态码</p>
 </li>

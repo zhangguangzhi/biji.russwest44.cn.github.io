@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>LAMP之Apache配置防盗链 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问，只用img可以访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际">
+  <meta name="description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你">
 <meta name="keywords" content="LAMP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LAMP之Apache配置防盗链">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/02/11.10、LAMP之Apache配置防盗链/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问，只用img可以访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际">
+<meta property="og:description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/101325031.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/101538716.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/105440309.png?imageslim">
-<meta property="og:updated_time" content="2017-08-11T02:37:51.788Z">
+<meta property="og:updated_time" content="2017-10-18T06:22:38.271Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache配置防盗链">
-<meta name="twitter:description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问，只用img可以访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际">
+<meta name="twitter:description" content="[TOC] 重点：  SetEnvIfNoCase Referer “^http://.*\.allen\.com$“ local_ref  将referer的具体值赋予变量local_ref ，env为空白值  使用访问控制限制图片类型的访问   一、作用如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170808/101325031.png?imageslim">
   
   
@@ -164,7 +164,7 @@
 <li><p>SetEnvIfNoCase Referer “^<a href="http://.*\.allen\.com$" target="_blank" rel="external">http://.*\.allen\.com$</a>“ local_ref </p>
 <p>将referer的具体值赋予变量local_ref ，env为空白值</p>
 </li>
-<li><p>使用访问控制限制图片类型的访问，只用img可以访问</p>
+<li><p>使用访问控制限制图片类型的访问</p>
 </li>
 </ul>
 <h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>如果你的站点是一个图片站，那么别人可以直接将你的图片地址放到他的网站上，他的用户就可以直接从他的网站上查看这个图片，而实际上浏览这个图片是从你的网站上访问的，这样，这个图片所产生的带宽开销对自己没有任何意义，毕竟看这个图片的人不是你的客户。所以，我们可设置防盗链。凡是在第三方站点上，严格访问自己站点的图片。MP3，rar，zip等文件也支持。</p>
@@ -180,7 +180,8 @@
 <p>测试：直接使用curl测试，-e可以指定referer（注意格式），不是白名单域名会显示状态码403</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170808/101538716.png?imageslim" alt="mark"></p>
 <h2 id="三、利用rewrite模块"><a href="#三、利用rewrite模块" class="headerlink" title="三、利用rewrite模块"></a>三、利用rewrite模块</h2><p>我们还可以使用rewrite模块对个别网站进行防盗链</p>
-<h3 id="1、修改主机配置文件"><a href="#1、修改主机配置文件" class="headerlink" title="1、修改主机配置文件"></a>1、修改主机配置文件</h3><p>vim /usr/local/apache2.4/conf/extra/httpd-vhosts.conf</p>
+<p>1、修改主机配置文件</p>
+<p>vim /usr/local/apache2.4/conf/extra/httpd-vhosts.conf</p>
 <p>加入以下内容：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#rewrite配置防盗链</div><div class="line">&lt;Ifmodule mod_rewrite.c&gt;</div><div class="line">	RewriteEngine on</div><div class="line">	#设置Rewrite规则，REFERER为baidu.com，qq.com</div><div class="line">	RewriteCond  %&#123;HTTP_REFERER&#125; .*\.baidu\.com  [NC,OR]</div><div class="line">	RewriteCond  %&#123;HTTP_REFERER&#125; .*\.qq\.com  [NC]</div><div class="line">	#设置Rewrite执行规则，当REFERER访问指定文件时，跳转到指定页面。</div><div class="line">	RewriteRule  .*\.(jpg|jpeg|gif|png|rar|zip|txt|ace|torrent|gz|swf)$  http://www.111.com/404.png [R,NC,L]</div><div class="line">&lt;/IFmodule&gt;</div></pre></td></tr></table></figure>
 <p>2、检查重载配置文件，测试</p>
@@ -320,7 +321,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、作用"><span class="toc-number">1.</span> <span class="toc-text">一、作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、配置防盗链"><span class="toc-number">2.</span> <span class="toc-text">二、配置防盗链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、修改虚拟主机配置文件"><span class="toc-number">2.1.</span> <span class="toc-text">1、修改虚拟主机配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、检查重载配置文件，测试"><span class="toc-number">2.2.</span> <span class="toc-text">2、检查重载配置文件，测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、利用rewrite模块"><span class="toc-number">3.</span> <span class="toc-text">三、利用rewrite模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、修改主机配置文件"><span class="toc-number">3.1.</span> <span class="toc-text">1、修改主机配置文件</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、作用"><span class="toc-number">1.</span> <span class="toc-text">一、作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、配置防盗链"><span class="toc-number">2.</span> <span class="toc-text">二、配置防盗链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、修改虚拟主机配置文件"><span class="toc-number">2.1.</span> <span class="toc-text">1、修改虚拟主机配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、检查重载配置文件，测试"><span class="toc-number">2.2.</span> <span class="toc-text">2、检查重载配置文件，测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、利用rewrite模块"><span class="toc-number">3.</span> <span class="toc-text">三、利用rewrite模块</span></a></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
