@@ -131,78 +131,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-27.4、NoSQL之redis使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/07/27.4、NoSQL之redis使用/">NoSQL之redis使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/07/27.4、NoSQL之redis使用/" class="archive-article-date">
-  	<time datetime="2017-10-07T08:40:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、redis存储session"><a href="#一、redis存储session" class="headerlink" title="一、redis存储session"></a>一、redis存储session</h3><h4 id="1-1、安装拓展模块"><a href="#1-1、安装拓展模块" class="headerlink" title="1.1、安装拓展模块"></a>1.1、安装拓展模块</h4><p>1.1.1、下载拓展模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget https://coding.net/u/aminglinux/p/yuanke_centos7/git/raw/master/21NOSQL/phpredis.zip</div></pre></td></tr></table></figure>
-<p>1.1.2、安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">unzip phpredis.zip</div><div class="line">cd phpredis-develop</div><div class="line">/usr/local/php-fpm/bin/phpize</div><div class="line">./configure --with-php-config=/usr/local/php-fpm/bin/php-config</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2017/10/07/27.4、NoSQL之redis使用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/07/27.4、NoSQL之redis使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
     <article id="post-mysql开启慢查询日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -251,6 +179,192 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/10/05/mysql开启慢查询日志/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-Linux集群之高可用集群配置heartbeat" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/04/Linux集群之高可用集群配置heartbeat/">Linux集群之高可用集群配置heartbeat</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/04/Linux集群之高可用集群配置heartbeat/" class="archive-article-date">
+  	<time datetime="2017-10-04T09:00:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/5b292dd59f9249d186fb8f13a134feb3/clipboard.png" alt="img"></p>
+<p>一、什么是HA</p>
+<p>HA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。</p>
+<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/3f7fafad403240e6a60e969a46ab6019/clipboard.png" alt="img"></p>
+<p>如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其中web1为主节点，正常是它在提供服务，而web2备用节点是闲置的。web1和web2中间有一条心跳线，检查对方的存活状态。流动IP，也叫vip是对外提供服务的ip，正常情况下是配置在web1上的，当web1宕机后，web2会自动配置该vip，对外提供服务。</p>
+<p>二、配置</p>
+<p>准备工作</p>
+<p>需要两台机器，都是centos6.5，网卡eth0 ip如下：</p>
+<p>allen 192.168.205.130</p>
+<p>allen1 192.168.205.3</p>
+<p>两个eth1 ip如下：</p>
+<p>allen 192.168.21.166            \如何快速定义eth1的ip，添加网卡后，使用ifconfig eth1 ip up</p>
+<p>allen1 192.168.21.100</p>
+<p>下面1-5步骤是在两台机器上操作</p>
+<p>1、配置hostname，分别为allen和allen1</p>
+<p>（1）主上设置hostname</p>
+<p># hostname allen</p>
+<p># vim /etc/sysconfig/network</p>
+<p>修改HOSTNAME=allen</p>
+<p>（2）从上配置hostname</p>
+<p># hostname allen1</p>
+<p># vim /etc/sysconfig/network</p>
+<p>修改HOSTNAME=allen1</p>
+<p>2、关闭防火墙</p>
+<p>主和从上都操作</p>
+<p># iptables -F</p>
+<p># service iptables save</p>
+<p>主和从都关闭selinux</p>
+<p># setenforce 0</p>
+<p># sed -i ‘s/SELINUS=enforcing/SELINUX=disabled/‘ /etc/selinux/config</p>
+<p>3、配置hosts</p>
+<p>主和从都这样编辑</p>
+<p># vi /etc/hosts</p>
+<p>增加内容如下：</p>
+<p>192.168.205.130  allen</p>
+<p>192.168.16.250.3 allen1</p>
+<p>4、安装epel拓展源</p>
+<p>主和从都执行</p>
+<p># yum install -y epel-release</p>
+<p>5、安装heartbeat、nginx、libnet</p>
+<p>主和从都执行</p>
+<p># yum install -y heartbeat* </p>
+<p># yum install -y libnet </p>
+<p># yum install -y nginx</p>
+<p>安装时出现的错误：</p>
+<p><a href="http://note.youdao.com/noteshare?id=39c5f453c60f9275224743cc41321b7c" target="_blank" rel="external">http://note.youdao.com/noteshare?id=39c5f453c60f9275224743cc41321b7c</a></p>
+<p>6、在主（allen)上配置</p>
+<p># cd /usr/share/doc/heartbeat-3.0.4/</p>
+<p># cp authkeys ha.cf haresources /etc/ha.d/       \拷贝配置文件至ha.d</p>
+<p># cd /etc/ha.d</p>
+<p># vim authkeys                            \修改验证配置文件</p>
+<p>更改或者增加</p>
+<p>auth 3</p>
+<p>3 md5 Hello!</p>
+<p>然后修改其权限</p>
+<p># chmod 600 authkeys  （必须为600权限，不然heartbeat无法启动）</p>
+<p># vim haresources                           \添加vip以及服务    </p>
+<p>加入以下一行</p>
+<p>allen 192.168.205.110/24/eth0:0 nginx</p>
+<p>说明：allen为主节点hostname，192.168.205.110为vip，/24为24网段，eth0:0为vip的设备名，nginx为hearbeat监控的服务，也是两台机器对外提供的核心服务。</p>
+<p># vim ha.cf                            \主配置文件</p>
+<p>加入以下内容：</p>
+<p>debugfile      /var/log/ha-debug</p>
+<p>logfile        /var/log/ha-log</p>
+<p>logfacility      local0</p>
+<p>keepalive  2</p>
+<p>deadtime  30</p>
+<p>warntime  10</p>
+<p>initdead   60</p>
+<p>udpport   694</p>
+<p>ucast    eth1   192.168.21.100</p>
+<p>auto_failback   on</p>
+<p>node   allen</p>
+<p>node   allen1</p>
+<p>ping   192.168.21.1</p>
+<p>respawn hacluster /usr/lib/heartbeat/ipfail</p>
+<p>配置说明：</p>
+<p>debugfile     该文件保存heartbeat的调试信息</p>
+<p>logfile        heartbeat的日志文件</p>
+<p>keepalive        心跳时间间隔，默认单位为秒</p>
+<p>deadtime        超出该时间间隔未收到对方节点的心跳，则认为对方已经死亡。</p>
+<p>warntime        超过该事件间隔未收到对方节点的心跳，则发出警告并记录到日志中</p>
+<p>initdead        在某些系统上，系统启动或重启之后需要经过一段时间，网络才能正常工作，该选项用                </p>
+<p>​    于解决这种情况产生的时间间隔，取值至少是deadtime的两倍</p>
+<p>udpport        设置广播通信使用的端口，694为默认使用端口号</p>
+<p>ucast  eth1    设置对方机器心跳检测的网卡和ip    \实验时只有一个eth0网卡，所以可以暂时使用该网卡及IP，生产环境建议使用新的网卡    </p>
+<p>auto_failback    heartbeat的两台主机分别为主节点和从节点。主节点在正常请款下占用资源并运行所</p>
+<p>   有的服务，遇到故障时把资源交给从节点并由从节点运行服务。在该选项为on的情况</p>
+<p>   下，一旦主节点回复运行，则自动获取资源并取代从节点，否则不取代从节点。</p>
+<p>node        指定主和从，主在上</p>
+<p>node        从在下，各占一行。</p>
+<p>ping            实现判断双方IP是否“存活”    \使用双方IP的网关最有权威性</p>
+<p>respawn hacluster /usr/lib/heartbeat/ipfail</p>
+<p>指定与heartbeat一同启动和关闭的进程，该进程被自动见识，遇到故障则重新启动。最常用的进程是ipfail，该进程用于检测和处理网络故障，需要配合ping语句指定的ping node来检测网络连接。如果系统是64位，需要注意该文件的路径。检查网络连通性。</p>
+<p>7、把主上的三个配置文件拷贝到从上</p>
+<p># cd /etc/ha.d/</p>
+<p># scp authkeys ha.cf haresources    allen1:/etc/ha.d/</p>
+<p>8、修改从（allen1）上的ha.cf</p>
+<p>将ucast eth1 192.168.21.100改为 ucast eth1 192.168.21.166</p>
+<p>9、启动heartbeat</p>
+<p>先启动主，再启动从。</p>
+<p># service heartbeat start</p>
+<p>虚拟网卡已经启动：</p>
+<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/6012b498243b4f929667f245d24c454c/clipboard.png" alt="img"></p>
+<p>nginx已经启动：</p>
+<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/15178b70e4b948e39ce75476ee3b8984/clipboard.png" alt="img"></p>
+<p>三、检查测试</p>
+<p>1、检查服务是否启动成功</p>
+<p># ifconfig                    \查看主上是否有     eth0:0</p>
+<p># ps aux |grep nginx        \查看nginx是否启动</p>
+<p>2、测试1</p>
+<p>（1）准备</p>
+<p># echo “11111master” &gt; /usr/share/nginx/html/index.html     \设置主的nginx首页内容</p>
+<p>#echo “2222slave” &gt; /usr/share/nginx/html/index.html      \设置从的nginx首页内容</p>
+<p>（2）测试</p>
+<p># iptables -A INPUT -p icmp -j DROP        \主上禁止ping</p>
+<p>注：ICMP是:Internet 控制信息协议（ICMP）是 IP 组的一个整合部分。通过 IP 包传送的 ICMP 信息主要用于涉及网络操作或错误操作的不可达信息。 ICMP 包发送是不可靠的，所以主机不能依靠接收 ICMP 包解决任何网络问题。ICMP不象TCP或UDP有端口，但它确实含有两个域：类型(type)和代码(code)。而且这些域的作用和端口也完全不同。Ping用到的是ICMP协议。不是端口。</p>
+<p># tail -f /var/log/ha-log        //查看主上的日志</p>
+<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/1951afce6710461d923441e4cb2f2a75/clipboard.png" alt="img"></p>
+<p>（3）查询测试是否成功：</p>
+<p># ps aux |grep nginx</p>
+<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/c07d8bffaf72491bb80b1a390af1309d/clipboard.png" alt="img"></p>
+<p>从上的nginx已经启动</p>
+<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/6c954c260f7548e29b5e4efeee4d2839/clipboard.png" alt="img"></p>
+<p>（4）在主上反向测试</p>
+<p>#  iptables -D INPUT -p icmp -j DROP        \取消禁止ping</p>
+<p>#  ps aux |grep nginx</p>
+<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/bab05a2a314a4cbb9aa3f9aefeebba27/clipboard.png" alt="img"></p>
+<p>主上的nginx已经启动</p>
+<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/1aa0ab71e8dc4db28679a622807a61ab/clipboard.png" alt="img"></p>
+<p>2、测试2</p>
+<p># service heartbeat stop        \主上停止heartbeat服务</p>
+<p>停止主上heartbeat服务后，从能很快的启动nginx，接手业务</p>
+<p>3、测试脑裂</p>
+<p>主和从上都down掉eth1网卡</p>
+<p>#ifdown eth1</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/04/Linux集群之高可用集群配置heartbeat/">展开全文 >></a>
         </p>
       
 
