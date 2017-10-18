@@ -8,26 +8,27 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>Linux集群之高可用集群配置heartbeat | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、什么是HA HA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。  如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其中web1">
+  <meta name="description" content="[TOC] 一、什么是HAHA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。  如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其">
+<meta name="keywords" content="Linux集群,keepalived">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux集群之高可用集群配置heartbeat">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/10/04/Linux集群之高可用集群配置heartbeat/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="一、什么是HA HA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。  如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其中web1">
-<meta property="og:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/5b292dd59f9249d186fb8f13a134feb3/clipboard.png">
-<meta property="og:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/3f7fafad403240e6a60e969a46ab6019/clipboard.png">
-<meta property="og:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/6012b498243b4f929667f245d24c454c/clipboard.png">
-<meta property="og:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/15178b70e4b948e39ce75476ee3b8984/clipboard.png">
-<meta property="og:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/1951afce6710461d923441e4cb2f2a75/clipboard.png">
-<meta property="og:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/c07d8bffaf72491bb80b1a390af1309d/clipboard.png">
-<meta property="og:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/6c954c260f7548e29b5e4efeee4d2839/clipboard.png">
-<meta property="og:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/bab05a2a314a4cbb9aa3f9aefeebba27/clipboard.png">
-<meta property="og:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/1aa0ab71e8dc4db28679a622807a61ab/clipboard.png">
-<meta property="og:updated_time" content="2017-10-18T09:03:45.035Z">
+<meta property="og:description" content="[TOC] 一、什么是HAHA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。  如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/170636001.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/170701088.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/171235348.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/171251947.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/171344240.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/171356852.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/171409171.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/171447086.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/171454645.png?imageslim">
+<meta property="og:updated_time" content="2017-10-18T09:16:16.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux集群之高可用集群配置heartbeat">
-<meta name="twitter:description" content="一、什么是HA HA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。  如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其中web1">
-<meta name="twitter:image" content="c:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/5b292dd59f9249d186fb8f13a134feb3/clipboard.png">
+<meta name="twitter:description" content="[TOC] 一、什么是HAHA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。  如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171018/170636001.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -163,13 +164,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/5b292dd59f9249d186fb8f13a134feb3/clipboard.png" alt="img"></p>
-<p>一、什么是HA</p>
-<p>HA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。</p>
-<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/3f7fafad403240e6a60e969a46ab6019/clipboard.png" alt="img"></p>
+        <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/170636001.png?imageslim" alt="mark"></p>
+<p>[TOC]</p>
+<h3 id="一、什么是HA"><a href="#一、什么是HA" class="headerlink" title="一、什么是HA"></a>一、什么是HA</h3><p>HA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/170701088.png?imageslim" alt="mark"></p>
 <p>如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其中web1为主节点，正常是它在提供服务，而web2备用节点是闲置的。web1和web2中间有一条心跳线，检查对方的存活状态。流动IP，也叫vip是对外提供服务的ip，正常情况下是配置在web1上的，当web1宕机后，web2会自动配置该vip，对外提供服务。</p>
-<p>二、配置</p>
-<p>准备工作</p>
+<a id="more"></a>
+<h3 id="二、配置"><a href="#二、配置" class="headerlink" title="二、配置"></a>二、配置</h3><p>准备工作</p>
 <p>需要两台机器，都是centos6.5，网卡eth0 ip如下：</p>
 <p>allen 192.168.205.130</p>
 <p>allen1 192.168.205.3</p>
@@ -177,128 +178,68 @@
 <p>allen 192.168.21.166            \如何快速定义eth1的ip，添加网卡后，使用ifconfig eth1 ip up</p>
 <p>allen1 192.168.21.100</p>
 <p>下面1-5步骤是在两台机器上操作</p>
-<p>1、配置hostname，分别为allen和allen1</p>
-<p>（1）主上设置hostname</p>
-<p># hostname allen</p>
-<p># vim /etc/sysconfig/network</p>
+<h4 id="1、配置hostname，分别为allen和allen1"><a href="#1、配置hostname，分别为allen和allen1" class="headerlink" title="1、配置hostname，分别为allen和allen1"></a>1、配置hostname，分别为allen和allen1</h4><p>（1）主上设置hostname</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hostname allen</div><div class="line">vim /etc/sysconfig/network</div></pre></td></tr></table></figure>
 <p>修改HOSTNAME=allen</p>
 <p>（2）从上配置hostname</p>
-<p># hostname allen1</p>
-<p># vim /etc/sysconfig/network</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hostname allen1</div><div class="line">vim /etc/sysconfig/network</div></pre></td></tr></table></figure>
 <p>修改HOSTNAME=allen1</p>
-<p>2、关闭防火墙</p>
-<p>主和从上都操作</p>
-<p># iptables -F</p>
-<p># service iptables save</p>
+<h4 id="2、关闭防火墙"><a href="#2、关闭防火墙" class="headerlink" title="2、关闭防火墙"></a>2、关闭防火墙</h4><p>主和从上都操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">iptables -F</div><div class="line">service iptables save</div></pre></td></tr></table></figure>
 <p>主和从都关闭selinux</p>
-<p># setenforce 0</p>
-<p># sed -i ‘s/SELINUS=enforcing/SELINUX=disabled/‘ /etc/selinux/config</p>
-<p>3、配置hosts</p>
-<p>主和从都这样编辑</p>
-<p># vi /etc/hosts</p>
-<p>增加内容如下：</p>
-<p>192.168.205.130  allen</p>
-<p>192.168.16.250.3 allen1</p>
-<p>4、安装epel拓展源</p>
-<p>主和从都执行</p>
-<p># yum install -y epel-release</p>
-<p>5、安装heartbeat、nginx、libnet</p>
-<p>主和从都执行</p>
-<p># yum install -y heartbeat* </p>
-<p># yum install -y libnet </p>
-<p># yum install -y nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">setenforce 0</div><div class="line">sed -i &apos;s/SELINUS=enforcing/SELINUX=disabled/&apos; /etc/selinux/config</div></pre></td></tr></table></figure>
+<h4 id="3、配置hosts"><a href="#3、配置hosts" class="headerlink" title="3、配置hosts"></a>3、配置hosts</h4><p>主和从都这样编辑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vi /etc/hosts</div><div class="line"># 增加内容如下：</div><div class="line">192.168.205.130  allen</div><div class="line">192.168.16.250.3 allen1</div></pre></td></tr></table></figure>
+<h4 id="4、安装epel拓展源"><a href="#4、安装epel拓展源" class="headerlink" title="4、安装epel拓展源"></a>4、安装epel拓展源</h4><p>主和从都执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y epel-release</div></pre></td></tr></table></figure>
+<h4 id="5、安装heartbeat、nginx、libnet"><a href="#5、安装heartbeat、nginx、libnet" class="headerlink" title="5、安装heartbeat、nginx、libnet"></a>5、安装heartbeat、nginx、libnet</h4><p>主和从都执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum install -y heartbeat* </div><div class="line">yum install -y libnet </div><div class="line">yum install -y nginx</div></pre></td></tr></table></figure>
 <p>安装时出现的错误：</p>
 <p><a href="http://note.youdao.com/noteshare?id=39c5f453c60f9275224743cc41321b7c" target="_blank" rel="external">http://note.youdao.com/noteshare?id=39c5f453c60f9275224743cc41321b7c</a></p>
-<p>6、在主（allen)上配置</p>
-<p># cd /usr/share/doc/heartbeat-3.0.4/</p>
-<p># cp authkeys ha.cf haresources /etc/ha.d/       \拷贝配置文件至ha.d</p>
-<p># cd /etc/ha.d</p>
-<p># vim authkeys                            \修改验证配置文件</p>
-<p>更改或者增加</p>
-<p>auth 3</p>
-<p>3 md5 Hello!</p>
-<p>然后修改其权限</p>
-<p># chmod 600 authkeys  （必须为600权限，不然heartbeat无法启动）</p>
-<p># vim haresources                           \添加vip以及服务    </p>
-<p>加入以下一行</p>
-<p>allen 192.168.205.110/24/eth0:0 nginx</p>
-<p>说明：allen为主节点hostname，192.168.205.110为vip，/24为24网段，eth0:0为vip的设备名，nginx为hearbeat监控的服务，也是两台机器对外提供的核心服务。</p>
-<p># vim ha.cf                            \主配置文件</p>
-<p>加入以下内容：</p>
-<p>debugfile      /var/log/ha-debug</p>
-<p>logfile        /var/log/ha-log</p>
-<p>logfacility      local0</p>
-<p>keepalive  2</p>
-<p>deadtime  30</p>
-<p>warntime  10</p>
-<p>initdead   60</p>
-<p>udpport   694</p>
-<p>ucast    eth1   192.168.21.100</p>
-<p>auto_failback   on</p>
-<p>node   allen</p>
-<p>node   allen1</p>
-<p>ping   192.168.21.1</p>
-<p>respawn hacluster /usr/lib/heartbeat/ipfail</p>
+<h4 id="6、在主（allen-上配置"><a href="#6、在主（allen-上配置" class="headerlink" title="6、在主（allen)上配置"></a>6、在主（allen)上配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd /usr/share/doc/heartbeat-3.0.4/</div><div class="line">cp authkeys ha.cf haresources /etc/ha.d/       \\拷贝配置文件至ha.d</div><div class="line">cd /etc/ha.d</div><div class="line">vim authkeys						    \\修改验证配置文件</div><div class="line">更改或者增加</div><div class="line">auth 3</div><div class="line">3 md5 Hello!</div></pre></td></tr></table></figure>
+<ul>
+<li>然后修改其权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 600 authkeys  （必须为600权限，不然heartbeat无法启动）</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim haresources						   \\添加vip以及服务	</div><div class="line">#加入以下一行</div><div class="line">allen 192.168.205.110/24/eth0:0 nginx</div></pre></td></tr></table></figure>
+<ul>
+<li>说明：allen为主节点hostname，192.168.205.110为vip，/24为24网段，eth0:0为vip的设备名，nginx为hearbeat监控的服务，也是两台机器对外提供的核心服务。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">vim ha.cf							\\主配置文件</div><div class="line"></div><div class="line">#加入以下内容：</div><div class="line">debugfile	  /var/log/ha-debug</div><div class="line">logfile        /var/log/ha-log</div><div class="line">logfacility	  local0</div><div class="line">keepalive  2</div><div class="line">deadtime  30</div><div class="line">warntime  10</div><div class="line">initdead   60</div><div class="line">udpport   694</div><div class="line">ucast    eth1   192.168.21.100</div><div class="line">auto_failback   on</div><div class="line">node   allen</div><div class="line">node   allen1</div><div class="line">ping   192.168.21.1</div><div class="line">respawn hacluster /usr/lib/heartbeat/ipfail</div></pre></td></tr></table></figure>
 <p>配置说明：</p>
-<p>debugfile     该文件保存heartbeat的调试信息</p>
-<p>logfile        heartbeat的日志文件</p>
-<p>keepalive        心跳时间间隔，默认单位为秒</p>
-<p>deadtime        超出该时间间隔未收到对方节点的心跳，则认为对方已经死亡。</p>
-<p>warntime        超过该事件间隔未收到对方节点的心跳，则发出警告并记录到日志中</p>
-<p>initdead        在某些系统上，系统启动或重启之后需要经过一段时间，网络才能正常工作，该选项用                </p>
-<p>​    于解决这种情况产生的时间间隔，取值至少是deadtime的两倍</p>
-<p>udpport        设置广播通信使用的端口，694为默认使用端口号</p>
-<p>ucast  eth1    设置对方机器心跳检测的网卡和ip    \实验时只有一个eth0网卡，所以可以暂时使用该网卡及IP，生产环境建议使用新的网卡    </p>
-<p>auto_failback    heartbeat的两台主机分别为主节点和从节点。主节点在正常请款下占用资源并运行所</p>
-<p>   有的服务，遇到故障时把资源交给从节点并由从节点运行服务。在该选项为on的情况</p>
-<p>   下，一旦主节点回复运行，则自动获取资源并取代从节点，否则不取代从节点。</p>
-<p>node        指定主和从，主在上</p>
-<p>node        从在下，各占一行。</p>
-<p>ping            实现判断双方IP是否“存活”    \使用双方IP的网关最有权威性</p>
-<p>respawn hacluster /usr/lib/heartbeat/ipfail</p>
-<p>指定与heartbeat一同启动和关闭的进程，该进程被自动见识，遇到故障则重新启动。最常用的进程是ipfail，该进程用于检测和处理网络故障，需要配合ping语句指定的ping node来检测网络连接。如果系统是64位，需要注意该文件的路径。检查网络连通性。</p>
-<p>7、把主上的三个配置文件拷贝到从上</p>
-<p># cd /etc/ha.d/</p>
-<p># scp authkeys ha.cf haresources    allen1:/etc/ha.d/</p>
-<p>8、修改从（allen1）上的ha.cf</p>
-<p>将ucast eth1 192.168.21.100改为 ucast eth1 192.168.21.166</p>
-<p>9、启动heartbeat</p>
-<p>先启动主，再启动从。</p>
-<p># service heartbeat start</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">debugfile 	该文件保存heartbeat的调试信息</div><div class="line"></div><div class="line">logfile		heartbeat的日志文件</div><div class="line"></div><div class="line">keepalive		心跳时间间隔，默认单位为秒</div><div class="line"></div><div class="line">deadtime		超出该时间间隔未收到对方节点的心跳，则认为对方已经死亡。</div><div class="line"></div><div class="line">warntime		超过该事件间隔未收到对方节点的心跳，则发出警告并记录到日志中</div><div class="line"></div><div class="line">initdead		在某些系统上，系统启动或重启之后需要经过一段时间，网络才能正常工作，该选项用				</div><div class="line"></div><div class="line">    于解决这种情况产生的时间间隔，取值至少是deadtime的两倍</div><div class="line"></div><div class="line">udpport		设置广播通信使用的端口，694为默认使用端口号</div><div class="line"></div><div class="line">ucast  eth1	设置对方机器心跳检测的网卡和ip	\实验时只有一个eth0网卡，所以可以暂时使用该网卡及IP，生产环境建议使用新的网卡	</div><div class="line"></div><div class="line">auto_failback	heartbeat的两台主机分别为主节点和从节点。主节点在正常请款下占用资源并运行所</div><div class="line"></div><div class="line">   有的服务，遇到故障时把资源交给从节点并由从节点运行服务。在该选项为on的情况</div><div class="line"></div><div class="line">   下，一旦主节点回复运行，则自动获取资源并取代从节点，否则不取代从节点。</div><div class="line"></div><div class="line">node		指定主和从，主在上</div><div class="line"></div><div class="line">node		从在下，各占一行。</div><div class="line"></div><div class="line">ping			实现判断双方IP是否“存活”	\使用双方IP的网关最有权威性</div><div class="line"></div><div class="line">respawn hacluster /usr/lib/heartbeat/ipfail</div><div class="line"></div><div class="line">指定与heartbeat一同启动和关闭的进程，该进程被自动见识，遇到故障则重新启动。最常用的进程是ipfail，该进程用于检测和处理网络故障，需要配合ping语句指定的ping node来检测网络连接。如果系统是64位，需要注意该文件的路径。检查网络连通性。</div></pre></td></tr></table></figure>
+<h4 id="7、把主上的三个配置文件拷贝到从上"><a href="#7、把主上的三个配置文件拷贝到从上" class="headerlink" title="7、把主上的三个配置文件拷贝到从上"></a>7、把主上的三个配置文件拷贝到从上</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/ha.d/</div><div class="line">scp authkeys ha.cf haresources	allen1:/etc/ha.d/</div></pre></td></tr></table></figure>
+<h4 id="8、修改从（allen1）上的ha-cf"><a href="#8、修改从（allen1）上的ha-cf" class="headerlink" title="8、修改从（allen1）上的ha.cf"></a>8、修改从（allen1）上的ha.cf</h4><p>将ucast eth1 192.168.21.100改为 ucast eth1 192.168.21.166</p>
+<h4 id="9、启动heartbeat"><a href="#9、启动heartbeat" class="headerlink" title="9、启动heartbeat"></a>9、启动heartbeat</h4><p>先启动主，再启动从。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service heartbeat start</div></pre></td></tr></table></figure>
 <p>虚拟网卡已经启动：</p>
-<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/6012b498243b4f929667f245d24c454c/clipboard.png" alt="img"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/171235348.png?imageslim" alt="mark"></p>
 <p>nginx已经启动：</p>
-<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/15178b70e4b948e39ce75476ee3b8984/clipboard.png" alt="img"></p>
-<p>三、检查测试</p>
-<p>1、检查服务是否启动成功</p>
-<p># ifconfig                    \查看主上是否有     eth0:0</p>
-<p># ps aux |grep nginx        \查看nginx是否启动</p>
-<p>2、测试1</p>
-<p>（1）准备</p>
-<p># echo “11111master” &gt; /usr/share/nginx/html/index.html     \设置主的nginx首页内容</p>
-<p>#echo “2222slave” &gt; /usr/share/nginx/html/index.html      \设置从的nginx首页内容</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/171251947.png?imageslim" alt="mark"></p>
+<h3 id="三、检查测试"><a href="#三、检查测试" class="headerlink" title="三、检查测试"></a>三、检查测试</h3><h4 id="1、检查服务是否启动成功"><a href="#1、检查服务是否启动成功" class="headerlink" title="1、检查服务是否启动成功"></a>1、检查服务是否启动成功</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ifconfig					\查看主上是否有	 eth0:0</div><div class="line">ps aux |grep nginx		\查看nginx是否启动</div></pre></td></tr></table></figure>
+<h4 id="2、测试1"><a href="#2、测试1" class="headerlink" title="2、测试1"></a>2、测试1</h4><p>（1）准备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">echo &quot;11111master&quot; &gt; /usr/share/nginx/html/index.html     \\设置主的nginx首页内容</div><div class="line">echo &quot;2222slave&quot; &gt; /usr/share/nginx/html/index.html	  \\设置从的nginx首页内容</div></pre></td></tr></table></figure>
 <p>（2）测试</p>
-<p># iptables -A INPUT -p icmp -j DROP        \主上禁止ping</p>
-<p>注：ICMP是:Internet 控制信息协议（ICMP）是 IP 组的一个整合部分。通过 IP 包传送的 ICMP 信息主要用于涉及网络操作或错误操作的不可达信息。 ICMP 包发送是不可靠的，所以主机不能依靠接收 ICMP 包解决任何网络问题。ICMP不象TCP或UDP有端口，但它确实含有两个域：类型(type)和代码(code)。而且这些域的作用和端口也完全不同。Ping用到的是ICMP协议。不是端口。</p>
-<p># tail -f /var/log/ha-log        //查看主上的日志</p>
-<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/1951afce6710461d923441e4cb2f2a75/clipboard.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">iptables -A INPUT -p icmp -j DROP		\\主上禁止ping</div></pre></td></tr></table></figure>
+<ul>
+<li>注：ICMP是:Internet 控制信息协议（ICMP）是 IP 组的一个整合部分。通过 IP 包传送的 ICMP 信息主要用于涉及网络操作或错误操作的不可达信息。 ICMP 包发送是不可靠的，所以主机不能依靠接收 ICMP 包解决任何网络问题。ICMP不象TCP或UDP有端口，但它确实含有两个域：类型(type)和代码(code)。而且这些域的作用和端口也完全不同。Ping用到的是ICMP协议。不是端口。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail -f /var/log/ha-log		//查看主上的日志</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/171344240.png?imageslim" alt="mark"></p>
 <p>（3）查询测试是否成功：</p>
-<p># ps aux |grep nginx</p>
-<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/c07d8bffaf72491bb80b1a390af1309d/clipboard.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps aux |grep nginx</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/171356852.png?imageslim" alt="mark"></p>
 <p>从上的nginx已经启动</p>
-<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/6c954c260f7548e29b5e4efeee4d2839/clipboard.png" alt="img"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/171409171.png?imageslim" alt="mark"></p>
 <p>（4）在主上反向测试</p>
-<p>#  iptables -D INPUT -p icmp -j DROP        \取消禁止ping</p>
-<p>#  ps aux |grep nginx</p>
-<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/bab05a2a314a4cbb9aa3f9aefeebba27/clipboard.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">iptables -D INPUT -p icmp -j DROP		\\取消禁止ping</div><div class="line">ps aux |grep nginx</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/171447086.png?imageslim" alt="mark"></p>
 <p>主上的nginx已经启动</p>
-<p><img src="C:/Users/asus/AppData/Local/YNote/data/weixinobU7VjqPdQ_TQT3RF1Sp0HOknFec/1aa0ab71e8dc4db28679a622807a61ab/clipboard.png" alt="img"></p>
-<p>2、测试2</p>
-<p># service heartbeat stop        \主上停止heartbeat服务</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/171454645.png?imageslim" alt="mark"></p>
+<h4 id="2、测试2"><a href="#2、测试2" class="headerlink" title="2、测试2"></a>2、测试2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service heartbeat stop		\\主上停止heartbeat服务</div></pre></td></tr></table></figure>
 <p>停止主上heartbeat服务后，从能很快的启动nginx，接手业务</p>
-<p>3、测试脑裂</p>
-<p>主和从上都down掉eth1网卡</p>
-<p>#ifdown eth1</p>
+<h4 id="3、测试脑裂"><a href="#3、测试脑裂" class="headerlink" title="3、测试脑裂"></a>3、测试脑裂</h4><p>主和从上都down掉eth1网卡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ifdown eth1</div></pre></td></tr></table></figure>
 
       
 
@@ -307,6 +248,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -412,6 +368,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、什么是HA"><span class="toc-number">1.</span> <span class="toc-text">一、什么是HA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、配置"><span class="toc-number">2.</span> <span class="toc-text">二、配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、配置hostname，分别为allen和allen1"><span class="toc-number">2.1.</span> <span class="toc-text">1、配置hostname，分别为allen和allen1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、关闭防火墙"><span class="toc-number">2.2.</span> <span class="toc-text">2、关闭防火墙</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、配置hosts"><span class="toc-number">2.3.</span> <span class="toc-text">3、配置hosts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、安装epel拓展源"><span class="toc-number">2.4.</span> <span class="toc-text">4、安装epel拓展源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、安装heartbeat、nginx、libnet"><span class="toc-number">2.5.</span> <span class="toc-text">5、安装heartbeat、nginx、libnet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6、在主（allen-上配置"><span class="toc-number">2.6.</span> <span class="toc-text">6、在主（allen)上配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7、把主上的三个配置文件拷贝到从上"><span class="toc-number">2.7.</span> <span class="toc-text">7、把主上的三个配置文件拷贝到从上</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8、修改从（allen1）上的ha-cf"><span class="toc-number">2.8.</span> <span class="toc-text">8、修改从（allen1）上的ha.cf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9、启动heartbeat"><span class="toc-number">2.9.</span> <span class="toc-text">9、启动heartbeat</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、检查测试"><span class="toc-number">3.</span> <span class="toc-text">三、检查测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、检查服务是否启动成功"><span class="toc-number">3.1.</span> <span class="toc-text">1、检查服务是否启动成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、测试1"><span class="toc-number">3.2.</span> <span class="toc-text">2、测试1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、测试2"><span class="toc-number">3.3.</span> <span class="toc-text">2、测试2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、测试脑裂"><span class="toc-number">3.4.</span> <span class="toc-text">3、测试脑裂</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 
