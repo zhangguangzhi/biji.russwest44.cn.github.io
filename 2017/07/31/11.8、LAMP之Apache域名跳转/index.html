@@ -17,7 +17,7 @@
 <meta property="og:description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/172152079.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/172927626.png?imageslim">
-<meta property="og:updated_time" content="2017-08-11T02:40:21.199Z">
+<meta property="og:updated_time" content="2017-10-18T06:10:55.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache域名跳转">
 <meta name="twitter:description" content="[TOC] LAMP之Apache域名跳转重点：  rewrite模块是否加载 rewrite语法是否正确（注意模块名称是否正确，引擎是否开启，cond中的正则是否正确） 确认跳转主域名 跳转状态码301,302 虚拟主机需要定义次域名为别名">
@@ -167,8 +167,8 @@
 <li>虚拟主机需要定义次域名为别名</li>
 </ul>
 <a id="more"></a>
-<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>（1）一个站点有多个域名会对SEO有影响，说白了就是百度搜索关键词的排名会收到影响，如果把多个域名全部跳转到指定的一个域名，这样以这个域名为中心，就可以吧权重集中在这个域名上，这样搜索关键词的排名也就靠前。</p>
-<p>（2）如果之前的某个域名不再使用了，但是搜索引擎还保留着之前老域名的连接，这以为着用户可能会搜到我们的网站并且点击老域名，固需要把老域名做个跳转跳到新域名。</p>
+<h2 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h2><p>（1）一个站点有多个域名会对SEO有影响，说白了就是百度搜索关键词的排名会受到影响，如果把多个域名全部跳转到指定的一个域名，这样以这个域名为中心，就可以把权重集中在这个域名上，这样搜索关键词的排名也就靠前。</p>
+<p>（2）如果之前的某个域名不再使用了，但是搜索引擎还保留着之前老域名的连接，这样用户可能会搜到我们的网站并且点击老域名，固需要把老域名做个跳转跳到新域名。</p>
 <h2 id="二、设置域名跳转"><a href="#二、设置域名跳转" class="headerlink" title="二、设置域名跳转"></a>二、设置域名跳转</h2><p>需求：站点主域名为111.com，次域名为www.example.com 2111.com。访问次域名时跳转到主域名。</p>
 <h3 id="1、修改虚拟主机配置文件"><a href="#1、修改虚拟主机配置文件" class="headerlink" title="1、修改虚拟主机配置文件"></a>1、修改虚拟主机配置文件</h3><p>虚拟主机配置文件： /usr/local/apache2/conf/extra/httpd-vhosts.conf</p>
 <p>在对应的虚拟主机配置文件中加入</p>
