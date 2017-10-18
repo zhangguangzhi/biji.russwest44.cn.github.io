@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/101730347.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/102648793.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170908/103906764.png?imageslim">
-<meta property="og:updated_time" content="2017-09-12T03:16:30.864Z">
+<meta property="og:updated_time" content="2017-10-17T08:45:02.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux监控平台搭建之zabbix">
 <meta name="twitter:description" content="[TOC] 监控对于一个架构是十分重要的。一个企业就算架构再不成熟，监控都必须要有。监控不管用什么方式实现，开源软件也好，商业的监控服务也好，或者简陋的shell脚本，在业务上线时都必须要先做到位。当前，流行的开源监控软件有cacti，nagios，zabbix，open-falcon。    监控软件 特点     cacti 成图专业，擅长监控网络流量   nagios 没有历史数据，直接返回">
@@ -212,11 +212,11 @@
 <td>核心组件，负责接收客户端上报信息，负责配置、统计、操作数据</td>
 </tr>
 <tr>
-<td></td>
+<td>数据存储</td>
 <td>所有收集信息存储在这里</td>
 </tr>
 <tr>
-<td></td>
+<td>web界面</td>
 <td>我们可以在web界面中配置、管理各个客户端。需要PHP支持</td>
 </tr>
 <tr>
@@ -224,7 +224,7 @@
 <td>可选组件，可以代理zabbix-server的功能，减轻其压力</td>
 </tr>
 <tr>
-<td></td>
+<td>zabbix-agent</td>
 <td>该组件在各个客户端上，用于采集各种监控项目的数据，并把采集的数据上报</td>
 </tr>
 </tbody>
