@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>LAMP之Apache用户认证 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] Apache用户认证重点：  Apache使用\匹配目录，使用\匹配文件。 密码文件的创建">
+  <meta name="description" content="[TOC] Apache用户认证重点：  Apache使用&amp;lt;Directory&amp;GT;匹配目录，使用&amp;lt;Filesmatch&amp;GT;匹配文件。 密码文件的创建">
 <meta name="keywords" content="LAMP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LAMP之Apache用户认证">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/07/31/11.7、LAMP之Apache用户认证/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] Apache用户认证重点：  Apache使用\匹配目录，使用\匹配文件。 密码文件的创建">
+<meta property="og:description" content="[TOC] Apache用户认证重点：  Apache使用&amp;lt;Directory&amp;GT;匹配目录，使用&amp;lt;Filesmatch&amp;GT;匹配文件。 密码文件的创建">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/164046487.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/162802647.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/163123897.png?imageslim">
@@ -24,10 +24,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/164641444.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/170032806.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/170133861.png?imageslim">
-<meta property="og:updated_time" content="2017-10-18T05:58:49.700Z">
+<meta property="og:updated_time" content="2017-10-18T06:04:29.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LAMP之Apache用户认证">
-<meta name="twitter:description" content="[TOC] Apache用户认证重点：  Apache使用\匹配目录，使用\匹配文件。 密码文件的创建">
+<meta name="twitter:description" content="[TOC] Apache用户认证重点：  Apache使用&amp;lt;Directory&amp;GT;匹配目录，使用&amp;lt;Filesmatch&amp;GT;匹配文件。 密码文件的创建">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170731/164046487.png?imageslim">
   
   
@@ -167,7 +167,7 @@
         <p>[TOC]</p>
 <h1 id="Apache用户认证"><a href="#Apache用户认证" class="headerlink" title="Apache用户认证"></a>Apache用户认证</h1><p>重点：</p>
 <ul>
-<li>Apache使用\<directory\>匹配目录，使用\<filesmatch\>匹配文件。</filesmatch\></directory\></li>
+<li>Apache使用&lt;Directory&GT;匹配目录，使用&lt;Filesmatch&GT;匹配文件。</li>
 <li>密码文件的创建</li>
 </ul>
 <a id="more"></a>
@@ -209,10 +209,10 @@
 <ul>
 <li>使用FilesMatch匹配的话，如果没有指定目录。那么网址中带有admin.php的链接都需要验证</li>
 </ul>
-<h2 id="四、Apache如何匹配文件"><a href="#四、Apache如何匹配文件" class="headerlink" title="四、Apache如何匹配文件"></a>四、Apache如何匹配文件</h2><p>由上面设置用户认证时，可以得知。<strong>Apache使用\<directory>匹配目录，使用\<filesmatch>匹配文件。</filesmatch></directory></strong>但是，需要注意的是直接使用\<filesmatch>的话，会匹配所有根目录下的同名文件（包括子目录）。如果需要匹配指定文件，有以下两种方法。</filesmatch></p>
-<p>（1）直接使用\<directory>，后面个文件</directory></p>
+<h2 id="四、Apache如何匹配文件"><a href="#四、Apache如何匹配文件" class="headerlink" title="四、Apache如何匹配文件"></a>四、Apache如何匹配文件</h2><p>由上面设置用户认证时，可以得知。<strong>Apache使用&lt;Directory&GT; 匹配目录，使用&lt;Filesmatch&GT;匹配文件。</strong>但是，需要注意的是直接使用&lt;Filesmatch&amp;GT的话，会匹配所有根目录下的同名文件（包括子目录）。如果需要匹配指定文件，有以下两种方法。</p>
+<p>（1）直接使用&lt;Directory&GT; ，后面跟文件</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/170032806.png?imageslim" alt="mark"></p>
-<p>（2）先使用\<directory>指定目录，再使用\<filesmatch>匹配文件</filesmatch></directory></p>
+<p>（2）先使用&lt;Directory&GT; 指定目录，再使用&lt;Filesmatch&GT;匹配文件</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170731/170133861.png?imageslim" alt="mark"></p>
 <p>拓展：<a href="http://ask.apelearn.com/question/5370" target="_blank" rel="external">apache设置php开启段标签</a></p>
 
