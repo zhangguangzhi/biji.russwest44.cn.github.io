@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/154336639.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/154846007.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/105251639.png?imageslim">
-<meta property="og:updated_time" content="2017-09-27T15:58:03.246Z">
+<meta property="og:updated_time" content="2017-10-20T09:26:28.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NFS服务配置">
 <meta name="twitter:description" content="[TOC] 一、NFS介绍NFS是Network File System的缩写，NFS最早由Sun公司开发，分2,3,4三个版本，2和3由Sun起草开发，4.0开始Netapp公司参与并主导开发，最新为4.1版本 1.1、什么是NFSnfs的主要功能是通过网路让不同的机器系统之间可以彼此共享文件和目录。nfs服务器可以允许nfs客户端将远端nfs服务器的共享目录挂载到本地的nfs客户端中。在本地的">
@@ -170,7 +170,7 @@
 <h4 id="1-2、NFS的原理"><a href="#1-2、NFS的原理" class="headerlink" title="1.2、NFS的原理"></a>1.2、NFS的原理</h4><p>NFS数据传输基于RPC协议，RPC为Remote Procedure Call的简写。</p>
 <p>NFS服务时没有固定端口的，该服务的端口有rpc服务管理。</p>
 <p>1.2.1、rpc和nfs</p>
-<p>rpc就是用来统一管理NFS端口的服务，并且同一对外的端口为111。NFS服务端开启NFS服务时，需要先启动rpc，再启动NFS服务，这样NFS才能够到RPC去注册端口信息。客户端的RPC可以通过向服务端的RPC请求获取服务端的NFS端口信息。当获取到了NFS端口信息后，就会以实际端口进行数据的传输。（由于NFS端口为随机的。）</p>
+<p>rpc就是用来统一管理NFS端口的服务，并且统一对外的端口为111。<strong>NFS服务端开启NFS服务时，需要先启动rpc，再启动NFS服务，这样NFS才能够到RPC去注册端口信息。</strong>客户端的RPC可以通过向服务端的RPC请求获取服务端的NFS端口信息。当获取到了NFS端口信息后，就会以实际端口进行数据的传输。（由于NFS端口为随机的。）</p>
 <p><strong>客户端通过RPC请求服务端的端口，服务端根据NFS注册的端口返回请求</strong></p>
 <p>1.2.2、RPC和NFS如何通讯</p>
 <p>首先当NFS启动后，就会随机的使用一些端口，然后NFS就会向RPC去注册这些端口。RPC就会记录下这些端口。并且RPC会开机111端口，等待客户端RPC的请求，如果客户端有请求，那服务端的RPC就会将记录的NFS端口信息告知客户端。</p>
@@ -196,7 +196,7 @@
 </ul>
 <ul>
 <li>方便快速部署简单维护容易</li>
-<li>可靠—从软件层面上看，数据可靠性高，经久耐用</li>
+<li>可靠，从软件层面上看，数据可靠性高，经久耐用</li>
 </ul>
 <p>1.4.2、缺点（局限性）</p>
 <ul>
@@ -220,8 +220,7 @@
 <ul>
 <li><p>客户端ip与(参数)之间无空格</p>
 </li>
-<li><p>配置参数</p>
-<p>| 配置参数            | 说明                                       |<br>| ————— | —————————————- |<br>| rw              | 允许读写                                     |<br>| ro              | 只允许读                                     |<br>| sync            | 同步模式，内存数据实时写入磁盘，影响性能                     |<br>| async           | 非同步模式，数据有丢失风险                            |<br>| no_root_squash  | 客户端挂载NFS共享目录后，root用户不受约束，权限很大。（相当于该共享目录已经是客户端的了） |<br>| root_squash     | 与上面选项相对，客户端上的root用户收到约束，被限定成某个普通用户       |<br>| all_squash      | 客户端上所有用户在使用NFS共享目录时都被限定为一个普通用户           |<br>| anonuid/anongid | 和上面几个选项搭配使用，定义被限定用户的uid和gid              |</p>
+<li><p>配置参数<br>| 配置参数            | 说明                                       |<br>| ————— | —————————————- |<br>| rw              | 允许读写                                     |<br>| ro              | 只允许读                                     |<br>| sync            | 同步模式，内存数据实时写入磁盘，影响性能                     |<br>| async           | 非同步模式，数据有丢失风险                            |<br>| no_root_squash  | 客户端挂载NFS共享目录后，root用户不受约束，权限很大。（相当于该共享目录已经是客户端的了） |<br>| root_squash     | 与上面选项相对，客户端上的root用户收到约束，被限定成某个普通用户       |<br>| all_squash      | 客户端上所有用户在使用NFS共享目录时都被限定为一个普通用户           |<br>| anonuid/anongid | 和上面几个选项搭配使用，定义被限定用户的uid和gid              |</p>
 </li>
 </ul>
 <p>2.2.2、创建共享目录</p>
