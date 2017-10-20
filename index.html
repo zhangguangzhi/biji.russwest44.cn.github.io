@@ -206,71 +206,9 @@
 <p>版本管理工具发展过程，CVS→svn→git</p>
 <h3 id="一、svn介绍"><a href="#一、svn介绍" class="headerlink" title="一、svn介绍"></a>一、svn介绍</h3><p>svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/155243415.png?imageslim" alt="mark"></p>
-<h3 id="二、安装配置服务端"><a href="#二、安装配置服务端" class="headerlink" title="二、安装配置服务端"></a>二、安装配置服务端</h3><p>使用192.168.205.110服务器作为服务端</p>
-<h4 id="2-1、安装svn服务"><a href="#2-1、安装svn服务" class="headerlink" title="2.1、安装svn服务"></a>2.1、安装svn服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install -y subversion</div></pre></td></tr></table></figure>
-<h4 id="2-2、配置服务端"><a href="#2-2、配置服务端" class="headerlink" title="2.2、配置服务端"></a>2.2、配置服务端</h4><p>（1）创建版本库（项目）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir -p  /data/svnroot/myproject</div></pre></td></tr></table></figure>
-<p>（2）初始化版本库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svnadmin create /data/svnroot/myproject</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/155723522.png?imageslim" alt="mark"></p>
-<p>（3）配置认证用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">cd   /data/svnroot/myproject/conf</div><div class="line">vim authz</div><div class="line">#[gourps]下添加</div><div class="line"></div><div class="line">[groups]</div><div class="line">#用户组包含的用户</div><div class="line">admins = allen,user1</div><div class="line">#设置项目路径，/后面可以跟子项目路径</div><div class="line">[/]</div><div class="line">#设置用户权限</div><div class="line">@admins = rw</div><div class="line">* = r</div><div class="line"></div><div class="line">#如果有多个项目，可以使用以下配置分别指定</div><div class="line">[item1:/]</div><div class="line">user = rw</div><div class="line">[item2:/]</div><div class="line">user = rw</div><div class="line">......</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/160224545.png?imageslim" alt="mark"></p>
-<p>（4）设置用户密码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd   /data/svnroot/myproject/conf</div><div class="line">vim  passwd</div><div class="line">#在[user]下添加</div><div class="line">[user]</div><div class="line">allen = 123456</div><div class="line">user1 =qwerty</div></pre></td></tr></table></figure>
-<p>（5）配置服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">cd   /data/svnroot/myproject/conf</div><div class="line">vim  server.conf</div><div class="line">#在[general]下添加</div><div class="line"></div><div class="line">[general]</div><div class="line">#匿名用户权限</div><div class="line">anon-access = none</div><div class="line">#认证用户权限</div><div class="line">auth-access = write</div><div class="line">#用户密码文件</div><div class="line">password-db = passwd</div><div class="line">#用户认证文件</div><div class="line">authz-db = authz</div><div class="line">#项目位置</div><div class="line">realm = /data/svnroot/myproject</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/160719376.png?imageslim" alt="mark"></p>
-<h4 id="2-3、启动svn"><a href="#2-3、启动svn" class="headerlink" title="2.3、启动svn"></a>2.3、启动svn</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svnserve -d -r /data/svnroot</div></pre></td></tr></table></figure>
-<ul>
-<li>-d指定后台模式启动</li>
-<li>-r指定项目位置</li>
-</ul>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/160852598.png?imageslim" alt="mark"></p>
-<h3 id="三、客户端使用svn"><a href="#三、客户端使用svn" class="headerlink" title="三、客户端使用svn"></a>三、客户端使用svn</h3><p><strong>使用192.168.205.110跟192.168.205.109作为客户端，在任何客户端上操作都能修改服务端的代码文件，使用两台客户端演示是为了使这个过程更清晰。每次进行操作都需要确认所在目录为checkout的目录</strong></p>
-<h4 id="3-1、安装svn"><a href="#3-1、安装svn" class="headerlink" title="3.1、安装svn"></a>3.1、安装svn</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install -y subversion</div></pre></td></tr></table></figure>
-<h4 id="3-2、加载项目"><a href="#3-2、加载项目" class="headerlink" title="3.2、加载项目"></a>3.2、加载项目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#在110上执行</div><div class="line">mkdir -p /home/svn</div><div class="line">cd /home/svn</div><div class="line">svn checkout svn://192.168.205.110/myproject --username=allen</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/161534629.png?imageslim" alt="mark"></p>
-<ul>
-<li>需要选择是否保存明文密码，密码保存位置为/root/.subversion/auth/svn.simple/</li>
-</ul>
-<h4 id="3-3、上传代码文件"><a href="#3-3、上传代码文件" class="headerlink" title="3.3、上传代码文件"></a>3.3、上传代码文件</h4><p>现在我有一个文件fstab的代码文件需要上传到服务端，我们可以在客户端110上操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd  /home/svn/myproject/</div><div class="line">cp  /etc/fstab  ./</div><div class="line">#在本地添加文件</div><div class="line">svn add ./fstab</div><div class="line">#将本地文件上传到服务端，并标记操作，-m后面指定&quot;操作标记&quot;</div><div class="line">svn commit -m &quot;add fstab&quot;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/162502009.png?imageslim" alt="mark"></p>
-<h4 id="3-4、更新代码"><a href="#3-4、更新代码" class="headerlink" title="3.4、更新代码"></a>3.4、更新代码</h4><p>现在svn服务端上我们已经创建了一个代码文件fstab，我们需要在客户端109上更新下项目的代码，在客户端109上操作修改fstab的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mkdir -p /home/svn</div><div class="line">cd  /home/svn</div><div class="line">svn checkout svn://192.168.205.110/myproject --username=allen</div><div class="line">cd  /home/svn/myproject/</div><div class="line">echo &quot;testtest&quot;  &gt;&gt; fstab</div><div class="line">#将本地文件上传到服务端，并标记操作，-m后面指定&quot;操作标记&quot;</div><div class="line">svn commit -m &quot;ch fstab&quot;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/164144804.png?imageslim" alt="mark"></p>
-<p>在客户端上，fstab的版本还是1，所以我们需要更新一下。在客户端110上执行以下操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svn update</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/164257311.png?imageslim" alt="mark"></p>
-<h4 id="3-5、删除代码"><a href="#3-5、删除代码" class="headerlink" title="3.5、删除代码"></a>3.5、删除代码</h4><p>我们更新了一个比较大的版本代码（非常稳定），原先代码我们就不需要再保存，所以我们可以删除，在客户端上109上操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /home/svn/myproject/</div><div class="line">#在本地删除</div><div class="line">svn delete fstab</div><div class="line">#将本地文件上传到服务端，并标记操作，-m后面指定&quot;操作标记&quot;</div><div class="line">svn commit -m &quot;delete fstab&quot;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/164933687.png?imageslim" alt="mark"></p>
-<p>在客户端110上更新后查看，已经查不到fstab文件了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd   /home/svn/myproject/</div><div class="line">svn update</div><div class="line">ls</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/165025841.png?imageslim" alt="mark"></p>
-<h4 id="3-6、查看变更日志"><a href="#3-6、查看变更日志" class="headerlink" title="3.6、查看变更日志"></a>3.6、查看变更日志</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd   /home/svn/myproject/</div><div class="line">svn log</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/165149387.png?imageslim" alt="mark"></p>
-<h4 id="四、在Windows上使用svn客户端"><a href="#四、在Windows上使用svn客户端" class="headerlink" title="四、在Windows上使用svn客户端"></a>四、在Windows上使用svn客户端</h4><p>客户端下载地址：<a href="https://tortoisesvn.net/downloads.zh.html" target="_blank" rel="external">https://tortoisesvn.net/downloads.zh.html</a></p>
-<p>（1）在Windows创建一个新的目录</p>
-<p>（2）将鼠标移至该目录，右键，选择svn checkout</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/170216662.png?imageslim" alt="mark"></p>
-<p>（3）填写服务端url</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/170315462.png?imageslim" alt="mark"></p>
-<p>（4）输入用户名和密码</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/170403577.png?imageslim" alt="mark"></p>
-<p>（5）创建测试文件，打上”add”标记</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/170804183.png?imageslim" alt="mark"></p>
-<p>（6）上传到服务端</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/170913316.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/170942028.png?imageslim" alt="mark"></p>
-<p>（7）在110客户端查看测试文件</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/171048699.png?imageslim" alt="mark"></p>
-<p>（8）更新</p>
-<p>在110客户端创建一个新的代码，在Windows客户端上更新</p>
-<p>右键点击空白地方，会出现一个”svn  update”</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/171314207.png?imageslim" alt="mark"></p>
-
+        
+          <a class="article-more-a" href="/2017/10/20/28.1、版本控制之svn/#more">more >></a>
+        
       
 
       

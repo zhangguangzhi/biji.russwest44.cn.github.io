@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/154336639.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170823/154846007.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170824/105251639.png?imageslim">
-<meta property="og:updated_time" content="2017-10-20T09:26:28.877Z">
+<meta property="og:updated_time" content="2017-10-20T09:28:53.966Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NFS服务配置">
 <meta name="twitter:description" content="[TOC] 一、NFS介绍NFS是Network File System的缩写，NFS最早由Sun公司开发，分2,3,4三个版本，2和3由Sun起草开发，4.0开始Netapp公司参与并主导开发，最新为4.1版本 1.1、什么是NFSnfs的主要功能是通过网路让不同的机器系统之间可以彼此共享文件和目录。nfs服务器可以允许nfs客户端将远端nfs服务器的共享目录挂载到本地的nfs客户端中。在本地的">
@@ -218,11 +218,51 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim /etc/exports</div><div class="line">#加入以下内容</div><div class="line">/home/nfstestdir   192.168.205.0/24(rw,sync,all_squash,anonuid=1000,anongid=1000)</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170823/151654199.png?imageslim" alt="mark"></p>
 <ul>
-<li><p>客户端ip与(参数)之间无空格</p>
-</li>
-<li><p>配置参数<br>| 配置参数            | 说明                                       |<br>| ————— | —————————————- |<br>| rw              | 允许读写                                     |<br>| ro              | 只允许读                                     |<br>| sync            | 同步模式，内存数据实时写入磁盘，影响性能                     |<br>| async           | 非同步模式，数据有丢失风险                            |<br>| no_root_squash  | 客户端挂载NFS共享目录后，root用户不受约束，权限很大。（相当于该共享目录已经是客户端的了） |<br>| root_squash     | 与上面选项相对，客户端上的root用户收到约束，被限定成某个普通用户       |<br>| all_squash      | 客户端上所有用户在使用NFS共享目录时都被限定为一个普通用户           |<br>| anonuid/anongid | 和上面几个选项搭配使用，定义被限定用户的uid和gid              |</p>
-</li>
+<li>客户端ip与(参数)之间无空格</li>
+<li>配置参数</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>配置参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rw</td>
+<td>允许读写</td>
+</tr>
+<tr>
+<td>ro</td>
+<td>只允许读</td>
+</tr>
+<tr>
+<td>sync</td>
+<td>同步模式，内存数据实时写入磁盘，影响性能</td>
+</tr>
+<tr>
+<td>async</td>
+<td>非同步模式，数据有丢失风险</td>
+</tr>
+<tr>
+<td>no_root_squash</td>
+<td>客户端挂载NFS共享目录后，root用户不受约束，权限很大。（相当于该共享目录已经是客户端的了）</td>
+</tr>
+<tr>
+<td>root_squash</td>
+<td>与上面选项相对，客户端上的root用户收到约束，被限定成某个普通用户</td>
+</tr>
+<tr>
+<td>all_squash</td>
+<td>客户端上所有用户在使用NFS共享目录时都被限定为一个普通用户</td>
+</tr>
+<tr>
+<td>anonuid/anongid</td>
+<td>和上面几个选项搭配使用，定义被限定用户的uid和gid</td>
+</tr>
+</tbody>
+</table>
 <p>2.2.2、创建共享目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  /home/nfstestdir</div><div class="line">chmod 777 /home/nfstestdir</div></pre></td></tr></table></figure>
 <p>/var/lib/nfs/rmtab记录共享目录被挂载情况</p>

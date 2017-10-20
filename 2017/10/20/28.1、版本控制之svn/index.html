@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>版本控制之svn | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。 版本管理工具发展过程，CVS→svn→git 一、svn介绍svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：  二、安装配置服务端使用192.168.205.110服务器作为服务端 2.1、安装svn服务1yum  install -y subversion 2.">
+  <meta name="description" content="[TOC] 版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。 版本管理工具发展过程，CVS→svn→git 一、svn介绍svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：">
 <meta name="keywords" content="代码管理,svn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="版本控制之svn">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/10/20/28.1、版本控制之svn/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。 版本管理工具发展过程，CVS→svn→git 一、svn介绍svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：  二、安装配置服务端使用192.168.205.110服务器作为服务端 2.1、安装svn服务1yum  install -y subversion 2.">
+<meta property="og:description" content="[TOC] 版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。 版本管理工具发展过程，CVS→svn→git 一、svn介绍svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/155243415.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/155723522.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/160224545.png?imageslim">
@@ -35,10 +35,10 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/170942028.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/171048699.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/171314207.png?imageslim">
-<meta property="og:updated_time" content="2017-10-20T09:13:25.702Z">
+<meta property="og:updated_time" content="2017-10-20T09:27:11.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="版本控制之svn">
-<meta name="twitter:description" content="[TOC] 版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。 版本管理工具发展过程，CVS→svn→git 一、svn介绍svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：  二、安装配置服务端使用192.168.205.110服务器作为服务端 2.1、安装svn服务1yum  install -y subversion 2.">
+<meta name="twitter:description" content="[TOC] 版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。 版本管理工具发展过程，CVS→svn→git 一、svn介绍svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/155243415.png?imageslim">
   
   
@@ -180,6 +180,7 @@
 <p>版本管理工具发展过程，CVS→svn→git</p>
 <h3 id="一、svn介绍"><a href="#一、svn介绍" class="headerlink" title="一、svn介绍"></a>一、svn介绍</h3><p>svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/155243415.png?imageslim" alt="mark"></p>
+<a id="more"></a>
 <h3 id="二、安装配置服务端"><a href="#二、安装配置服务端" class="headerlink" title="二、安装配置服务端"></a>二、安装配置服务端</h3><p>使用192.168.205.110服务器作为服务端</p>
 <h4 id="2-1、安装svn服务"><a href="#2-1、安装svn服务" class="headerlink" title="2.1、安装svn服务"></a>2.1、安装svn服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install -y subversion</div></pre></td></tr></table></figure>
 <h4 id="2-2、配置服务端"><a href="#2-2、配置服务端" class="headerlink" title="2.2、配置服务端"></a>2.2、配置服务端</h4><p>（1）创建版本库（项目）</p>
