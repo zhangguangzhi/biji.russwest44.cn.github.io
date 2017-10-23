@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>yum配置文件详解 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 1、/etc/yum.conf配置详解：[main] cachedir=/var/cache/yum                                 #yum下载的RPM包的缓存目录 keepcache=0                                              #缓存是否保存，1保存，0不保存。 debuglevel=2">
+  <meta name="description" content="[TOC] 1、/etc/yum.conf配置详解：1234567891011121314151617181920212223[main]cachedir=/var/cache/yum         						#yum下载的RPM包的缓存目录keepcache=0              								#缓存是否保存，1保存，0不保存。debuglevel=2">
 <meta name="keywords" content="yum">
 <meta property="og:type" content="article">
 <meta property="og:title" content="yum配置文件详解">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/06/26/yum配置文件详解/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 1、/etc/yum.conf配置详解：[main] cachedir=/var/cache/yum                                 #yum下载的RPM包的缓存目录 keepcache=0                                              #缓存是否保存，1保存，0不保存。 debuglevel=2">
-<meta property="og:updated_time" content="2017-08-11T02:45:10.454Z">
+<meta property="og:description" content="[TOC] 1、/etc/yum.conf配置详解：1234567891011121314151617181920212223[main]cachedir=/var/cache/yum         						#yum下载的RPM包的缓存目录keepcache=0              								#缓存是否保存，1保存，0不保存。debuglevel=2">
+<meta property="og:updated_time" content="2017-10-20T09:48:19.344Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yum配置文件详解">
-<meta name="twitter:description" content="[TOC] 1、/etc/yum.conf配置详解：[main] cachedir=/var/cache/yum                                 #yum下载的RPM包的缓存目录 keepcache=0                                              #缓存是否保存，1保存，0不保存。 debuglevel=2">
+<meta name="twitter:description" content="[TOC] 1、/etc/yum.conf配置详解：1234567891011121314151617181920212223[main]cachedir=/var/cache/yum         						#yum下载的RPM包的缓存目录keepcache=0              								#缓存是否保存，1保存，0不保存。debuglevel=2">
   
   
     <link rel="icon" href="/favicon.png">
@@ -155,37 +155,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h2 id="1、-etc-yum-conf配置详解："><a href="#1、-etc-yum-conf配置详解：" class="headerlink" title="1、/etc/yum.conf配置详解："></a>1、/etc/yum.conf配置详解：</h2><p>[main]</p>
-<p>cachedir=/var/cache/yum                                 #yum下载的RPM包的缓存目录</p>
-<p>keepcache=0                                              #缓存是否保存，1保存，0不保存。</p>
-<p>debuglevel=2                                             #调试级别(0-10)，默认为2(</p>
-<p>logfile=/var/log/yum.log                                 #yum的日志文件所在的位置</p>
-<p>exactarch=1                                                                                                 #在更新的时候，是否允许更新不同版本的RPM包，比如是否在i386上更新i686的RPM包。</p>
-<a id="more"></a>
-<p>obsoletes=1                                                                                                #这是一个update的参数，具体请参阅yum(8)，简单的说就是相当于upgrade,允许更新陈旧的RPM包。</p>
-<p>gpgcheck=1            #是否检查GPG(GNU Private Guard)，一种密钥方式签名。</p>
-<p>plugins=1                                                                                                    #是否允许使用插件，默认是0不允许，但是我们一般会用yum-fastestmirror这个插件。</p>
-<p>installonly_limit=3        #允许保留多少个内核包。</p>
-<p>exclude=selinux*          #屏蔽不想更新的RPM包，可用通配符，多个RPM包之间使用空格分离。</p>
-<h2 id="2、源配置文件：-etc-yum-repos-d-repo"><a href="#2、源配置文件：-etc-yum-repos-d-repo" class="headerlink" title="2、源配置文件：/etc/yum.repos.d/ *.repo"></a>2、源配置文件：/etc/yum.repos.d/ *.repo</h2><p>[fedora]      #方括号里面的是软件源的名称，将被yum取得并识别</p>
-<p>name=Fedora $releasever - $basearch   #这里也定义了软件 仓库的名称，通常是为了方便阅读配置文件，一般没什么作用，$releasever变量定义了发行版本，通常是8，9，10等数字，$basearch变 量定义了系统的架构，可以是i386、x86_64、ppc等值，这两个变量根据当前系统的版本架构不同而有不同的取值，这可以方便yum升级的时候选择 适合当前系统的软件包，以下同……</p>
-<p>failovermethod=priority   #failovermethod 有两个值可以选择，priority是默认值，表示从列出的baseurl中顺序选择镜像服务器地址，roundrobin表示在列出的服务器中随机选择</p>
-<p>exclude=compiz<em> </em>compiz<em> fusion-icon</em> #exclude这个选项是后来我自己加上去的，用来禁止这个软件仓库中的某些软件包的安装和更新，可以使用通配符，并以空格分隔，可以视情况需要自行添加</p>
-<p>#baseurl=<a href="http://download.fedoraproject.org/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/" target="_blank" rel="external">http://download.fedoraproject.org/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/</a></p>
-<p>#上面的一行baseurl第一个字符是’#’表示该行已经被注释，将不会被读取，这一行的意思是指定一个baseurl（源的镜像服务器地址）</p>
-<p>#mirrorlist=<a href="http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-\$releasever&amp;arch=\$basearch" target="_blank" rel="external">http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-\$releasever&amp;arch=\$basearch</a>            #上面的这一行是指定一个镜像服务器的地址列表，通常是开启的，本例中加了注释符号禁用了，我们可以试试，将$releasever和$basearch替换成自己对应的版本和架构，例如10和i386，在浏览器中打开，我们就能看到一长串镜可用的镜像服务器地址列表。</p>
-<p>选择自己访问速度较快的镜像服务器地址复制并粘贴到repo文件中，我们就能获得较快的更新速度了，格式如下baseurl所示：</p>
-<p>baseurl=</p>
-<p>ftp://ftp.sfc.wide.ad.jp/pub/Linux/Fedora/releases/10/Everything/i386/os</p>
-<p><a href="http://ftp.chg.ru/pub/Linux/fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://ftp.chg.ru/pub/Linux/fedora/linux/releases/10/Everything/i386/os</a></p>
-<p><a href="http://ftp.yz.yamagata-u.ac.jp/pub/linux/fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://ftp.yz.yamagata-u.ac.jp/pub/linux/fedora/linux/releases/10/Everything/i386/os</a></p>
-<p><a href="http://mirror.nus.edu.sg/fedora/releases/10/Everything/i386/os" target="_blank" rel="external">http://mirror.nus.edu.sg/fedora/releases/10/Everything/i386/os</a></p>
-<p><a href="http://mirror.yandex.ru/fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://mirror.yandex.ru/fedora/linux/releases/10/Everything/i386/os</a></p>
-<p><a href="http://ftp.twaren.net/Linux/Fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://ftp.twaren.net/Linux/Fedora/linux/releases/10/Everything/i386/os</a></p>
-<p><a href="http://ftp.itu.edu.tr/Mirror/Fedora/linux/releases/10/Everything/i386/os" target="_blank" rel="external">http://ftp.itu.edu.tr/Mirror/Fedora/linux/releases/10/Everything/i386/os</a></p>
-<p>enabled=1         #这个选项表示这个repo中定义的源是启用的，0为禁用</p>
-<p>gpgcheck=1         #这个选项表示这个repo中下载的rpm将进行gpg的校验，已确定rpm包的来源是有效和安全的</p>
-<p>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$basearch #定义用于校验的gpg密钥</p>
+<h2 id="1、-etc-yum-conf配置详解："><a href="#1、-etc-yum-conf配置详解：" class="headerlink" title="1、/etc/yum.conf配置详解："></a>1、/etc/yum.conf配置详解：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">[main]</div><div class="line"></div><div class="line">cachedir=/var/cache/yum         						#yum下载的RPM包的缓存目录</div><div class="line"></div><div class="line">keepcache=0              								#缓存是否保存，1保存，0不保存。</div><div class="line"></div><div class="line">debuglevel=2             								#调试级别(0-10)，默认为2(</div><div class="line"></div><div class="line">logfile=/var/log/yum.log         						#yum的日志文件所在的位置</div><div class="line"></div><div class="line">exactarch=1             																					#在更新的时候，是否允许更新不同版本的RPM包，比如是否在i386上更新i686的RPM包。</div><div class="line"></div><div class="line">&lt;!--more--&gt;</div><div class="line"></div><div class="line">obsoletes=1            																					#这是一个update的参数，具体请参阅yum(8)，简单的说就是相当于upgrade,允许更新陈旧的RPM包。</div><div class="line"></div><div class="line">gpgcheck=1            #是否检查GPG(GNU Private Guard)，一种密钥方式签名。</div><div class="line"></div><div class="line">plugins=1                																					#是否允许使用插件，默认是0不允许，但是我们一般会用yum-fastestmirror这个插件。</div><div class="line"></div><div class="line">installonly_limit=3        #允许保留多少个内核包。</div><div class="line"></div><div class="line">exclude=selinux*          #屏蔽不想更新的RPM包，可用通配符，多个RPM包之间使用空格分离。</div></pre></td></tr></table></figure>
+<h2 id="2、源配置文件：-etc-yum-repos-d-repo"><a href="#2、源配置文件：-etc-yum-repos-d-repo" class="headerlink" title="2、源配置文件：/etc/yum.repos.d/ *.repo"></a>2、源配置文件：/etc/yum.repos.d/ *.repo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">[fedora]      #方括号里面的是软件源的名称，将被yum取得并识别</div><div class="line"></div><div class="line">name=Fedora $releasever - $basearch   #这里也定义了软件 仓库的名称，通常是为了方便阅读配置文件，一般没什么作用，$变量定义了发行版本，通常是，，等数字，releasever变量定义了发行版本，通常是8，9，10等数字，$basearch变 量定义了系统的架构，可以是i386、x86_64、ppc等值，这两个变量根据当前系统的版本架构不同而有不同的取值，这可以方便yum升级的时候选择 适合当前系统的软件包，以下同……</div><div class="line"></div><div class="line">failovermethod=priority   #failovermethod 有两个值可以选择，priority是默认值，表示从列出的baseurl中顺序选择镜像服务器地址，roundrobin表示在列出的服务器中随机选择</div><div class="line"></div><div class="line">exclude=compiz* *compiz* fusion-icon* #exclude这个选项是后来我自己加上去的，用来禁止这个软件仓库中的某些软件包的安装和更新，可以使用通配符，并以空格分隔，可以视情况需要自行添加</div><div class="line"></div><div class="line">\#baseurl=http://download.fedoraproject.org/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/</div><div class="line"></div><div class="line">\#上面的一行baseurl第一个字符是&apos;#&apos;表示该行已经被注释，将不会被读取，这一行的意思是指定一个baseurl（源的镜像服务器地址）</div><div class="line"></div><div class="line">\#mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-\$releasever&amp;arch=\$basearch			#上面的这一行是指定一个镜像服务器的地址列表，通常是开启的，本例中加了注释符号禁用了，我们可以试试，将$和releasever和$basearch替换成自己对应的版本和架构，例如10和i386，在浏览器中打开，我们就能看到一长串镜可用的镜像服务器地址列表。</div><div class="line"></div><div class="line">选择自己访问速度较快的镜像服务器地址复制并粘贴到repo文件中，我们就能获得较快的更新速度了，格式如下baseurl所示：</div><div class="line"></div><div class="line">baseurl=</div><div class="line"></div><div class="line">ftp://ftp.sfc.wide.ad.jp/pub/Linux/Fedora/releases/10/Everything/i386/os</div><div class="line"></div><div class="line">http://ftp.chg.ru/pub/Linux/fedora/linux/releases/10/Everything/i386/os</div><div class="line"></div><div class="line">http://ftp.yz.yamagata-u.ac.jp/pub/linux/fedora/linux/releases/10/Everything/i386/os</div><div class="line"></div><div class="line">http://mirror.nus.edu.sg/fedora/releases/10/Everything/i386/os</div><div class="line"></div><div class="line">http://mirror.yandex.ru/fedora/linux/releases/10/Everything/i386/os</div><div class="line"></div><div class="line">http://ftp.twaren.net/Linux/Fedora/linux/releases/10/Everything/i386/os</div><div class="line"></div><div class="line">http://ftp.itu.edu.tr/Mirror/Fedora/linux/releases/10/Everything/i386/os</div><div class="line"></div><div class="line">enabled=1 		#这个选项表示这个repo中定义的源是启用的，0为禁用</div><div class="line"></div><div class="line">gpgcheck=1 		#这个选项表示这个repo中下载的rpm将进行gpg的校验，已确定rpm包的来源是有效和安全的</div><div class="line"></div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$basearch #定义用于校验的gpg密钥</div></pre></td></tr></table></figure>
 
       
 
@@ -434,15 +405,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,10 +429,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
@@ -466,11 +437,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -482,15 +457,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,7 +465,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,7 +477,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,19 +489,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -538,7 +501,39 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -547,10 +542,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -570,15 +561,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -595,6 +582,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>版本控制之svn | ZhangGuangZhi</title>
+  <title>代码管理平台之svn | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="[TOC] 版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。 版本管理工具发展过程，CVS→svn→git 一、svn介绍svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：">
 <meta name="keywords" content="代码管理,svn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="版本控制之svn">
+<meta property="og:title" content="代码管理平台之svn">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/10/20/28.1、版本控制之svn/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
 <meta property="og:description" content="[TOC] 版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。 版本管理工具发展过程，CVS→svn→git 一、svn介绍svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：">
@@ -35,9 +35,9 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/170942028.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/171048699.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/171314207.png?imageslim">
-<meta property="og:updated_time" content="2017-10-20T09:27:11.996Z">
+<meta property="og:updated_time" content="2017-10-22T13:07:58.346Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="版本控制之svn">
+<meta name="twitter:title" content="代码管理平台之svn">
 <meta name="twitter:description" content="[TOC] 版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。 版本管理工具发展过程，CVS→svn→git 一、svn介绍svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171020/155243415.png?imageslim">
   
@@ -162,7 +162,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      版本控制之svn
+      代码管理平台之svn
     </h1>
   
 
@@ -227,6 +227,7 @@
 <h4 id="3-6、查看变更日志"><a href="#3-6、查看变更日志" class="headerlink" title="3.6、查看变更日志"></a>3.6、查看变更日志</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd   /home/svn/myproject/</div><div class="line">svn log</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/165149387.png?imageslim" alt="mark"></p>
 <h4 id="四、在Windows上使用svn客户端"><a href="#四、在Windows上使用svn客户端" class="headerlink" title="四、在Windows上使用svn客户端"></a>四、在Windows上使用svn客户端</h4><p>客户端下载地址：<a href="https://tortoisesvn.net/downloads.zh.html" target="_blank" rel="external">https://tortoisesvn.net/downloads.zh.html</a></p>
+<p>简明教程：<a href="http://www.jianshu.com/p/6b3b7b915332" target="_blank" rel="external">http://www.jianshu.com/p/6b3b7b915332</a></p>
 <p>（1）在Windows创建一个新的目录</p>
 <p>（2）将鼠标移至该目录，右键，选择svn checkout</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/170216662.png?imageslim" alt="mark"></p>
@@ -245,6 +246,8 @@
 <p>在110客户端创建一个新的代码，在Windows客户端上更新</p>
 <p>右键点击空白地方，会出现一个”svn  update”</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/171314207.png?imageslim" alt="mark"></p>
+<p>拓展：</p>
+<p><a href="http://www.cnblogs.com/hushaojun/p/4549050.html" target="_blank" rel="external">svn回滚版本</a></p>
 
       
 
@@ -332,11 +335,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/21/28.2、版本控制之git命令/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          代码管理平台之git命令介绍
         
       </div>
     </a>
@@ -473,15 +476,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,10 +500,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
@@ -505,11 +508,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,15 +528,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,7 +536,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,7 +548,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,19 +560,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,7 +572,39 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -586,10 +613,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -609,15 +632,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,6 +653,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
