@@ -181,19 +181,19 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-简易堡垒机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-30.1、简易堡垒机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/30/简易堡垒机/">简易堡垒机</a>
+      <a class="article-title" href="/2017/10/30/30.1、简易堡垒机/">简易堡垒机</a>
     </h1>
   
 
         
-        <a href="/2017/10/30/简易堡垒机/" class="archive-article-date">
+        <a href="/2017/10/30/30.1、简易堡垒机/" class="archive-article-date">
   	<time datetime="2017-10-30T03:17:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-30</time>
 </a>
         
@@ -206,51 +206,9 @@
 <p>比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理</p>
 <p>商业堡垒机：齐治，Citrix xenapp</p>
 <h3 id="二、简易堡垒机"><a href="#二、简易堡垒机" class="headerlink" title="二、简易堡垒机"></a>二、简易堡垒机</h3><h4 id="2-1、搭建条件"><a href="#2-1、搭建条件" class="headerlink" title="2.1、搭建条件"></a>2.1、搭建条件</h4><p>具备堡垒机的条件是，该机器有公司和私网，其中私网和机房其他机器互通。公网可以通过VPN登录。</p>
-<h4 id="2-2、跳板机安全设置"><a href="#2-2、跳板机安全设置" class="headerlink" title="2.2、跳板机安全设置"></a>2.2、跳板机安全设置</h4><p>iptables端口限制，登录限制sshd_config</p>
-<p>用户，命令权限限制（使用jailkit）：<a href="http://blog.chinaunix.net/uid-28310119-id-3503318.html" target="_blank" rel="external">ssh+chroot+jailit锁定普通用户活动目录</a> </p>
-<p>客户机日志审计：<a href="http://www.68idc.cn/help/server/linux/2014042190951.html" target="_blank" rel="external">Linux 系统添加操作记录审计</a></p>
-<h3 id="三、搭建简易跳板机"><a href="#三、搭建简易跳板机" class="headerlink" title="三、搭建简易跳板机"></a>三、搭建简易跳板机</h3><h4 id="3-1、跳板机限制用户命令权限"><a href="#3-1、跳板机限制用户命令权限" class="headerlink" title="3.1、跳板机限制用户命令权限"></a>3.1、跳板机限制用户命令权限</h4><p>使用chroot工具jailkit ，限制用户命令权限</p>
-<p>（1）安装jailkit</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget https://olivier.sessink.nl/jailkit/jailkit-2.19.tar.bz2</div><div class="line">tar -jxvf jailkit-2.19.tar.bz2</div><div class="line">cd jailkit-2.19</div><div class="line">./configure &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<p>（2）配置jailkit</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#创建限制系统目录</div><div class="line">mkdir  /home/jail</div><div class="line">#拷贝shell命令文件，库文件等</div><div class="line">jk_init -v -j /home/jail/  basicshell</div><div class="line">#拷贝编辑器文件</div><div class="line">jk_init -v -j /home/jail/  editors</div><div class="line">#拷贝网络相关文件</div><div class="line">jk_init -v -j /home/jail/  netutils  </div><div class="line">#拷贝远程登录相关</div><div class="line">jk_init -v -j /home/jail/  ssh</div><div class="line">#拷贝限制系统shell，jk_lsh</div><div class="line">mkdir /home/jail/usr/sbin</div><div class="line">cp /usr/sbin/jk_lsh /home/jail/usr/sbin/jk_lsh</div></pre></td></tr></table></figure>
-<ul>
-<li>这样我们就完成了一个chroot</li>
-</ul>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171030/122602525.png?imageslim" alt="mark"></p>
-<p>（3）创建限制系统用户</p>
-<p>首先我们先使用ssh-keygen生成普通用户的公钥，将公钥同步到要连接服务器上。</p>
-<p>默认限制系统中的用户只有root，这不符合安全原则，所以我们要创建普通用户，多个用户执行多次即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#创建普通用户用于关联</div><div class="line">useradd  allen1</div><div class="line">passwd allen1</div><div class="line">#生成公钥文件，备用</div><div class="line">ssh-keygen</div><div class="line">#关联限制系统</div><div class="line">jk_jailuser -m -j /home/jail  allen1</div><div class="line"></div><div class="line">#修改关联用户shell，将allen1的/usr/sbin/jk_lsh改为/bin/bash</div><div class="line">vim /home/jail/etc/passwd</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171030/122705439.png?imageslim" alt="mark"></p>
-<p>（4）登录虚拟系统</p>
-<p>现在我们可以使用allen1登录我们的虚拟系统了</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171030/123321398.png?imageslim" alt="mark"></p>
-<ul>
-<li>能使用的命令少很多，bashrc和profile都是存在的</li>
-</ul>
-<p>（5）配置密匙登录虚拟系统</p>
-<p>在虚拟系统中的/home/username中创建.ssh/authorized_keys文件，写入公钥内容。</p>
-<p>修改sshd配置文件，设置只允许密钥登录</p>
-<p>（6）限制端口</p>
-<p>使用iptables限定，并且关闭不使用的服务</p>
-<p>（7）限定登录ip</p>
-<p>在/etc/hosts.allow中添加可以登录的ip，而且还需要在/etc/host.deny中设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#多个ip时使用空格分隔</div><div class="line">echo &quot;sshd: 192.168.205.0/24&quot;  &gt;&gt; /etc/hosts.allow</div><div class="line">echo &quot;sshd: ALL&quot; &gt;&gt; /etc/host.deny</div></pre></td></tr></table></figure>
-<h4 id="3-2、连接机配置日志审计"><a href="#3-2、连接机配置日志审计" class="headerlink" title="3.2、连接机配置日志审计"></a>3.2、连接机配置日志审计</h4><p>（1）限定客户端登录ip</p>
-<p>日志审计是在跳板机连接的服务器上设置的。设置日志审计之前，我们还需要在客户端上设置只允许跳板机来连接我们的服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">echo &quot;sshd: 192.168.205.110&quot;  &gt;&gt; /etc/hosts.allow</div><div class="line">echo &quot;sshd: ALL&quot; &gt;&gt; /etc/host.deny</div></pre></td></tr></table></figure>
-<ul>
-<li>为了安全起见，我们还可以在客服端上创建与跳板机上相同的普通用户，并严格控制sudo权限</li>
-</ul>
-<p>（2）配置日志审计</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#创建审计日志存放位置</div><div class="line">mkdir /usr/local/records</div><div class="line">chmod 777 !$</div><div class="line">chmod +t !$</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#配置日志审计格式</div><div class="line">vi /etc/profile </div><div class="line">#添加以下内容</div><div class="line"></div><div class="line">if [ ! -d  /usr/local/records/$&#123;LOGNAME&#125; ]</div><div class="line">then</div><div class="line">mkdir -p /usr/local/records/$&#123;LOGNAME&#125;</div><div class="line">chmod 300 /usr/local/records/$&#123;LOGNAME&#125;</div><div class="line">fi</div><div class="line">export HISTORY_FILE=&quot;/usr/local/records/$&#123;LOGNAME&#125;/bash_history&quot;</div><div class="line">export PROMPT_COMMAND=&apos;&#123; date &quot;+%Y-%m-%d %T ##### $(who am i |awk &quot;&#123;print \$1\&quot; \&quot;\$2\&quot; \&quot;\$5&#125;&quot;) #### $(history 1 | &#123; read x cmd; echo &quot;$cmd&quot;; &#125;)&quot;; &#125; &gt;&gt;$HISTORY_FILE&apos;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#重新加载/etc/profile</div><div class="line">source  /etc/profile</div></pre></td></tr></table></figure>
-<p>（3）查看效果</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171030/130152849.png?imageslim" alt="mark"></p>
-<p>#### </p>
-
+        
+          <a class="article-more-a" href="/2017/10/30/30.1、简易堡垒机/#more">more >></a>
+        
       
 
       
@@ -273,7 +231,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/30/简易堡垒机/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/30/30.1、简易堡垒机/">展开全文 >></a>
         </p>
       
 
