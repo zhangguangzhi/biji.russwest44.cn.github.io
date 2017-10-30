@@ -131,33 +131,42 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-24、Linux监控平台搭建之配置zabbix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-简易命令审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/">Linux监控平台搭建之配置zabbix</a>
+      <a class="article-title" href="/2017/09/23/简易命令审计/">简易命令审计</a>
     </h1>
   
 
         
-        <a href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/" class="archive-article-date">
-  	<time datetime="2017-09-08T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-08</time>
+        <a href="/2017/09/23/简易命令审计/" class="archive-article-date">
+  	<time datetime="2017-09-23T07:40:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<p>安装zabbix的服务端以及客户端后，我们还需要做一些配置，方便我们使用</p>
-<h3 id="一、忘记Admin密码怎么办"><a href="#一、忘记Admin密码怎么办" class="headerlink" title="一、忘记Admin密码怎么办"></a>一、忘记Admin密码怎么办</h3><p>因为Admin的密码是保存在mysql中的，所以只需要进入mysql命令行，选择zabbix库进行重置即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -pallen</div><div class="line">use zabbix;</div><div class="line">&gt; update users set passwd=md5(‘new passwd’) where alias=‘Admin’;</div></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/#more">more >></a>
-        
+        <p>有时候我们需要对线上用户操作记录进行历史记录待出现问题追究责任人，，但Linux系统自带的history命令用户有自行删除权限，那怎么设置可以让用户的操作记录实时记录，并保证普通用户无权查看和删除呢？</p>
+<h4 id="1、创建保存记录文件存放位置"><a href="#1、创建保存记录文件存放位置" class="headerlink" title="1、创建保存记录文件存放位置"></a>1、创建保存记录文件存放位置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir -p /usr/local/domob/records/</div><div class="line">chmod 777 /usr/local/domob/records/</div><div class="line">chmod +t /usr/local/domob/records/</div></pre></td></tr></table></figure>
+<ul>
+<li>该位置可以自定义</li>
+</ul>
+<h4 id="2、修改-etc-profile"><a href="#2、修改-etc-profile" class="headerlink" title="2、修改/etc/profile"></a>2、修改/etc/profile</h4><p>添加以下内容在该文件的最后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">if [ ! -d  /usr/local/domob/records/$&#123;LOGNAME&#125; ]</div><div class="line">then </div><div class="line">	mkdir -p /usr/local/domob/records/$&#123;LOGNAME&#125;</div><div class="line"> 	chmod 300 /usr/local/domob/records/$&#123;LOGNAME&#125;</div><div class="line"> fi</div><div class="line"> </div><div class="line">export HISTORY_FILE=&quot;/usr/local/domob/records/$&#123;LOGNAME&#125;/bash_history&quot;</div><div class="line">export PROMPT_COMMAND=&apos;&#123; date &quot;+%Y-%m-%d %T ##### $(who am i |awk &quot;&#123;print \$1\&quot; \&quot;\$2\&quot; \&quot;\$5&#125;&quot;) #### $(history 1 | &#123; read x cmd; echo &quot;$cmd&quot;; &#125;)&quot;; &#125; &gt;&gt;$HISTORY_FILE&apos;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>修改完成后，需要重新加载一下/etc/profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source /etc/profile</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3、查看效果"><a href="#3、查看效果" class="headerlink" title="3、查看效果"></a>3、查看效果</h4><p>我们随便使用几条命令，并查看是否保存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">w;who;id root;whoami</div><div class="line">cat /usr/local/domob/records/root/bash_history</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170923/154648865.png?imageslim" alt="mark"></p>
+
       
 
       
@@ -170,7 +179,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
         		</li>
       		
 		</ul>
@@ -180,7 +189,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/09/23/简易命令审计/">展开全文 >></a>
         </p>
       
 
@@ -198,20 +207,20 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-23、Linux监控平台搭建之zabbix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-DRBD的原理和配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/08/23、Linux监控平台搭建之zabbix/">Linux监控平台搭建之zabbix</a>
+      <a class="article-title" href="/2017/09/21/DRBD的原理和配置/">DRBD的原理和配置</a>
     </h1>
   
 
         
-        <a href="/2017/09/08/23、Linux监控平台搭建之zabbix/" class="archive-article-date">
-  	<time datetime="2017-09-08T01:16:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-08</time>
+        <a href="/2017/09/21/DRBD的原理和配置/" class="archive-article-date">
+  	<time datetime="2017-09-21T12:27:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-21</time>
 </a>
         
       </header>
@@ -219,474 +228,384 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<p>监控对于一个架构是十分重要的。一个企业就算架构再不成熟，监控都必须要有。监控不管用什么方式实现，开源软件也好，商业的监控服务也好，或者简陋的shell脚本，在业务上线时都必须要先做到位。当前，流行的开源监控软件有cacti，nagios，zabbix，open-falcon。</p>
-<table>
+<h3 id="DRBD概述"><a href="#DRBD概述" class="headerlink" title="DRBD概述"></a>DRBD概述</h3><p>Distributed Replicated Block Device(DRBD)是一种基于软件的，无共享，复制的存储解决方案，在服务器之间的对块设备（硬盘，分区，逻辑卷等）进行镜像。DRBD工作在内核 当中的，类似于一种驱动模块。DRBD工作的位置在文件系统的buffer cache和磁盘调度器之间，通过tcp/ip发给另外一台主机到对方的tcp/ip最终发送给对方的drbd，再由对方的drbd存储在本地对应磁盘 上，类似于一个网络RAID-1功能。在高可用(HA)中使用DRBD功能，可以代替使用一个共享盘阵。本地(主节点)与远程主机(备节点)的数据可以保 证实时同步。当本地系统出现故障时,远程主机上还会保留有一份相同的数据,可以继续使用。</p>
+        
+          <a class="article-more-a" href="/2017/09/21/DRBD的原理和配置/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DRBD</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/21/DRBD的原理和配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-26.6、shell脚本之expect分发系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/20/26.6、shell脚本之expect分发系统/">shell脚本之expect分发系统</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/20/26.6、shell脚本之expect分发系统/" class="archive-article-date">
+  	<time datetime="2017-09-20T02:56:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>代码上线，简单的方法我们可以使用rsync将新代码推送这指定服务器。在rsync同步时，有一些交互信息需要我们去处理。这个时候，我们就可以使用expect来自动处理这些交互信息。而且ssh登录，ftp登录等都符合交互的定义。</p>
+        
+          <a class="article-more-a" href="/2017/09/20/26.6、shell脚本之expect分发系统/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/20/26.6、shell脚本之expect分发系统/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-26.5、shell脚本之搭建告警系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/15/26.5、shell脚本之搭建告警系统/">shell脚本之搭建告警系统</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/15/26.5、shell脚本之搭建告警系统/" class="archive-article-date">
+  	<time datetime="2017-09-15T08:33:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、告警系统介绍"><a href="#一、告警系统介绍" class="headerlink" title="一、告警系统介绍"></a>一、告警系统介绍</h3><p>（1）需求：使用shell定制各种个性化告警工具，但需要统一化管理、规范化管理。 </p>
+<p>（2）思路：指定一个脚本包，包含主程序、子程序、配置文件、邮件引擎、输出日志等。 </p>
+<p>（3）主程序：作为整个脚本的入口，是整个系统的命脉。 </p>
+<p>（4）配置文件：是一个控制中心，用它来开关各个子程序，指定各个相关联的日志文件。 </p>
+<p>（5）子程序：这个才是真正的监控脚本，用来监控各个指标。 </p>
+<p>（6）邮件引擎：是由一个python程序来实现，它可以定义发邮件的服务器、发邮件人以及发件人密码 输出日志：整个监控系统要有日志输出。</p>
+<p>（7）要求：我们的机器角色多种多样，但是所有机器上都要部署同样的监控系统，也就说所有机器不管什么角色，整个程序框架都是一致的，不同的地方在于根据不同的角色，定制不同的配置文件。</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a>
+        
+          <a class="article-more-a" href="/2017/09/15/26.5、shell脚本之搭建告警系统/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/15/26.5、shell脚本之搭建告警系统/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-26.4、shell脚本之函数，数组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/15/26.4、shell脚本之函数，数组/">shell脚本之函数，数组</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/15/26.4、shell脚本之函数，数组/" class="archive-article-date">
+  	<time datetime="2017-09-15T05:48:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、shell脚本中的函数"><a href="#一、shell脚本中的函数" class="headerlink" title="一、shell脚本中的函数"></a>一、shell脚本中的函数</h3><p>shell脚本中的函数就是把一段代码整理到一个小单元中，并给这个单元起一个名字，当用到这段代码时直接调用这个小单元的名字即可。</p>
+        
+          <a class="article-more-a" href="/2017/09/15/26.4、shell脚本之函数，数组/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/15/26.4、shell脚本之函数，数组/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-26.3、shell脚本之循环" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/14/26.3、shell脚本之循环/">shell脚本之循环</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/14/26.3、shell脚本之循环/" class="archive-article-date">
+  	<time datetime="2017-09-14T08:14:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>shell脚本常用的循环有for，while等</p>
+<h3 id="一、for循环"><a href="#一、for循环" class="headerlink" title="一、for循环"></a>一、for循环</h3><h4 id="1-1、语法一"><a href="#1-1、语法一" class="headerlink" title="1.1、语法一"></a>1.1、语法一</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for  变量  in  值1，值2，值3.....</div><div class="line">do</div><div class="line">	command</div><div class="line">done</div></pre></td></tr></table></figure>
+<ul>
+<li><p>for循环会将指定的值分别赋予变量</p>
+</li>
+<li><p>这些值可以手动输入，如”for  i  in   1 2 3”</p>
+</li>
+<li><p>这些值也可以是用命令产生，如”for i  in  `seq  1 100`”</p>
+<p>使用命令产生时是以命令输出的空格或者回车符作为分隔符</p>
+</li>
+<li><p>seq的作用是生成指定范围的连续数字</p>
+</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/09/14/26.3、shell脚本之循环/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/14/26.3、shell脚本之循环/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-26.2、shell脚本之if判断" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/13/26.2、shell脚本之if判断/">shell脚本之逻辑判断if,case</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/13/26.2、shell脚本之if判断/" class="archive-article-date">
+  	<time datetime="2017-09-13T12:07:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="判断表达式的两种格式"><a href="#判断表达式的两种格式" class="headerlink" title="判断表达式的两种格式"></a>判断表达式的两种格式</h3><p>（1）test  -e   /root/1.sh</p>
+<p>（2）[  -e  /root/1.sh ]        #注意[ ]与判断语句之间有空格</p>
+<h3 id="一、逻辑判断表达式"><a href="#一、逻辑判断表达式" class="headerlink" title="一、逻辑判断表达式"></a>一、逻辑判断表达式</h3><h4 id="1-1、按照文件类型判断"><a href="#1-1、按照文件类型判断" class="headerlink" title="1.1、按照文件类型判断"></a>1.1、按照文件类型判断</h4><table>
 <thead>
 <tr>
-<th>监控软件</th>
-<th style="text-align:left">特点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>cacti</td>
-<td style="text-align:left">成图专业，擅长监控网络流量</td>
-</tr>
-<tr>
-<td>nagios</td>
-<td style="text-align:left">没有历史数据，直接返回状态</td>
-</tr>
-<tr>
-<td>zabbix</td>
-<td style="text-align:left">支持查询历史数据，自定义监控项目方便</td>
-</tr>
-<tr>
-<td>open-falcon</td>
-<td style="text-align:left">由小米公司开发，开源后受到诸多大公司追捧</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>cacti，nagios，zabbix都可以监控服务器的基础指标</li>
-<li>cacti，nagios，zabbix都是C/S架构，都需要LAMP，其中nagios不保存数据可以不用mysql。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/09/08/23、Linux监控平台搭建之zabbix/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/08/23、Linux监控平台搭建之zabbix/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-22、LVS结合keepalived" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/22、LVS结合keepalived/">LVS结合keepalived</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/06/22、LVS结合keepalived/" class="archive-article-date">
-  	<time datetime="2017-09-06T08:37:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、keepalived结合LVS介绍"><a href="#一、keepalived结合LVS介绍" class="headerlink" title="一、keepalived结合LVS介绍"></a>一、keepalived结合LVS介绍</h3><p>1.1、为什么要引入keepalived</p>
-<p>之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。</p>
-        
-          <a class="article-more-a" href="/2017/09/06/22、LVS结合keepalived/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/06/22、LVS结合keepalived/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-21、LVS之DR模式搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/21、LVS之DR模式搭建/">LVS之DR模式搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/06/21、LVS之DR模式搭建/" class="archive-article-date">
-  	<time datetime="2017-09-06T08:15:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、DR模式介绍"><a href="#一、DR模式介绍" class="headerlink" title="一、DR模式介绍"></a>一、DR模式介绍</h3><h4 id="1-1、数据流向"><a href="#1-1、数据流向" class="headerlink" title="1.1、数据流向"></a>1.1、数据流向</h4><p>DR模式：调度器将请求来的数据包的目标mac地址改为real server的mac地址，返回的时候不经过调度器，直接返回给客户端。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/143007995.png?imageslim" alt="mark"></p>
-<ul>
-<li>以上是DR模式下，数据包大致流向</li>
-<li>DR模式下，请求需要经过DIR。但是RS处理后直接返回客户端，不需要经过DIR，减少DIR压力</li>
-</ul>
-<h4 id="1-2、DR模式特点"><a href="#1-2、DR模式特点" class="headerlink" title="1.2、DR模式特点"></a>1.2、DR模式特点</h4><p>1、通过在调度器DIR上修改数据包的目的MAC地址实现转发。注意源地址仍然是CIP，目的地址仍然是VIP地址。</p>
-<p>2、请求的报文经过调度器，而RS响应处理后的报文无需经过调度器LB，因此并发访问量大时使用效率很高（和NAT模式比）。</p>
-<p>3、因为DR模式是通过MAC地址改写机制实现转发，因此所有RS节点和调度器LB只能在一个局域网里面。</p>
-<p>4、RS主机需要绑定VIP地址在LO接口上，并且需要配置ARP抑制。</p>
-<p>5、RS节点的默认网关不需要配置成DIP，而是直接配置为上级路由的网关，能让RS直接出网就可以。</p>
-<p>6、由于DR模式的调度器仅做MAC地址的改写，所以调度器LB就不能改写目标端口，那么RS服务器就得使用和VIP相同的端口提供服务。</p>
-<p>7、需要的公网IP较多</p>
-<h3 id="二、LVS的DR模式搭建"><a href="#二、LVS的DR模式搭建" class="headerlink" title="二、LVS的DR模式搭建"></a>二、LVS的DR模式搭建</h3><p>DR模式是通过修改MAC地址进行数据包传输，其中需要关闭RS响应ARP广播</p>
-<h4 id="2-1、实验环境"><a href="#2-1、实验环境" class="headerlink" title="2.1、实验环境"></a>2.1、实验环境</h4><p>DIR：192.168.205.138</p>
-<p>RS1：192.168.205.140</p>
-<p>RS2：192.168.205.141</p>
-<p>VIP：192.168.205.200</p>
-<p>DIR，RS1，RS2上都需要公网ip</p>
-<p>RS需要开启nginx</p>
-<h4 id="2-2、配置DIR"><a href="#2-2、配置DIR" class="headerlink" title="2.2、配置DIR"></a>2.2、配置DIR</h4><p>DIR上需要安装ipvsadm</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install  -y  ipvsadm</div></pre></td></tr></table></figure>
-<p>编写相对应脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#在DIR上编写以下脚本</div><div class="line">vim /usr/local/sbin/lvs_dr.sh </div><div class="line">#写入以下内容</div><div class="line">#! /bin/bash</div><div class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</div><div class="line">ipv=/usr/sbin/ipvsadm</div><div class="line">vip=192.168.205.200</div><div class="line">rs1=192.168.205.140</div><div class="line">rs2=192.168.205.141</div><div class="line">#注意这里的网卡名字，在DIR上添加VIP</div><div class="line">ifconfig ens33:2 $vip broadcast $vip netmask 255.255.255.255 up</div><div class="line">route add -host $vip dev ens33:2</div><div class="line">$ipv -C</div><div class="line">$ipv -A -t $vip:80 -s wrr</div><div class="line">$ipv -a -t $vip:80 -r $rs1:80 -g -w 1</div><div class="line">$ipv -a -t $vip:80 -r $rs2:80 -g -w 1</div></pre></td></tr></table></figure>
-<p>保存后，执行该脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh  /usr/local/sbin/lvs_dr.sh</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/152535843.png?imageslim" alt="mark"></p>
-<h4 id="2-3、配置RS"><a href="#2-3、配置RS" class="headerlink" title="2.3、配置RS"></a>2.3、配置RS</h4><p>两台RS服务器都需要添加脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#在RS上添加以下脚本</div><div class="line">vim /usr/local/sbin/lvs_rs.sh</div><div class="line">#写入以下内容</div><div class="line">#/bin/bash</div><div class="line">vip=192.168.205.200</div><div class="line">#把vip绑定在lo上，是为了实现rs直接把结果返回给客户端</div><div class="line">ifconfig lo:0 $vip broadcast $vip netmask 255.255.255.255 up</div><div class="line">route add -host $vip lo:0</div><div class="line">#以下操作为更改arp内核参数，禁止响应arp广播，目的是为了让rs顺利发送mac地址给客户端</div><div class="line">#参考文档www.cnblogs.com/lgfeng/archive/2012/10/16/2726308.html</div><div class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</div><div class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</div><div class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</div><div class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</div></pre></td></tr></table></figure>
-<p>保存后执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh  /usr/local/sbin/lvs_rs.sh</div></pre></td></tr></table></figure>
-<h4 id="2-4、测试"><a href="#2-4、测试" class="headerlink" title="2.4、测试"></a>2.4、测试</h4><p>不能在调度端和两个服务端用curl测试。因为两个服务端都配置了vip，访问时访问的都是自己，而调度端的子网掩码是255.255.255.255，数据包可以发出去但是收不回来。</p>
-<p>需要其他的服务器用curl测试：curl 192.168.205.200，lo回环接口：可以用于本地进程之间通讯的虚拟网络接口</p>
-<p>修改nginx上的测试页</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RS1：echo &quot;this is RS1.&quot; &gt;/usr/local/nginx/html/index.html</div><div class="line">RS2：echo &quot;this is RS2.&quot; &gt;/usr/local/nginx/html/index.html</div></pre></td></tr></table></figure>
-<p>使用其他服务器curl</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/143025586.png?imageslim" alt="mark"></p>
-<h4 id="2-5、总结"><a href="#2-5、总结" class="headerlink" title="2.5、总结"></a>2.5、总结</h4><p>DR模式将报文直接路由给目标真实服务器。在DR模式中，调度器根据各个真实服务器的负载情况，连接数多少等，动态地选择一台服务器，不修改目标IP地址和目标端口，也不封装IP报文，而是将请求报文的数据帧的目标MAC地址改为真实服务器的MAC地址。然后再将修改的数据帧在服务器组的局域网上发送。因为数据帧的MAC地址是真实服务器的MAC地址，并且又在同一个局域网。那么根据局域网的通讯原理，真实服务器是一定能够收到由LB发出的数据包。真实服务器接收到请求数据包的时候，解开IP包头查看到的目标IP是VIP。然后真实服务器响应请求，之后根据自己的路由信息将这个响应数据包发送回给客户，并且源IP地址还是VIP。</p>
-<p><strong>为什么服务端要设置回环地址为vip并禁止arp协议：</strong></p>
-<p>因为只有自己的IP符合数据包中目标IP才会接收进来，所以我们需要在本地的回环借口上面配置VIP。由于网络接口都会进行ARP广播响应，但集群的其他机器都有这个VIP的lo接口，都响应就会冲突。所以我们需要把真实服务器的lo接口的ARP响应关闭掉。</p>
-<p>拓展：</p>
-<p><a href="http://storysky.blog.51cto.com/628458/338726" target="_blank" rel="external">只用一个公网IP搭建DR模式</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/06/21、LVS之DR模式搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-20、LVS之NAT模式搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/20、LVS之NAT模式搭建/">LVS之NAT模式搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/06/20、LVS之NAT模式搭建/" class="archive-article-date">
-  	<time datetime="2017-09-06T07:50:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、NAT模式介绍"><a href="#一、NAT模式介绍" class="headerlink" title="一、NAT模式介绍"></a>一、NAT模式介绍</h3><h4 id="1-1、数据流向"><a href="#1-1、数据流向" class="headerlink" title="1.1、数据流向"></a>1.1、数据流向</h4><p>NAT：调度器将请求的目标IP即vip地址改为Real server的IP，返回的数据包也经过调度器，调度器再把源地址修改为vip返回给客户端。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/155404968.png?imageslim" alt="mark"></p>
-<ul>
-<li>以上是NAT模式下，数据包大致的流向。</li>
-<li>NAT模式下，由于请求与返回数据都需要经过DIR，所以在高并发时，DIR会成为性能瓶颈</li>
-</ul>
-<h4 id="1-2、特点"><a href="#1-2、特点" class="headerlink" title="1.2、特点"></a>1.2、特点</h4><p>1，所有的后端服务器和DIR服务器（调度器）要在同一个内网网段内</p>
-<p>2，后端服务器IP是内网地址，仅用于集群节点之间进行通信</p>
-<p>3，DIR服务器同时处理请求和应答数据包</p>
-<p>4，后端服务器的网关要指向DIR服务器的DIP</p>
-<p>5，可以实现端口映射</p>
-<p>6，后端服务器可以是任意操作系统</p>
-<p>7，DIR服务器很可能成为系统性能瓶颈（请求和返回都要经过DIR服务器）</p>
-<h3 id="二、NAT模式搭建"><a href="#二、NAT模式搭建" class="headerlink" title="二、NAT模式搭建"></a>二、NAT模式搭建</h3><h4 id="2-1、实验环境："><a href="#2-1、实验环境：" class="headerlink" title="2.1、实验环境："></a>2.1、实验环境：</h4><p>DIR：192.168.205.138（内网），192.168.2.100（公网VIP）</p>
-<p>RS1：192.168.205.136（内网）</p>
-<p>RS2：192.168.205.137（内网）</p>
-<p>为了实验方便，我们可关闭selinux和firewalld，开启iptables</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#三台机器都执行以下命令</div><div class="line">systemctl stop firewalld</div><div class="line">setenforce 0</div><div class="line">yum install -y iptables-services</div><div class="line">systemctl start  iptables</div><div class="line">iptables -F</div><div class="line">service iptables save</div></pre></td></tr></table></figure>
-<p>并且将RS1和RS2的网关设置为192.168.205.138</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim   /etc/sysconfig/network-scripts/ifcfg-ens33</div><div class="line">#将GATEWAY的值改为DIR内网网卡IP（192.168.205.138）</div></pre></td></tr></table></figure>
-<p>RS需要开启nginx</p>
-<h4 id="2-2、配置DIR"><a href="#2-2、配置DIR" class="headerlink" title="2.2、配置DIR"></a>2.2、配置DIR</h4><p>DIR为分发器，也叫调度器，下面我们将在DIR上面进行配置</p>
-<p>在DIR上安装ipvsadm</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install -y ipvsadm</div></pre></td></tr></table></figure>
-<p>编写相对应脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#在dir上编写规则脚本</div><div class="line">vim /usr/local/sbin/lvs_nat.sh</div><div class="line">#写入以下内容</div><div class="line">#!/bin/bash</div><div class="line"># director 服务器上开启路由转发功能</div><div class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</div><div class="line"># 关闭icmp的重定向</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/all/send_redirects</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/default/send_redirects</div><div class="line"># 注意区分网卡名字，本次实验两个网卡分别为ens33和ens37</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/ens33/send_redirects</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/ens37/send_redirects</div><div class="line"># director 设置nat防火墙</div><div class="line">iptables -t nat -F</div><div class="line">iptables -t nat -X</div><div class="line">iptables -t nat -A POSTROUTING -s 192.168.205.0/24  -j MASQUERADE</div><div class="line"># director设置ipvsadm</div><div class="line">IPVSADM=&apos;/usr/sbin/ipvsadm&apos;</div><div class="line">$IPVSADM -C</div><div class="line">$IPVSADM -A -t 192.168.2.100:80 -s rr</div><div class="line">$IPVSADM -a -t 192.168.2.100:80 -r 192.168.205.136:80 -m -w 1</div><div class="line">$IPVSADM -a -t 192.168.2.100:80 -r 192.168.205.137:80 -m -w 1</div></pre></td></tr></table></figure>
-<p>保存后执行该脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh /usr/local/sbin/lvs_nat.sh</div></pre></td></tr></table></figure>
-<h4 id="2-3、测试"><a href="#2-3、测试" class="headerlink" title="2.3、测试"></a>2.3、测试</h4><p>执行脚本<code>/usr/local/sbin/lvs_nat.sh</code></p>
-<p>修改nginx上的测试页</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RS1：echo &quot;this is RS1.&quot; &gt;/usr/local/nginx/html/index.html</div><div class="line">RS2：echo &quot;this is RS2.&quot; &gt;/usr/local/nginx/html/index.html</div></pre></td></tr></table></figure>
-<p>使用curl测试</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/000936604.png?imageslim" alt="mark"></p>
-<ul>
-<li>因为在脚本中我们选择的是轮询算法，所以均衡的访问RS1和RS2</li>
-</ul>
-<h4 id="2-4、配置的注意点"><a href="#2-4、配置的注意点" class="headerlink" title="2.4、配置的注意点"></a>2.4、配置的注意点</h4><p>需要注意的地方：</p>
-<p>1、切记一定要在两台RS上设置网关的IP为director的内网ip。</p>
-<p>2、由于浏览器缓存的原因，可以使用curl vip测试</p>
-<p>3、访问失败时，可以查看selinux是否关闭，尝试清除原先的iptables规则再执行lvs_nat.sh</p>
-<p>4、为什么后端realserver1/2的网关需要设置为dir的内网IP？</p>
-<p>因为realserver返回的IP为rip-cip，而rip不是cip要请求的vip，所以需要将网关设置为lvs的内网iP，将dip当做一个网关，将源ip转换为vip。</p>
-<p>5、为什么客户端不能和realserver在同一网段？</p>
-<p>如果在同一网段，请求时不会经过dir，直接响应，此时返回的源IP不是客户端请求的ip，客户端会直接丢弃，导致请求失败。</p>
-<h4 id="2-5、fullnat模型介绍"><a href="#2-5、fullnat模型介绍" class="headerlink" title="2.5、fullnat模型介绍"></a>2.5、fullnat模型介绍</h4><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/163550872.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/163912733.png?imageslim" alt="mark"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/06/20、LVS之NAT模式搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-19、Linux集群之负载均衡集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/05/19、Linux集群之负载均衡集群/">Linux负载均衡集群之LVS介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/05/19、Linux集群之负载均衡集群/" class="archive-article-date">
-  	<time datetime="2017-09-05T15:16:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、负载均衡集群介绍"><a href="#一、负载均衡集群介绍" class="headerlink" title="一、负载均衡集群介绍"></a>一、负载均衡集群介绍</h3><p>负载均衡：负载均衡就是LB（load bablance）集群架构，简单说就是让多台服务器均衡的去承载压力。常用软件有nginx、lvs、keepalived，商业的硬件负载设备F5、netscale。</p>
-<p>如下图就是一个负载均衡集群，主要角色有分发器（DIR），后端服务器（RS）。当用户的请求过来时，会直接发到分发器（Director Server）上，然后它把用户的请求根据预先设置好的算法，智能均衡地发放到后端真正的服务器（real server）上。</p>
-<p>（如果不同的机器，可能用户请求到的数据不一样，为了避免这样的情况发生，所以用到了共享存储，这样保证所有用户请求的数据是一样的。）</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/104257010.png?imageslim" alt="mark"></p>
-<h3 id="二、LVS介绍"><a href="#二、LVS介绍" class="headerlink" title="二、LVS介绍"></a>二、LVS介绍</h3><p>LVS是由国人章文嵩开发。基于Linux2.6内核</p>
-<h4 id="2-1、LVS的三种模式介绍"><a href="#2-1、LVS的三种模式介绍" class="headerlink" title="2.1、LVS的三种模式介绍"></a>2.1、LVS的三种模式介绍</h4><p>2.1.1、NAT模式</p>
-<p>这种模式需要借助iptables的nat表来实现，用户的请求到分发器后，通过预设的iptables规则，把请求的数据包转发到后端的服务器上。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/105243989.png?imageslim" alt="mark"></p>
-<ul>
-<li>RS2访问过程一致</li>
-<li>DIP，RIP1，RIP2在通一网段，并且RS1和RS2的网关为DIP</li>
-<li>客户端发起请求，DIR根据设置将请求分发，并修改数据包目标IP为RIP1，RS1处理后返回数据给DIR，DIR接收后将数据包源IP为VIP，响应给客户端。</li>
-<li>数据包接受和处理后返回都需要经过DIR，所以RS1和RS2的网关需要设置为DIP</li>
-<li>在以上模式中，并发量大时，DIR的机器会成为瓶颈。</li>
-<li>只需要DIR上有公网IP，节省公网IP资源</li>
-</ul>
-<p>2.1.2、LVS IP Tunnel模式</p>
-<p>这种模式，需要有一个公共的IP配置在分发器和所有rs上，我们把它叫做vip</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/110923908.png?imageslim" alt="mark"></p>
-<ul>
-<li>客户端发起请求，分发器接受到请求数据包后，会对数据包做一个加工，将目标IP改为RS1的IP，这样数据包就到了RS上，RS接收数据包，会还原原始数据包，发现目标IP为VIP，所以它直接处理，并将结果返回给客户端。</li>
-</ul>
-<p>2.1.3、DR模式</p>
-<p>这种模式，也需要有一个公共的IP配置在分发器和所有rs上</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/110947741.png?imageslim" alt="mark"></p>
-<ul>
-<li>和IP Tunnel不同的是，它会把数据包的MAC地址修改为rs的MAC地址。</li>
-<li>客户端发起请求，分发器接收请求后分发，将数据包的MAC地址修改为RS1的MAC地址，RS1发现目标IP是VIP，处理后直接放回给客户端。</li>
-<li>在这个过程中数据包的源IP和目标IP不会修改</li>
-<li>RS上需要关闭ARP。</li>
-</ul>
-<h4 id="2-2、LVS的调度算法"><a href="#2-2、LVS的调度算法" class="headerlink" title="2.2、LVS的调度算法"></a>2.2、LVS的调度算法</h4><table>
-<thead>
-<tr>
-<th>调度算法</th>
+<th>判断选项</th>
 <th>作用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>rr(Round-Robin)</td>
-<td>轮询，平等分发</td>
+<td>-e  file</td>
+<td>判断文件或目录是否存在，并且存在为真</td>
 </tr>
 <tr>
-<td>wrr(Weight Round-Robin)</td>
-<td>加权轮询，设置分发比例</td>
+<td>-d  file</td>
+<td>判断文件是否存在，并且为目录</td>
 </tr>
 <tr>
-<td>lc(Least-Connection)</td>
-<td>最小连接，那个链接数少优先分发</td>
+<td>-f  file</td>
+<td>判断文件是否存在，并且为文件</td>
 </tr>
 <tr>
-<td>wlc(Weight Least-Connection)</td>
-<td>加权最小连接</td>
-</tr>
-<tr>
-<td>lblc(Locality-Based Least Connections)</td>
-<td>基于局部性的最小连接</td>
-</tr>
-<tr>
-<td>lblcr(Locality-Based Least Connections with Replication)</td>
-<td>带复制的基于局部性最小连接</td>
-</tr>
-<tr>
-<td>dh(Destination Hashing)</td>
-<td>目标地址散列调度</td>
-</tr>
-<tr>
-<td>sh(Source Hashing)</td>
-<td>源地址散列调度</td>
+<td>-s  file</td>
+<td>判断文件是否非空，并且非空为真</td>
 </tr>
 </tbody>
 </table>
-<p>拓展：</p>
-<p><a href="http://www.it165.net/admin/html/201401/2248.html" target="_blank" rel="external">LVS详细介绍</a></p>
-<p><a href="http://ask.apelearn.com/question/7407" target="_blank" rel="external">LVS的调度算法介绍</a></p>
-<p><a href="http://www.cnblogs.com/lgfeng/archive/2012/10/16/2726308.html" target="_blank" rel="external">关于arp_ignore和 arp_announce</a></p>
-<p><a href="http://www.csdn.net/article/2014-07-24/2820837" target="_blank" rel="external">Nginx、LVS及HAProxy负载均衡软件的优缺点详解</a></p>
-
+<ul>
+<li>-b,-c,-l,-p,-S分别表示块设备文件，字符设备文件，符号链接文件，字符管道文件，套接字符文件</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/09/13/26.2、shell脚本之if判断/#more">more >></a>
+        
       
 
       
@@ -699,11 +618,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
         		</li>
       		
 		</ul>
@@ -713,7 +628,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/05/19、Linux集群之负载均衡集群/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/09/13/26.2、shell脚本之if判断/">展开全文 >></a>
         </p>
       
 
@@ -731,30 +646,30 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-18、Linux集群之高可用集群配置keepalived" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-26.1、shell脚本介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/04/18、Linux集群之高可用集群配置keepalived/">Linux集群之高可用集群配置keepalived</a>
+      <a class="article-title" href="/2017/09/12/26.1、shell脚本介绍/">shell脚本介绍</a>
     </h1>
   
 
         
-        <a href="/2017/09/04/18、Linux集群之高可用集群配置keepalived/" class="archive-article-date">
-  	<time datetime="2017-09-04T07:56:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-04</time>
+        <a href="/2017/09/12/26.1、shell脚本介绍/" class="archive-article-date">
+  	<time datetime="2017-09-12T06:23:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Linux集群介绍</p>
-<p>一台服务器的硬件配置总是有限的，当服务器上运行的资源超过服务器的承载能力时，必将导致该服务器崩溃。在生产环境中，多数企业会使用多台服务器搭建成一个集群来运行应用程序，这样不仅可以避免单点故障，还能提升服务器的承载能力。</p>
+        <p>[TOC]</p>
+<h3 id="一、什么是shell脚本"><a href="#一、什么是shell脚本" class="headerlink" title="一、什么是shell脚本"></a>一、什么是shell脚本</h3><p>shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本</p>
         
-          <a class="article-more-a" href="/2017/09/04/18、Linux集群之高可用集群配置keepalived/#more">more >></a>
+          <a class="article-more-a" href="/2017/09/12/26.1、shell脚本介绍/#more">more >></a>
         
       
 
@@ -768,7 +683,141 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/12/26.1、shell脚本介绍/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-25、Linux监控平台搭建之配置zabbix告警" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/11/25、Linux监控平台搭建之配置zabbix告警/">Linux监控平台搭建之配置zabbix告警</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/11/25、Linux监控平台搭建之配置zabbix告警/" class="archive-article-date">
+  	<time datetime="2017-09-11T02:53:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>监控系统如果没有告警，那就没有意义了。zabbix的告警通常为邮件，微信，短信，由于目前智能手机的普及和方便性，配置邮件告警就可以达到很好的提醒效果，因为手机邮箱的提醒和短信相似，而且显示的内容更丰富。</p>
+        
+          <a class="article-more-a" href="/2017/09/11/25、Linux监控平台搭建之配置zabbix告警/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/11/25、Linux监控平台搭建之配置zabbix告警/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-keepalived结合mysql实现高可用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/10/keepalived结合mysql实现高可用/">keepalived结合mysql实现高可用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/10/keepalived结合mysql实现高可用/" class="archive-article-date">
+  	<time datetime="2017-09-10T01:44:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>实验环境：</p>
+<p>os：centos7×64</p>
+<p>master：192.168.205.137</p>
+<p>backup：192.168.205.136</p>
+<p>VIP：192.168.205.110</p>
+        
+          <a class="article-more-a" href="/2017/09/10/keepalived结合mysql实现高可用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -782,208 +831,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/04/18、Linux集群之高可用集群配置keepalived/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-使用mysql-proxy配置mysql读写分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/01/使用mysql-proxy配置mysql读写分离/">使用mysql-proxy配置mysql读写分离</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/01/使用mysql-proxy配置mysql读写分离/" class="archive-article-date">
-  	<time datetime="2017-09-01T12:43:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>mysql-proxy介绍</p>
-<p>mysql proxy是一个处于你的client和mysql server端之间的简单程序，它可以监听、分析和改变它们的通信。它使用灵活，没有限制，常见用途：负载均衡，故障、查询分析，查询过滤和修改等等。</p>
-        
-          <a class="article-more-a" href="/2017/09/01/使用mysql-proxy配置mysql读写分离/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/01/使用mysql-proxy配置mysql读写分离/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-mysql一主多从" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/01/mysql一主多从/">mysql一主多从</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/01/mysql一主多从/" class="archive-article-date">
-  	<time datetime="2017-09-01T01:51:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>mysql不仅可以配置一主一从，还可以配置一主多从</p>
-<h3 id="一、一主多从配置"><a href="#一、一主多从配置" class="headerlink" title="一、一主多从配置"></a>一、一主多从配置</h3><h4 id="1-1、实验环境"><a href="#1-1、实验环境" class="headerlink" title="1.1、实验环境"></a>1.1、实验环境</h4><p>master：192.168.205.138</p>
-<p>slave1：192.168.205.136</p>
-<p>slave2：192.168.205.140</p>
-<p>master和salve上的数据已经通过innobackupex备份一致。</p>
-        
-          <a class="article-more-a" href="/2017/09/01/mysql一主多从/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/01/mysql一主多从/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-mysql主主复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/31/mysql主主复制/">mysql主主复制</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/31/mysql主主复制/" class="archive-article-date">
-  	<time datetime="2017-08-31T09:20:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>mysql双主（主主）架构方案：</p>
-<p>在企业中，数据库高可用一直是企业的重中之重，中小企业很多都是使用mysql主从方案，一主多从，读写分离等，但是单主存在单点故障，从库切换成主库需要作改动。因此，如果是双主或者多主，就会增加mysql入口，增加高可用。不过多主需要考虑自增长ID问题，这个需要特别设置配置文件，比如双主，可以使用奇偶，总之，主之间设置自增长ID相互不冲突就能完美解决自增长ID冲突问题。</p>
-        
-          <a class="article-more-a" href="/2017/08/31/mysql主主复制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/31/mysql主主复制/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/09/10/keepalived结合mysql实现高可用/">展开全文 >></a>
         </p>
       
 
@@ -1003,7 +851,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 
@@ -1109,11 +957,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1126,10 +978,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1149,6 +997,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -1157,11 +1009,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1169,15 +1021,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1209,6 +1057,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
@@ -1217,11 +1069,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1229,11 +1077,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ansible</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">LNMP.nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">安全</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1245,11 +1109,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1261,7 +1129,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1269,7 +1137,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1281,15 +1153,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
             
             <div class="clearfix"></div>

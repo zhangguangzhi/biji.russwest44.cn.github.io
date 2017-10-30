@@ -181,20 +181,20 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-29.1、自动化运维工具之puppet安装配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-简易堡垒机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/">自动化运维工具之puppet安装配置</a>
+      <a class="article-title" href="/2017/10/30/简易堡垒机/">简易堡垒机</a>
     </h1>
   
 
         
-        <a href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/" class="archive-article-date">
-  	<time datetime="2017-10-23T06:25:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-23</time>
+        <a href="/2017/10/30/简易堡垒机/" class="archive-article-date">
+  	<time datetime="2017-10-30T03:17:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-30</time>
 </a>
         
       </header>
@@ -202,17 +202,426 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<p>自动化运维介绍，自动化运维可以做什么？自动化运维可以解决下面所有问题：</p>
+<h3 id="一、堡垒机介绍"><a href="#一、堡垒机介绍" class="headerlink" title="一、堡垒机介绍"></a>一、堡垒机介绍</h3><p>在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。跳板机是堡垒机的一种，建议的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计</p>
+<p>比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理</p>
+<p>商业堡垒机：齐治，Citrix xenapp</p>
+<h3 id="二、简易堡垒机"><a href="#二、简易堡垒机" class="headerlink" title="二、简易堡垒机"></a>二、简易堡垒机</h3><h4 id="2-1、搭建条件"><a href="#2-1、搭建条件" class="headerlink" title="2.1、搭建条件"></a>2.1、搭建条件</h4><p>具备堡垒机的条件是，该机器有公司和私网，其中私网和机房其他机器互通。公网可以通过VPN登录。</p>
+<h4 id="2-2、跳板机安全设置"><a href="#2-2、跳板机安全设置" class="headerlink" title="2.2、跳板机安全设置"></a>2.2、跳板机安全设置</h4><p>iptables端口限制，登录限制sshd_config</p>
+<p>用户，命令权限限制（使用jailkit）：<a href="http://blog.chinaunix.net/uid-28310119-id-3503318.html" target="_blank" rel="external">ssh+chroot+jailit锁定普通用户活动目录</a> </p>
+<p>客户机日志审计：<a href="http://www.68idc.cn/help/server/linux/2014042190951.html" target="_blank" rel="external">Linux 系统添加操作记录审计</a></p>
+<h3 id="三、搭建简易跳板机"><a href="#三、搭建简易跳板机" class="headerlink" title="三、搭建简易跳板机"></a>三、搭建简易跳板机</h3><h4 id="3-1、跳板机限制用户命令权限"><a href="#3-1、跳板机限制用户命令权限" class="headerlink" title="3.1、跳板机限制用户命令权限"></a>3.1、跳板机限制用户命令权限</h4><p>使用chroot工具jailkit ，限制用户命令权限</p>
+<p>（1）安装jailkit</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget https://olivier.sessink.nl/jailkit/jailkit-2.19.tar.bz2</div><div class="line">tar -jxvf jailkit-2.19.tar.bz2</div><div class="line">cd jailkit-2.19</div><div class="line">./configure &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<p>（2）配置jailkit</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#创建限制系统目录</div><div class="line">mkdir  /home/jail</div><div class="line">#拷贝shell命令文件，库文件等</div><div class="line">jk_init -v -j /home/jail/  basicshell</div><div class="line">#拷贝编辑器文件</div><div class="line">jk_init -v -j /home/jail/  editors</div><div class="line">#拷贝网络相关文件</div><div class="line">jk_init -v -j /home/jail/  netutils  </div><div class="line">#拷贝远程登录相关</div><div class="line">jk_init -v -j /home/jail/  ssh</div><div class="line">#拷贝限制系统shell，jk_lsh</div><div class="line">mkdir /home/jail/usr/sbin</div><div class="line">cp /usr/sbin/jk_lsh /home/jail/usr/sbin/jk_lsh</div></pre></td></tr></table></figure>
 <ul>
-<li>传统运维效率低，大多工作人为完成</li>
-<li>传统运维工作繁琐，容易出错</li>
-<li>传统运维每日重复做相同的事情</li>
-<li>传统运维没有标准化流程</li>
-<li>传统运维的脚本繁多，不能方便管理</li>
+<li>这样我们就完成了一个chroot</li>
 </ul>
-<h3 id="一、puppet介绍"><a href="#一、puppet介绍" class="headerlink" title="一、puppet介绍"></a>一、puppet介绍</h3><h4 id="1-1、puppet简介"><a href="#1-1、puppet简介" class="headerlink" title="1.1、puppet简介"></a>1.1、puppet简介</h4><p>​ puppet是一个为实现数据中心自动化管理而设计的配置管理软件，能够管理IT基础设施的整个生命周期：供应（provisioning）配置（configuration）、联动（orchestration）及报告（reporting）。puppet基于C/S架构，类似于zabbiz，有master与agent节点之分。它是一个开源的（谈不上真正的开源，因为有商业版与社区版之分）、新一代的、集中化的配置管理工具，由ruby语言研发，它拥有自己的配置语言（PCL，puppet configuration language）。<br>​ puppet能够把IT日常的系统管理代码化，而代码可重用，这样可以减少运维人员的工作量，而且能快速、大规模部署服务器。在puppet的世界有其自己的哲学思想：在IT系统管理中，puppet只关注结果，不关心过程！这名话怎样理解，比如puppet的master端向各agent下达把nginx这个包安装上并启动服务，puppet的agent端面只向master端报告软件是否安装完成，服务是否已启动，puppet不关心软件是怎样安装上的，服务是怎样启动的，它只关心结果。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171030/122602525.png?imageslim" alt="mark"></p>
+<p>（3）创建限制系统用户</p>
+<p>首先我们先使用ssh-keygen生成普通用户的公钥，将公钥同步到要连接服务器上。</p>
+<p>默认限制系统中的用户只有root，这不符合安全原则，所以我们要创建普通用户，多个用户执行多次即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#创建普通用户用于关联</div><div class="line">useradd  allen1</div><div class="line">passwd allen1</div><div class="line">#生成公钥文件，备用</div><div class="line">ssh-keygen</div><div class="line">#关联限制系统</div><div class="line">jk_jailuser -m -j /home/jail  allen1</div><div class="line"></div><div class="line">#修改关联用户shell，将allen1的/usr/sbin/jk_lsh改为/bin/bash</div><div class="line">vim /home/jail/etc/passwd</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171030/122705439.png?imageslim" alt="mark"></p>
+<p>（4）登录虚拟系统</p>
+<p>现在我们可以使用allen1登录我们的虚拟系统了</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171030/123321398.png?imageslim" alt="mark"></p>
+<ul>
+<li>能使用的命令少很多，bashrc和profile都是存在的</li>
+</ul>
+<p>（5）配置密匙登录虚拟系统</p>
+<p>在虚拟系统中的/home/username中创建.ssh/authorized_keys文件，写入公钥内容。</p>
+<p>修改sshd配置文件，设置只允许密钥登录</p>
+<p>（6）限制端口</p>
+<p>使用iptables限定，并且关闭不使用的服务</p>
+<p>（7）限定登录ip</p>
+<p>在/etc/hosts.allow中添加可以登录的ip，而且还需要在/etc/host.deny中设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#多个ip时使用空格分隔</div><div class="line">echo &quot;sshd: 192.168.205.0/24&quot;  &gt;&gt; /etc/hosts.allow</div><div class="line">echo &quot;sshd: ALL&quot; &gt;&gt; /etc/host.deny</div></pre></td></tr></table></figure>
+<h4 id="3-2、连接机配置日志审计"><a href="#3-2、连接机配置日志审计" class="headerlink" title="3.2、连接机配置日志审计"></a>3.2、连接机配置日志审计</h4><p>（1）限定客户端登录ip</p>
+<p>日志审计是在跳板机连接的服务器上设置的。设置日志审计之前，我们还需要在客户端上设置只允许跳板机来连接我们的服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">echo &quot;sshd: 192.168.205.110&quot;  &gt;&gt; /etc/hosts.allow</div><div class="line">echo &quot;sshd: ALL&quot; &gt;&gt; /etc/host.deny</div></pre></td></tr></table></figure>
+<ul>
+<li>为了安全起见，我们还可以在客服端上创建与跳板机上相同的普通用户，并严格控制sudo权限</li>
+</ul>
+<p>（2）配置日志审计</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#创建审计日志存放位置</div><div class="line">mkdir /usr/local/records</div><div class="line">chmod 777 !$</div><div class="line">chmod +t !$</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#配置日志审计格式</div><div class="line">vi /etc/profile </div><div class="line">#添加以下内容</div><div class="line"></div><div class="line">if [ ! -d  /usr/local/records/$&#123;LOGNAME&#125; ]</div><div class="line">then</div><div class="line">mkdir -p /usr/local/records/$&#123;LOGNAME&#125;</div><div class="line">chmod 300 /usr/local/records/$&#123;LOGNAME&#125;</div><div class="line">fi</div><div class="line">export HISTORY_FILE=&quot;/usr/local/records/$&#123;LOGNAME&#125;/bash_history&quot;</div><div class="line">export PROMPT_COMMAND=&apos;&#123; date &quot;+%Y-%m-%d %T ##### $(who am i |awk &quot;&#123;print \$1\&quot; \&quot;\$2\&quot; \&quot;\$5&#125;&quot;) #### $(history 1 | &#123; read x cmd; echo &quot;$cmd&quot;; &#125;)&quot;; &#125; &gt;&gt;$HISTORY_FILE&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#重新加载/etc/profile</div><div class="line">source  /etc/profile</div></pre></td></tr></table></figure>
+<p>（3）查看效果</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171030/130152849.png?imageslim" alt="mark"></p>
+<p>#### </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">堡垒机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/30/简易堡垒机/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-Nginx-tomcat实现动静分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
         
-          <a class="article-more-a" href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/#more">more >></a>
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/Nginx-tomcat实现动静分离/">Nginx+tomcat实现动静分离</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/26/Nginx-tomcat实现动静分离/" class="archive-article-date">
+  	<time datetime="2017-10-26T14:29:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、什么是动静分离"><a href="#一、什么是动静分离" class="headerlink" title="一、什么是动静分离"></a>一、什么是动静分离</h3><p>本次实验的动静分离主要是通过nginx+comcat来实现，其中nginx处理图片、html等静态的文件，tomcat处理jsp，do等动态文件</p>
+<p>结构图如下：</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171026/223547391.png?imageslim" alt="mark"></p>
+        
+          <a class="article-more-a" href="/2017/10/26/Nginx-tomcat实现动静分离/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/26/Nginx-tomcat实现动静分离/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-Nginx使用nginx-status查看并发连接数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/Nginx使用nginx-status查看并发连接数/">Nginx使用nginx_status查看并发连接数</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/26/Nginx使用nginx-status查看并发连接数/" class="archive-article-date">
+  	<time datetime="2017-10-26T12:41:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、通过nginx的stub-status模块查看并发连接数"><a href="#一、通过nginx的stub-status模块查看并发连接数" class="headerlink" title="一、通过nginx的stub_status模块查看并发连接数"></a>一、通过nginx的stub_status模块查看并发连接数</h3><p>（1）查看是否编译安装了stub_status模块</p>
+<p>nginx中的stub_status模块可以用于查看nginx的一些状态信息，本模块默认是不会编译进nginx的，如果我们需要使用该模块，则要在编译安装nginx时指定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/nginx --with-http_stub_status_module</div></pre></td></tr></table></figure>
+<p>查看nginx是否包含stub_status模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/local/nginx/sbin/nginx -V</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171026/205448411.png?imageslim" alt="mark"></p>
+        
+          <a class="article-more-a" href="/2017/10/26/Nginx使用nginx-status查看并发连接数/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/26/Nginx使用nginx-status查看并发连接数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-Nginx简单防御CC攻击的两种方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/Nginx简单防御CC攻击的两种方法/">转载：Nginx简单防御CC攻击的两种方法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/26/Nginx简单防御CC攻击的两种方法/" class="archive-article-date">
+  	<time datetime="2017-10-26T09:12:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>原文文固定链接：<a href="http://www.linuxde.net/2011/11/1953.html" target="_blank" rel="external">http://www.linuxde.net/2011/11/1953.html</a></p>
+<p><strong>CC攻击</strong>可以归为<a href="http://www.linuxde.net/tag/ddos" target="_blank" rel="external">DDOS</a>攻击的一种。他们之间都原理都是一样的，即发送大量的请求数据来导致<a href="http://www.linuxde.net/tag/%e6%9c%8d%e5%8a%a1%e5%99%a8" target="_blank" rel="external">服务器</a>拒绝服务，是一种连接攻击。CC攻击又可分为代理CC攻击，和肉鸡CC攻击。代理CC攻击是<a href="http://www.linuxde.net/tag/%e9%bb%91%e5%ae%a2" target="_blank" rel="external">黑客</a>借助代理服务器生成指向受害主机的合法网页请求，实现DOS，和伪装就叫：cc（ChallengeCollapsar）。而肉鸡CC攻击是黑客使用CC攻击软件，控制大量肉鸡，发动攻击，相比来后者比前者更难防御。因为肉鸡可以模拟正常用户访问网站的请求。伪造成合法数据包。防御CC攻击可以通过多种方法，禁止网站代理访问，尽量将网站做成静态页面，限制连接数量等。</p>
+<p><strong>Nginx</strong>是一款轻量级的<strong>Web服务器</strong>，由俄罗斯的程序设计师Igor Sysoev所开发，最初供俄国大型的入口网站及搜寻引Rambler使用。 其特点是占有<a href="http://www.linuxde.net/tag/%e5%86%85%e5%ad%98" target="_blank" rel="external">内存</a>少，并发能力强，事实上Nginx的并发能力确实在同类型的网站服务器中表现较好。</p>
+<p>Nginx虽然可以比<a href="http://www.linuxde.net/tag/apache" target="_blank" rel="external">Apache</a>处理更大的连接数，但是HTTP GET FLOOD针对的不仅仅是WEB服务器，还有<a href="http://www.linuxde.net/tag/%e6%95%b0%e6%8d%ae%e5%ba%93" target="_blank" rel="external">数据库</a>服务器。大量HTTP请求产生了大量的数据库查询，可以在几秒之内使数据库停止响应，系统负载升高，最终导致服务器当机。</p>
+<p>本文主要介绍<a href="http://www.linuxde.net/tag/centos" target="_blank" rel="external">CentOS</a>+Nginx下如何快速有效得防御CC攻击。至于如何安装Nginx就不详细介绍了，有兴趣的读者可以在Nginx官方网站（<a href="http://www.nginx.org/）下载[源代码](http://www.linuxde.net/tag/%e6%ba%90%e4%bb%a3%e7%a0%81)进行编译。如果你使用的是Centos5，也可以使用rpm包进行安装（http://centos.[ALT](http://www.linuxde.net/tag/alt).ru/repository/centos/5/i386/nginx-stable-0.7.65-1.el5.i386.rpm）。" target="_blank" rel="external">http://www.nginx.org/）下载[源代码](http://www.linuxde.net/tag/%e6%ba%90%e4%bb%a3%e7%a0%81)进行编译。如果你使用的是Centos5，也可以使用rpm包进行安装（http://centos.[ALT](http://www.linuxde.net/tag/alt).ru/repository/centos/5/i386/nginx-stable-0.7.65-1.el5.i386.rpm）。</a></p>
+        
+          <a class="article-more-a" href="/2017/10/26/Nginx简单防御CC攻击的两种方法/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">LNMP.nginx</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">安全</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/26/Nginx简单防御CC攻击的两种方法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-nginx访问日志中的$quest_time和$upstream_response_time" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/">nginx访问日志中的$quest_time和$upstream_response_time</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/" class="archive-article-date">
+  	<time datetime="2017-10-26T08:34:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在nginx访问日志中，我们可以添加\$upstream_response_time和\$quest_time，记录连接处理的时间。</p>
+<p>\$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。</p>
+<p>\$quest_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。</p>
+<p><strong>我们可以通过比对这两个时间，看一下负载均衡架构中是前端还是后端处理的时间长</strong></p>
+        
+          <a class="article-more-a" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-29.5、自动化运维工具之使用ansible安装配置nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/29.5、自动化运维工具之使用ansible安装配置nginx/">自动化运维工具之使用ansible安装配置nginx</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/26/29.5、自动化运维工具之使用ansible安装配置nginx/" class="archive-article-date">
+  	<time datetime="2017-10-26T01:12:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>使用ansible安装配置nginx</p>
+<p>安装：先在一台机器上编译安装好nginx，然后打包，再用ansible进行分发</p>
+<h3 id="一、安装nginx"><a href="#一、安装nginx" class="headerlink" title="一、安装nginx"></a>一、安装nginx</h3><h4 id="1-1、远程安装nginx前准备"><a href="#1-1、远程安装nginx前准备" class="headerlink" title="1.1、远程安装nginx前准备"></a>1.1、远程安装nginx前准备</h4><p>（1）创建项目目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /etc/ansible</div><div class="line">#创建一个nginx_install的目录，方便管理</div><div class="line">mkdir nginx_install</div><div class="line">cd  nginx_install</div><div class="line">mkdir -p  roles/&#123;common,install&#125;/&#123;handlers,files,meta,tasks,templates,vars&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>roles作为一个总的项目目录，里面可创建项目角色。common角色里面的文件是为了安装nginx所做的准备，install角色里的文件为实际安装nginx。</li>
+<li>每个角色下面又有几个目录，都有各自的作用，根据角色需求配置</li>
+<li>handlers下面是当发生改变时要执行的操作，通常用在配置文件发生改变，重启服务。</li>
+<li>files为安装是用到的一些文件</li>
+<li>meta为说明信息，说明角色依赖等信息</li>
+<li>tasks里面是核心的配置文件</li>
+<li>templates通常存一些配置文件，启动脚本等模板文件</li>
+<li>vars下定义的是变量</li>
+<li>每个目录下的入口文件都为main.yml，固定格式</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/10/26/29.5、自动化运维工具之使用ansible安装配置nginx/#more">more >></a>
         
       
 
@@ -230,7 +639,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">puppet</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ansible</a>
         		</li>
       		
 		</ul>
@@ -240,7 +649,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/26/29.5、自动化运维工具之使用ansible安装配置nginx/">展开全文 >></a>
         </p>
       
 
@@ -258,20 +667,20 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-28.5、代码管理之gitlab" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-29.4、自动化运维工具之ansible的playbook使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/22/28.5、代码管理之gitlab/">代码管理之gitlab</a>
+      <a class="article-title" href="/2017/10/25/29.4、自动化运维工具之ansible的playbook使用/">自动化运维工具之ansible的playbook使用</a>
     </h1>
   
 
         
-        <a href="/2017/10/22/28.5、代码管理之gitlab/" class="archive-article-date">
-  	<time datetime="2017-10-22T12:09:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
+        <a href="/2017/10/25/29.4、自动化运维工具之ansible的playbook使用/" class="archive-article-date">
+  	<time datetime="2017-10-25T07:42:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-25</time>
 </a>
         
       </header>
@@ -279,154 +688,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<p>GitLab 是一个用于仓库管理系统的开源项目。使用<a href="http://baike.baidu.com/view/1531489.htm" target="_blank" rel="external">Git</a>作为代码管理工具，并在此基础上搭建起来的web服务。</p>
-<p>可通过Web界面进行访问公开的或者私人项目。它拥有与Github类似的功能，能够浏览源代码，管理缺陷和注释。可以管理团队对仓库的访问，它非常易于浏览提交过的版本并提供一个文件历史库。团队成员可以利用内置的简单聊天程序(Wall)进行交流。它还提供一个代码片段收集功能可以轻松实现代码复用。</p>
-<p>gitlab官网为：<a href="https://about.gitlab.com/gitlab-com/" target="_blank" rel="external">https://about.gitlab.com/gitlab-com/</a></p>
-<p>官方安装文档：<a href="https://about.gitlab.com/installation/?version=ce#centos-7" target="_blank" rel="external">https://about.gitlab.com/installation/?version=ce#centos-7</a> (ce/ee)</p>
-        
-          <a class="article-more-a" href="/2017/10/22/28.5、代码管理之gitlab/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">gitlab</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/22/28.5、代码管理之gitlab/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-28.4、版本控制之github管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/21/28.4、版本控制之github管理/">代码管理之github管理</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/21/28.4、版本控制之github管理/" class="archive-article-date">
-  	<time datetime="2017-10-21T11:46:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、github分支"><a href="#一、github分支" class="headerlink" title="一、github分支"></a>一、github分支</h3><p>什么是github的分支branch？github仓库默认有一个master的分支，当我们在master分支开发过程中接到一个新的需求，我们可以创建新的分支同步开发而互不影响，开发完成后，在合并到master分支上即可。以下是一些关于分支的操作：</p>
-        
-          <a class="article-more-a" href="/2017/10/21/28.4、版本控制之github管理/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/21/28.4、版本控制之github管理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-28.3、版本控制之github使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/21/28.3、版本控制之github使用/">代码管理平台之github配置</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/21/28.3、版本控制之github使用/" class="archive-article-date">
-  	<time datetime="2017-10-21T07:09:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、建立远程仓库"><a href="#一、建立远程仓库" class="headerlink" title="一、建立远程仓库"></a>一、建立远程仓库</h3><h4 id="1-1、注册github"><a href="#1-1、注册github" class="headerlink" title="1.1、注册github"></a>1.1、注册github</h4><p>github地址：<a href="https://github.com" target="_blank" rel="external">https://github.com</a></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171021/152000147.png?imageslim" alt="mark"></p>
+<p>playbook可以理解为将模块，函数写入到配置文件里面，然后单独执行配置文件，实现远程自动化操作。</p>
+<h4 id="一、playbook实例"><a href="#一、playbook实例" class="headerlink" title="一、playbook实例"></a>一、playbook实例</h4><h5 id="1-1、在远程touch一个文件"><a href="#1-1、在远程touch一个文件" class="headerlink" title="1.1、在远程touch一个文件"></a>1.1、在远程touch一个文件</h5><p>（1）创建test_playbook.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">cd  /etc/ansible</div><div class="line">vim test_playbook.yml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">---</div><div class="line">- hosts: 109.allen.com</div><div class="line">  remote_user: root</div><div class="line">  tasks:</div><div class="line">    - name: touch_playnook</div><div class="line">      shell: touch /tmp/allen.com.txt</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171025/162224640.png?imageslim" alt="mark"></p>
 <ul>
-<li>创建用户后，还需要认证以下邮箱</li>
+<li>hosts参数指定了对哪些主机进行操作；user参数指定了使用什么用户登录远程主机操作；tasks指定了一个任务，其下面的name参数同样是对任务的描述，在执行过程中会打印出来，shell为指定使用的模块</li>
 </ul>
         
-          <a class="article-more-a" href="/2017/10/21/28.3、版本控制之github使用/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/25/29.4、自动化运维工具之ansible的playbook使用/#more">more >></a>
         
       
 
@@ -440,15 +710,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ansible</a>
         		</li>
       		
 		</ul>
@@ -458,7 +724,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/21/28.3、版本控制之github使用/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/25/29.4、自动化运维工具之ansible的playbook使用/">展开全文 >></a>
         </p>
       
 
@@ -476,20 +742,20 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-28.2、版本控制之git命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-29.3、自动化运维工具之ansible" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/21/28.2、版本控制之git命令/">代码管理平台之git命令介绍</a>
+      <a class="article-title" href="/2017/10/25/29.3、自动化运维工具之ansible/">自动化运维工具之ansible</a>
     </h1>
   
 
         
-        <a href="/2017/10/21/28.2、版本控制之git命令/" class="archive-article-date">
-  	<time datetime="2017-10-21T06:31:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
+        <a href="/2017/10/25/29.3、自动化运维工具之ansible/" class="archive-article-date">
+  	<time datetime="2017-10-25T00:35:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-25</time>
 </a>
         
       </header>
@@ -497,12 +763,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="一、git介绍"><a href="#一、git介绍" class="headerlink" title="一、git介绍"></a>一、git介绍</h3><p>git是Linux创始人Linus发起的，2005年发布，最初目的是为可更好管理Linux内核代码</p>
-<p>git和svn不同在于git不需要依赖服务端就可以工作，即git是分布式的</p>
-<p>github是基于git的在线web页面代码托管平台，可以选择付费服务。</p>
-<p>gitlib可以认为是一个开源的github，需要自己创建服务。两者没有直接关系</p>
+<p>ansible的特点，轻量级，不需要安装客户端，可以通过sshd进行通信，基于模块工作，模块可以由任何语言开发，不仅支持命令行使用模块，也支持编写yaml格式的playbook，支持sudo。有提供UI（浏览器图形化）www.ansible.com/tower  10台主机以内免费。</p>
         
-          <a class="article-more-a" href="/2017/10/21/28.2、版本控制之git命令/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/25/29.3、自动化运维工具之ansible/#more">more >></a>
         
       
 
@@ -516,11 +779,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ansible</a>
         		</li>
       		
 		</ul>
@@ -530,7 +793,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/21/28.2、版本控制之git命令/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/25/29.3、自动化运维工具之ansible/">展开全文 >></a>
         </p>
       
 
@@ -548,144 +811,36 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-28.1、版本控制之svn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-nginx-keepalive-timeout-设置策略问题分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/20/28.1、版本控制之svn/">代码管理平台之svn</a>
+      <a class="article-title" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/">nginx keepalive_timeout 设置策略问题分析</a>
     </h1>
   
 
         
-        <a href="/2017/10/20/28.1、版本控制之svn/" class="archive-article-date">
-  	<time datetime="2017-10-20T07:46:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-20</time>
+        <a href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/" class="archive-article-date">
+  	<time datetime="2017-10-24T13:24:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<p>版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。</p>
-<p>版本管理工具发展过程，CVS→svn→git</p>
-<h3 id="一、svn介绍"><a href="#一、svn介绍" class="headerlink" title="一、svn介绍"></a>一、svn介绍</h3><p>svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/155243415.png?imageslim" alt="mark"></p>
-        
-          <a class="article-more-a" href="/2017/10/20/28.1、版本控制之svn/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">svn</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/20/28.1、版本控制之svn/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-16.1、tomcat配置多实例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/18/16.1、tomcat配置多实例/">tomcat配置多实例</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/18/16.1、tomcat配置多实例/" class="archive-article-date">
-  	<time datetime="2017-10-18T12:07:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>需求：配置两个实例，分别使用8001,8002端口</p>
-<h3 id="一、安装JDK和tomcat"><a href="#一、安装JDK和tomcat" class="headerlink" title="一、安装JDK和tomcat"></a>一、安装JDK和tomcat</h3><p><a href="http://note.youdao.com/noteshare?id=2b1a438c54816f1566e1420eb4068dc9&amp;sub=3D3D4BA57F5C493AADB23D1325A5C943" target="_blank" rel="external">安装步骤</a>，tomcat安装地址为/usr/local/tomcat-7.0.76</p>
-<p>多实例，就是安装多个tomcat，修改端口以及根目录即可</p>
-<h3 id="二、配置多实例"><a href="#二、配置多实例" class="headerlink" title="二、配置多实例"></a>二、配置多实例</h3><h4 id="1、创建多实例存放目录"><a href="#1、创建多实例存放目录" class="headerlink" title="1、创建多实例存放目录"></a>1、创建多实例存放目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/tomcatweb1</div><div class="line">mkdir  /data/tomcatweb2</div></pre></td></tr></table></figure>
-<h4 id="2、复制tomcat安装目录到实例存放目录"><a href="#2、复制tomcat安装目录到实例存放目录" class="headerlink" title="2、复制tomcat安装目录到实例存放目录"></a>2、复制tomcat安装目录到实例存放目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp -R /usr/local/tomcat-7.0.76/* /data/tomcatweb1</div><div class="line">cp -R /usr/local/tomcat-7.0.76/* /data/tomcatweb2</div></pre></td></tr></table></figure>
-<h4 id="3、创建ROOT-xml"><a href="#3、创建ROOT-xml" class="headerlink" title="3、创建ROOT.xml"></a>3、创建ROOT.xml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb1/conf/Catalina/域名/ROOT.xml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;Context path=&quot;/&quot; docBase=&quot;/data/app/8001&quot;&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/201926311.png?imageslim" alt="mark"></p>
-<ul>
-<li>注：实例2也进行同样的操作，存放位置为/data/app/8002</li>
-<li>关于ROOT.xml，在tomcat中，如果要使用域名的根目录访问，需要将项目文件放在ROOT目录中，否则只能采用二级目录访问，而建立此ROOT.xml，则可以任意指定，此文件中仅一句：&lt;Context path=”” docBase=”webapps_dir” /&gt;,其中path若为空，则默认为根目录。</li>
-</ul>
-<h4 id="4、创建项目存放位置以及测试项目"><a href="#4、创建项目存放位置以及测试项目" class="headerlink" title="4、创建项目存放位置以及测试项目"></a>4、创建项目存放位置以及测试项目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  -p  /data/app/8001;echo  &quot;shili1&quot; &gt;/data/app/8001/8001</div><div class="line">mkdir  -p  /data/app/8002;echo  &quot;shili1&quot; &gt;/data/app/8001/8002</div></pre></td></tr></table></figure>
-<h4 id="5、修改实例配置文件，更改server和监听端口"><a href="#5、修改实例配置文件，更改server和监听端口" class="headerlink" title="5、修改实例配置文件，更改server和监听端口"></a>5、修改实例配置文件，更改server和监听端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb1/conf/server.xml</div><div class="line">&lt;Server port=&quot;9001&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</div><div class="line"> &lt;Connector port=&quot;8001&quot; protocol=&quot;HTTP/1.1&quot;</div><div class="line">添加注释：&lt;!--&lt;Connector port=&quot;8090&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt; --&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb2/conf/server.xml</div><div class="line">&lt;Server port=&quot;9002&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</div><div class="line"> &lt;Connector port=&quot;8002&quot; protocol=&quot;HTTP/1.1&quot;</div><div class="line">添加注释：&lt;!--&lt;Connector port=&quot;8090&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt; --&gt;</div></pre></td></tr></table></figure>
-<h4 id="6、启动tomcat应用实例8001和8002端口"><a href="#6、启动tomcat应用实例8001和8002端口" class="headerlink" title="6、启动tomcat应用实例8001和8002端口"></a>6、启动tomcat应用实例8001和8002端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">8001：/usr/local/tomcat-7.0.76/bin/startup.sh -config /data/tomcatweb1/conf/server.xml</div><div class="line">8002：/usr/local/tomcat-7.0.76/bin/startup.sh -config /data/tomcatweb2/conf/server.xml</div></pre></td></tr></table></figure>
-<ul>
-<li>如果是关闭的话，则使用shutdown.sh脚本即可</li>
-</ul>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/202639643.png?imageslim" alt="mark"></p>
-<h4 id="7、增加启动脚本"><a href="#7、增加启动脚本" class="headerlink" title="7、增加启动脚本"></a>7、增加启动脚本</h4><p>因为我们实例的文件都是直接拷贝的，所以/bin/startup.sh和/bin/shutdown.sh中指定tomcat安装位置有差异。会导致日志写到其他实例下。所以我们可以创建新的启动脚本，声明一下实例安装位置。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim   /data/tomcatweb1/bin/start.sh</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">export CATALINA_BASE= /data/tomcatweb1</div><div class="line">cd $CATALINA_HOME/bin</div><div class="line">./startup.sh  -config  $CATALINA_BASE/conf/server.xml</div></pre></td></tr></table></figure>
-<h3 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h3><p>1、实例1添加虚拟主机</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb1/conf/server.xml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">&lt;Host name=&quot;www.456.com&quot; appBase=&quot;webapps&quot;</div><div class="line">unpackWARs=&quot;false&quot; autoDeploy=&quot;true&quot;</div><div class="line">xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/202745689.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/202810949.png?imageslim" alt="mark"></p>
-<p>2、实例2添加虚拟主机</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb2/conf/server.xml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">&lt;Host name=&quot;www.789.com&quot; appBase=&quot;webapps&quot;</div><div class="line">unpackWARs=&quot;false&quot; autoDeploy=&quot;true&quot;</div><div class="line">xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/203046786.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/203107653.png?imageslim" alt="mark"></p>
-<p>注：因为没有绑定host，所有不能直接通过浏览器访问，只能通过curl来访问</p>
-<h3 id="四、修改配置文件实现单机多实例"><a href="#四、修改配置文件实现单机多实例" class="headerlink" title="四、修改配置文件实现单机多实例"></a>四、修改配置文件实现单机多实例</h3><p>以上的配置其实是安装了多个tomcat服务，监听不同的端口。其实我们也可以在一个tomcat服务上就定义多实例出来。</p>
-<h4 id="1、实现思路"><a href="#1、实现思路" class="headerlink" title="1、实现思路"></a>1、实现思路</h4><p>需求：同一个tomcat服务下，可以访问多个域名。</p>
-<p>首先，我们来看看tomcat配置文件server.xml的结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Server&gt;</div><div class="line">    &lt;Service name=”xxx”&gt;</div><div class="line">        &lt;Host  name=”aaa.com” appBase=”dir1″&gt;</div><div class="line">        &lt;/Host&gt;</div><div class="line">    &lt;/Service&gt;</div><div class="line">&lt;Server&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>Service下面可以定义监听的端口，包含了&lt;Host&gt; &lt;/Host&gt;，而&lt;Host&gt; &lt;/Host&gt;里面定义虚拟主机，即，定义站点的域名和站点的目录。</li>
-</ul>
-<p>具体有两种方案实现：</p>
-<p>（1）可以在&lt;Service&gt; &lt;/Service&gt;里面定义多个&lt;Host&gt; &lt;/Host&gt;，这样就定义了多个站点，但端口不能变。</p>
-<p>（2）可以在&lt;Server&gt; &lt;/Server&gt;里面定义多个&lt;Service&gt; &lt;/Service&gt;，&lt;Service&gt; &lt;/Service&gt;里再定义&lt;Host&gt; &lt;/Host&gt;，这样做的好处是可以更改监听端口</p>
-<h4 id="2、具体实现"><a href="#2、具体实现" class="headerlink" title="2、具体实现"></a>2、具体实现</h4><p>同一个服务器上跑两个站点</p>
-<p>www.aaa.com  监听端口是8080</p>
-<p>www.bbb.com  监听端口是8081</p>
-<p>配置文件内容为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">&lt;Server port=&quot;8005&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</div><div class="line">  &lt;Listener className=&quot;org.apache.catalina.startup.VersionLoggerListener&quot; /&gt;</div><div class="line">.......省略部分配置内容</div><div class="line">&lt;GlobalNamingResources&gt;</div><div class="line">&lt;!– Editable user database that can also be used by</div><div class="line">UserDatabaseRealm to authenticate users</div><div class="line">–&gt;</div><div class="line">&lt;Resource name=”UserDatabase” auth=”Container”</div><div class="line">type=”org.apache.catalina.UserDatabase”</div><div class="line">description=”User database that can be updated and saved”</div><div class="line">factory=”org.apache.catalina.users.MemoryUserDatabaseFactory”</div><div class="line">pathname=”conf/tomcat-users.xml” /&gt;</div><div class="line">&lt;/GlobalNamingResources&gt;</div><div class="line">&lt;!– A “Service” is a collection of one or more “Connectors” that share</div><div class="line">a single “Container” Note: A “Service” is not itself a “Container”,</div><div class="line">so you may not define subcomponents such as “Valves” at this level.</div><div class="line">Documentation at /docs/config/service.html</div><div class="line">–&gt;</div><div class="line"></div><div class="line">#第一个实例www.aa.com</div><div class="line">&lt;Service name=”Catalina”&gt;</div><div class="line">&lt;Connector port=”8080″ protocol=”HTTP/1.1″</div><div class="line">connectionTimeout=”20000″</div><div class="line">redirectPort=”8443″ /&gt;</div><div class="line">&lt;Connector port=”8009″ protocol=”AJP/1.3″ redirectPort=”8443″ /&gt;</div><div class="line">&lt;Engine name=”Catalina” defaultHost=”localhost”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.LockOutRealm”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.UserDatabaseRealm”</div><div class="line">resourceName=”UserDatabase”/&gt;</div><div class="line">&lt;/Realm&gt;</div><div class="line">&lt;Host name=”www.aaa.com” appBase=”webapps”</div><div class="line">unpackWARs=”true” autoDeploy=”true”&gt;</div><div class="line">&lt;Valve className=”org.apache.catalina.valves.AccessLogValve” directory=”logs”</div><div class="line">prefix=”aaa.com_access” suffix=”.log”</div><div class="line">pattern=”%h %l %u %t &amp;quot;%r&amp;quot; %s %b” /&gt;</div><div class="line">&lt;/Host&gt;</div><div class="line">&lt;/Engine&gt;</div><div class="line">&lt;/Service&gt;</div><div class="line"></div><div class="line">#第二个实例</div><div class="line">&lt;Service name=”allen”&gt;</div><div class="line">&lt;Connector port=”8081″ protocol=”HTTP/1.1″</div><div class="line">connectionTimeout=”20000″</div><div class="line">redirectPort=”8443″ /&gt;</div><div class="line">&lt;Engine name=”aming” defaultHost=”localhost”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.LockOutRealm”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.UserDatabaseRealm”</div><div class="line">resourceName=”UserDatabase”/&gt;</div><div class="line">&lt;/Realm&gt;</div><div class="line">&lt;Host name=”www.bbb.com” appBase=”/data/tomcat”</div><div class="line">unpackWARs=”true” autoDeploy=”true”&gt;</div><div class="line">&lt;Valve className=”org.apache.catalina.valves.AccessLogValve” directory=”logs”</div><div class="line">prefix=”bbb.com_access” suffix=”.log”</div><div class="line">pattern=”%h %l %u %t &amp;quot;%r&amp;quot; %s %b” /&gt;</div><div class="line">&lt;/Host&gt;</div><div class="line">&lt;/Engine&gt;</div><div class="line">&lt;/Service&gt;</div><div class="line">&lt;/Server&gt;</div></pre></td></tr></table></figure>
+        <p><strong>转载：<a href="http://www.okay686.cn/786.html" target="_blank" rel="external">http://www.okay686.cn/786.html</a></strong></p>
+<p>1.项目环境：nginx（前段代理，仅作代理用途）+3个tomcat（都在同一个服务器上），做的web项目<br>2.涉及到的业务逻辑：文件上传（可能有大文件，比如说android游戏，100m）；客户端接口请求；网站后台管理<br>3.问题重现流程：<br>3.1 配置好tomcat后，直接加上nginx前段代理（仅配置了http代理）<br>3.2 问题一：当管理员后台上传文件时，大文件无法上传成功，出现time-out，经重复测试，发现上传时间超过1分钟以后，就会返回超时信息，小文件没有问题<br>3.2 经调研得知nginx默认设置的http连接超时时间为75s，超过75s，会断掉当前的http连接，而大文件上传时经常会超过75s，这就导致大文件无法上传成功，当时的解决方案是，设置nginx http连接超时时间为30分钟，即参数keepalive_timeout=1800；文件上传问题基本解决；<br>3.4项目运行2天后，发现服务器突然宕机了，重启nginx可以解决问题，但是2个小时后又再次宕机，重启nginx又解决了问题，调研了一个中午，并且查看nginx的错误日志（socket() failed (24: Too many open files) while connecting to upstream），发现问题来源与nginx的连接数（设置的默认值为1024）达到上限<br>3.5发现这个问题后，我就想应该把nginx的连接数调大点，于是设置 worker_connections  10240；重启nginx，短时间没有出现问题，但是运行过程中，我再次查看错误日志，发现（socket() failed (24: Too many open files) while connecting to upstream）时不时的出现<br>3.6 此时发现调整nginx的连接数并不能完全解决问题，于是google，百度之，发现问题所在，罪魁祸首是：nginx的keepalive_timeout设置项时间太长，客户端接口访问其实是一个比较快速的过程，访问完成了已经不需要继续使用http连接了，但是由于对nginx的错误配置，导致接口访问完成后http连接并没有被释放掉，所以导致连接数越来越大，最终nginx崩溃。</p>
+<p>4.那么这个问题应该如何解决呢？<br>将keepalive_timeout时间调小会导致上传操作可能无法完成；调大点的话，许多无效的http连接占据着nginx的连接数<br>这貌似是一个两难的问题！</p>
+<h4 id="下面重点来了："><a href="#下面重点来了：" class="headerlink" title="下面重点来了："></a><strong>下面重点来了：</strong></h4><h5 id="Nginx的TCP-KeepAlive如何设置"><a href="#Nginx的TCP-KeepAlive如何设置" class="headerlink" title="Nginx的TCP KeepAlive如何设置"></a>Nginx的TCP KeepAlive如何设置</h5><p>开篇提到我最近遇到的问题，Client发送一个请求到Nginx服务端，服务端需要经过一段时间的计算才会返回， 时间超过了LVS Session保持的90s,在服务端使用Tcpdump抓包,本地通过wireshark分析显示的结果如第二副图所示，第5条报文和最后一条报文之间的时间戳大概差了90s。在确定是LVS的Session保持时间到期的问题之后，我开始在寻找Nginx的TCP KeepAlive如何设置，最先找到的选项是keepalivetimeout,从同事那里得知keepalivetimeout的用法是当keepalivetimeout的值为0时表示关闭keepalive,当keepalivetimeout的值为一个正整数值时表示链接保持多少秒，于是把keepalivetimeout设置成75s,但是实际的测试结果表明并不生效。显然keepalivetimeout不能解决TCP层面的KeepAlive问题，实际上Nginx涉及到keepalive的选项还不少，Nginx通常的使用方式如下：</p>
+<p><img src="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/5CdFcF7FID.png" alt="img"></p>
+<p>从TCP层面Nginx不仅要和Client关心KeepAlive,而且还要和Upstream关心KeepAlive, 同时从HTTP协议层面，Nginx需要和Client关心Keep-Alive,如果Upstream使用的HTTP协议，还要关心和Upstream的Keep-Alive，总而言之，还比较复杂。所以搞清楚TCP层的KeepAlive和HTTP的Keep-Alive之后，就不会对于Nginx的KeepAlive设置错。我当时解决这个问题时候不确定Nginx有配置TCP keepAlive的选项，于是我打开Ngnix的源代码，在源代码里面搜索TCP_KEEPIDLE,相关的代码如下：</p>
+<p><img src="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/5B4406FDha.png" alt="img"></p>
+<p>从代码的上下文我发现TCP KeepAlive可以配置，所以我接着查找通过哪个选项配置，最后发现listen指令的so_keepalive选项能对TCP socket进行KeepAlive的配置。</p>
+<p><img src="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/lkGEIkG7Ad.png" alt="img"></p>
+<p>以上三个参数只能使用一个，不能同时使用， 比如so_keepalive=on, so_keepalive=off或者so_keepalive=30s::(表示等待30s没有数据报文发送探测报文)。通过设置listen 80,so_keepalive=60s::之后成功解决Nginx在LVS保持长链接的问题，避免了使用其他高成本的方案。在商用负载设备上如果遇到类似的问题同样也可以通过这种方式解决。</p>
 
       
 
@@ -699,11 +854,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
         		</li>
       		
 		</ul>
@@ -713,151 +868,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/18/16.1、tomcat配置多实例/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-27.7、NoSQL之mongodb分片" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/15/27.7、NoSQL之mongodb分片/">NoSQL之mongodb分片</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/15/27.7、NoSQL之mongodb分片/" class="archive-article-date">
-  	<time datetime="2017-10-15T01:10:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、mongodb分片"><a href="#一、mongodb分片" class="headerlink" title="一、mongodb分片"></a>一、mongodb分片</h3><p>1.1、mongodb分片介绍</p>
-<p>分片就是将数据库进行拆分，将大型集合分隔到不同服务器上。比如，本来100G的数据，可以分割成10份存储到10台服务器上，这样每台服务器只有10G的数据。类似mysql的分库分表。</p>
-<p>通过一个mongos的进程（路由）实现分片后的数据存储与访问，也就是说mongos是整个分片架构的核心，对客户端而言是不知道是否有分片的，客户端只需要把读写操作转达给mongos即可。</p>
-<p>虽然分片会把数据分隔到很多台服务器上，但是每一个节点都还需要有一个备用角色的，这样能保证数据的高可用。</p>
-<p>当系统需要更多空间或者资源的时候，分片可以让我们按需方便扩展，只需要把mongodb服务的机器加入到分片集群中即可。</p>
-        
-          <a class="article-more-a" href="/2017/10/15/27.7、NoSQL之mongodb分片/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/15/27.7、NoSQL之mongodb分片/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-27.6、NoSQL之MongoDB配置副本集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/">NoSQL之MongoDB配置副本集</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/" class="archive-article-date">
-  	<time datetime="2017-10-14T08:31:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、mongodb副本集介绍"><a href="#一、mongodb副本集介绍" class="headerlink" title="一、mongodb副本集介绍"></a>一、mongodb副本集介绍</h3><p>早期MongoDB版本使用master-slave，一主一从和mysql类似，但是slave在此架构中为只读，当主宕机后，从不能自动切换为主。所以，目前已经淘汰了master-slave模式，改为副本集，这种模式下有一个主（primary），一个从（secondary），只读。支持给它们设置权重，当主宕机后，权重高的从切换为主。</p>
-<p>在此架构中还可以加入一个仲裁（arbiter）的角色，它只负责裁决，而不存储数据。</p>
-<p>在此架构中读写数据都是在主上，要想实现负载均衡的目的需要手动指定读库的目标server</p>
-        
-          <a class="article-more-a" href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/">展开全文 >></a>
         </p>
       
 
@@ -877,7 +888,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -983,11 +994,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1000,10 +1015,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1023,6 +1034,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -1031,11 +1046,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1043,15 +1058,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1083,6 +1094,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
@@ -1091,11 +1106,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1103,11 +1114,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ansible</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">LNMP.nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">安全</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1119,11 +1146,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1135,7 +1166,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1143,7 +1174,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1155,15 +1190,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
             
             <div class="clearfix"></div>

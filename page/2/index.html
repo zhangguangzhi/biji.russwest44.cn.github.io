@@ -131,20 +131,20 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-利用binlog恢复数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-29.2、自动化运维工具之saltstack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/13/利用binlog恢复数据/">Mysql之binlog日志说明及利用binlog日志恢复数据操作记录</a>
+      <a class="article-title" href="/2017/10/24/29.2、自动化运维工具之saltstack/">自动化运维工具之saltstack</a>
     </h1>
   
 
         
-        <a href="/2017/10/13/利用binlog恢复数据/" class="archive-article-date">
-  	<time datetime="2017-10-13T07:15:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-13</time>
+        <a href="/2017/10/24/29.2、自动化运维工具之saltstack/" class="archive-article-date">
+  	<time datetime="2017-10-24T06:56:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
 </a>
         
       </header>
@@ -152,9 +152,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<p>众所周知，binlog日志对于mysql数据库来说是十分重要的。在数据丢失的紧急情况下，我们往往会想到用binlog日志功能进行数据恢复（定时全备份+binlog日志恢复增量数据部分），化险为夷！</p>
+<p>相比puppet出来晚几年，基于Python开发，saltstack和puppet很像，随着saltstack的使用量越来越多，它的发展也是越来越迅猛，可以说saltstack可以实现puppet的所有功能，并且更容易配置。</p>
+<p>三种工作方式：本地，c/s，基于ssh</p>
+<p>三大功能：远程命令执行，配置管理（服务，文件，cron，用户，组），云管理</p>
+<p>支持系统：大多数都支持，Windows上不支持安装master</p>
         
-          <a class="article-more-a" href="/2017/10/13/利用binlog恢复数据/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/24/29.2、自动化运维工具之saltstack/#more">more >></a>
         
       
 
@@ -168,11 +171,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql备份</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">saltstack</a>
         		</li>
       		
 		</ul>
@@ -182,7 +185,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/13/利用binlog恢复数据/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/24/29.2、自动化运维工具之saltstack/">展开全文 >></a>
         </p>
       
 
@@ -200,20 +203,20 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-mysqldump的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-29.1、自动化运维工具之puppet安装配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/13/mysqldump的使用/">mysqldump的使用</a>
+      <a class="article-title" href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/">自动化运维工具之puppet安装配置</a>
     </h1>
   
 
         
-        <a href="/2017/10/13/mysqldump的使用/" class="archive-article-date">
-  	<time datetime="2017-10-13T06:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-13</time>
+        <a href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/" class="archive-article-date">
+  	<time datetime="2017-10-23T06:25:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-23</time>
 </a>
         
       </header>
@@ -221,168 +224,231 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="一、mysqldump介绍"><a href="#一、mysqldump介绍" class="headerlink" title="一、mysqldump介绍"></a>一、mysqldump介绍</h3><p>mysqldump客户端可用来转储数据库或搜寻数据库进行备份或将数据转移到另一个SQL服务器（不一定是mysql服务器）。转储包括创建表和或装载表的SQL语句。</p>
-<p>mysql提供两种格式的文件输出，分别是sql格式的标准输出和文件分隔符形式的输出，也可直接在两个mysql数据库之间数据复制</p>
-        
-          <a class="article-more-a" href="/2017/10/13/mysqldump的使用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql备份</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/13/mysqldump的使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-27.4.1redis集群高可用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/12/27.4.1redis集群高可用/">redis集群高可用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/12/27.4.1redis集群高可用/" class="archive-article-date">
-  	<time datetime="2017-10-12T05:53:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>方案说明</p>
-<p>1、sentinel负责对redis集群中的主从服务监控，提醒和自动故障转移</p>
-<p>2、redis集群负责对外提供相关服务</p>
-<h3 id="一、sentinel原理介绍"><a href="#一、sentinel原理介绍" class="headerlink" title="一、sentinel原理介绍"></a>一、sentinel原理介绍</h3><p>sentinel是一个分布式系统，可以在一个架构中运行多个sentinel进程，这些进程使用流言协议（gossip protocols）来接收关于redis主服务器是否下线的信息，并使用投票协议（agreement protocols）来决定是否执行自动故障迁移，以及选举哪个从服务器成为新的主服务器。</p>
-<p><strong>流言协议：</strong>sentinel服务通过ping命令来确认监控的服务器是否正常，当足够多数量的sentinel都确认监控的同一服务器停止服务了（主观下线），则判定此服务器停止服务。</p>
-<p><strong>投票协议：</strong>其实就选举，sentinel集群根据一定的规则从redis群中选择一个新的服务器成为主服务器，并使其它的服务器做为新的从服务器，并修改自身的配置文件。</p>
-        
-          <a class="article-more-a" href="/2017/10/12/27.4.1redis集群高可用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/12/27.4.1redis集群高可用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-27.3、NoSQL之redis操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/12/27.3、NoSQL之redis操作/">NoSQL之redis操作</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/12/27.3、NoSQL之redis操作/" class="archive-article-date">
-  	<time datetime="2017-10-12T01:05:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、redis类型常用操作"><a href="#一、redis类型常用操作" class="headerlink" title="一、redis类型常用操作"></a>一、redis类型常用操作</h3><h4 id="1-1、string类型操作"><a href="#1-1、string类型操作" class="headerlink" title="1.1、string类型操作"></a>1.1、string类型操作</h4><p>（1）设置key</p>
-<p>格式：set key value</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set key1 allen</div></pre></td></tr></table></figure>
+<p>自动化运维介绍，自动化运维可以做什么？自动化运维可以解决下面所有问题：</p>
 <ul>
-<li>如果key1本来就存在，那么第二次赋值会覆盖原有的值</li>
+<li>传统运维效率低，大多工作人为完成</li>
+<li>传统运维工作繁琐，容易出错</li>
+<li>传统运维每日重复做相同的事情</li>
+<li>传统运维没有标准化流程</li>
+<li>传统运维的脚本繁多，不能方便管理</li>
 </ul>
-<p>（2）查看key</p>
-<p>格式：get  key</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">get key1</div></pre></td></tr></table></figure>
-<p>（3）设置key时，验证key是否已存在</p>
-<p>格式：setnx  key  value</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">setnx key2 aaa</div><div class="line">setnx key2 bbb</div></pre></td></tr></table></figure>
+<h3 id="一、puppet介绍"><a href="#一、puppet介绍" class="headerlink" title="一、puppet介绍"></a>一、puppet介绍</h3><h4 id="1-1、puppet简介"><a href="#1-1、puppet简介" class="headerlink" title="1.1、puppet简介"></a>1.1、puppet简介</h4><p>​ puppet是一个为实现数据中心自动化管理而设计的配置管理软件，能够管理IT基础设施的整个生命周期：供应（provisioning）配置（configuration）、联动（orchestration）及报告（reporting）。puppet基于C/S架构，类似于zabbiz，有master与agent节点之分。它是一个开源的（谈不上真正的开源，因为有商业版与社区版之分）、新一代的、集中化的配置管理工具，由ruby语言研发，它拥有自己的配置语言（PCL，puppet configuration language）。<br>​ puppet能够把IT日常的系统管理代码化，而代码可重用，这样可以减少运维人员的工作量，而且能快速、大规模部署服务器。在puppet的世界有其自己的哲学思想：在IT系统管理中，puppet只关注结果，不关心过程！这名话怎样理解，比如puppet的master端向各agent下达把nginx这个包安装上并启动服务，puppet的agent端面只向master端报告软件是否安装完成，服务是否已启动，puppet不关心软件是怎样安装上的，服务是怎样启动的，它只关心结果。</p>
+        
+          <a class="article-more-a" href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">puppet</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-28.5、代码管理之gitlab" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/22/28.5、代码管理之gitlab/">代码管理之gitlab</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/22/28.5、代码管理之gitlab/" class="archive-article-date">
+  	<time datetime="2017-10-22T12:09:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>GitLab 是一个用于仓库管理系统的开源项目。使用<a href="http://baike.baidu.com/view/1531489.htm" target="_blank" rel="external">Git</a>作为代码管理工具，并在此基础上搭建起来的web服务。</p>
+<p>可通过Web界面进行访问公开的或者私人项目。它拥有与Github类似的功能，能够浏览源代码，管理缺陷和注释。可以管理团队对仓库的访问，它非常易于浏览提交过的版本并提供一个文件历史库。团队成员可以利用内置的简单聊天程序(Wall)进行交流。它还提供一个代码片段收集功能可以轻松实现代码复用。</p>
+<p>gitlab官网为：<a href="https://about.gitlab.com/gitlab-com/" target="_blank" rel="external">https://about.gitlab.com/gitlab-com/</a></p>
+<p>官方安装文档：<a href="https://about.gitlab.com/installation/?version=ce#centos-7" target="_blank" rel="external">https://about.gitlab.com/installation/?version=ce#centos-7</a> (ce/ee)</p>
+        
+          <a class="article-more-a" href="/2017/10/22/28.5、代码管理之gitlab/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">gitlab</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/22/28.5、代码管理之gitlab/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-28.4、版本控制之github管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/21/28.4、版本控制之github管理/">代码管理之github管理</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/21/28.4、版本控制之github管理/" class="archive-article-date">
+  	<time datetime="2017-10-21T11:46:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、github分支"><a href="#一、github分支" class="headerlink" title="一、github分支"></a>一、github分支</h3><p>什么是github的分支branch？github仓库默认有一个master的分支，当我们在master分支开发过程中接到一个新的需求，我们可以创建新的分支同步开发而互不影响，开发完成后，在合并到master分支上即可。以下是一些关于分支的操作：</p>
+        
+          <a class="article-more-a" href="/2017/10/21/28.4、版本控制之github管理/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/21/28.4、版本控制之github管理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-28.3、版本控制之github使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/21/28.3、版本控制之github使用/">代码管理平台之github配置</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/21/28.3、版本控制之github使用/" class="archive-article-date">
+  	<time datetime="2017-10-21T07:09:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、建立远程仓库"><a href="#一、建立远程仓库" class="headerlink" title="一、建立远程仓库"></a>一、建立远程仓库</h3><h4 id="1-1、注册github"><a href="#1-1、注册github" class="headerlink" title="1.1、注册github"></a>1.1、注册github</h4><p>github地址：<a href="https://github.com" target="_blank" rel="external">https://github.com</a></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171021/152000147.png?imageslim" alt="mark"></p>
 <ul>
-<li>如果返回1，说明key2不存在，会直接创建</li>
-<li>如果返回0，说明key2已经存在，不做操作</li>
+<li>创建用户后，还需要认证以下邮箱</li>
 </ul>
         
-          <a class="article-more-a" href="/2017/10/12/27.3、NoSQL之redis操作/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/21/28.3、版本控制之github使用/#more">more >></a>
         
       
 
@@ -396,11 +462,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
         		</li>
       		
 		</ul>
@@ -410,7 +480,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/12/27.3、NoSQL之redis操作/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/21/28.3、版本控制之github使用/">展开全文 >></a>
         </p>
       
 
@@ -428,20 +498,20 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-27.2、Nosql之redis介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-28.2、版本控制之git命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/09/27.2、Nosql之redis介绍/">Nosql之redis介绍</a>
+      <a class="article-title" href="/2017/10/21/28.2、版本控制之git命令/">代码管理平台之git命令介绍</a>
     </h1>
   
 
         
-        <a href="/2017/10/09/27.2、Nosql之redis介绍/" class="archive-article-date">
-  	<time datetime="2017-10-09T13:37:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-09</time>
+        <a href="/2017/10/21/28.2、版本控制之git命令/" class="archive-article-date">
+  	<time datetime="2017-10-21T06:31:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
 </a>
         
       </header>
@@ -449,14 +519,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="一、redis介绍"><a href="#一、redis介绍" class="headerlink" title="一、redis介绍"></a>一、redis介绍</h3><p>redis和memcached类似，也属于k-v数据存储，Redis官网redis.io, 当前最新稳定版4.0.1。</p>
-<p>相比memcached，支持更多value类型，除了和string外，还支持hash、lists（链表）、sets（集合）和sorted sets（有序集合）。</p>
-<p>并且redis支持持久化：</p>
-<p>全量数据（RDB）：把内存中的数据写入磁盘，便于下次读取文件进行加载。</p>
-<p>增量请求（AOF）：增量请求文件则是把内存中的数据序列化为操作请求，用于读取文件进行replay得到数据，这种类似于mysql binlog</p>
-<p>redis的存储分为内存存储，硬盘存储（RDB）和log（AOF）文件三部分</p>
+<h3 id="一、git介绍"><a href="#一、git介绍" class="headerlink" title="一、git介绍"></a>一、git介绍</h3><p>git是Linux创始人Linus发起的，2005年发布，最初目的是为可更好管理Linux内核代码</p>
+<p>git和svn不同在于git不需要依赖服务端就可以工作，即git是分布式的</p>
+<p>github是基于git的在线web页面代码托管平台，可以选择付费服务。</p>
+<p>gitlib可以认为是一个开源的github，需要自己创建服务。两者没有直接关系</p>
         
-          <a class="article-more-a" href="/2017/10/09/27.2、Nosql之redis介绍/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/21/28.2、版本控制之git命令/#more">more >></a>
         
       
 
@@ -470,11 +538,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		
 		</ul>
@@ -484,7 +552,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/09/27.2、Nosql之redis介绍/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/21/28.2、版本控制之git命令/">展开全文 >></a>
         </p>
       
 
@@ -502,20 +570,20 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-27.5、NoSQL之MongoDB介绍安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-28.1、版本控制之svn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/">NoSQL之MongoDB介绍安装</a>
+      <a class="article-title" href="/2017/10/20/28.1、版本控制之svn/">代码管理平台之svn</a>
     </h1>
   
 
         
-        <a href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/" class="archive-article-date">
-  	<time datetime="2017-10-08T03:15:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-08</time>
+        <a href="/2017/10/20/28.1、版本控制之svn/" class="archive-article-date">
+  	<time datetime="2017-10-20T07:46:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-20</time>
 </a>
         
       </header>
@@ -523,13 +591,196 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="一、MongoDB介绍"><a href="#一、MongoDB介绍" class="headerlink" title="一、MongoDB介绍"></a>一、MongoDB介绍</h3><p>1.1、简单介绍</p>
-<p>MongoDB的官网为www.mongodb.com，当前最新版本为3.4.</p>
-<p>基于c++编写，基于分布式，属于NoSQL的一种，在NoSQL中是最想关系型数据库的。</p>
-<p>MongoDB将数据存储为一个文档，数据结构由键值（key-value）对组成。MongoDB文档类似于JSON对象。字符段值可以包含其他文档，数组以及文档数组。由于基于分布式，所以很容易扩展。</p>
-<p><a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="external">JSON介绍</a></p>
+<p>版本控制，记录若干文件内容变化，以便将来查询特定版本修改情况。</p>
+<p>版本管理工具发展过程，CVS→svn→git</p>
+<h3 id="一、svn介绍"><a href="#一、svn介绍" class="headerlink" title="一、svn介绍"></a>一、svn介绍</h3><p>svn是subversion的简称，是一个开源版本控制系统，始于2000年。使用C/S模式，大致流程图如下：</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171020/155243415.png?imageslim" alt="mark"></p>
         
-          <a class="article-more-a" href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/20/28.1、版本控制之svn/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">svn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/20/28.1、版本控制之svn/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-16.1、tomcat配置多实例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/18/16.1、tomcat配置多实例/">tomcat配置多实例</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/18/16.1、tomcat配置多实例/" class="archive-article-date">
+  	<time datetime="2017-10-18T12:07:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>需求：配置两个实例，分别使用8001,8002端口</p>
+<h3 id="一、安装JDK和tomcat"><a href="#一、安装JDK和tomcat" class="headerlink" title="一、安装JDK和tomcat"></a>一、安装JDK和tomcat</h3><p><a href="http://note.youdao.com/noteshare?id=2b1a438c54816f1566e1420eb4068dc9&amp;sub=3D3D4BA57F5C493AADB23D1325A5C943" target="_blank" rel="external">安装步骤</a>，tomcat安装地址为/usr/local/tomcat-7.0.76</p>
+<p>多实例，就是安装多个tomcat，修改端口以及根目录即可</p>
+<h3 id="二、配置多实例"><a href="#二、配置多实例" class="headerlink" title="二、配置多实例"></a>二、配置多实例</h3><h4 id="1、创建多实例存放目录"><a href="#1、创建多实例存放目录" class="headerlink" title="1、创建多实例存放目录"></a>1、创建多实例存放目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/tomcatweb1</div><div class="line">mkdir  /data/tomcatweb2</div></pre></td></tr></table></figure>
+<h4 id="2、复制tomcat安装目录到实例存放目录"><a href="#2、复制tomcat安装目录到实例存放目录" class="headerlink" title="2、复制tomcat安装目录到实例存放目录"></a>2、复制tomcat安装目录到实例存放目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp -R /usr/local/tomcat-7.0.76/* /data/tomcatweb1</div><div class="line">cp -R /usr/local/tomcat-7.0.76/* /data/tomcatweb2</div></pre></td></tr></table></figure>
+<h4 id="3、创建ROOT-xml"><a href="#3、创建ROOT-xml" class="headerlink" title="3、创建ROOT.xml"></a>3、创建ROOT.xml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb1/conf/Catalina/域名/ROOT.xml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;Context path=&quot;/&quot; docBase=&quot;/data/app/8001&quot;&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/201926311.png?imageslim" alt="mark"></p>
+<ul>
+<li>注：实例2也进行同样的操作，存放位置为/data/app/8002</li>
+<li>关于ROOT.xml，在tomcat中，如果要使用域名的根目录访问，需要将项目文件放在ROOT目录中，否则只能采用二级目录访问，而建立此ROOT.xml，则可以任意指定，此文件中仅一句：&lt;Context path=”” docBase=”webapps_dir” /&gt;,其中path若为空，则默认为根目录。</li>
+</ul>
+<h4 id="4、创建项目存放位置以及测试项目"><a href="#4、创建项目存放位置以及测试项目" class="headerlink" title="4、创建项目存放位置以及测试项目"></a>4、创建项目存放位置以及测试项目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  -p  /data/app/8001;echo  &quot;shili1&quot; &gt;/data/app/8001/8001</div><div class="line">mkdir  -p  /data/app/8002;echo  &quot;shili1&quot; &gt;/data/app/8001/8002</div></pre></td></tr></table></figure>
+<h4 id="5、修改实例配置文件，更改server和监听端口"><a href="#5、修改实例配置文件，更改server和监听端口" class="headerlink" title="5、修改实例配置文件，更改server和监听端口"></a>5、修改实例配置文件，更改server和监听端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb1/conf/server.xml</div><div class="line">&lt;Server port=&quot;9001&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</div><div class="line"> &lt;Connector port=&quot;8001&quot; protocol=&quot;HTTP/1.1&quot;</div><div class="line">添加注释：&lt;!--&lt;Connector port=&quot;8090&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt; --&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb2/conf/server.xml</div><div class="line">&lt;Server port=&quot;9002&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</div><div class="line"> &lt;Connector port=&quot;8002&quot; protocol=&quot;HTTP/1.1&quot;</div><div class="line">添加注释：&lt;!--&lt;Connector port=&quot;8090&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt; --&gt;</div></pre></td></tr></table></figure>
+<h4 id="6、启动tomcat应用实例8001和8002端口"><a href="#6、启动tomcat应用实例8001和8002端口" class="headerlink" title="6、启动tomcat应用实例8001和8002端口"></a>6、启动tomcat应用实例8001和8002端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">8001：/usr/local/tomcat-7.0.76/bin/startup.sh -config /data/tomcatweb1/conf/server.xml</div><div class="line">8002：/usr/local/tomcat-7.0.76/bin/startup.sh -config /data/tomcatweb2/conf/server.xml</div></pre></td></tr></table></figure>
+<ul>
+<li>如果是关闭的话，则使用shutdown.sh脚本即可</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/202639643.png?imageslim" alt="mark"></p>
+<h4 id="7、增加启动脚本"><a href="#7、增加启动脚本" class="headerlink" title="7、增加启动脚本"></a>7、增加启动脚本</h4><p>因为我们实例的文件都是直接拷贝的，所以/bin/startup.sh和/bin/shutdown.sh中指定tomcat安装位置有差异。会导致日志写到其他实例下。所以我们可以创建新的启动脚本，声明一下实例安装位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim   /data/tomcatweb1/bin/start.sh</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">export CATALINA_BASE= /data/tomcatweb1</div><div class="line">cd $CATALINA_HOME/bin</div><div class="line">./startup.sh  -config  $CATALINA_BASE/conf/server.xml</div></pre></td></tr></table></figure>
+<h3 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h3><p>1、实例1添加虚拟主机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb1/conf/server.xml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">&lt;Host name=&quot;www.456.com&quot; appBase=&quot;webapps&quot;</div><div class="line">unpackWARs=&quot;false&quot; autoDeploy=&quot;true&quot;</div><div class="line">xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/202745689.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/202810949.png?imageslim" alt="mark"></p>
+<p>2、实例2添加虚拟主机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb2/conf/server.xml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">&lt;Host name=&quot;www.789.com&quot; appBase=&quot;webapps&quot;</div><div class="line">unpackWARs=&quot;false&quot; autoDeploy=&quot;true&quot;</div><div class="line">xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/203046786.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/203107653.png?imageslim" alt="mark"></p>
+<p>注：因为没有绑定host，所有不能直接通过浏览器访问，只能通过curl来访问</p>
+<h3 id="四、修改配置文件实现单机多实例"><a href="#四、修改配置文件实现单机多实例" class="headerlink" title="四、修改配置文件实现单机多实例"></a>四、修改配置文件实现单机多实例</h3><p>以上的配置其实是安装了多个tomcat服务，监听不同的端口。其实我们也可以在一个tomcat服务上就定义多实例出来。</p>
+<h4 id="1、实现思路"><a href="#1、实现思路" class="headerlink" title="1、实现思路"></a>1、实现思路</h4><p>需求：同一个tomcat服务下，可以访问多个域名。</p>
+<p>首先，我们来看看tomcat配置文件server.xml的结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Server&gt;</div><div class="line">    &lt;Service name=”xxx”&gt;</div><div class="line">        &lt;Host  name=”aaa.com” appBase=”dir1″&gt;</div><div class="line">        &lt;/Host&gt;</div><div class="line">    &lt;/Service&gt;</div><div class="line">&lt;Server&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>Service下面可以定义监听的端口，包含了&lt;Host&gt; &lt;/Host&gt;，而&lt;Host&gt; &lt;/Host&gt;里面定义虚拟主机，即，定义站点的域名和站点的目录。</li>
+</ul>
+<p>具体有两种方案实现：</p>
+<p>（1）可以在&lt;Service&gt; &lt;/Service&gt;里面定义多个&lt;Host&gt; &lt;/Host&gt;，这样就定义了多个站点，但端口不能变。</p>
+<p>（2）可以在&lt;Server&gt; &lt;/Server&gt;里面定义多个&lt;Service&gt; &lt;/Service&gt;，&lt;Service&gt; &lt;/Service&gt;里再定义&lt;Host&gt; &lt;/Host&gt;，这样做的好处是可以更改监听端口</p>
+<h4 id="2、具体实现"><a href="#2、具体实现" class="headerlink" title="2、具体实现"></a>2、具体实现</h4><p>同一个服务器上跑两个站点</p>
+<p>www.aaa.com  监听端口是8080</p>
+<p>www.bbb.com  监听端口是8081</p>
+<p>配置文件内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">&lt;Server port=&quot;8005&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</div><div class="line">  &lt;Listener className=&quot;org.apache.catalina.startup.VersionLoggerListener&quot; /&gt;</div><div class="line">.......省略部分配置内容</div><div class="line">&lt;GlobalNamingResources&gt;</div><div class="line">&lt;!– Editable user database that can also be used by</div><div class="line">UserDatabaseRealm to authenticate users</div><div class="line">–&gt;</div><div class="line">&lt;Resource name=”UserDatabase” auth=”Container”</div><div class="line">type=”org.apache.catalina.UserDatabase”</div><div class="line">description=”User database that can be updated and saved”</div><div class="line">factory=”org.apache.catalina.users.MemoryUserDatabaseFactory”</div><div class="line">pathname=”conf/tomcat-users.xml” /&gt;</div><div class="line">&lt;/GlobalNamingResources&gt;</div><div class="line">&lt;!– A “Service” is a collection of one or more “Connectors” that share</div><div class="line">a single “Container” Note: A “Service” is not itself a “Container”,</div><div class="line">so you may not define subcomponents such as “Valves” at this level.</div><div class="line">Documentation at /docs/config/service.html</div><div class="line">–&gt;</div><div class="line"></div><div class="line">#第一个实例www.aa.com</div><div class="line">&lt;Service name=”Catalina”&gt;</div><div class="line">&lt;Connector port=”8080″ protocol=”HTTP/1.1″</div><div class="line">connectionTimeout=”20000″</div><div class="line">redirectPort=”8443″ /&gt;</div><div class="line">&lt;Connector port=”8009″ protocol=”AJP/1.3″ redirectPort=”8443″ /&gt;</div><div class="line">&lt;Engine name=”Catalina” defaultHost=”localhost”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.LockOutRealm”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.UserDatabaseRealm”</div><div class="line">resourceName=”UserDatabase”/&gt;</div><div class="line">&lt;/Realm&gt;</div><div class="line">&lt;Host name=”www.aaa.com” appBase=”webapps”</div><div class="line">unpackWARs=”true” autoDeploy=”true”&gt;</div><div class="line">&lt;Valve className=”org.apache.catalina.valves.AccessLogValve” directory=”logs”</div><div class="line">prefix=”aaa.com_access” suffix=”.log”</div><div class="line">pattern=”%h %l %u %t &amp;quot;%r&amp;quot; %s %b” /&gt;</div><div class="line">&lt;/Host&gt;</div><div class="line">&lt;/Engine&gt;</div><div class="line">&lt;/Service&gt;</div><div class="line"></div><div class="line">#第二个实例</div><div class="line">&lt;Service name=”allen”&gt;</div><div class="line">&lt;Connector port=”8081″ protocol=”HTTP/1.1″</div><div class="line">connectionTimeout=”20000″</div><div class="line">redirectPort=”8443″ /&gt;</div><div class="line">&lt;Engine name=”aming” defaultHost=”localhost”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.LockOutRealm”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.UserDatabaseRealm”</div><div class="line">resourceName=”UserDatabase”/&gt;</div><div class="line">&lt;/Realm&gt;</div><div class="line">&lt;Host name=”www.bbb.com” appBase=”/data/tomcat”</div><div class="line">unpackWARs=”true” autoDeploy=”true”&gt;</div><div class="line">&lt;Valve className=”org.apache.catalina.valves.AccessLogValve” directory=”logs”</div><div class="line">prefix=”bbb.com_access” suffix=”.log”</div><div class="line">pattern=”%h %l %u %t &amp;quot;%r&amp;quot; %s %b” /&gt;</div><div class="line">&lt;/Host&gt;</div><div class="line">&lt;/Engine&gt;</div><div class="line">&lt;/Service&gt;</div><div class="line">&lt;/Server&gt;</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/18/16.1、tomcat配置多实例/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-27.7、NoSQL之mongodb分片" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/15/27.7、NoSQL之mongodb分片/">NoSQL之mongodb分片</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/15/27.7、NoSQL之mongodb分片/" class="archive-article-date">
+  	<time datetime="2017-10-15T01:10:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、mongodb分片"><a href="#一、mongodb分片" class="headerlink" title="一、mongodb分片"></a>一、mongodb分片</h3><p>1.1、mongodb分片介绍</p>
+<p>分片就是将数据库进行拆分，将大型集合分隔到不同服务器上。比如，本来100G的数据，可以分割成10份存储到10台服务器上，这样每台服务器只有10G的数据。类似mysql的分库分表。</p>
+<p>通过一个mongos的进程（路由）实现分片后的数据存储与访问，也就是说mongos是整个分片架构的核心，对客户端而言是不知道是否有分片的，客户端只需要把读写操作转达给mongos即可。</p>
+<p>虽然分片会把数据分隔到很多台服务器上，但是每一个节点都还需要有一个备用角色的，这样能保证数据的高可用。</p>
+<p>当系统需要更多空间或者资源的时候，分片可以让我们按需方便扩展，只需要把mongodb服务的机器加入到分片集群中即可。</p>
+        
+          <a class="article-more-a" href="/2017/10/15/27.7、NoSQL之mongodb分片/#more">more >></a>
         
       
 
@@ -557,7 +808,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/15/27.7、NoSQL之mongodb分片/">展开全文 >></a>
         </p>
       
 
@@ -575,20 +826,20 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-27.4、NoSQL之redis使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-27.6、NoSQL之MongoDB配置副本集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/07/27.4、NoSQL之redis使用/">NoSQL之redis使用</a>
+      <a class="article-title" href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/">NoSQL之MongoDB配置副本集</a>
     </h1>
   
 
         
-        <a href="/2017/10/07/27.4、NoSQL之redis使用/" class="archive-article-date">
-  	<time datetime="2017-10-07T08:40:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-07</time>
+        <a href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/" class="archive-article-date">
+  	<time datetime="2017-10-14T08:31:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-14</time>
 </a>
         
       </header>
@@ -596,12 +847,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="一、redis存储session"><a href="#一、redis存储session" class="headerlink" title="一、redis存储session"></a>一、redis存储session</h3><h4 id="1-1、安装拓展模块"><a href="#1-1、安装拓展模块" class="headerlink" title="1.1、安装拓展模块"></a>1.1、安装拓展模块</h4><p>1.1.1、下载拓展模块</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget https://coding.net/u/aminglinux/p/yuanke_centos7/git/raw/master/21NOSQL/phpredis.zip</div></pre></td></tr></table></figure>
-<p>1.1.2、安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">unzip phpredis.zip</div><div class="line">cd phpredis-develop</div><div class="line">/usr/local/php-fpm/bin/phpize</div><div class="line">./configure --with-php-config=/usr/local/php-fpm/bin/php-config</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h3 id="一、mongodb副本集介绍"><a href="#一、mongodb副本集介绍" class="headerlink" title="一、mongodb副本集介绍"></a>一、mongodb副本集介绍</h3><p>早期MongoDB版本使用master-slave，一主一从和mysql类似，但是slave在此架构中为只读，当主宕机后，从不能自动切换为主。所以，目前已经淘汰了master-slave模式，改为副本集，这种模式下有一个主（primary），一个从（secondary），只读。支持给它们设置权重，当主宕机后，权重高的从切换为主。</p>
+<p>在此架构中还可以加入一个仲裁（arbiter）的角色，它只负责裁决，而不存储数据。</p>
+<p>在此架构中读写数据都是在主上，要想实现负载均衡的目的需要手动指定读库的目标server</p>
         
-          <a class="article-more-a" href="/2017/10/07/27.4、NoSQL之redis使用/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/#more">more >></a>
         
       
 
@@ -619,7 +869,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
         		</li>
       		
 		</ul>
@@ -629,215 +879,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/07/27.4、NoSQL之redis使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-mysql开启慢查询日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/05/mysql开启慢查询日志/">mysql开启慢查询日志</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/05/mysql开启慢查询日志/" class="archive-article-date">
-  	<time datetime="2017-10-05T12:56:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>开启慢查询日志，可以让mysql记录下查询超过指定时间的语句，通过定位分析性能的瓶颈，才能更好的优化数据库系统的性能</p>
-        
-          <a class="article-more-a" href="/2017/10/05/mysql开启慢查询日志/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/05/mysql开启慢查询日志/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-Linux集群之高可用集群配置heartbeat" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/04/Linux集群之高可用集群配置heartbeat/">Linux集群之高可用集群配置heartbeat</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/04/Linux集群之高可用集群配置heartbeat/" class="archive-article-date">
-  	<time datetime="2017-10-04T09:00:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/170636001.png?imageslim" alt="mark"></p>
-<p>[TOC]</p>
-<h3 id="一、什么是HA"><a href="#一、什么是HA" class="headerlink" title="一、什么是HA"></a>一、什么是HA</h3><p>HA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/170701088.png?imageslim" alt="mark"></p>
-<p>如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其中web1为主节点，正常是它在提供服务，而web2备用节点是闲置的。web1和web2中间有一条心跳线，检查对方的存活状态。流动IP，也叫vip是对外提供服务的ip，正常情况下是配置在web1上的，当web1宕机后，web2会自动配置该vip，对外提供服务。</p>
-        
-          <a class="article-more-a" href="/2017/10/04/Linux集群之高可用集群配置heartbeat/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/04/Linux集群之高可用集群配置heartbeat/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-27.1、NoSQL之memcached" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/04/27.1、NoSQL之memcached/">NoSQL之memcached</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/04/27.1、NoSQL之memcached/" class="archive-article-date">
-  	<time datetime="2017-10-04T01:56:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、什么是NoSQL"><a href="#一、什么是NoSQL" class="headerlink" title="一、什么是NoSQL"></a>一、什么是NoSQL</h3><p>NoSQL是一种非关系型数据库，之前使用的mysql为关系型数据库。</p>
-<p>对于关系型数据库来说，是需要把数据存储到库，表，行，字段里。查询的时候需要根据条件一行一行地去匹配，当量非常大的时候就很耗费时间和资源，尤其是数据是需要从磁盘里去检索。</p>
-<p>非关系型数据库NoSQL存储的原理比较简单（典型的数据类型为key-value），不存在繁杂的关系链，比如查询是直接查询key。而且NoSQL的数据可以存放在内存中，查询速度非常快。NoSQL因为没有复杂的数据结构，拓展非常容易，支持分布式。虽然NoSQL在性能表现上优于关系型数据库，但是它并不能完全替代关系型数据库。</p>
-        
-          <a class="article-more-a" href="/2017/10/04/27.1、NoSQL之memcached/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">memcache</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/04/27.1、NoSQL之memcached/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/">展开全文 >></a>
         </p>
       
 
@@ -857,7 +899,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -963,11 +1005,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -980,10 +1026,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1003,6 +1045,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -1011,11 +1057,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1023,15 +1069,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1063,6 +1105,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
@@ -1071,11 +1117,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1083,11 +1125,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ansible</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">LNMP.nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">安全</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1099,11 +1157,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1115,7 +1177,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1123,7 +1185,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1135,15 +1201,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
             
             <div class="clearfix"></div>

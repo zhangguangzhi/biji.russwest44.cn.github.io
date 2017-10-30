@@ -131,96 +131,20 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-简易命令审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-利用binlog恢复数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/23/简易命令审计/">简易命令审计</a>
+      <a class="article-title" href="/2017/10/13/利用binlog恢复数据/">Mysql之binlog日志说明及利用binlog日志恢复数据操作记录</a>
     </h1>
   
 
         
-        <a href="/2017/09/23/简易命令审计/" class="archive-article-date">
-  	<time datetime="2017-09-23T07:40:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有时候我们需要对线上用户操作记录进行历史记录待出现问题追究责任人，，但Linux系统自带的history命令用户有自行删除权限，那怎么设置可以让用户的操作记录实时记录，并保证普通用户无权查看和删除呢？</p>
-<h4 id="1、创建保存记录文件存放位置"><a href="#1、创建保存记录文件存放位置" class="headerlink" title="1、创建保存记录文件存放位置"></a>1、创建保存记录文件存放位置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir -p /usr/local/domob/records/</div><div class="line">chmod 777 /usr/local/domob/records/</div><div class="line">chmod +t /usr/local/domob/records/</div></pre></td></tr></table></figure>
-<ul>
-<li>该位置可以自定义</li>
-</ul>
-<h4 id="2、修改-etc-profile"><a href="#2、修改-etc-profile" class="headerlink" title="2、修改/etc/profile"></a>2、修改/etc/profile</h4><p>添加以下内容在该文件的最后</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">if [ ! -d  /usr/local/domob/records/$&#123;LOGNAME&#125; ]</div><div class="line">then </div><div class="line">	mkdir -p /usr/local/domob/records/$&#123;LOGNAME&#125;</div><div class="line"> 	chmod 300 /usr/local/domob/records/$&#123;LOGNAME&#125;</div><div class="line"> fi</div><div class="line"> </div><div class="line">export HISTORY_FILE=&quot;/usr/local/domob/records/$&#123;LOGNAME&#125;/bash_history&quot;</div><div class="line">export PROMPT_COMMAND=&apos;&#123; date &quot;+%Y-%m-%d %T ##### $(who am i |awk &quot;&#123;print \$1\&quot; \&quot;\$2\&quot; \&quot;\$5&#125;&quot;) #### $(history 1 | &#123; read x cmd; echo &quot;$cmd&quot;; &#125;)&quot;; &#125; &gt;&gt;$HISTORY_FILE&apos;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>修改完成后，需要重新加载一下/etc/profile</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source /etc/profile</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="3、查看效果"><a href="#3、查看效果" class="headerlink" title="3、查看效果"></a>3、查看效果</h4><p>我们随便使用几条命令，并查看是否保存</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">w;who;id root;whoami</div><div class="line">cat /usr/local/domob/records/root/bash_history</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170923/154648865.png?imageslim" alt="mark"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/23/简易命令审计/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-DRBD的原理和配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/21/DRBD的原理和配置/">DRBD的原理和配置</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/21/DRBD的原理和配置/" class="archive-article-date">
-  	<time datetime="2017-09-21T12:27:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-21</time>
+        <a href="/2017/10/13/利用binlog恢复数据/" class="archive-article-date">
+  	<time datetime="2017-10-13T07:15:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-13</time>
 </a>
         
       </header>
@@ -228,74 +152,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="DRBD概述"><a href="#DRBD概述" class="headerlink" title="DRBD概述"></a>DRBD概述</h3><p>Distributed Replicated Block Device(DRBD)是一种基于软件的，无共享，复制的存储解决方案，在服务器之间的对块设备（硬盘，分区，逻辑卷等）进行镜像。DRBD工作在内核 当中的，类似于一种驱动模块。DRBD工作的位置在文件系统的buffer cache和磁盘调度器之间，通过tcp/ip发给另外一台主机到对方的tcp/ip最终发送给对方的drbd，再由对方的drbd存储在本地对应磁盘 上，类似于一个网络RAID-1功能。在高可用(HA)中使用DRBD功能，可以代替使用一个共享盘阵。本地(主节点)与远程主机(备节点)的数据可以保 证实时同步。当本地系统出现故障时,远程主机上还会保留有一份相同的数据,可以继续使用。</p>
+<p>众所周知，binlog日志对于mysql数据库来说是十分重要的。在数据丢失的紧急情况下，我们往往会想到用binlog日志功能进行数据恢复（定时全备份+binlog日志恢复增量数据部分），化险为夷！</p>
         
-          <a class="article-more-a" href="/2017/09/21/DRBD的原理和配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DRBD</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/21/DRBD的原理和配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-26.6、shell脚本之expect分发系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/20/26.6、shell脚本之expect分发系统/">shell脚本之expect分发系统</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/20/26.6、shell脚本之expect分发系统/" class="archive-article-date">
-  	<time datetime="2017-09-20T02:56:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>代码上线，简单的方法我们可以使用rsync将新代码推送这指定服务器。在rsync同步时，有一些交互信息需要我们去处理。这个时候，我们就可以使用expect来自动处理这些交互信息。而且ssh登录，ftp登录等都符合交互的定义。</p>
-        
-          <a class="article-more-a" href="/2017/09/20/26.6、shell脚本之expect分发系统/#more">more >></a>
+          <a class="article-more-a" href="/2017/10/13/利用binlog恢复数据/#more">more >></a>
         
       
 
@@ -309,519 +168,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/20/26.6、shell脚本之expect分发系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-26.5、shell脚本之搭建告警系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/15/26.5、shell脚本之搭建告警系统/">shell脚本之搭建告警系统</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/15/26.5、shell脚本之搭建告警系统/" class="archive-article-date">
-  	<time datetime="2017-09-15T08:33:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、告警系统介绍"><a href="#一、告警系统介绍" class="headerlink" title="一、告警系统介绍"></a>一、告警系统介绍</h3><p>（1）需求：使用shell定制各种个性化告警工具，但需要统一化管理、规范化管理。 </p>
-<p>（2）思路：指定一个脚本包，包含主程序、子程序、配置文件、邮件引擎、输出日志等。 </p>
-<p>（3）主程序：作为整个脚本的入口，是整个系统的命脉。 </p>
-<p>（4）配置文件：是一个控制中心，用它来开关各个子程序，指定各个相关联的日志文件。 </p>
-<p>（5）子程序：这个才是真正的监控脚本，用来监控各个指标。 </p>
-<p>（6）邮件引擎：是由一个python程序来实现，它可以定义发邮件的服务器、发邮件人以及发件人密码 输出日志：整个监控系统要有日志输出。</p>
-<p>（7）要求：我们的机器角色多种多样，但是所有机器上都要部署同样的监控系统，也就说所有机器不管什么角色，整个程序框架都是一致的，不同的地方在于根据不同的角色，定制不同的配置文件。</p>
-<h4 id=""><a href="#" class="headerlink" title=""></a>
-        
-          <a class="article-more-a" href="/2017/09/15/26.5、shell脚本之搭建告警系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/15/26.5、shell脚本之搭建告警系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-26.4、shell脚本之函数，数组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/15/26.4、shell脚本之函数，数组/">shell脚本之函数，数组</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/15/26.4、shell脚本之函数，数组/" class="archive-article-date">
-  	<time datetime="2017-09-15T05:48:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、shell脚本中的函数"><a href="#一、shell脚本中的函数" class="headerlink" title="一、shell脚本中的函数"></a>一、shell脚本中的函数</h3><p>shell脚本中的函数就是把一段代码整理到一个小单元中，并给这个单元起一个名字，当用到这段代码时直接调用这个小单元的名字即可。</p>
-        
-          <a class="article-more-a" href="/2017/09/15/26.4、shell脚本之函数，数组/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/15/26.4、shell脚本之函数，数组/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-26.3、shell脚本之循环" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/14/26.3、shell脚本之循环/">shell脚本之循环</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/14/26.3、shell脚本之循环/" class="archive-article-date">
-  	<time datetime="2017-09-14T08:14:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>shell脚本常用的循环有for，while等</p>
-<h3 id="一、for循环"><a href="#一、for循环" class="headerlink" title="一、for循环"></a>一、for循环</h3><h4 id="1-1、语法一"><a href="#1-1、语法一" class="headerlink" title="1.1、语法一"></a>1.1、语法一</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for  变量  in  值1，值2，值3.....</div><div class="line">do</div><div class="line">	command</div><div class="line">done</div></pre></td></tr></table></figure>
-<ul>
-<li><p>for循环会将指定的值分别赋予变量</p>
-</li>
-<li><p>这些值可以手动输入，如”for  i  in   1 2 3”</p>
-</li>
-<li><p>这些值也可以是用命令产生，如”for i  in  `seq  1 100`”</p>
-<p>使用命令产生时是以命令输出的空格或者回车符作为分隔符</p>
-</li>
-<li><p>seq的作用是生成指定范围的连续数字</p>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/09/14/26.3、shell脚本之循环/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/14/26.3、shell脚本之循环/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-26.2、shell脚本之if判断" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/26.2、shell脚本之if判断/">shell脚本之逻辑判断if,case</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/13/26.2、shell脚本之if判断/" class="archive-article-date">
-  	<time datetime="2017-09-13T12:07:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="判断表达式的两种格式"><a href="#判断表达式的两种格式" class="headerlink" title="判断表达式的两种格式"></a>判断表达式的两种格式</h3><p>（1）test  -e   /root/1.sh</p>
-<p>（2）[  -e  /root/1.sh ]        #注意[ ]与判断语句之间有空格</p>
-<h3 id="一、逻辑判断表达式"><a href="#一、逻辑判断表达式" class="headerlink" title="一、逻辑判断表达式"></a>一、逻辑判断表达式</h3><h4 id="1-1、按照文件类型判断"><a href="#1-1、按照文件类型判断" class="headerlink" title="1.1、按照文件类型判断"></a>1.1、按照文件类型判断</h4><table>
-<thead>
-<tr>
-<th>判断选项</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-e  file</td>
-<td>判断文件或目录是否存在，并且存在为真</td>
-</tr>
-<tr>
-<td>-d  file</td>
-<td>判断文件是否存在，并且为目录</td>
-</tr>
-<tr>
-<td>-f  file</td>
-<td>判断文件是否存在，并且为文件</td>
-</tr>
-<tr>
-<td>-s  file</td>
-<td>判断文件是否非空，并且非空为真</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>-b,-c,-l,-p,-S分别表示块设备文件，字符设备文件，符号链接文件，字符管道文件，套接字符文件</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/09/13/26.2、shell脚本之if判断/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/13/26.2、shell脚本之if判断/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-26.1、shell脚本介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/26.1、shell脚本介绍/">shell脚本介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/12/26.1、shell脚本介绍/" class="archive-article-date">
-  	<time datetime="2017-09-12T06:23:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、什么是shell脚本"><a href="#一、什么是shell脚本" class="headerlink" title="一、什么是shell脚本"></a>一、什么是shell脚本</h3><p>shell脚本并不能作为正式的编程语言，因为它只是在Linux的shell中运行，所以称为shell脚本。事实上，shell脚本就是一些Linux命令的集合。当我们需要重复一些命令时，一遍一遍的敲命令是很麻烦的。因此，我们可以将这些复杂的脚本放到一个文档中，当我们需要时，直接运行即可。该文档我们就可以称着为shell脚本</p>
-        
-          <a class="article-more-a" href="/2017/09/12/26.1、shell脚本介绍/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/12/26.1、shell脚本介绍/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-25、Linux监控平台搭建之配置zabbix告警" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/11/25、Linux监控平台搭建之配置zabbix告警/">Linux监控平台搭建之配置zabbix告警</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/11/25、Linux监控平台搭建之配置zabbix告警/" class="archive-article-date">
-  	<time datetime="2017-09-11T02:53:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>监控系统如果没有告警，那就没有意义了。zabbix的告警通常为邮件，微信，短信，由于目前智能手机的普及和方便性，配置邮件告警就可以达到很好的提醒效果，因为手机邮箱的提醒和短信相似，而且显示的内容更丰富。</p>
-        
-          <a class="article-more-a" href="/2017/09/11/25、Linux监控平台搭建之配置zabbix告警/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/11/25、Linux监控平台搭建之配置zabbix告警/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-keepalived结合mysql实现高可用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/keepalived结合mysql实现高可用/">keepalived结合mysql实现高可用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/10/keepalived结合mysql实现高可用/" class="archive-article-date">
-  	<time datetime="2017-09-10T01:44:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>实验环境：</p>
-<p>os：centos7×64</p>
-<p>master：192.168.205.137</p>
-<p>backup：192.168.205.136</p>
-<p>VIP：192.168.205.110</p>
-        
-          <a class="article-more-a" href="/2017/09/10/keepalived结合mysql实现高可用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql主从</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql备份</a>
         		</li>
       		
 		</ul>
@@ -831,7 +182,662 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/10/keepalived结合mysql实现高可用/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/10/13/利用binlog恢复数据/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-mysqldump的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/13/mysqldump的使用/">mysqldump的使用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/13/mysqldump的使用/" class="archive-article-date">
+  	<time datetime="2017-10-13T06:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、mysqldump介绍"><a href="#一、mysqldump介绍" class="headerlink" title="一、mysqldump介绍"></a>一、mysqldump介绍</h3><p>mysqldump客户端可用来转储数据库或搜寻数据库进行备份或将数据转移到另一个SQL服务器（不一定是mysql服务器）。转储包括创建表和或装载表的SQL语句。</p>
+<p>mysql提供两种格式的文件输出，分别是sql格式的标准输出和文件分隔符形式的输出，也可直接在两个mysql数据库之间数据复制</p>
+        
+          <a class="article-more-a" href="/2017/10/13/mysqldump的使用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql备份</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/13/mysqldump的使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-27.4.1redis集群高可用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/12/27.4.1redis集群高可用/">redis集群高可用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/12/27.4.1redis集群高可用/" class="archive-article-date">
+  	<time datetime="2017-10-12T05:53:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>方案说明</p>
+<p>1、sentinel负责对redis集群中的主从服务监控，提醒和自动故障转移</p>
+<p>2、redis集群负责对外提供相关服务</p>
+<h3 id="一、sentinel原理介绍"><a href="#一、sentinel原理介绍" class="headerlink" title="一、sentinel原理介绍"></a>一、sentinel原理介绍</h3><p>sentinel是一个分布式系统，可以在一个架构中运行多个sentinel进程，这些进程使用流言协议（gossip protocols）来接收关于redis主服务器是否下线的信息，并使用投票协议（agreement protocols）来决定是否执行自动故障迁移，以及选举哪个从服务器成为新的主服务器。</p>
+<p><strong>流言协议：</strong>sentinel服务通过ping命令来确认监控的服务器是否正常，当足够多数量的sentinel都确认监控的同一服务器停止服务了（主观下线），则判定此服务器停止服务。</p>
+<p><strong>投票协议：</strong>其实就选举，sentinel集群根据一定的规则从redis群中选择一个新的服务器成为主服务器，并使其它的服务器做为新的从服务器，并修改自身的配置文件。</p>
+        
+          <a class="article-more-a" href="/2017/10/12/27.4.1redis集群高可用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/12/27.4.1redis集群高可用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-27.3、NoSQL之redis操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/12/27.3、NoSQL之redis操作/">NoSQL之redis操作</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/12/27.3、NoSQL之redis操作/" class="archive-article-date">
+  	<time datetime="2017-10-12T01:05:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、redis类型常用操作"><a href="#一、redis类型常用操作" class="headerlink" title="一、redis类型常用操作"></a>一、redis类型常用操作</h3><h4 id="1-1、string类型操作"><a href="#1-1、string类型操作" class="headerlink" title="1.1、string类型操作"></a>1.1、string类型操作</h4><p>（1）设置key</p>
+<p>格式：set key value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set key1 allen</div></pre></td></tr></table></figure>
+<ul>
+<li>如果key1本来就存在，那么第二次赋值会覆盖原有的值</li>
+</ul>
+<p>（2）查看key</p>
+<p>格式：get  key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">get key1</div></pre></td></tr></table></figure>
+<p>（3）设置key时，验证key是否已存在</p>
+<p>格式：setnx  key  value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">setnx key2 aaa</div><div class="line">setnx key2 bbb</div></pre></td></tr></table></figure>
+<ul>
+<li>如果返回1，说明key2不存在，会直接创建</li>
+<li>如果返回0，说明key2已经存在，不做操作</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/10/12/27.3、NoSQL之redis操作/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/12/27.3、NoSQL之redis操作/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-27.2、Nosql之redis介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/09/27.2、Nosql之redis介绍/">Nosql之redis介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/09/27.2、Nosql之redis介绍/" class="archive-article-date">
+  	<time datetime="2017-10-09T13:37:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、redis介绍"><a href="#一、redis介绍" class="headerlink" title="一、redis介绍"></a>一、redis介绍</h3><p>redis和memcached类似，也属于k-v数据存储，Redis官网redis.io, 当前最新稳定版4.0.1。</p>
+<p>相比memcached，支持更多value类型，除了和string外，还支持hash、lists（链表）、sets（集合）和sorted sets（有序集合）。</p>
+<p>并且redis支持持久化：</p>
+<p>全量数据（RDB）：把内存中的数据写入磁盘，便于下次读取文件进行加载。</p>
+<p>增量请求（AOF）：增量请求文件则是把内存中的数据序列化为操作请求，用于读取文件进行replay得到数据，这种类似于mysql binlog</p>
+<p>redis的存储分为内存存储，硬盘存储（RDB）和log（AOF）文件三部分</p>
+        
+          <a class="article-more-a" href="/2017/10/09/27.2、Nosql之redis介绍/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/09/27.2、Nosql之redis介绍/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-27.5、NoSQL之MongoDB介绍安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/">NoSQL之MongoDB介绍安装</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/" class="archive-article-date">
+  	<time datetime="2017-10-08T03:15:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、MongoDB介绍"><a href="#一、MongoDB介绍" class="headerlink" title="一、MongoDB介绍"></a>一、MongoDB介绍</h3><p>1.1、简单介绍</p>
+<p>MongoDB的官网为www.mongodb.com，当前最新版本为3.4.</p>
+<p>基于c++编写，基于分布式，属于NoSQL的一种，在NoSQL中是最想关系型数据库的。</p>
+<p>MongoDB将数据存储为一个文档，数据结构由键值（key-value）对组成。MongoDB文档类似于JSON对象。字符段值可以包含其他文档，数组以及文档数组。由于基于分布式，所以很容易扩展。</p>
+<p><a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="external">JSON介绍</a></p>
+        
+          <a class="article-more-a" href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/08/27.5、NoSQL之MongoDB介绍安装/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-27.4、NoSQL之redis使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/07/27.4、NoSQL之redis使用/">NoSQL之redis使用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/07/27.4、NoSQL之redis使用/" class="archive-article-date">
+  	<time datetime="2017-10-07T08:40:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、redis存储session"><a href="#一、redis存储session" class="headerlink" title="一、redis存储session"></a>一、redis存储session</h3><h4 id="1-1、安装拓展模块"><a href="#1-1、安装拓展模块" class="headerlink" title="1.1、安装拓展模块"></a>1.1、安装拓展模块</h4><p>1.1.1、下载拓展模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget https://coding.net/u/aminglinux/p/yuanke_centos7/git/raw/master/21NOSQL/phpredis.zip</div></pre></td></tr></table></figure>
+<p>1.1.2、安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">unzip phpredis.zip</div><div class="line">cd phpredis-develop</div><div class="line">/usr/local/php-fpm/bin/phpize</div><div class="line">./configure --with-php-config=/usr/local/php-fpm/bin/php-config</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2017/10/07/27.4、NoSQL之redis使用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/07/27.4、NoSQL之redis使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-mysql开启慢查询日志" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/05/mysql开启慢查询日志/">mysql开启慢查询日志</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/05/mysql开启慢查询日志/" class="archive-article-date">
+  	<time datetime="2017-10-05T12:56:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>开启慢查询日志，可以让mysql记录下查询超过指定时间的语句，通过定位分析性能的瓶颈，才能更好的优化数据库系统的性能</p>
+        
+          <a class="article-more-a" href="/2017/10/05/mysql开启慢查询日志/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/05/mysql开启慢查询日志/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-Linux集群之高可用集群配置heartbeat" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/04/Linux集群之高可用集群配置heartbeat/">Linux集群之高可用集群配置heartbeat</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/04/Linux集群之高可用集群配置heartbeat/" class="archive-article-date">
+  	<time datetime="2017-10-04T09:00:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/170636001.png?imageslim" alt="mark"></p>
+<p>[TOC]</p>
+<h3 id="一、什么是HA"><a href="#一、什么是HA" class="headerlink" title="一、什么是HA"></a>一、什么是HA</h3><p>HA即（hight available）高可用，有被叫做双机热备，用于关键性业务。简单理解就是，有两台机器A和B，正常是A提供服务，B待命闲置，当A宕机或者服务宕掉，会切换至B机器继续提供服务。常用实现高可用的开源软件有hearbeat和keepalived，其中keepalived有负载均衡。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/170701088.png?imageslim" alt="mark"></p>
+<p>如上图所示为一个HA架构，一个交换机下面有两台机器web1和web2，其中web1为主节点，正常是它在提供服务，而web2备用节点是闲置的。web1和web2中间有一条心跳线，检查对方的存活状态。流动IP，也叫vip是对外提供服务的ip，正常情况下是配置在web1上的，当web1宕机后，web2会自动配置该vip，对外提供服务。</p>
+        
+          <a class="article-more-a" href="/2017/10/04/Linux集群之高可用集群配置heartbeat/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/04/Linux集群之高可用集群配置heartbeat/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-27.1、NoSQL之memcached" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/04/27.1、NoSQL之memcached/">NoSQL之memcached</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/04/27.1、NoSQL之memcached/" class="archive-article-date">
+  	<time datetime="2017-10-04T01:56:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、什么是NoSQL"><a href="#一、什么是NoSQL" class="headerlink" title="一、什么是NoSQL"></a>一、什么是NoSQL</h3><p>NoSQL是一种非关系型数据库，之前使用的mysql为关系型数据库。</p>
+<p>对于关系型数据库来说，是需要把数据存储到库，表，行，字段里。查询的时候需要根据条件一行一行地去匹配，当量非常大的时候就很耗费时间和资源，尤其是数据是需要从磁盘里去检索。</p>
+<p>非关系型数据库NoSQL存储的原理比较简单（典型的数据类型为key-value），不存在繁杂的关系链，比如查询是直接查询key。而且NoSQL的数据可以存放在内存中，查询速度非常快。NoSQL因为没有复杂的数据结构，拓展非常容易，支持分布式。虽然NoSQL在性能表现上优于关系型数据库，但是它并不能完全替代关系型数据库。</p>
+        
+          <a class="article-more-a" href="/2017/10/04/27.1、NoSQL之memcached/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">memcache</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/04/27.1、NoSQL之memcached/">展开全文 >></a>
         </p>
       
 
@@ -851,7 +857,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -957,11 +963,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -974,10 +984,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -997,6 +1003,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -1005,11 +1015,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1017,15 +1027,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1057,6 +1063,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
@@ -1065,11 +1075,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1077,11 +1083,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ansible</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">LNMP.nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">安全</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1093,11 +1115,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1109,7 +1135,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1117,7 +1143,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1129,15 +1159,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
             
             <div class="clearfix"></div>
