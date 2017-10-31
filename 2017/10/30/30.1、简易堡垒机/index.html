@@ -8,21 +8,21 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>简易堡垒机 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、堡垒机介绍在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。跳板机是堡垒机的一种，建议的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计 比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理 商业堡垒机：齐治，Citri">
+  <meta name="description" content="[TOC] 一、堡垒机介绍在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。简易的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计。 比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理 商业堡垒机：齐治，Citrix xenapp 二">
 <meta name="keywords" content="堡垒机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="简易堡垒机">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/10/30/30.1、简易堡垒机/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 一、堡垒机介绍在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。跳板机是堡垒机的一种，建议的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计 比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理 商业堡垒机：齐治，Citri">
+<meta property="og:description" content="[TOC] 一、堡垒机介绍在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。简易的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计。 比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理 商业堡垒机：齐治，Citrix xenapp 二">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171030/122602525.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171030/122705439.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171030/123321398.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171030/130152849.png?imageslim">
-<meta property="og:updated_time" content="2017-10-30T13:33:10.323Z">
+<meta property="og:updated_time" content="2017-10-31T07:37:17.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简易堡垒机">
-<meta name="twitter:description" content="[TOC] 一、堡垒机介绍在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。跳板机是堡垒机的一种，建议的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计 比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理 商业堡垒机：齐治，Citri">
+<meta name="twitter:description" content="[TOC] 一、堡垒机介绍在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。简易的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计。 比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理 商业堡垒机：齐治，Citrix xenapp 二">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171030/122602525.png?imageslim">
   
   
@@ -160,7 +160,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="一、堡垒机介绍"><a href="#一、堡垒机介绍" class="headerlink" title="一、堡垒机介绍"></a>一、堡垒机介绍</h3><p>在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。跳板机是堡垒机的一种，建议的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计</p>
+<h3 id="一、堡垒机介绍"><a href="#一、堡垒机介绍" class="headerlink" title="一、堡垒机介绍"></a>一、堡垒机介绍</h3><p>在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。简易的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计。</p>
 <p>比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理</p>
 <p>商业堡垒机：齐治，Citrix xenapp</p>
 <h3 id="二、简易堡垒机"><a href="#二、简易堡垒机" class="headerlink" title="二、简易堡垒机"></a>二、简易堡垒机</h3><h4 id="2-1、搭建条件"><a href="#2-1、搭建条件" class="headerlink" title="2.1、搭建条件"></a>2.1、搭建条件</h4><p>具备堡垒机的条件是，该机器有公司和私网，其中私网和机房其他机器互通。公网可以通过VPN登录。</p>
@@ -180,7 +180,7 @@
 <p>（3）创建限制系统用户</p>
 <p>首先我们先使用ssh-keygen生成普通用户的公钥，将公钥同步到要连接服务器上。</p>
 <p>默认限制系统中的用户只有root，这不符合安全原则，所以我们要创建普通用户，多个用户执行多次即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#创建普通用户用于关联</div><div class="line">useradd  allen1</div><div class="line">passwd allen1</div><div class="line">#生成公钥文件，备用</div><div class="line">ssh-keygen</div><div class="line">#关联限制系统</div><div class="line">jk_jailuser -m -j /home/jail  allen1</div><div class="line"></div><div class="line">#修改关联用户shell，将allen1的/usr/sbin/jk_lsh改为/bin/bash</div><div class="line">vim /home/jail/etc/passwd</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#创建普通用户用于关联</div><div class="line">useradd  allen1</div><div class="line">passwd allen1</div><div class="line">#关联限制系统</div><div class="line">jk_jailuser -m -j /home/jail  allen1</div><div class="line"></div><div class="line">#修改关联用户shell，将allen1的/usr/sbin/jk_lsh改为/bin/bash</div><div class="line">vim /home/jail/etc/passwd</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171030/122705439.png?imageslim" alt="mark"></p>
 <p>（4）登录虚拟系统</p>
 <p>现在我们可以使用allen1登录我们的虚拟系统了</p>
@@ -196,6 +196,12 @@
 <p>（7）限定登录ip</p>
 <p>在/etc/hosts.allow中添加可以登录的ip，而且还需要在/etc/host.deny中设置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#多个ip时使用空格分隔</div><div class="line">echo &quot;sshd: 192.168.205.0/24&quot;  &gt;&gt; /etc/hosts.allow</div><div class="line">echo &quot;sshd: ALL&quot; &gt;&gt; /etc/host.deny</div></pre></td></tr></table></figure>
+<p>（8）跳板机免密码登录其他机器</p>
+<p>因为在chroot环境下，我们无法使用ssh-keygen命令。所以只能使用root执行命令后，将密钥对保存在/home/jail/home/allen1/.ssh/中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -C &quot;allen-shiyan10&quot;</div></pre></td></tr></table></figure>
+<p>然后再将公钥同步到指定服务器上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-copy-id -i /home/jail/home/allen1/.ssh/id_rsa.pub   allen1@192.168.205.109</div></pre></td></tr></table></figure>
+<p>这样就可以免密码登录其他机器</p>
 <h4 id="3-2、连接机配置日志审计"><a href="#3-2、连接机配置日志审计" class="headerlink" title="3.2、连接机配置日志审计"></a>3.2、连接机配置日志审计</h4><p>（1）限定客户端登录ip</p>
 <p>日志审计是在跳板机连接的服务器上设置的。设置日志审计之前，我们还需要在客户端上设置只允许跳板机来连接我们的服务器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">echo &quot;sshd: 192.168.205.110&quot;  &gt;&gt; /etc/hosts.allow</div><div class="line">echo &quot;sshd: ALL&quot; &gt;&gt; /etc/host.deny</div></pre></td></tr></table></figure>
@@ -292,11 +298,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/31/30.2、堡垒机之jumpserver/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          堡垒机之jumpserver
         
       </div>
     </a>
@@ -465,11 +471,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -486,10 +492,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,6 +515,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
@@ -521,19 +527,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,11 +563,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -569,15 +571,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,15 +591,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LNMP.nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,7 +643,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,11 +651,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -657,11 +663,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>

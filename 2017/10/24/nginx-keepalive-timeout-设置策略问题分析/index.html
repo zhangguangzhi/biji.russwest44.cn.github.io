@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/5CdFcF7FID.png">
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/5B4406FDha.png">
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/lkGEIkG7Ad.png">
-<meta property="og:updated_time" content="2017-10-24T13:26:17.553Z">
+<meta property="og:updated_time" content="2017-10-30T13:34:38.581Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx keepalive_timeout 设置策略问题分析">
 <meta name="twitter:description" content="转载：http://www.okay686.cn/786.html 1.项目环境：nginx（前段代理，仅作代理用途）+3个tomcat（都在同一个服务器上），做的web项目2.涉及到的业务逻辑：文件上传（可能有大文件，比如说android游戏，100m）；客户端接口请求；网站后台管理3.问题重现流程：3.1 配置好tomcat后，直接加上nginx前段代理（仅配置了http代理）3.2 问题一：">
@@ -159,7 +159,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><strong>转载：<a href="http://www.okay686.cn/786.html" target="_blank" rel="external">http://www.okay686.cn/786.html</a></strong></p>
-<p>1.项目环境：nginx（前段代理，仅作代理用途）+3个tomcat（都在同一个服务器上），做的web项目<br>2.涉及到的业务逻辑：文件上传（可能有大文件，比如说android游戏，100m）；客户端接口请求；网站后台管理<br>3.问题重现流程：<br>3.1 配置好tomcat后，直接加上nginx前段代理（仅配置了http代理）<br>3.2 问题一：当管理员后台上传文件时，大文件无法上传成功，出现time-out，经重复测试，发现上传时间超过1分钟以后，就会返回超时信息，小文件没有问题<br>3.2 经调研得知nginx默认设置的http连接超时时间为75s，超过75s，会断掉当前的http连接，而大文件上传时经常会超过75s，这就导致大文件无法上传成功，当时的解决方案是，设置nginx http连接超时时间为30分钟，即参数keepalive_timeout=1800；文件上传问题基本解决；<br>3.4项目运行2天后，发现服务器突然宕机了，重启nginx可以解决问题，但是2个小时后又再次宕机，重启nginx又解决了问题，调研了一个中午，并且查看nginx的错误日志（socket() failed (24: Too many open files) while connecting to upstream），发现问题来源与nginx的连接数（设置的默认值为1024）达到上限<br>3.5发现这个问题后，我就想应该把nginx的连接数调大点，于是设置 worker_connections  10240；重启nginx，短时间没有出现问题，但是运行过程中，我再次查看错误日志，发现（socket() failed (24: Too many open files) while connecting to upstream）时不时的出现<br>3.6 此时发现调整nginx的连接数并不能完全解决问题，于是google，百度之，发现问题所在，罪魁祸首是：nginx的keepalive_timeout设置项时间太长，客户端接口访问其实是一个比较快速的过程，访问完成了已经不需要继续使用http连接了，但是由于对nginx的错误配置，导致接口访问完成后http连接并没有被释放掉，所以导致连接数越来越大，最终nginx崩溃。</p>
+<p>1.项目环境：nginx（前段代理，仅作代理用途）+3个tomcat（都在同一个服务器上），做的web项目<br>2.涉及到的业务逻辑：文件上传（可能有大文件，比如说android游戏，100m）；客户端接口请求；网站后台管理<br>3.问题重现流程：<br>3.1 配置好tomcat后，直接加上nginx前段代理（仅配置了http代理）<br>3.2 问题一：当管理员后台上传文件时，大文件无法上传成功，出现time-out，经重复测试，发现上传时间超过1分钟以后，就会返回超时信息，小文件没有问题<br>3.2 经调研得知nginx默认设置的http连接超时时间为75s，超过75s，会断掉当前的http连接，而大文件上传时经常会超过75s，这就导致大文件无法上传成功，当时的解决方案是，设置nginx http连接超时时间为30分钟，即参数keepalive_timeout=1800；文件上传问题基本解决；<br>3.4项目运行2天后，发现服务器突然宕机了，重启nginx可以解决问题，但是2个小时后又再次宕机，重启nginx又解决了问题，调研了一个中午，并且查看nginx的错误日志（socket() failed (24: Too many open files) while connecting to upstream），发现问题来源与nginx的连接数（设置的默认值为1024）达到上限<br>3.5发现这个问题后，我就想应该把nginx的连接数调大点，于是设置 worker_connections  10240；重启nginx，短时间没有出现问题，但是运行过程中，我再次查看错误日志，发现（socket() failed (24: Too many open files) while connecting to upstream）时不时的出现</p>
+<a id="more"></a>
+<p>3.6 此时发现调整nginx的连接数并不能完全解决问题，于是google，百度之，发现问题所在，罪魁祸首是：nginx的keepalive_timeout设置项时间太长，客户端接口访问其实是一个比较快速的过程，访问完成了已经不需要继续使用http连接了，但是由于对nginx的错误配置，导致接口访问完成后http连接并没有被释放掉，所以导致连接数越来越大，最终nginx崩溃。</p>
 <p>4.那么这个问题应该如何解决呢？<br>将keepalive_timeout时间调小会导致上传操作可能无法完成；调大点的话，许多无效的http连接占据着nginx的连接数<br>这貌似是一个两难的问题！</p>
 <h4 id="下面重点来了："><a href="#下面重点来了：" class="headerlink" title="下面重点来了："></a><strong>下面重点来了：</strong></h4><h5 id="Nginx的TCP-KeepAlive如何设置"><a href="#Nginx的TCP-KeepAlive如何设置" class="headerlink" title="Nginx的TCP KeepAlive如何设置"></a>Nginx的TCP KeepAlive如何设置</h5><p>开篇提到我最近遇到的问题，Client发送一个请求到Nginx服务端，服务端需要经过一段时间的计算才会返回， 时间超过了LVS Session保持的90s,在服务端使用Tcpdump抓包,本地通过wireshark分析显示的结果如第二副图所示，第5条报文和最后一条报文之间的时间戳大概差了90s。在确定是LVS的Session保持时间到期的问题之后，我开始在寻找Nginx的TCP KeepAlive如何设置，最先找到的选项是keepalivetimeout,从同事那里得知keepalivetimeout的用法是当keepalivetimeout的值为0时表示关闭keepalive,当keepalivetimeout的值为一个正整数值时表示链接保持多少秒，于是把keepalivetimeout设置成75s,但是实际的测试结果表明并不生效。显然keepalivetimeout不能解决TCP层面的KeepAlive问题，实际上Nginx涉及到keepalive的选项还不少，Nginx通常的使用方式如下：</p>
 <p><img src="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/5CdFcF7FID.png" alt="img"></p>
@@ -404,11 +406,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -425,10 +427,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -452,6 +450,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
@@ -460,19 +462,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,11 +498,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,15 +506,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,15 +526,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LNMP.nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -572,7 +578,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -580,11 +586,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,11 +598,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>

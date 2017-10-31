@@ -131,6 +131,144 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-29.3、自动化运维工具之ansible" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/25/29.3、自动化运维工具之ansible/">自动化运维工具之ansible</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/25/29.3、自动化运维工具之ansible/" class="archive-article-date">
+  	<time datetime="2017-10-25T00:35:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>ansible的特点，轻量级，不需要安装客户端，可以通过sshd进行通信，基于模块工作，模块可以由任何语言开发，不仅支持命令行使用模块，也支持编写yaml格式的playbook，支持sudo。有提供UI（浏览器图形化）www.ansible.com/tower  10台主机以内免费。</p>
+        
+          <a class="article-more-a" href="/2017/10/25/29.3、自动化运维工具之ansible/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ansible</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/25/29.3、自动化运维工具之ansible/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-nginx-keepalive-timeout-设置策略问题分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/">nginx keepalive_timeout 设置策略问题分析</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/" class="archive-article-date">
+  	<time datetime="2017-10-24T13:24:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>转载：<a href="http://www.okay686.cn/786.html" target="_blank" rel="external">http://www.okay686.cn/786.html</a></strong></p>
+<p>1.项目环境：nginx（前段代理，仅作代理用途）+3个tomcat（都在同一个服务器上），做的web项目<br>2.涉及到的业务逻辑：文件上传（可能有大文件，比如说android游戏，100m）；客户端接口请求；网站后台管理<br>3.问题重现流程：<br>3.1 配置好tomcat后，直接加上nginx前段代理（仅配置了http代理）<br>3.2 问题一：当管理员后台上传文件时，大文件无法上传成功，出现time-out，经重复测试，发现上传时间超过1分钟以后，就会返回超时信息，小文件没有问题<br>3.2 经调研得知nginx默认设置的http连接超时时间为75s，超过75s，会断掉当前的http连接，而大文件上传时经常会超过75s，这就导致大文件无法上传成功，当时的解决方案是，设置nginx http连接超时时间为30分钟，即参数keepalive_timeout=1800；文件上传问题基本解决；<br>3.4项目运行2天后，发现服务器突然宕机了，重启nginx可以解决问题，但是2个小时后又再次宕机，重启nginx又解决了问题，调研了一个中午，并且查看nginx的错误日志（socket() failed (24: Too many open files) while connecting to upstream），发现问题来源与nginx的连接数（设置的默认值为1024）达到上限<br>3.5发现这个问题后，我就想应该把nginx的连接数调大点，于是设置 worker_connections  10240；重启nginx，短时间没有出现问题，但是运行过程中，我再次查看错误日志，发现（socket() failed (24: Too many open files) while connecting to upstream）时不时的出现</p>
+        
+          <a class="article-more-a" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-29.2、自动化运维工具之saltstack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -466,11 +604,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		
 		</ul>
@@ -668,47 +806,9 @@
 <p>多实例，就是安装多个tomcat，修改端口以及根目录即可</p>
 <h3 id="二、配置多实例"><a href="#二、配置多实例" class="headerlink" title="二、配置多实例"></a>二、配置多实例</h3><h4 id="1、创建多实例存放目录"><a href="#1、创建多实例存放目录" class="headerlink" title="1、创建多实例存放目录"></a>1、创建多实例存放目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/tomcatweb1</div><div class="line">mkdir  /data/tomcatweb2</div></pre></td></tr></table></figure>
 <h4 id="2、复制tomcat安装目录到实例存放目录"><a href="#2、复制tomcat安装目录到实例存放目录" class="headerlink" title="2、复制tomcat安装目录到实例存放目录"></a>2、复制tomcat安装目录到实例存放目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp -R /usr/local/tomcat-7.0.76/* /data/tomcatweb1</div><div class="line">cp -R /usr/local/tomcat-7.0.76/* /data/tomcatweb2</div></pre></td></tr></table></figure>
-<h4 id="3、创建ROOT-xml"><a href="#3、创建ROOT-xml" class="headerlink" title="3、创建ROOT.xml"></a>3、创建ROOT.xml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb1/conf/Catalina/域名/ROOT.xml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;Context path=&quot;/&quot; docBase=&quot;/data/app/8001&quot;&gt;</div><div class="line">&lt;/Context&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/201926311.png?imageslim" alt="mark"></p>
-<ul>
-<li>注：实例2也进行同样的操作，存放位置为/data/app/8002</li>
-<li>关于ROOT.xml，在tomcat中，如果要使用域名的根目录访问，需要将项目文件放在ROOT目录中，否则只能采用二级目录访问，而建立此ROOT.xml，则可以任意指定，此文件中仅一句：&lt;Context path=”” docBase=”webapps_dir” /&gt;,其中path若为空，则默认为根目录。</li>
-</ul>
-<h4 id="4、创建项目存放位置以及测试项目"><a href="#4、创建项目存放位置以及测试项目" class="headerlink" title="4、创建项目存放位置以及测试项目"></a>4、创建项目存放位置以及测试项目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  -p  /data/app/8001;echo  &quot;shili1&quot; &gt;/data/app/8001/8001</div><div class="line">mkdir  -p  /data/app/8002;echo  &quot;shili1&quot; &gt;/data/app/8001/8002</div></pre></td></tr></table></figure>
-<h4 id="5、修改实例配置文件，更改server和监听端口"><a href="#5、修改实例配置文件，更改server和监听端口" class="headerlink" title="5、修改实例配置文件，更改server和监听端口"></a>5、修改实例配置文件，更改server和监听端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb1/conf/server.xml</div><div class="line">&lt;Server port=&quot;9001&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</div><div class="line"> &lt;Connector port=&quot;8001&quot; protocol=&quot;HTTP/1.1&quot;</div><div class="line">添加注释：&lt;!--&lt;Connector port=&quot;8090&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt; --&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb2/conf/server.xml</div><div class="line">&lt;Server port=&quot;9002&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</div><div class="line"> &lt;Connector port=&quot;8002&quot; protocol=&quot;HTTP/1.1&quot;</div><div class="line">添加注释：&lt;!--&lt;Connector port=&quot;8090&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt; --&gt;</div></pre></td></tr></table></figure>
-<h4 id="6、启动tomcat应用实例8001和8002端口"><a href="#6、启动tomcat应用实例8001和8002端口" class="headerlink" title="6、启动tomcat应用实例8001和8002端口"></a>6、启动tomcat应用实例8001和8002端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">8001：/usr/local/tomcat-7.0.76/bin/startup.sh -config /data/tomcatweb1/conf/server.xml</div><div class="line">8002：/usr/local/tomcat-7.0.76/bin/startup.sh -config /data/tomcatweb2/conf/server.xml</div></pre></td></tr></table></figure>
-<ul>
-<li>如果是关闭的话，则使用shutdown.sh脚本即可</li>
-</ul>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/202639643.png?imageslim" alt="mark"></p>
-<h4 id="7、增加启动脚本"><a href="#7、增加启动脚本" class="headerlink" title="7、增加启动脚本"></a>7、增加启动脚本</h4><p>因为我们实例的文件都是直接拷贝的，所以/bin/startup.sh和/bin/shutdown.sh中指定tomcat安装位置有差异。会导致日志写到其他实例下。所以我们可以创建新的启动脚本，声明一下实例安装位置。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim   /data/tomcatweb1/bin/start.sh</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">export CATALINA_BASE= /data/tomcatweb1</div><div class="line">cd $CATALINA_HOME/bin</div><div class="line">./startup.sh  -config  $CATALINA_BASE/conf/server.xml</div></pre></td></tr></table></figure>
-<h3 id="三、测试"><a href="#三、测试" class="headerlink" title="三、测试"></a>三、测试</h3><p>1、实例1添加虚拟主机</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb1/conf/server.xml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">&lt;Host name=&quot;www.456.com&quot; appBase=&quot;webapps&quot;</div><div class="line">unpackWARs=&quot;false&quot; autoDeploy=&quot;true&quot;</div><div class="line">xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/202745689.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/202810949.png?imageslim" alt="mark"></p>
-<p>2、实例2添加虚拟主机</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /data/tomcatweb2/conf/server.xml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">&lt;Host name=&quot;www.789.com&quot; appBase=&quot;webapps&quot;</div><div class="line">unpackWARs=&quot;false&quot; autoDeploy=&quot;true&quot;</div><div class="line">xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/203046786.png?imageslim" alt="mark"></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171018/203107653.png?imageslim" alt="mark"></p>
-<p>注：因为没有绑定host，所有不能直接通过浏览器访问，只能通过curl来访问</p>
-<h3 id="四、修改配置文件实现单机多实例"><a href="#四、修改配置文件实现单机多实例" class="headerlink" title="四、修改配置文件实现单机多实例"></a>四、修改配置文件实现单机多实例</h3><p>以上的配置其实是安装了多个tomcat服务，监听不同的端口。其实我们也可以在一个tomcat服务上就定义多实例出来。</p>
-<h4 id="1、实现思路"><a href="#1、实现思路" class="headerlink" title="1、实现思路"></a>1、实现思路</h4><p>需求：同一个tomcat服务下，可以访问多个域名。</p>
-<p>首先，我们来看看tomcat配置文件server.xml的结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Server&gt;</div><div class="line">    &lt;Service name=”xxx”&gt;</div><div class="line">        &lt;Host  name=”aaa.com” appBase=”dir1″&gt;</div><div class="line">        &lt;/Host&gt;</div><div class="line">    &lt;/Service&gt;</div><div class="line">&lt;Server&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>Service下面可以定义监听的端口，包含了&lt;Host&gt; &lt;/Host&gt;，而&lt;Host&gt; &lt;/Host&gt;里面定义虚拟主机，即，定义站点的域名和站点的目录。</li>
-</ul>
-<p>具体有两种方案实现：</p>
-<p>（1）可以在&lt;Service&gt; &lt;/Service&gt;里面定义多个&lt;Host&gt; &lt;/Host&gt;，这样就定义了多个站点，但端口不能变。</p>
-<p>（2）可以在&lt;Server&gt; &lt;/Server&gt;里面定义多个&lt;Service&gt; &lt;/Service&gt;，&lt;Service&gt; &lt;/Service&gt;里再定义&lt;Host&gt; &lt;/Host&gt;，这样做的好处是可以更改监听端口</p>
-<h4 id="2、具体实现"><a href="#2、具体实现" class="headerlink" title="2、具体实现"></a>2、具体实现</h4><p>同一个服务器上跑两个站点</p>
-<p>www.aaa.com  监听端口是8080</p>
-<p>www.bbb.com  监听端口是8081</p>
-<p>配置文件内容为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">&lt;Server port=&quot;8005&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</div><div class="line">  &lt;Listener className=&quot;org.apache.catalina.startup.VersionLoggerListener&quot; /&gt;</div><div class="line">.......省略部分配置内容</div><div class="line">&lt;GlobalNamingResources&gt;</div><div class="line">&lt;!– Editable user database that can also be used by</div><div class="line">UserDatabaseRealm to authenticate users</div><div class="line">–&gt;</div><div class="line">&lt;Resource name=”UserDatabase” auth=”Container”</div><div class="line">type=”org.apache.catalina.UserDatabase”</div><div class="line">description=”User database that can be updated and saved”</div><div class="line">factory=”org.apache.catalina.users.MemoryUserDatabaseFactory”</div><div class="line">pathname=”conf/tomcat-users.xml” /&gt;</div><div class="line">&lt;/GlobalNamingResources&gt;</div><div class="line">&lt;!– A “Service” is a collection of one or more “Connectors” that share</div><div class="line">a single “Container” Note: A “Service” is not itself a “Container”,</div><div class="line">so you may not define subcomponents such as “Valves” at this level.</div><div class="line">Documentation at /docs/config/service.html</div><div class="line">–&gt;</div><div class="line"></div><div class="line">#第一个实例www.aa.com</div><div class="line">&lt;Service name=”Catalina”&gt;</div><div class="line">&lt;Connector port=”8080″ protocol=”HTTP/1.1″</div><div class="line">connectionTimeout=”20000″</div><div class="line">redirectPort=”8443″ /&gt;</div><div class="line">&lt;Connector port=”8009″ protocol=”AJP/1.3″ redirectPort=”8443″ /&gt;</div><div class="line">&lt;Engine name=”Catalina” defaultHost=”localhost”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.LockOutRealm”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.UserDatabaseRealm”</div><div class="line">resourceName=”UserDatabase”/&gt;</div><div class="line">&lt;/Realm&gt;</div><div class="line">&lt;Host name=”www.aaa.com” appBase=”webapps”</div><div class="line">unpackWARs=”true” autoDeploy=”true”&gt;</div><div class="line">&lt;Valve className=”org.apache.catalina.valves.AccessLogValve” directory=”logs”</div><div class="line">prefix=”aaa.com_access” suffix=”.log”</div><div class="line">pattern=”%h %l %u %t &amp;quot;%r&amp;quot; %s %b” /&gt;</div><div class="line">&lt;/Host&gt;</div><div class="line">&lt;/Engine&gt;</div><div class="line">&lt;/Service&gt;</div><div class="line"></div><div class="line">#第二个实例</div><div class="line">&lt;Service name=”allen”&gt;</div><div class="line">&lt;Connector port=”8081″ protocol=”HTTP/1.1″</div><div class="line">connectionTimeout=”20000″</div><div class="line">redirectPort=”8443″ /&gt;</div><div class="line">&lt;Engine name=”aming” defaultHost=”localhost”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.LockOutRealm”&gt;</div><div class="line">&lt;Realm className=”org.apache.catalina.realm.UserDatabaseRealm”</div><div class="line">resourceName=”UserDatabase”/&gt;</div><div class="line">&lt;/Realm&gt;</div><div class="line">&lt;Host name=”www.bbb.com” appBase=”/data/tomcat”</div><div class="line">unpackWARs=”true” autoDeploy=”true”&gt;</div><div class="line">&lt;Valve className=”org.apache.catalina.valves.AccessLogValve” directory=”logs”</div><div class="line">prefix=”bbb.com_access” suffix=”.log”</div><div class="line">pattern=”%h %l %u %t &amp;quot;%r&amp;quot; %s %b” /&gt;</div><div class="line">&lt;/Host&gt;</div><div class="line">&lt;/Engine&gt;</div><div class="line">&lt;/Service&gt;</div><div class="line">&lt;/Server&gt;</div></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2017/10/18/16.1、tomcat配置多实例/#more">more >></a>
+        
       
 
       
@@ -736,150 +836,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/10/18/16.1、tomcat配置多实例/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-27.7、NoSQL之mongodb分片" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/15/27.7、NoSQL之mongodb分片/">NoSQL之mongodb分片</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/15/27.7、NoSQL之mongodb分片/" class="archive-article-date">
-  	<time datetime="2017-10-15T01:10:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、mongodb分片"><a href="#一、mongodb分片" class="headerlink" title="一、mongodb分片"></a>一、mongodb分片</h3><p>1.1、mongodb分片介绍</p>
-<p>分片就是将数据库进行拆分，将大型集合分隔到不同服务器上。比如，本来100G的数据，可以分割成10份存储到10台服务器上，这样每台服务器只有10G的数据。类似mysql的分库分表。</p>
-<p>通过一个mongos的进程（路由）实现分片后的数据存储与访问，也就是说mongos是整个分片架构的核心，对客户端而言是不知道是否有分片的，客户端只需要把读写操作转达给mongos即可。</p>
-<p>虽然分片会把数据分隔到很多台服务器上，但是每一个节点都还需要有一个备用角色的，这样能保证数据的高可用。</p>
-<p>当系统需要更多空间或者资源的时候，分片可以让我们按需方便扩展，只需要把mongodb服务的机器加入到分片集群中即可。</p>
-        
-          <a class="article-more-a" href="/2017/10/15/27.7、NoSQL之mongodb分片/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/15/27.7、NoSQL之mongodb分片/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-27.6、NoSQL之MongoDB配置副本集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/">NoSQL之MongoDB配置副本集</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/" class="archive-article-date">
-  	<time datetime="2017-10-14T08:31:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、mongodb副本集介绍"><a href="#一、mongodb副本集介绍" class="headerlink" title="一、mongodb副本集介绍"></a>一、mongodb副本集介绍</h3><p>早期MongoDB版本使用master-slave，一主一从和mysql类似，但是slave在此架构中为只读，当主宕机后，从不能自动切换为主。所以，目前已经淘汰了master-slave模式，改为副本集，这种模式下有一个主（primary），一个从（secondary），只读。支持给它们设置权重，当主宕机后，权重高的从切换为主。</p>
-<p>在此架构中还可以加入一个仲裁（arbiter）的角色，它只负责裁决，而不存储数据。</p>
-<p>在此架构中读写数据都是在主上，要想实现负载均衡的目的需要手动指定读库的目标server</p>
-        
-          <a class="article-more-a" href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/14/27.6、NoSQL之MongoDB配置副本集/">展开全文 >></a>
         </p>
       
 
@@ -1009,11 +965,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1030,10 +986,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1057,6 +1009,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
@@ -1065,19 +1021,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1101,11 +1057,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1113,15 +1065,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1133,15 +1085,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LNMP.nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1177,7 +1137,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1185,11 +1145,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1201,11 +1157,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>

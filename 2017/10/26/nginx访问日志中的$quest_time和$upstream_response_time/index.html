@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>nginx访问日志中的$quest_time和$upstream_response_time | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在nginx访问日志中，我们可以添加\$upstream_response_time和\$quest_time，记录连接处理的时间。 \$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。 \$quest_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。 我们可以">
+  <meta name="description" content="在nginx访问日志中，我们可以添加\$upstream_response_time和$quest_time，记录连接处理的时间。 $quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。 $upstream_response_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止">
 <meta name="keywords" content="LNMP,nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx访问日志中的$quest_time和$upstream_response_time">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="在nginx访问日志中，我们可以添加\$upstream_response_time和\$quest_time，记录连接处理的时间。 \$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。 \$quest_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。 我们可以">
+<meta property="og:description" content="在nginx访问日志中，我们可以添加\$upstream_response_time和$quest_time，记录连接处理的时间。 $quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。 $upstream_response_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171026/164855064.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171026/171124712.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171026/165718999.png?imageslim">
-<meta property="og:updated_time" content="2017-10-26T09:11:39.263Z">
+<meta property="og:updated_time" content="2017-10-30T13:39:39.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx访问日志中的$quest_time和$upstream_response_time">
-<meta name="twitter:description" content="在nginx访问日志中，我们可以添加\$upstream_response_time和\$quest_time，记录连接处理的时间。 \$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。 \$quest_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。 我们可以">
+<meta name="twitter:description" content="在nginx访问日志中，我们可以添加\$upstream_response_time和$quest_time，记录连接处理的时间。 $quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。 $upstream_response_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171026/164855064.png?imageslim">
   
   
@@ -158,9 +158,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在nginx访问日志中，我们可以添加\$upstream_response_time和\$quest_time，记录连接处理的时间。</p>
-<p>\$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。</p>
-<p>\$quest_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。</p>
+        <p>在nginx访问日志中，我们可以添加\$upstream_response_time和$quest_time，记录连接处理的时间。</p>
+<p>$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。</p>
+<p>$upstream_response_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。</p>
 <p><strong>我们可以通过比对这两个时间，看一下负载均衡架构中是前端还是后端处理的时间长</strong></p>
 <a id="more"></a>
 <p>（1）配置nginx的访问日志格式</p>
@@ -177,11 +177,11 @@
 <p>（4）查看日志</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171026/165718999.png?imageslim" alt="mark"></p>
 <ul>
-<li><p><strong>一般\$quest_time比\$upstream_response_time相等或者高一点。</strong></p>
+<li><p><strong>一般$quest_time比\$upstream_response_time相等或者高一点。</strong></p>
 </li>
 <li><p><strong>当访问慢时，通过这个两个时间的对比，我们可以分析出在那个地方慢</strong></p>
-<p><strong>当\$quest_time很高，而\$upstream_response_time的值很小时，说明是前端负载处理慢了。</strong></p>
-<p><strong>当\$upstream_response_time十分接近\$quest_time时，说明后端服务器的响应慢了。</strong></p>
+<p><strong>当\$quest_time很高，而$upstream_response_time的值很小时，说明是前端负载处理慢了。</strong></p>
+<p><strong>当\$upstream_response_time十分接近$quest_time时，说明后端服务器的响应慢了。</strong></p>
 </li>
 </ul>
 
@@ -444,11 +444,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -465,10 +465,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -492,6 +488,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
@@ -500,19 +500,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,11 +536,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,15 +544,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,15 +564,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LNMP.nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -612,7 +616,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -620,11 +624,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -636,11 +636,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>

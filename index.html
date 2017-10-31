@@ -181,6 +181,219 @@
         <!-- 目录内容结束 -->
 
   
+    <article id="post-使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/31/使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录/">使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/31/使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录/" class="archive-article-date">
+  	<time datetime="2017-10-31T07:15:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>转载：<a href="http://blog.chinaunix.net/uid-26284395-id-2949145.html" target="_blank" rel="external">使用ssh-keygen和ssh-copy-id三步实现SSH无密码登录</a></p>
+<p>ssh-keygen：产生密钥对</p>
+<p>ssh-copy-id：将本机的公钥复制到远程机器的authorized_keys文件中，ssh-copy-id也能让你有到远程机器的home, ~./ssh , 和 ~/.ssh/authorized_keys的权利。</p>
+<p>A机器免密码登录B机器</p>
+<p>A机器：192.168.205.140</p>
+<p>B机器：192.168.205.141</p>
+<h3 id="1、生成密钥对"><a href="#1、生成密钥对" class="headerlink" title="1、生成密钥对"></a>1、生成密钥对</h3><p>在A机器上使用ssh-keygen生成密钥对</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/152553659.png?imageslim" alt="mark"></p>
+<ul>
+<li>-f可以指定生成密钥对的名称，-C可以指定公钥最后面的注释</li>
+</ul>
+<h3 id="2、同步密钥对"><a href="#2、同步密钥对" class="headerlink" title="2、同步密钥对"></a>2、同步密钥对</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-copy-id -i /root/.ssh/id_rsa root@192.168.205.141</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/152727939.png?imageslim" alt="mark"></p>
+<ul>
+<li>-i为指定公钥文件位置</li>
+<li>后面的用户名是什么，公钥文件就会同步到该用户家目录的.ssh/authorized_keys中，如果文件不存在会自动创建，并设置好权限。</li>
+</ul>
+<h3 id="3、测试"><a href="#3、测试" class="headerlink" title="3、测试"></a>3、测试</h3><p>直接ssh登录B机器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh &apos;root@192.168.205.141&apos;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/152827469.png?imageslim" alt="mark"></p>
+<p>B机器只要进行相同的操作，也就可以免密码登录A机器了</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssh</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/31/使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-30.2、堡垒机之jumpserver" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/31/30.2、堡垒机之jumpserver/">堡垒机之jumpserver</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/31/30.2、堡垒机之jumpserver/" class="archive-article-date">
+  	<time datetime="2017-10-31T04:04:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、jumpserver介绍"><a href="#一、jumpserver介绍" class="headerlink" title="一、jumpserver介绍"></a>一、jumpserver介绍</h3><p>官网：www.jumpserver.org</p>
+<p>jumpserver为国人开发的开源软件，是一款使用Python，Django开发的开源跳板机系统，助力互联网企业高效管理用户，资产，权限，审计管理，自动化</p>
+<p>具有以下特点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">完全开源，GPL授权 </div><div class="line">Python编写，容易再次开发 </div><div class="line">实现了跳板机基本功能，认证、授权、审计 </div><div class="line">集成了Ansible，批量命令等 </div><div class="line">支持WebTerminal </div><div class="line">Bootstrap编写，界面美观 </div><div class="line">自动收集硬件信息 </div><div class="line">录像回放 </div><div class="line">命令搜索 </div><div class="line">实时监控 </div><div class="line">批量上传下载</div></pre></td></tr></table></figure>
+<p>最新版为v0.4.0，基于Python3.6，Django 1.11，目前还未开发完成，所以我们接下来将要安装v0.3.2</p>
+<h3 id="二、jumpserver安装"><a href="#二、jumpserver安装" class="headerlink" title="二、jumpserver安装"></a>二、jumpserver安装</h3><h4 id="2-1、v0-3-2版本安装"><a href="#2-1、v0-3-2版本安装" class="headerlink" title="2.1、v0.3.2版本安装"></a>2.1、v0.3.2版本安装</h4><p>官方文档：<a href="https://github.com/jumpserver/jumpserver/wiki/v0.3.2-%E5%9F%BA%E4%BA%8E-RedHat-%E7%9A%84%E7%B3%BB%E7%BB%9F" target="_blank" rel="external">https://github.com/jumpserver/jumpserver/wiki/v0.3.2-%E5%9F%BA%E4%BA%8E-RedHat-%E7%9A%84%E7%B3%BB%E7%BB%9F</a></p>
+<p>（1）安装git</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y git</div></pre></td></tr></table></figure>
+<p>（2）克隆安装文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#需要一个比较大的分区</div><div class="line">cd  /home/</div><div class="line">#克隆git</div><div class="line">git clone https://github.com/jumpserver/jumpserver.git</div></pre></td></tr></table></figure>
+<ul>
+<li><p>克隆时出现以下错误</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/123141231.png?imageslim" alt="mark"></p>
+<p>解决办法：git config –global credential.helper store</p>
+</li>
+</ul>
+<p>（3）配置数据库</p>
+<p>如果之前我们没有安装mysql，那么这一步可省略，安装程序会自动帮我们安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#创建数据库</div><div class="line">&gt; create database jumpserver</div><div class="line">#授权用户</div><div class="line">&gt; grant all on jumpserver.* to &apos;jumpserver&apos;@&apos;127.0.0.1&apos;  identified by &apos;jump123456&apos;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<p>（4）安装jumpserver</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd  /home/jumpserver/install</div><div class="line">#切换分支</div><div class="line">git checkout master</div><div class="line">#安装</div><div class="line">pip install --upgrade pip</div><div class="line">python  install.py</div></pre></td></tr></table></figure>
+<p>安装过程中，需要我们输入mysql和smtp的一些信息</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/134348440.png?imageslim" alt="mark"></p>
+<ul>
+<li>配置文件为：../jumpserver.conf</li>
+</ul>
+<p>安装过程遇到一个错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">django.db.utils.OperationalError: (1366, &quot;Incorrect string value: &apos;\\xE6\\x9C\\xBA\\xE6\\x88\\xBF&apos; for column &apos;name&apos; at row 1&quot;)</div></pre></td></tr></table></figure>
+<p>解决办法为修改mysql字符集：<a href="http://blog.csdn.net/tianfs/article/details/51775051" target="_blank" rel="external">http://blog.csdn.net/tianfs/article/details/51775051</a></p>
+<p>还需要我们设置一下jumpserver管理员账户</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/140218241.png?imageslim" alt="mark"></p>
+<ul>
+<li>设置管理员账户后会自动启动，如果无法启动需要手动执行../service.sh</li>
+</ul>
+<h4 id="2-2、v0-4-0安装"><a href="#2-2、v0-4-0安装" class="headerlink" title="2.2、v0.4.0安装"></a>2.2、v0.4.0安装</h4><p>需要docker的支持，而且还未开发完成，以下步骤仅做为参考</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">yum install -y docker //首先安装docker</div><div class="line"> systemctl enable docker</div><div class="line"> systemctl start docker //启动docker服务</div><div class="line"> curl -L https://github.com/docker/compose/releases/download/1.17.0-rc1/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose  //安装docker-compose</div><div class="line"> chmod 755 /usr/local/bin/docker-compose</div><div class="line"> git clone https://github.com/jumpserver/jumpserver.git //下载jumpserver源码</div><div class="line"> cd jumpserver</div><div class="line"> 配置docker加速器 http://ask.apelearn.com/question/15126</div><div class="line"> 检查是否有监听8080端口的服务，如果有关闭</div><div class="line"> screen//进入到一个虚拟终端</div><div class="line"> docker-compose up //使用docker-compose安装jumpserver</div></pre></td></tr></table></figure>
+<h3 id="三、登录jumpserver"><a href="#三、登录jumpserver" class="headerlink" title="三、登录jumpserver"></a>三、登录jumpserver</h3><h4 id="3-1、修改登录用户密码"><a href="#3-1、修改登录用户密码" class="headerlink" title="3.1、修改登录用户密码"></a>3.1、修改登录用户密码</h4><p>在浏览器中输入ip:8000，输入管理员密码即可登录</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/140628980.png?imageslim" alt="mark"></p>
+<p>管理员密码我们是使用默认的，如果想修改的话可以这样操作</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/140734301.png?imageslim" alt="mark"></p>
+<h4 id="3-2、jumpserver功能"><a href="#3-2、jumpserver功能" class="headerlink" title="3.2、jumpserver功能"></a>3.2、jumpserver功能</h4><p>用户管理：用于管理登录web界面的用户</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/141815470.png?imageslim" alt="mark"></p>
+<p>资产管理：管理服务器，可以按组区分</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/141827463.png?imageslim" alt="mark"></p>
+<p>授权管理：客户机授权</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/141843674.png?imageslim" alt="mark"></p>
+<p>日志审计：查看登录历史，查看命令，查看上传下载文件，查看命令回放</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/142010590.png?imageslim" alt="mark"></p>
+<p>上传下载：上传下载文件</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/142155615.png?imageslim" alt="mark"></p>
+<p>设置：这个可以配置管理用户，自动化批量操作的用户。需要在每个客户机创建</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/142312450.png?imageslim" alt="mark"></p>
+<h4 id="3-3、创建管理用户"><a href="#3-3、创建管理用户" class="headerlink" title="3.3、创建管理用户"></a>3.3、创建管理用户</h4><p>在jumpserver中有3种用户，分别是登录jumpserver用户，登录客户机用户，默认管理用户（自动化），管理用户可以进行自动化批量操作。</p>
+<p>服务机：192.168.205.110</p>
+<p>客户机：192.168.205.109</p>
+<p>管理用户：jump</p>
+<p>（1）上传服务机的jump私钥到设置中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#在192.168.205.110上执行，生成密钥对，将私钥内容写到设置中，将公钥分发给客户机</div><div class="line">ssh-keygen  -f  jump</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/143235196.png?imageslim" alt="mark"></p>
+<p>（2）在客户机上创建jump用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#在192.168.205.109上执行</div><div class="line">useradd  jump</div><div class="line">passwd  jump</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#在192.168.205.110上执行，分发公钥给192.168.205.109</div><div class="line">ssh-copy-id -i ./jump.pub  jump@192.168.205.109</div><div class="line">#使用以下命令登录192.168.205.109，需要指定私钥名称</div><div class="line">ssh -i jump &apos;jump@192.168.205.109&apos;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/143805331.png?imageslim" alt="mark"></p>
+<p><strong>自动化管理用户创建配置成功</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">堡垒机</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">jumpserver</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/31/30.2、堡垒机之jumpserver/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-30.1、简易堡垒机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -202,7 +415,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="一、堡垒机介绍"><a href="#一、堡垒机介绍" class="headerlink" title="一、堡垒机介绍"></a>一、堡垒机介绍</h3><p>在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。跳板机是堡垒机的一种，建议的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计</p>
+<h3 id="一、堡垒机介绍"><a href="#一、堡垒机介绍" class="headerlink" title="一、堡垒机介绍"></a>一、堡垒机介绍</h3><p>在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。简易的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计。</p>
 <p>比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理</p>
 <p>商业堡垒机：齐治，Citrix xenapp</p>
 <h3 id="二、简易堡垒机"><a href="#二、简易堡垒机" class="headerlink" title="二、简易堡垒机"></a>二、简易堡垒机</h3><h4 id="2-1、搭建条件"><a href="#2-1、搭建条件" class="headerlink" title="2.1、搭建条件"></a>2.1、搭建条件</h4><p>具备堡垒机的条件是，该机器有公司和私网，其中私网和机房其他机器互通。公网可以通过VPN登录。</p>
@@ -439,7 +652,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">LNMP.nginx</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -491,9 +708,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在nginx访问日志中，我们可以添加\$upstream_response_time和\$quest_time，记录连接处理的时间。</p>
-<p>\$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。</p>
-<p>\$quest_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。</p>
+        <p>在nginx访问日志中，我们可以添加\$upstream_response_time和$quest_time，记录连接处理的时间。</p>
+<p>$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。</p>
+<p>$upstream_response_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。</p>
 <p><strong>我们可以通过比对这两个时间，看一下负载均衡架构中是前端还是后端处理的时间长</strong></p>
         
           <a class="article-more-a" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/#more">more >></a>
@@ -700,150 +917,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-29.3、自动化运维工具之ansible" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/25/29.3、自动化运维工具之ansible/">自动化运维工具之ansible</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/25/29.3、自动化运维工具之ansible/" class="archive-article-date">
-  	<time datetime="2017-10-25T00:35:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>ansible的特点，轻量级，不需要安装客户端，可以通过sshd进行通信，基于模块工作，模块可以由任何语言开发，不仅支持命令行使用模块，也支持编写yaml格式的playbook，支持sudo。有提供UI（浏览器图形化）www.ansible.com/tower  10台主机以内免费。</p>
-        
-          <a class="article-more-a" href="/2017/10/25/29.3、自动化运维工具之ansible/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ansible</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/25/29.3、自动化运维工具之ansible/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-nginx-keepalive-timeout-设置策略问题分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/">nginx keepalive_timeout 设置策略问题分析</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/" class="archive-article-date">
-  	<time datetime="2017-10-24T13:24:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>转载：<a href="http://www.okay686.cn/786.html" target="_blank" rel="external">http://www.okay686.cn/786.html</a></strong></p>
-<p>1.项目环境：nginx（前段代理，仅作代理用途）+3个tomcat（都在同一个服务器上），做的web项目<br>2.涉及到的业务逻辑：文件上传（可能有大文件，比如说android游戏，100m）；客户端接口请求；网站后台管理<br>3.问题重现流程：<br>3.1 配置好tomcat后，直接加上nginx前段代理（仅配置了http代理）<br>3.2 问题一：当管理员后台上传文件时，大文件无法上传成功，出现time-out，经重复测试，发现上传时间超过1分钟以后，就会返回超时信息，小文件没有问题<br>3.2 经调研得知nginx默认设置的http连接超时时间为75s，超过75s，会断掉当前的http连接，而大文件上传时经常会超过75s，这就导致大文件无法上传成功，当时的解决方案是，设置nginx http连接超时时间为30分钟，即参数keepalive_timeout=1800；文件上传问题基本解决；<br>3.4项目运行2天后，发现服务器突然宕机了，重启nginx可以解决问题，但是2个小时后又再次宕机，重启nginx又解决了问题，调研了一个中午，并且查看nginx的错误日志（socket() failed (24: Too many open files) while connecting to upstream），发现问题来源与nginx的连接数（设置的默认值为1024）达到上限<br>3.5发现这个问题后，我就想应该把nginx的连接数调大点，于是设置 worker_connections  10240；重启nginx，短时间没有出现问题，但是运行过程中，我再次查看错误日志，发现（socket() failed (24: Too many open files) while connecting to upstream）时不时的出现<br>3.6 此时发现调整nginx的连接数并不能完全解决问题，于是google，百度之，发现问题所在，罪魁祸首是：nginx的keepalive_timeout设置项时间太长，客户端接口访问其实是一个比较快速的过程，访问完成了已经不需要继续使用http连接了，但是由于对nginx的错误配置，导致接口访问完成后http连接并没有被释放掉，所以导致连接数越来越大，最终nginx崩溃。</p>
-<p>4.那么这个问题应该如何解决呢？<br>将keepalive_timeout时间调小会导致上传操作可能无法完成；调大点的话，许多无效的http连接占据着nginx的连接数<br>这貌似是一个两难的问题！</p>
-<h4 id="下面重点来了："><a href="#下面重点来了：" class="headerlink" title="下面重点来了："></a><strong>下面重点来了：</strong></h4><h5 id="Nginx的TCP-KeepAlive如何设置"><a href="#Nginx的TCP-KeepAlive如何设置" class="headerlink" title="Nginx的TCP KeepAlive如何设置"></a>Nginx的TCP KeepAlive如何设置</h5><p>开篇提到我最近遇到的问题，Client发送一个请求到Nginx服务端，服务端需要经过一段时间的计算才会返回， 时间超过了LVS Session保持的90s,在服务端使用Tcpdump抓包,本地通过wireshark分析显示的结果如第二副图所示，第5条报文和最后一条报文之间的时间戳大概差了90s。在确定是LVS的Session保持时间到期的问题之后，我开始在寻找Nginx的TCP KeepAlive如何设置，最先找到的选项是keepalivetimeout,从同事那里得知keepalivetimeout的用法是当keepalivetimeout的值为0时表示关闭keepalive,当keepalivetimeout的值为一个正整数值时表示链接保持多少秒，于是把keepalivetimeout设置成75s,但是实际的测试结果表明并不生效。显然keepalivetimeout不能解决TCP层面的KeepAlive问题，实际上Nginx涉及到keepalive的选项还不少，Nginx通常的使用方式如下：</p>
-<p><img src="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/5CdFcF7FID.png" alt="img"></p>
-<p>从TCP层面Nginx不仅要和Client关心KeepAlive,而且还要和Upstream关心KeepAlive, 同时从HTTP协议层面，Nginx需要和Client关心Keep-Alive,如果Upstream使用的HTTP协议，还要关心和Upstream的Keep-Alive，总而言之，还比较复杂。所以搞清楚TCP层的KeepAlive和HTTP的Keep-Alive之后，就不会对于Nginx的KeepAlive设置错。我当时解决这个问题时候不确定Nginx有配置TCP keepAlive的选项，于是我打开Ngnix的源代码，在源代码里面搜索TCP_KEEPIDLE,相关的代码如下：</p>
-<p><img src="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/5B4406FDha.png" alt="img"></p>
-<p>从代码的上下文我发现TCP KeepAlive可以配置，所以我接着查找通过哪个选项配置，最后发现listen指令的so_keepalive选项能对TCP socket进行KeepAlive的配置。</p>
-<p><img src="http://oi47iib4e.bkt.clouddn.com/okay686cn/171024/lkGEIkG7Ad.png" alt="img"></p>
-<p>以上三个参数只能使用一个，不能同时使用， 比如so_keepalive=on, so_keepalive=off或者so_keepalive=30s::(表示等待30s没有数据报文发送探测报文)。通过设置listen 80,so_keepalive=60s::之后成功解决Nginx在LVS保持长链接的问题，避免了使用其他高成本的方案。在商用负载设备上如果遇到类似的问题同样也可以通过这种方式解决。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -956,11 +1029,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -977,10 +1050,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1004,6 +1073,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
@@ -1012,19 +1085,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1048,11 +1121,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1060,15 +1129,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1080,15 +1149,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LNMP.nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1124,7 +1201,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1132,11 +1209,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1148,11 +1221,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>
