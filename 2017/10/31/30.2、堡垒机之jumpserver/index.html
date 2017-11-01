@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>堡垒机之jumpserver | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、jumpserver介绍官网：www.jumpserver.org jumpserver为国人开发的开源软件，是一款使用Python，Django开发的开源跳板机系统，助力互联网企业高效管理用户，资产，权限，审计管理，自动化 具有以下特点： 1234567891011完全开源，GPL授权 Python编写，容易再次开发 实现了跳板机基本功能，认证、授权、审计 集成了Ansible，批量命令等">
+  <meta name="description" content="[TOC] 一、jumpserver介绍官网：www.jumpserver.org jumpserver为国人开发的开源软件，是一款使用Python，Django开发的开源跳板机系统，助力互联网企业高效管理用户，资产，权限，审计管理，自动化 具有以下特点： 1234567891011完全开源，GPL授权 Python编写，容易再次开发 实现了跳板机基本功能，认证、授权、审计 集成了Ansible，">
 <meta name="keywords" content="堡垒机,jumpserver">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堡垒机之jumpserver">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/10/31/30.2、堡垒机之jumpserver/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="一、jumpserver介绍官网：www.jumpserver.org jumpserver为国人开发的开源软件，是一款使用Python，Django开发的开源跳板机系统，助力互联网企业高效管理用户，资产，权限，审计管理，自动化 具有以下特点： 1234567891011完全开源，GPL授权 Python编写，容易再次开发 实现了跳板机基本功能，认证、授权、审计 集成了Ansible，批量命令等">
+<meta property="og:description" content="[TOC] 一、jumpserver介绍官网：www.jumpserver.org jumpserver为国人开发的开源软件，是一款使用Python，Django开发的开源跳板机系统，助力互联网企业高效管理用户，资产，权限，审计管理，自动化 具有以下特点： 1234567891011完全开源，GPL授权 Python编写，容易再次开发 实现了跳板机基本功能，认证、授权、审计 集成了Ansible，">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171031/123141231.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171031/134348440.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171031/140218241.png?imageslim">
@@ -26,12 +26,37 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171031/142010590.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171031/142155615.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171031/142312450.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/152523375.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171031/143235196.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171031/143805331.png?imageslim">
-<meta property="og:updated_time" content="2017-10-31T08:08:06.308Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/153453944.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/153524953.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/154220757.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/154316054.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/160421828.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/155934586.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/160109454.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/161039442.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/162000898.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/162021142.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/162135980.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/163236110.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/163419021.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/163438129.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/163531946.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/164203034.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/164523282.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/164618912.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/170233322.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/170343191.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/170738585.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/171101269.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/170948032.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/170915739.png?imageslim">
+<meta property="og:updated_time" content="2017-11-01T09:13:14.859Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="堡垒机之jumpserver">
-<meta name="twitter:description" content="一、jumpserver介绍官网：www.jumpserver.org jumpserver为国人开发的开源软件，是一款使用Python，Django开发的开源跳板机系统，助力互联网企业高效管理用户，资产，权限，审计管理，自动化 具有以下特点： 1234567891011完全开源，GPL授权 Python编写，容易再次开发 实现了跳板机基本功能，认证、授权、审计 集成了Ansible，批量命令等">
+<meta name="twitter:description" content="[TOC] 一、jumpserver介绍官网：www.jumpserver.org jumpserver为国人开发的开源软件，是一款使用Python，Django开发的开源跳板机系统，助力互联网企业高效管理用户，资产，权限，审计管理，自动化 具有以下特点： 1234567891011完全开源，GPL授权 Python编写，容易再次开发 实现了跳板机基本功能，认证、授权、审计 集成了Ansible，">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171031/123141231.png?imageslim">
   
   
@@ -168,7 +193,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="一、jumpserver介绍"><a href="#一、jumpserver介绍" class="headerlink" title="一、jumpserver介绍"></a>一、jumpserver介绍</h3><p>官网：www.jumpserver.org</p>
+        <p>[TOC]</p>
+<h3 id="一、jumpserver介绍"><a href="#一、jumpserver介绍" class="headerlink" title="一、jumpserver介绍"></a>一、jumpserver介绍</h3><p>官网：www.jumpserver.org</p>
 <p>jumpserver为国人开发的开源软件，是一款使用Python，Django开发的开源跳板机系统，助力互联网企业高效管理用户，资产，权限，审计管理，自动化</p>
 <p>具有以下特点：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">完全开源，GPL授权 </div><div class="line">Python编写，容易再次开发 </div><div class="line">实现了跳板机基本功能，认证、授权、审计 </div><div class="line">集成了Ansible，批量命令等 </div><div class="line">支持WebTerminal </div><div class="line">Bootstrap编写，界面美观 </div><div class="line">自动收集硬件信息 </div><div class="line">录像回放 </div><div class="line">命令搜索 </div><div class="line">实时监控 </div><div class="line">批量上传下载</div></pre></td></tr></table></figure>
@@ -177,7 +203,7 @@
 <p>（1）安装git</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y git</div></pre></td></tr></table></figure>
 <p>（2）克隆安装文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#需要一个比较大的分区</div><div class="line">cd  /home/</div><div class="line">#克隆git</div><div class="line">git clone https://github.com/jumpserver/jumpserver.git</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#需要一个比较大的分区</div><div class="line">cd  /opt/</div><div class="line">#克隆git</div><div class="line">git clone https://github.com/jumpserver/jumpserver.git</div></pre></td></tr></table></figure>
 <ul>
 <li><p>克隆时出现以下错误</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/123141231.png?imageslim" alt="mark"></p>
@@ -188,7 +214,7 @@
 <p>如果之前我们没有安装mysql，那么这一步可省略，安装程序会自动帮我们安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#创建数据库</div><div class="line">&gt; create database jumpserver</div><div class="line">#授权用户</div><div class="line">&gt; grant all on jumpserver.* to &apos;jumpserver&apos;@&apos;127.0.0.1&apos;  identified by &apos;jump123456&apos;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 <p>（4）安装jumpserver</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd  /home/jumpserver/install</div><div class="line">#切换分支</div><div class="line">git checkout master</div><div class="line">#安装</div><div class="line">pip install --upgrade pip</div><div class="line">python  install.py</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd  /opt/jumpserver/install</div><div class="line">#切换分支</div><div class="line">git checkout master</div><div class="line">#安装</div><div class="line">pip install --upgrade pip</div><div class="line">python  install.py</div></pre></td></tr></table></figure>
 <p>安装过程中，需要我们输入mysql和smtp的一些信息</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/134348440.png?imageslim" alt="mark"></p>
 <ul>
@@ -220,18 +246,102 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/142155615.png?imageslim" alt="mark"></p>
 <p>设置：这个可以配置管理用户，自动化批量操作的用户。需要在每个客户机创建</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/142312450.png?imageslim" alt="mark"></p>
-<h4 id="3-3、创建管理用户"><a href="#3-3、创建管理用户" class="headerlink" title="3.3、创建管理用户"></a>3.3、创建管理用户</h4><p>在jumpserver中有3种用户，分别是登录jumpserver用户，登录客户机用户，默认管理用户（自动化），管理用户可以进行自动化批量操作。</p>
+<h3 id="四、jumpserver用户管理"><a href="#四、jumpserver用户管理" class="headerlink" title="四、jumpserver用户管理"></a>四、jumpserver用户管理</h3><h4 id="4-1、创建管理用户"><a href="#4-1、创建管理用户" class="headerlink" title="4.1、创建管理用户"></a>4.1、创建管理用户</h4><p>jumpserver中的用户介绍</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/152523375.png?imageslim" alt="mark"></p>
+<ul>
+<li>jumpserver用户用来登录jumpserver（web界面、ssh登录） </li>
+<li>管理用户用来自动创建客户机上的系统用户、批量执行命令等操作</li>
+<li>客户机上的系统用户，用来通过jumpserver去登录每一台客户机的用户</li>
+</ul>
 <p>服务机：192.168.205.110</p>
-<p>客户机：192.168.205.109</p>
+<p>客户机：192.168.205.109，192.168.205.108</p>
 <p>管理用户：jump</p>
 <p>（1）上传服务机的jump私钥到设置中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#在192.168.205.110上执行，生成密钥对，将私钥内容写到设置中，将公钥分发给客户机</div><div class="line">ssh-keygen  -f  jump</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/143235196.png?imageslim" alt="mark"></p>
 <p>（2）在客户机上创建jump用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#在192.168.205.109上执行</div><div class="line">useradd  jump</div><div class="line">passwd  jump</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#在192.168.205.109/108上执行</div><div class="line">useradd  jump</div><div class="line">passwd  jump</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#在192.168.205.110上执行，分发公钥给192.168.205.109</div><div class="line">ssh-copy-id -i ./jump.pub  jump@192.168.205.109</div><div class="line">#使用以下命令登录192.168.205.109，需要指定私钥名称</div><div class="line">ssh -i jump &apos;jump@192.168.205.109&apos;</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/143805331.png?imageslim" alt="mark"></p>
-<p><strong>自动化管理用户创建配置成功</strong></p>
+<p>（3）配置jump拥有sudo权限</p>
+<p><strong>经过以上配置，自动化管理用户创建配置成功</strong></p>
+<h4 id="4-2、创建jumpserver普通用户"><a href="#4-2、创建jumpserver普通用户" class="headerlink" title="4.2、创建jumpserver普通用户"></a>4.2、创建jumpserver普通用户</h4><p><strong>用于登录web界面，经过授权管理还可以使用ssh登录服务器，所以在服务机系统中也会创建一个相同的用户</strong></p>
+<p>（1）创建用户组</p>
+<p>用户组名为运维</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/153453944.png?imageslim" alt="mark"></p>
+<p>（2）创建用户</p>
+<p>用户名为allen1</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/153524953.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/154220757.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/154316054.png?imageslim" alt="mark"></p>
+<p>（3）修改登录web密码</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/160421828.png?imageslim" alt="mark"></p>
+<ul>
+<li>然后，直接输入密码即可</li>
+</ul>
+<p>（4）重新获取密钥</p>
+<p>由于邮箱设置错误或者是我们忘记保存密钥了，我们可以重新生成密钥</p>
+<p>第一步，登录普通用户，将之前的密钥下载下来</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/155934586.png?imageslim" alt="mark"></p>
+<ul>
+<li>这个密钥是我们不需要的，下载下来后，状态会变成nokey</li>
+</ul>
+<p>第二步，修改用户信息，点击重新生成即可，记下密钥密码</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/160109454.png?imageslim" alt="mark"></p>
+<ul>
+<li>然后重新下载并导入即可</li>
+</ul>
+<h4 id="4-3、添加客户机"><a href="#4-3、添加客户机" class="headerlink" title="4.3、添加客户机"></a>4.3、添加客户机</h4><p>（1）添加资产组</p>
+<p>资产组名为web</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/161039442.png?imageslim" alt="mark"></p>
+<p>（2）添加资产</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/162000898.png?imageslim" alt="mark"></p>
+<p>（3）自动更新资产信息</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/162021142.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/162135980.png?imageslim" alt="mark"></p>
+<ul>
+<li>该步骤也可以认证我们之前配置的管理用户是否正确</li>
+</ul>
+<h4 id="4-4、添加系统用户并授权"><a href="#4-4、添加系统用户并授权" class="headerlink" title="4.4、添加系统用户并授权"></a>4.4、添加系统用户并授权</h4><p>此时我们在web上还是无法直接管理机器，需要授权一个系统用户</p>
+<p>（1）生成密钥对</p>
+<p>在服务机192.168.205.110上操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh-keygen  -f  allen110</div><div class="line">cat allen110</div></pre></td></tr></table></figure>
+<p>（2）授权系统用户</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/163236110.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/163419021.png?imageslim" alt="mark"></p>
+<p>（3）推送用户</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/163438129.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/163531946.png?imageslim" alt="mark"></p>
+<ul>
+<li>推送后，在资产中会自动创建系统用户allen110，并且会同时复制服务机生成的公钥到authorized_keys。</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/164203034.png?imageslim" alt="mark"></p>
+<h4 id="4-5、授权规则"><a href="#4-5、授权规则" class="headerlink" title="4.5、授权规则"></a>4.5、授权规则</h4><p>我们还需要给系统用户授权规则，授权规则主要是为映射，为了让jumpserver的登录用户去关联对应资产的系统用户</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/164523282.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/164618912.png?imageslim" alt="mark"></p>
+<h4 id="4-6、客户端登录jumpserver"><a href="#4-6、客户端登录jumpserver" class="headerlink" title="4.6、客户端登录jumpserver"></a>4.6、客户端登录jumpserver</h4><p>（1）导入用户公钥文件</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/170233322.png?imageslim" alt="mark"></p>
+<ul>
+<li>这里的密码为创建jumpserver用户后，邮件收到的密钥密码</li>
+</ul>
+<p>（2）登录ssh</p>
+<p>可以使用xshell登录，登录界面如下：</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/170343191.png?imageslim" alt="mark"></p>
+<ul>
+<li>如果界面为正常shell，可能的原因是我们在授权用户时，服务机中已经存在该用户。所以我们需要登录到服务器上修改授权用户的shell为/opt/jumpserver/init.sh（该文件根据你jumpserver安装的位置）</li>
+</ul>
+<p>（3）简单操作</p>
+<p>p：显示有权限的主机，就是我们授权规则中添加的资产主机</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/170738585.png?imageslim" alt="mark"></p>
+<p>登录主机：可以输入p中显示的ID，主机名等信息进行登录</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/171101269.png?imageslim" alt="mark"></p>
+<ul>
+<li>登录的话也是登录到我们授权的用户</li>
+</ul>
+<p>h：输出帮助</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/170948032.png?imageslim" alt="mark"></p>
+<p>e：远程登录执行命令</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/170915739.png?imageslim" alt="mark"></p>
 
       
 
@@ -259,57 +369,6 @@
 
       
 
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://zhangguangzhi.github.io/2017/10/31/30.2、堡垒机之jumpserver/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
@@ -368,7 +427,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、jumpserver介绍"><span class="toc-number">1.</span> <span class="toc-text">一、jumpserver介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、jumpserver安装"><span class="toc-number">2.</span> <span class="toc-text">二、jumpserver安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、v0-3-2版本安装"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、v0.3.2版本安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、v0-4-0安装"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、v0.4.0安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、登录jumpserver"><span class="toc-number">3.</span> <span class="toc-text">三、登录jumpserver</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、修改登录用户密码"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、修改登录用户密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、jumpserver功能"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、jumpserver功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3、创建管理用户"><span class="toc-number">3.3.</span> <span class="toc-text">3.3、创建管理用户</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、jumpserver介绍"><span class="toc-number">1.</span> <span class="toc-text">一、jumpserver介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、jumpserver安装"><span class="toc-number">2.</span> <span class="toc-text">二、jumpserver安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、v0-3-2版本安装"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、v0.3.2版本安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、v0-4-0安装"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、v0.4.0安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、登录jumpserver"><span class="toc-number">3.</span> <span class="toc-text">三、登录jumpserver</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、修改登录用户密码"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、修改登录用户密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、jumpserver功能"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、jumpserver功能</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、jumpserver用户管理"><span class="toc-number">4.</span> <span class="toc-text">四、jumpserver用户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1、创建管理用户"><span class="toc-number">4.1.</span> <span class="toc-text">4.1、创建管理用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2、创建jumpserver普通用户"><span class="toc-number">4.2.</span> <span class="toc-text">4.2、创建jumpserver普通用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3、添加客户机"><span class="toc-number">4.3.</span> <span class="toc-text">4.3、添加客户机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4、添加系统用户并授权"><span class="toc-number">4.4.</span> <span class="toc-text">4.4、添加系统用户并授权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5、授权规则"><span class="toc-number">4.5.</span> <span class="toc-text">4.5、授权规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6、客户端登录jumpserver"><span class="toc-number">4.6.</span> <span class="toc-text">4.6、客户端登录jumpserver</span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
@@ -496,19 +555,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,6 +583,26 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
@@ -536,31 +615,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">shell脚本</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zabbix</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -584,19 +643,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -608,7 +659,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,11 +675,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -644,11 +703,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,7 +723,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,6 +732,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -689,10 +752,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
             
             <div class="clearfix"></div>
@@ -744,7 +803,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://www.apelearn.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>猿课</a>
+              <a href="http://www.okay686.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>okay686</a>
             </li>
           
         </ul>
