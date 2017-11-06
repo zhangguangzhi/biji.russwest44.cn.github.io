@@ -181,6 +181,153 @@
         <!-- 目录内容结束 -->
 
   
+    <article id="post-31.1、虚拟化之KVM配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/06/31.1、虚拟化之KVM配置/">虚拟化之KVM配置</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/06/31.1、虚拟化之KVM配置/" class="archive-article-date">
+  	<time datetime="2017-11-06T14:37:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>虚拟化：通过虚拟化工具把cpu，内存，硬盘等真实硬件资源给模拟成更少的虚拟硬件资源。进行虚拟化的好处是，最大限度的利用硬件资源。也是云计算的基础。下图为虚拟化模型：</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171106/224753323.png?imageslim" alt="mark"></p>
+<p><strong>虚拟化分类：</strong></p>
+<p>软件级别，所有硬件通过模拟器模拟出来（qemu）</p>
+<p>硬件级别，通过VMM（虚拟机监视器），将硬件分配和管理，操作系统运行在建立好的vm上（xen，VMware[ESX,workstation]，kvm，virtualbox）</p>
+<p>操作系统级别，虚拟机操作系统和宿主操作系统共享，可以模拟上千个虚拟机出来（openvz）</p>
+<p><strong>半虚拟化和全虚拟化</strong></p>
+<p>半虚拟化：半虚拟化，宿主机和客户机需要更改操作系统的内核，客户机知道宿主机的存在，两者需要系统合作。（Xen支持虚拟化），半虚拟化性能较好。</p>
+<p>全虚拟化：全虚拟化为客户机提供了完整的虚拟硬件资源，客户机不需要做任何更改，它不知道宿主机的存在（kvm属于全虚拟化，VMware也是全虚拟化）</p>
+<p><strong>Xen和kvm比较</strong></p>
+<p>1.不管CPU支持不支持虚拟化，xen都可以安装，而kvm必须要CPU支持虚拟化才行</p>
+<p>2.xen支持半虚拟化也会支持全虚拟化，kvm仅支持全虚拟化</p>
+<p>3.安装xen后，xen会替换原来的内核接管系统管理，而kvm只是Linux内核的一个模块，依然由原系统内核管理系统</p>
+<p>4.xen出现的时间比kvm早，由于kvm不需要接管内核，收到大多数内核的喜爱并使用</p>
+<p>5.在xen的体系结构中，xen  hypervisor运行与硬件之上，并且将系统资源进行虚拟化，将虚拟户的资源分配给上层的虚拟机（vm），然后通过虚拟机vm来运行相应的客户机操作系统</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171106/230601254.png?imageslim" alt="mark"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟化</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">kvm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/06/31.1、虚拟化之KVM配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-select,poll,epoll的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/06/select,poll,epoll的区别/">select,poll,epoll的区别</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/06/select,poll,epoll的区别/" class="archive-article-date">
+  	<time datetime="2017-11-06T13:48:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>select模式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、select 函数监视的文件描述符分3类，分别是writefds、readfds、和exceptfds。调用后select函数会阻塞，直到有描述符就绪（有数据 可读、可写、或者有except），或者超时（timeout指定等待时间，如果立即返回设为null即可），函数返回。当select函数返回后，可以通过遍历fdset，来找到就绪的描述符。</div><div class="line"></div><div class="line">2、select目前几乎在所有的平台上支持，其良好跨平台支持也是它的一个优点。select的一个缺点在于单个进程能够监视的文件描述符的数量存在最大限制，在Linux上一般为1024，可以通过修改宏定义甚至重新编译内核的方式提升这一限制，但是这样也会造成效率的降低。</div></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2017/11/06/select,poll,epoll的区别/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/06/select,poll,epoll的区别/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-CDN介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -212,17 +359,9 @@
 <h3 id="二、cdn的作用"><a href="#二、cdn的作用" class="headerlink" title="二、cdn的作用"></a>二、cdn的作用</h3><p>1、加速网站访问速度，特别是远程访问。例如美国的ip来访问我们的网站，或者北京的ip来访问我们广州的网站</p>
 <p>2、节省源站带宽，因为大部分数据请求都由节点处理了。所以到达web的数据较少，节省了带宽</p>
 <p>3、能够抵御ddos，cc攻击。</p>
-<h3 id="三、cdn厂商"><a href="#三、cdn厂商" class="headerlink" title="三、cdn厂商"></a>三、cdn厂商</h3><p>蓝汛，又拍云，百度云，阿里元，腾讯云，七牛云</p>
-<p>如何查看是否接入cdn</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/231759788.png?imageslim" alt="mark"></p>
-<ul>
-<li>下面的站点显示的就是cdn节点的域名和ip</li>
-</ul>
-<h3 id="四、cdn监控"><a href="#四、cdn监控" class="headerlink" title="四、cdn监控"></a>四、cdn监控</h3><p>1、排查某个区域访问有问题的办法</p>
-<p>首先要确定好访问有问题的区域访问到的节点ip，然后根据ip去排查。比如先ping一下这个ip是否通，telnet一下这个ip的80端口是否正常。可以编辑自己电脑的hosts文件，写一条到该区域CDN的解析记录，用浏览器访问</p>
-<p>2、监控cdn节点脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#监控的url为www.allen.com/index.php</div><div class="line">#源站ip为88.88.88.88</div><div class="line">#以及各个节点ip列表文件为/tmp/ip.txt</div><div class="line"></div><div class="line"></div><div class="line">#!/bin/bash</div><div class="line">url=&quot;www.allen.com/index.php&quot;</div><div class="line">s_ip=&quot;88.88.88.88&quot;</div><div class="line">curl -x $s_ip:80 $url &gt; /tmp/source.html 2&gt;/dev/null</div><div class="line">for ip in `cat /tmp/ip.txt`</div><div class="line">do</div><div class="line">    curl -x $ip:80 $url 2&gt;/dev/null &gt;/tmp/$ip.html</div><div class="line">    [ -f /tmp/$ip.diff ] &amp;&amp; rm -f /tmp/$ip.diff</div><div class="line">    touch /tmp/$ip.diff</div><div class="line">    diff /tmp/source.html /tmp/$ip.html &gt; /tmp/$ip.diff 2&gt;/dev/null</div><div class="line">    n=`wc -l /tmp/$ip.diff|awk &apos;&#123;print $1&#125;&apos;`</div><div class="line">    if [ $n -lt 0 ]</div><div class="line">    then</div><div class="line">        echo &quot;node $ip sth wrong.&quot;</div><div class="line">    fi</div><div class="line">done</div></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2017/11/01/CDN介绍/#more">more >></a>
+        
       
 
       
@@ -523,11 +662,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
         		</li>
       		
 		</ul>
@@ -706,160 +845,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-nginx访问日志中的$quest_time和$upstream_response_time" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/">nginx访问日志中的$quest_time和$upstream_response_time</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/" class="archive-article-date">
-  	<time datetime="2017-10-26T08:34:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在nginx访问日志中，我们可以添加\$upstream_response_time和$quest_time，记录连接处理的时间。</p>
-<p>$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。</p>
-<p>$upstream_response_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。</p>
-<p><strong>我们可以通过比对这两个时间，看一下负载均衡架构中是前端还是后端处理的时间长</strong></p>
-        
-          <a class="article-more-a" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-29.5、自动化运维工具之使用ansible安装配置nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/26/29.5、自动化运维工具之使用ansible安装配置nginx/">自动化运维工具之使用ansible安装配置nginx</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/26/29.5、自动化运维工具之使用ansible安装配置nginx/" class="archive-article-date">
-  	<time datetime="2017-10-26T01:12:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>使用ansible安装配置nginx</p>
-<p>安装：先在一台机器上编译安装好nginx，然后打包，再用ansible进行分发</p>
-<h3 id="一、安装nginx"><a href="#一、安装nginx" class="headerlink" title="一、安装nginx"></a>一、安装nginx</h3><h4 id="1-1、远程安装nginx前准备"><a href="#1-1、远程安装nginx前准备" class="headerlink" title="1.1、远程安装nginx前准备"></a>1.1、远程安装nginx前准备</h4><p>（1）创建项目目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /etc/ansible</div><div class="line">#创建一个nginx_install的目录，方便管理</div><div class="line">mkdir nginx_install</div><div class="line">cd  nginx_install</div><div class="line">mkdir -p  roles/&#123;common,install&#125;/&#123;handlers,files,meta,tasks,templates,vars&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>roles作为一个总的项目目录，里面可创建项目角色。common角色里面的文件是为了安装nginx所做的准备，install角色里的文件为实际安装nginx。</li>
-<li>每个角色下面又有几个目录，都有各自的作用，根据角色需求配置</li>
-<li>handlers下面是当发生改变时要执行的操作，通常用在配置文件发生改变，重启服务。</li>
-<li>files为安装是用到的一些文件</li>
-<li>meta为说明信息，说明角色依赖等信息</li>
-<li>tasks里面是核心的配置文件</li>
-<li>templates通常存一些配置文件，启动脚本等模板文件</li>
-<li>vars下定义的是变量</li>
-<li>每个目录下的入口文件都为main.yml，固定格式</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/10/26/29.5、自动化运维工具之使用ansible安装配置nginx/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ansible</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/26/29.5、自动化运维工具之使用ansible安装配置nginx/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -960,11 +945,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统监控</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -976,15 +961,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -996,7 +981,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1004,7 +993,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1016,11 +1009,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1028,11 +1017,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1048,11 +1037,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1072,10 +1061,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
@@ -1084,11 +1069,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ansible</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1096,11 +1093,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1108,23 +1105,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1164,10 +1157,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
@@ -1177,6 +1166,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">
