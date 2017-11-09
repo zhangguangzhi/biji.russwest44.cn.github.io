@@ -17,7 +17,18 @@
 <meta property="og:description" content="[TOC] 虚拟化：通过虚拟化工具把cpu，内存，硬盘等真实硬件资源给模拟成更少的虚拟硬件资源。进行虚拟化的好处是，最大限度的利用硬件资源。也是云计算的基础。下图为虚拟化模型：  虚拟化分类： 软件级别，所有硬件通过模拟器模拟出来（qemu） 硬件级别，通过VMM（虚拟机监视器），将硬件分配和管理，操作系统运行在建立好的vm上（xen，VMware[ESX,workstation]，kvm，vir">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171106/224753323.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171106/230601254.png?imageslim">
-<meta property="og:updated_time" content="2017-11-06T15:06:24.949Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171108/211903221.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171108/212326858.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171108/213052597.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171108/213236771.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171108/214159905.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171108/221004046.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/104703480.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/103154272.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/104758794.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/104832156.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/111027759.png?imageslim">
+<meta property="og:updated_time" content="2017-11-09T03:31:09.843Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟化之KVM配置">
 <meta name="twitter:description" content="[TOC] 虚拟化：通过虚拟化工具把cpu，内存，硬盘等真实硬件资源给模拟成更少的虚拟硬件资源。进行虚拟化的好处是，最大限度的利用硬件资源。也是云计算的基础。下图为虚拟化模型：  虚拟化分类： 软件级别，所有硬件通过模拟器模拟出来（qemu） 硬件级别，通过VMM（虚拟机监视器），将硬件分配和管理，操作系统运行在建立好的vm上（xen，VMware[ESX,workstation]，kvm，vir">
@@ -174,6 +185,145 @@
 <p>4.xen出现的时间比kvm早，由于kvm不需要接管内核，收到大多数内核的喜爱并使用</p>
 <p>5.在xen的体系结构中，xen  hypervisor运行与硬件之上，并且将系统资源进行虚拟化，将虚拟户的资源分配给上层的虚拟机（vm），然后通过虚拟机vm来运行相应的客户机操作系统</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171106/230601254.png?imageslim" alt="mark"></p>
+<a id="more"></a>
+<h2 id="VMware-centos7-64位kvm虚拟化配置"><a href="#VMware-centos7-64位kvm虚拟化配置" class="headerlink" title="VMware  centos7  64位kvm虚拟化配置"></a>VMware  centos7  64位kvm虚拟化配置</h2><h3 id="一、实验前准备"><a href="#一、实验前准备" class="headerlink" title="一、实验前准备"></a>一、实验前准备</h3><p>配置kvm虚拟化需要我们的CPU支持虚拟化，有的机器支持但是还需要在BIOS开启。</p>
+<p>我们使用一个已经创建的虚拟机作为宿主机，配置如下</p>
+<p>1.内存4G</p>
+<p>2.有一块50G的磁盘</p>
+<p>3.配置该虚拟机支持虚拟化</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171108/211903221.png?imageslim" alt="mark"></p>
+<p>4.关闭selinux和清除iptables规则</p>
+<h3 id="二、安装kvm"><a href="#二、安装kvm" class="headerlink" title="二、安装kvm"></a>二、安装kvm</h3><p>2.1、检查你的系统是否支持虚拟化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep -Ei &apos;vmx|svm&apos; /proc/cpuinfo</div></pre></td></tr></table></figure>
+<p>如果有输出内容，则支持。Intel的CPU支持vmx，AMD的CPU支持svm</p>
+<p>2.2、安装kvm</p>
+<p>安装时，我们还需要安装相应的依赖包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install  -y  bridge-utils    virt-*  kvm  qemu-img libvirt</div></pre></td></tr></table></figure>
+<p>2.3、检查kvm是否加载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lsmod |grep kvm</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171108/212326858.png?imageslim" alt="mark"></p>
+<ul>
+<li>如果没有，需要执行以下<code>modprobe kvm-intel</code></li>
+<li>如果还没有，需要我们重新启动宿主机</li>
+</ul>
+<p>2.4、配置网卡</p>
+<p>（1）配置ens33</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">cd /etc/sysconfig/network-scripts/</div><div class="line">cp ifcfg-eth0 ifcfg-br0</div><div class="line">#编辑ifcfg-ens33，配置如下</div><div class="line">vim   ifcfg-ens33</div><div class="line"></div><div class="line">TYPE=Ethernet</div><div class="line">BOOTPROTO=static</div><div class="line">DEFROUTE=yes</div><div class="line">PEERDNS=yes</div><div class="line">PEERROUTES=yes</div><div class="line">IPV4_FAILURE_FATAL=no</div><div class="line">IPV6INIT=yes</div><div class="line">IPV6_AUTOCONF=yes</div><div class="line">IPV6_DEFROUTE=yes</div><div class="line">IPV6_PEERDNS=yes</div><div class="line">IPV6_PEERROUTES=yes</div><div class="line">IPV6_FAILURE_FATAL=no</div><div class="line">IPV6_ADDR_GEN_MODE=stable-privacy</div><div class="line">NAME=ens33</div><div class="line">DEVICE=ens33</div><div class="line">ONBOOT=yes</div><div class="line">BRIDGE=br0</div></pre></td></tr></table></figure>
+<ul>
+<li>配置BRIDGE表示桥接</li>
+</ul>
+<p>（2）配置br0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/network-scripts/ifcfg-br0</div><div class="line">#配置如下</div><div class="line"></div><div class="line">TYPE=Bridge</div><div class="line">BOOTPROTO=static</div><div class="line">DEFROUTE=yes</div><div class="line">NAME=br0</div><div class="line">DEVICE=br0</div><div class="line">ONBOOT=yes</div><div class="line">IPADDR=192.168.205.109</div><div class="line">NETMASK=255.255.255.0</div><div class="line">GATEWAY=192.168.205.2</div><div class="line">DNS1=192.168.1.1</div><div class="line">DNS2=119.29.29.29</div><div class="line">DNS3=192.168.2.1</div><div class="line">PREFIX=24</div><div class="line">NM_CONTROLLED=yes</div></pre></td></tr></table></figure>
+<ul>
+<li>需要将类型TYPE设置为Bridge</li>
+</ul>
+<p>（3）查看是否成功</p>
+<p>配置完成后需要重启network服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl  restart  network</div><div class="line">ifconfig</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171108/213052597.png?imageslim" alt="mark"></p>
+<p>2.5、启动libvirtd和messagebus</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl start libvirtd</div><div class="line">systemctl start messagebus</div></pre></td></tr></table></figure>
+<p>查看网络接口列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brctl show</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171108/213236771.png?imageslim" alt="mark"></p>
+<h3 id="三、创建虚拟机"><a href="#三、创建虚拟机" class="headerlink" title="三、创建虚拟机"></a>三、创建虚拟机</h3><p>3.1、创建虚拟机存放目录</p>
+<p>（1）将50G的磁盘挂载到系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkfs.xfs -f /dev/sdb</div><div class="line">mount /dev/sdb  /mnt/</div></pre></td></tr></table></figure>
+<p>（2）创建虚拟机存放目录</p>
+<p>该目录的所在分区必须足够大</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir  /mnt/kvm</div></pre></td></tr></table></figure>
+<p>3.2、创建虚拟机</p>
+<p>3.2.1、使用本地镜像文件</p>
+<p>（1）首先将centos-7的光盘文件上传到宿主机</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171108/214159905.png?imageslim" alt="mark"></p>
+<p>（2）创建虚拟机命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virt-install --name=test01 --memory 512,maxmemory=1024 --vcpus 1,maxvcpus=2 --os-type=linux --os-variant rhel7 --location=/tmp/CentOS-7-x86_64-DVD-1611.iso --disk path=/mnt/kvm/test01.img,size=10 --bridge=br0 --graphics none --console pty,target_type=serial  --extra-args=&quot;console=tty0 console=ttyS0&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>–name，指定虚拟机的名字</li>
+<li>–memory，指定内存大小，maxmemory限制最大内存</li>
+<li>–vcpus，指定分配CPU数量，maxvcpus限制最大CPU数量</li>
+<li>–os-type，指定安装系统类型</li>
+<li>–os-variant，指定系统版本</li>
+<li>–location，指定安装介质地址，可以是网络地址，也可以是本地的绝对路径，这里为镜像文件路径</li>
+<li>–disk path，指定虚拟磁盘位置，size指定磁盘大小。默认创建的磁盘文件为raw格式，raw格式无法做快照，我们可以转换为qcow2格式，如果要使用qcow2格式的虚拟硬盘，需要事先创建qcow2格式的虚拟硬盘。参考：<a href="http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html" target="_blank" rel="external">http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html</a>  ，<strong>示例：qemu-img create -f qcow2 -o preallocation=metadata  /mnt/kvm/test01.qcow2 10G;  –disk path=/mnt/kvm/test01.qcow2,format=qcow2,size=7,bus=virtio</strong></li>
+<li>–bridge，指定网络连接类型</li>
+<li>–graphics none，指定安装通过那种类型安装，我们不需要使用图形安装</li>
+<li>–console pty，指定控制台类型</li>
+<li>–extra-args，设定内核参数</li>
+</ul>
+<p>（3）配置安装选项</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171108/221004046.png?imageslim" alt="mark"></p>
+<ul>
+<li>1、设置语言</li>
+<li>2、设置时间时区</li>
+<li>3、设置安装源</li>
+<li>4、设置安装方式（默认为最小化安装）</li>
+<li>5、设置安装位置</li>
+<li>6、kdump是在系统崩溃、死锁或者死机的时候用来转储内存运行参数的一个工具和服务（默认不安装）</li>
+<li>7、设置网卡</li>
+<li>8、设置root密码</li>
+<li>9、创建用户</li>
+<li>“q”为退出，”b”为开始安装，”r”为刷新配置</li>
+</ul>
+<p><strong>我们需要设置一下选项：</strong></p>
+<p>a.设置时区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;2&quot;-&quot;1&quot;-&quot;5&quot;-&quot;回车&quot;-&quot;62&quot;</div></pre></td></tr></table></figure>
+<p>b.设置安装源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;3&quot;-&quot;2&quot;-&quot;c&quot;</div></pre></td></tr></table></figure>
+<p>c.设置安装方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;4&quot;-&quot;c&quot;</div></pre></td></tr></table></figure>
+<p>d.设置安装位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;5&quot;-&quot;c&quot;-&quot;c&quot;-&quot;c&quot;</div></pre></td></tr></table></figure>
+<p>e.设置root密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;8&quot;-&quot;输入passwd&quot;-&quot;再次输入passwd&quot;-&quot;yes&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>会自动检测密码，如果太弱需要我们确认</li>
+</ul>
+<p>f.设置ip，可也可以不设置，等安装完成后再设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;7&quot;-&quot;2&quot;-&quot;1&quot;-&quot;输入ip&quot;-&quot;2&quot;-&quot;输入子网掩码&quot;-&quot;3&quot;-&quot;输入网关&quot;-&quot;6&quot;-&quot;输入DNS&quot;-&quot;7&quot;-&quot;8&quot;-&quot;c&quot;-&quot;c&quot;</div></pre></td></tr></table></figure>
+<p>g.开始安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;b&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>安装时，可能安装源和安装方式还没有读取到。使用”r”刷新即可</p>
+</li>
+<li><p>经过等待后，系统会自动重启让我们登录系统。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/104703480.png?imageslim" alt="mark"></p>
+</li>
+</ul>
+<p>3.2.2、使用网络安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virt-install --name=test02 --memory 512,maxmemory=1024 --vcpus 1,maxvcpus=2 --os-type=linux --os-variant rhel7 --location=http://mirrors.163.com/centos/7/os/x86_64/ --disk path=/mnt/kvm/test02.img,size=10 --bridge=br0 --graphics none --console pty,target_type=serial  --extra-args=&quot;console=tty0 console=ttyS0&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>将location修改为163的源即可，不过安装时超级慢，因为需要下载软件包。所以建议使用本地镜像文件安装</li>
+</ul>
+<h3 id="四、virsh常用操作"><a href="#四、virsh常用操作" class="headerlink" title="四、virsh常用操作"></a>四、virsh常用操作</h3><p>libvirt是Linux上的虚拟化库，是长期稳定的C语言API，支持KVM/QEMU、Xen、LXC等主流虚拟化方案。链接：<a href="http://libvirt.org/" target="_blank" rel="external">http://libvirt.org/</a>，virsh是libvirt对应的shell命令。</p>
+<p>（1）查看子机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh  list   --all</div></pre></td></tr></table></figure>
+<ul>
+<li>–all，可以查看到未开启的子机</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/103154272.png?imageslim" alt="mark"></p>
+<p>（2）开启子机</p>
+<p>类似我们在VMware开启虚拟机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">virsh  start  test01</div><div class="line">#也可以开启后进入系统，使用ctrl+]可以回到宿主机</div><div class="line">virsh  start  test01  --console</div></pre></td></tr></table></figure>
+<p>（3）关闭</p>
+<p>类似我们在VMware关闭虚拟机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#需要在借助子机上的acpid服务</div><div class="line">virsh  shutdown test01  </div><div class="line">#不需要借助子机上的acpid服务，强制关闭子机</div><div class="line">virsh destroy test01</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/104758794.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/104832156.png?imageslim" alt="mark"></p>
+<p>（4）让子机随着宿主机开机自启动</p>
+<p>在VMware中，我们还需要手动开启虚拟机。在kvm中，我们可以设置子机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">virsh autostart test01</div><div class="line">#取消自启动</div><div class="line">virsh autostart --disable  test01</div></pre></td></tr></table></figure>
+<p>（5）删除子机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#我们需要先强制关闭子机</div><div class="line">virsh  destroy  test01</div><div class="line">#取消对子机的定义，会删除该子机的配置文件</div><div class="line">virsh undefine test01</div><div class="line">#如果要彻底删除，我们还需要删除虚拟磁盘文件</div><div class="line">rm -rf  /mnt/kvm/test01.qcow2</div></pre></td></tr></table></figure>
+<ul>
+<li>子机配置文件位置：/etc/libvirt/qemu/</li>
+<li>我们在删除子机前可以备份它的配置文件，也可以复制一份其它主机的配置文件进行修改。然后使用<code>virsh  define  /etc/libvirt/qemu/test01.xml</code></li>
+</ul>
+<p>（6）挂起子机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh suspend  test02</div></pre></td></tr></table></figure>
+<p>（7）恢复子机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#主要恢复的是挂起的主机</div><div class="line">virsh resume  test01</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/111027759.png?imageslim" alt="mark"></p>
 
       
 
@@ -259,7 +409,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VMware-centos7-64位kvm虚拟化配置"><span class="toc-number">1.</span> <span class="toc-text">VMware  centos7  64位kvm虚拟化配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、实验前准备"><span class="toc-number">1.1.</span> <span class="toc-text">一、实验前准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装kvm"><span class="toc-number">1.2.</span> <span class="toc-text">二、安装kvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、创建虚拟机"><span class="toc-number">1.3.</span> <span class="toc-text">三、创建虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、virsh常用操作"><span class="toc-number">1.4.</span> <span class="toc-text">四、virsh常用操作</span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
