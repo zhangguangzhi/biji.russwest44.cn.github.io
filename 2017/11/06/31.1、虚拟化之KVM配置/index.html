@@ -28,7 +28,30 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/104758794.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/104832156.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/111027759.png?imageslim">
-<meta property="og:updated_time" content="2017-11-09T03:31:09.843Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/210642171.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/210836488.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/214139667.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/213504324.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/214150023.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/215106436.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/215509824.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/215612463.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/215846248.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/223120561.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/223232541.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/223350299.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/223439212.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/223515639.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/224235897.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/230408834.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/233931926.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/234042859.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/234134179.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/234410546.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/234638975.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171109/234731076.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171110/000037433.png?imageslim">
+<meta property="og:updated_time" content="2017-11-09T16:15:28.697Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟化之KVM配置">
 <meta name="twitter:description" content="[TOC] 虚拟化：通过虚拟化工具把cpu，内存，硬盘等真实硬件资源给模拟成更少的虚拟硬件资源。进行虚拟化的好处是，最大限度的利用硬件资源。也是云计算的基础。下图为虚拟化模型：  虚拟化分类： 软件级别，所有硬件通过模拟器模拟出来（qemu） 硬件级别，通过VMM（虚拟机监视器），将硬件分配和管理，操作系统运行在建立好的vm上（xen，VMware[ESX,workstation]，kvm，vir">
@@ -245,7 +268,7 @@
 <li>–os-type，指定安装系统类型</li>
 <li>–os-variant，指定系统版本</li>
 <li>–location，指定安装介质地址，可以是网络地址，也可以是本地的绝对路径，这里为镜像文件路径</li>
-<li>–disk path，指定虚拟磁盘位置，size指定磁盘大小。默认创建的磁盘文件为raw格式，raw格式无法做快照，我们可以转换为qcow2格式，如果要使用qcow2格式的虚拟硬盘，需要事先创建qcow2格式的虚拟硬盘。参考：<a href="http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html" target="_blank" rel="external">http://www.361way.com/kvm-qcow2-preallocation-metadata/3354.html</a>  ，<strong>示例：qemu-img create -f qcow2 -o preallocation=metadata  /mnt/kvm/test01.qcow2 10G;  –disk path=/mnt/kvm/test01.qcow2,format=qcow2,size=7,bus=virtio</strong></li>
+<li>–disk path，指定虚拟磁盘位置，size指定磁盘大小。默认创建的磁盘文件为qcow2格式。在centos6中默认创建的磁盘文件为raw格式，不能拍摄快照。可以进行先创建qcow2文件，示例：qemu-img create -f qcow2 -o preallocation=metadata  /kvm/test001.img 10G;  –disk path=/mnt/kvm/test002.qcow2,format=qcow2,size=10,bus=virtio</li>
 <li>–bridge，指定网络连接类型</li>
 <li>–graphics none，指定安装通过那种类型安装，我们不需要使用图形安装</li>
 <li>–console pty，指定控制台类型</li>
@@ -316,14 +339,164 @@
 <p>（5）删除子机</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#我们需要先强制关闭子机</div><div class="line">virsh  destroy  test01</div><div class="line">#取消对子机的定义，会删除该子机的配置文件</div><div class="line">virsh undefine test01</div><div class="line">#如果要彻底删除，我们还需要删除虚拟磁盘文件</div><div class="line">rm -rf  /mnt/kvm/test01.qcow2</div></pre></td></tr></table></figure>
 <ul>
-<li>子机配置文件位置：/etc/libvirt/qemu/</li>
-<li>我们在删除子机前可以备份它的配置文件，也可以复制一份其它主机的配置文件进行修改。然后使用<code>virsh  define  /etc/libvirt/qemu/test01.xml</code></li>
+<li>子机配置文件位置：/etc/libvirt/qemu/*.xml</li>
 </ul>
-<p>（6）挂起子机</p>
+<p>（6）恢复子机</p>
+<p>如果我们使用<code>virsh undefine test01</code>误删除了子机，只要我们不删除子机配置文件，我们就可以恢复。</p>
+<p>我们可以使用该配置文件创建新的子机</p>
+<p>首先，我们拷贝其他子机的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh dumpxml  test02  &gt;  /etc/libvirt/qemu/test01.xml</div></pre></td></tr></table></figure>
+<p>修改新的子机配置文件，修改UUID，修改source file=’/mnt/kvm/test01.qcow2’</p>
+<p>重新定义子机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh  define  /etc/libvirt/qemu/test01.xml</div></pre></td></tr></table></figure>
+<p>现在就可以启动了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh  start  test01  --console</div></pre></td></tr></table></figure>
+<p>（7）挂起子机</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh suspend  test02</div></pre></td></tr></table></figure>
-<p>（7）恢复子机</p>
+<p>（8）恢复子机</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#主要恢复的是挂起的主机</div><div class="line">virsh resume  test01</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/111027759.png?imageslim" alt="mark"></p>
+<h3 id="五、克隆虚拟机"><a href="#五、克隆虚拟机" class="headerlink" title="五、克隆虚拟机"></a>五、克隆虚拟机</h3><p>（1）克隆命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virt-clone --original  test01 --name template  --file  /mnt/kvm/clone1.qcow2</div></pre></td></tr></table></figure>
+<ul>
+<li>–original，指定克隆的源，源机器需要为关闭状态</li>
+<li>–name，指定克隆后的子机名称</li>
+<li>–file，指定克隆子机的虚拟磁盘文件位置</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/210642171.png?imageslim" alt="mark"></p>
+<ul>
+<li>克隆完成后可以直接登录克隆虚拟机</li>
+<li><code>virsh start template --console</code></li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/210836488.png?imageslim" alt="mark"></p>
+<h3 id="六、快照管理"><a href="#六、快照管理" class="headerlink" title="六、快照管理"></a>六、快照管理</h3><h4 id="6-1、创建快照"><a href="#6-1、创建快照" class="headerlink" title="6.1、创建快照"></a>6.1、创建快照</h4><p>（1）创建命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">virsh  snapshot-create  test02</div><div class="line">virsh  snapshot-create  test02</div></pre></td></tr></table></figure>
+<ul>
+<li>snapshot-create，后面跟要创建快照的虚拟机</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/214139667.png?imageslim" alt="mark"></p>
+<ul>
+<li>快照文件存放位置为：</li>
+</ul>
+<p>（2）创建快照的磁盘文件</p>
+<p>在centos6中，默认创建的虚拟机磁盘文件为raw格式，我们可以使用以下命令查看磁盘文件格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">qemu-img  info   /mnt/kvm/test01.img</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/213504324.png?imageslim" alt="mark"></p>
+<p>如果是raw格式的磁盘文件，我们可以执行以下命令修改为qcow2格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">qemu-img convert -f raw -O qcow2 /mnt/kvm/raw.img /mnt/kvm/raw.qcow2</div><div class="line">#然后在修改子机配置文件中的type=qcow2</div></pre></td></tr></table></figure>
+<p>（3）列出快照</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh  snapshot-list test02</div></pre></td></tr></table></figure>
+<ul>
+<li>snapshot-list，后面跟子机名称</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/214150023.png?imageslim" alt="mark"></p>
+<h4 id="6-2、恢复和删除快照"><a href="#6-2、恢复和删除快照" class="headerlink" title="6.2、恢复和删除快照"></a>6.2、恢复和删除快照</h4><p>（1）恢复快照</p>
+<p>恢复快照的前提是子机需要关闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">virsh destroy  test02</div><div class="line">virsh snapshot-revert test02 1510234604</div></pre></td></tr></table></figure>
+<ul>
+<li>snapshot-revert，后面跟快照名称，即列表中的那一行数字</li>
+</ul>
+<p>（2）删除快照</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh snapshot-delete  test02 1510234894</div></pre></td></tr></table></figure>
+<ul>
+<li>后面跟子机，还有要删除的快照名称</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/215106436.png?imageslim" alt="mark"></p>
+<h3 id="七、磁盘扩容"><a href="#七、磁盘扩容" class="headerlink" title="七、磁盘扩容"></a>七、磁盘扩容</h3><p>centos6创建快照后无法扩容</p>
+<p>针对子机test01扩容</p>
+<p>（1）查看现有磁盘容量</p>
+<p>可以使用查询磁盘信息命令查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">qemu-img info /mnt/kvm/test01.qcow2</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/215509824.png?imageslim" alt="mark"></p>
+<p>（2）增加磁盘容量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">qemu-img resize  /mnt/kvm/test01.qcow2  +2G</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/215612463.png?imageslim" alt="mark"></p>
+<p>（3）查看是否增加磁盘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#如果子机为running状态，我们需要重启一下</div><div class="line">virsh  destroy  test01</div><div class="line">virsh  start  test01  --console</div><div class="line">fdisk -l</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/215846248.png?imageslim" alt="mark"></p>
+<p>（3）挂载增加的磁盘空间</p>
+<p>此时使用<code>df  -h</code>是无法看到增加的磁盘空间的，所以需要我们分区并格式化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">fdisk /dev/vda</div><div class="line">#增加一个新的分区/dev/vda3，容量为我们添加的2G</div></pre></td></tr></table></figure>
+<p>添加完成后，需要我们将这个/dev/vd3添加到vm里面去</p>
+<p>如果/dev/vda3不存在，需要我们重启一下系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ls /dev/vda3</div><div class="line">reboot</div></pre></td></tr></table></figure>
+<p>创建物理卷</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pvcreate /dev/vda3</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/223120561.png?imageslim" alt="mark"></p>
+<p>列出物理卷</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pvs</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/223232541.png?imageslim" alt="mark"></p>
+<ul>
+<li>cl为卷组</li>
+</ul>
+<p>将/dev/vda3加入卷组cl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vgextend cl /dev/vda3</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/223350299.png?imageslim" alt="mark"></p>
+<p>查看卷组cl</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/223439212.png?imageslim" alt="mark"></p>
+<ul>
+<li>还有2G剩余</li>
+</ul>
+<p>查看逻辑卷</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lvs</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/223515639.png?imageslim" alt="mark"></p>
+<p>将/dev/vda3的容量加入到root中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lvextend -l +100%FREE  /dev/cl/root</div></pre></td></tr></table></figure>
+<p>重新获得逻辑卷分区大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xfs_growfs /dev/cl/root</div></pre></td></tr></table></figure>
+<ul>
+<li>centos6使用resize2fs</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/224235897.png?imageslim" alt="mark"></p>
+<h3 id="八、增加磁盘"><a href="#八、增加磁盘" class="headerlink" title="八、增加磁盘"></a>八、增加磁盘</h3><p>（1）创建磁盘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">qemu-img create -f qcow2 /mnt/kvm/test01_2.img 5G</div></pre></td></tr></table></figure>
+<p>（2）关闭虚拟机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh  destroy  test01</div></pre></td></tr></table></figure>
+<p>（3）编辑test01配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">virsh edit  test01</div><div class="line">#在原来的disk配置下增加以下配置</div><div class="line"></div><div class="line">    &lt;disk type=&apos;file&apos; device=&apos;disk&apos;&gt;</div><div class="line">      &lt;driver name=&apos;qemu&apos; type=&apos;qcow2&apos;/&gt;</div><div class="line">      &lt;source file=&apos;/mnt/kvm/test01_2.qcow2&apos;/&gt;</div><div class="line">      &lt;target dev=&apos;vdb&apos; bus=&apos;virtio&apos;/&gt;</div><div class="line">    &lt;/disk&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>dev需要与之前的不同，使用”vdb”</li>
+</ul>
+<p>（4）启动虚拟机进行操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">virsh  star  tets01  --console</div><div class="line">fdisk -l</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/230408834.png?imageslim" alt="mark"></p>
+<h3 id="九、调整CPU内存，网卡"><a href="#九、调整CPU内存，网卡" class="headerlink" title="九、调整CPU内存，网卡"></a>九、调整CPU内存，网卡</h3><p>查看子机的硬件信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh dominfo test01</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/233931926.png?imageslim" alt="mark"></p>
+<h4 id="9-1、调整cpu"><a href="#9-1、调整cpu" class="headerlink" title="9.1、调整cpu"></a>9.1、调整cpu</h4><p>编辑子机配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">virsh  edit  test01</div><div class="line"></div><div class="line">#找到vcpu，修改数量</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/234042859.png?imageslim" alt="mark"></p>
+<ul>
+<li>1表示当前CPU数，2表示最大CPU数</li>
+<li>如果我们设置的CPU大于最大CPU数，会报错</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/234134179.png?imageslim" alt="mark"></p>
+<p>重新启动子机，使配置生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">virsh destroy test01</div><div class="line">virsh start  test01</div></pre></td></tr></table></figure>
+<h4 id="9-2、调整内存"><a href="#9-2、调整内存" class="headerlink" title="9.2、调整内存"></a>9.2、调整内存</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">virsh  edit  test01</div><div class="line"></div><div class="line">#找到currentMemory</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/234410546.png?imageslim" alt="mark"></p>
+<p>重新启动子机，使配置生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">virsh destroy test01</div><div class="line">virsh start  test01</div></pre></td></tr></table></figure>
+<h4 id="9-3、添加网卡"><a href="#9-3、添加网卡" class="headerlink" title="9.3、添加网卡"></a>9.3、添加网卡</h4><p>查看子机网卡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh domiflist test01</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/234638975.png?imageslim" alt="mark"></p>
+<p>增加子机网卡</p>
+<p>这种方法适合自己是running状态，并且为在线增加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh attach-interface test01  --type  bridge  --source  br0</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171109/234731076.png?imageslim" alt="mark">此时只存在于内存中，配置文件里添加了相关配置，但是我么已重启自己就没有了，所以我们只需要再执行以下命令即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">virsh dumpxml  test01 &gt;/etc/libvirt/qemu/test01.xml</div></pre></td></tr></table></figure>
+<p><strong>也可以在子机不是running状态，我们修改自己配置文件添加网卡</strong></p>
+<h3 id="十、kvm虚拟主机迁移"><a href="#十、kvm虚拟主机迁移" class="headerlink" title="十、kvm虚拟主机迁移"></a>十、kvm虚拟主机迁移</h3><p>（1）确认配置文件和磁盘文件位置</p>
+<p>该方式需要确保虚拟机是关机状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">virsh shutdown test01</div><div class="line">#备份配置文件</div><div class="line">virsh dumpxml test01 &gt; /etc/libvirt/qemu/test001.xml</div><div class="line">#查看虚拟机磁盘所在位置</div><div class="line">virsh domblklist test01</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171110/000037433.png?imageslim" alt="mark"></p>
+<p>（2）同步配置文件和磁盘文件</p>
+<p>将配置文件和磁盘文件同步到远程机器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rsync  -av  /mnt/kvm/test01.*   root@192.168.205.110:/data/kvm</div><div class="line">rsync  -av  /etc/libvirt/qemu/test001.xml  root@192.168.205.110:/etc/libvirt/qemu/test001.xml</div></pre></td></tr></table></figure>
+<p>如果是同步到本地，同步后还需要我们做以下操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rsync  -av  /mnt/kvm/test01.*  /data/kvm/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim  /etc/libvirt/qemu/test001.xml</div><div class="line">#修改&lt;name&gt;  &lt;/name&gt;</div><div class="line">#修改UUID</div><div class="line">#修改磁盘路径为/data/kvm/test01.qcow2，/data/kvm/test01_2.img</div></pre></td></tr></table></figure>
+<p>使用<code>virsh list --all</code>即可查看test001</p>
 
       
 
@@ -360,11 +533,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/11/10/使用iptables防御常见攻击/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          记录Linux的学习
+          使用iptables防御常见攻击
         
       </div>
     </a>
@@ -409,7 +582,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VMware-centos7-64位kvm虚拟化配置"><span class="toc-number">1.</span> <span class="toc-text">VMware  centos7  64位kvm虚拟化配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、实验前准备"><span class="toc-number">1.1.</span> <span class="toc-text">一、实验前准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装kvm"><span class="toc-number">1.2.</span> <span class="toc-text">二、安装kvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、创建虚拟机"><span class="toc-number">1.3.</span> <span class="toc-text">三、创建虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、virsh常用操作"><span class="toc-number">1.4.</span> <span class="toc-text">四、virsh常用操作</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VMware-centos7-64位kvm虚拟化配置"><span class="toc-number">1.</span> <span class="toc-text">VMware  centos7  64位kvm虚拟化配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、实验前准备"><span class="toc-number">1.1.</span> <span class="toc-text">一、实验前准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装kvm"><span class="toc-number">1.2.</span> <span class="toc-text">二、安装kvm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、创建虚拟机"><span class="toc-number">1.3.</span> <span class="toc-text">三、创建虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、virsh常用操作"><span class="toc-number">1.4.</span> <span class="toc-text">四、virsh常用操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、克隆虚拟机"><span class="toc-number">1.5.</span> <span class="toc-text">五、克隆虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六、快照管理"><span class="toc-number">1.6.</span> <span class="toc-text">六、快照管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1、创建快照"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1、创建快照</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2、恢复和删除快照"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2、恢复和删除快照</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七、磁盘扩容"><span class="toc-number">1.7.</span> <span class="toc-text">七、磁盘扩容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#八、增加磁盘"><span class="toc-number">1.8.</span> <span class="toc-text">八、增加磁盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#九、调整CPU内存，网卡"><span class="toc-number">1.9.</span> <span class="toc-text">九、调整CPU内存，网卡</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1、调整cpu"><span class="toc-number">1.9.1.</span> <span class="toc-text">9.1、调整cpu</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-2、调整内存"><span class="toc-number">1.9.2.</span> <span class="toc-text">9.2、调整内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3、添加网卡"><span class="toc-number">1.9.3.</span> <span class="toc-text">9.3、添加网卡</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十、kvm虚拟主机迁移"><span class="toc-number">1.10.</span> <span class="toc-text">十、kvm虚拟主机迁移</span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
@@ -525,15 +698,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">rsync</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,10 +726,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
               </li>
              
@@ -565,10 +738,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
@@ -577,15 +746,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -629,7 +802,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,23 +810,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ansible</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -665,11 +834,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,7 +842,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -685,7 +850,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -709,11 +878,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
+                <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">shell</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -725,7 +898,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,7 +906,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,11 +918,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
             
             <div class="clearfix"></div>
