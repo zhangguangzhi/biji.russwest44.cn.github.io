@@ -18,8 +18,8 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/221409328.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/221637745.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/221726770.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171101/221857012.png?imageslim">
-<meta property="og:updated_time" content="2017-11-01T14:26:00.349Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171113/124329406.png?imageslim">
+<meta property="og:updated_time" content="2017-11-13T04:43:59.105Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DNS原理">
 <meta name="twitter:description" content="[TOC] 一、什么是DNSDNS为Domain Name System（域名系统）的缩写，它是一种将IP地址转换为对应的主机名或者将主机名转换成与之相对应的IP地址的一种服务机制。其中通过域名解析出IP的叫做正向解析，通过IP地址解析出域名的叫做反向解析。DNS使用tcp和udp，端口号为53，但主要使用udp，服务器之间备份使用tcp。全世界只有13台“根（root）”服务器。DNS服务器根据">
@@ -170,8 +170,8 @@
 <p>www.allen.com则为子域，主机名</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/221637745.png?imageslim" alt="mark"></p>
 <h3 id="三、DNS查询过程"><a href="#三、DNS查询过程" class="headerlink" title="三、DNS查询过程"></a>三、DNS查询过程</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/221726770.png?imageslim" alt="mark"></p>
-<h3 id="四、域名解析过程"><a href="#四、域名解析过程" class="headerlink" title="四、域名解析过程"></a>四、域名解析过程</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171101/221857012.png?imageslim" alt="mark"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1、在浏览器中输入www.apelearn.com/bbs域名，操作系统会先检查本地的host文件是否有这个网址的映射关系。如果有，调用这个IP地址映射，完成域名解析。</div><div class="line">2、如果本地host中没有这个域名的映射，则查找本地DNS解析器缓存，是否有这个网址的映射关系，如果有，直接返回，完成域名解析。</div><div class="line">3、如果host和DNS缓冲器都没有这个网址的映射关系，首先会找本机设置的首先DNS服务器，在此我们叫它本地DNS服务器，此服务器收到查询时，如果要查询的域名包含在本地DNS服务器中时，则解析结果返回客户机，完成域名解析，此解析具有权威性。</div><div class="line">4、如果查询的域名，不由本地DNS服务器区域解析，但该服务器已缓存此网站映射，则调用这个IP地址映射，完成域名解析，此解析不具有权威性。</div><div class="line">5、如果本地DNS服务器本地区域文件与缓存解析失败，则根据本地DNS服务器的设置（是否设置转发器）进行查询。如果未使用转发模式，本地DNS就把请求发送至13台根DNS，根DNS服务器收到请求后会判断这个域名（.net）是谁来授权管理，并会返回一个负责管理该顶级域名服务器的一个IP。本地DNS服务器收到IP信息后，将会联系负责.net域的这台服务器。这台负责.net域的服务器收到请求后，如果自己无法解析，它就会提供一个.net域的下一级DNS服务器地址（lishiming.net）给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找lishiming.net域服务器，重复上面的动作，进行查询，直到找到www.apelearn.com/bbs主机。</div><div class="line">6、如果用的是转发模式，此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器精心解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。不管本地DNS服务器用的是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</div></pre></td></tr></table></figure>
+<h3 id="四、域名解析过程"><a href="#四、域名解析过程" class="headerlink" title="四、域名解析过程"></a>四、域名解析过程</h3><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171113/124329406.png?imageslim" alt="mark"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">我们以查询www.redhat.com为例来了解DNS查询的过程，如上图</div><div class="line">1、本地客户端将www.redhat.com的查询提交给本地DNS服务器，此时采用递归查询方式。</div><div class="line">2、本地DNS服务器检查区域数据文件，由于此服务器不负责redhat.com的解析，因此，本地DNS服务器将查询传递到根服务器，请求解析主机名称。根服务器把.com服务器IP返回给本地服务器，此时采用的是迭代查询方式。</div><div class="line">3、本地DNS服务器将请求发给.comDNS服务器，此服务器根据请求将redhat.com的DNS服务器IP地址返回给本地DNS服务器，此时依然是迭代查询。</div><div class="line">4、本地DNS服务器向redhat.com的DNS服务器发送请求，由于此服务器负责该域名解析，因此将www.redhat.com的IP地址返回给本地DNS服务器。</div><div class="line">5、本地DNS服务器最终将结果发给本地客户端。</div></pre></td></tr></table></figure>
 <h3 id="五、DNS的资源记录类型"><a href="#五、DNS的资源记录类型" class="headerlink" title="五、DNS的资源记录类型"></a>五、DNS的资源记录类型</h3><p>A：IP地址记录类型，映射域名到到主机地址</p>
 <p>MX：引导域名到该域名的邮件传输代理（MTA, Message Transfer Agents）列表。</p>
 <p>NS：记录域名服务器，用来指定该域名由那个DNS服务器进行解析</p>
@@ -379,7 +379,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -387,7 +391,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -395,11 +399,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -415,19 +415,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -439,15 +431,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -463,15 +463,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,11 +475,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,11 +499,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ansible</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,19 +519,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DNS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,11 +535,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">安全</a>
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -551,6 +555,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
@@ -559,7 +567,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,19 +575,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -595,15 +603,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

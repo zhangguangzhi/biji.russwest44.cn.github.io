@@ -131,6 +131,150 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysqldump的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/13/mysqldump的使用/">mysqldump的使用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/13/mysqldump的使用/" class="archive-article-date">
+  	<time datetime="2017-10-13T06:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、mysqldump介绍"><a href="#一、mysqldump介绍" class="headerlink" title="一、mysqldump介绍"></a>一、mysqldump介绍</h3><p>mysqldump客户端可用来转储数据库或搜寻数据库进行备份或将数据转移到另一个SQL服务器（不一定是mysql服务器）。转储包括创建表和或装载表的SQL语句。</p>
+<p>mysql提供两种格式的文件输出，分别是sql格式的标准输出和文件分隔符形式的输出，也可直接在两个mysql数据库之间数据复制</p>
+        
+          <a class="article-more-a" href="/2017/10/13/mysqldump的使用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mysql备份</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/13/mysqldump的使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-27.4.1redis集群高可用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/12/27.4.1redis集群高可用/">redis集群高可用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/12/27.4.1redis集群高可用/" class="archive-article-date">
+  	<time datetime="2017-10-12T05:53:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>方案说明</p>
+<p>1、sentinel负责对redis集群中的主从服务监控，提醒和自动故障转移</p>
+<p>2、redis集群负责对外提供相关服务</p>
+<h3 id="一、sentinel原理介绍"><a href="#一、sentinel原理介绍" class="headerlink" title="一、sentinel原理介绍"></a>一、sentinel原理介绍</h3><p>sentinel是一个分布式系统，可以在一个架构中运行多个sentinel进程，这些进程使用流言协议（gossip protocols）来接收关于redis主服务器是否下线的信息，并使用投票协议（agreement protocols）来决定是否执行自动故障迁移，以及选举哪个从服务器成为新的主服务器。</p>
+<p><strong>流言协议：</strong>sentinel服务通过ping命令来确认监控的服务器是否正常，当足够多数量的sentinel都确认监控的同一服务器停止服务了（主观下线），则判定此服务器停止服务。</p>
+<p><strong>投票协议：</strong>其实就选举，sentinel集群根据一定的规则从redis群中选择一个新的服务器成为主服务器，并使其它的服务器做为新的从服务器，并修改自身的配置文件。</p>
+        
+          <a class="article-more-a" href="/2017/10/12/27.4.1redis集群高可用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nosql</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/12/27.4.1redis集群高可用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-27.3、NoSQL之redis操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -708,179 +852,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-tomcat优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/02/tomcat优化/">tomcat优化</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/02/tomcat优化/" class="archive-article-date">
-  	<time datetime="2017-10-02T13:00:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>转载：<a href="http://www.cnblogs.com/zhuawang/p/5213192.html" target="_blank" rel="external">闲谈Tomcat性能优化</a></p>
-<p>Tomcat在各位JavaWeb从业者常常就是默认的开发环境，但是Tomcat的默认配置作为生产环境，尤其是内存和线程的配置，默认都很低，容易成为性能瓶颈.</p>
-<p>幸好Tomcat还有很多的提升空间.下文介绍一下Tomcat优化,可以分为内存,线程,IO.</p>
-<p><strong>一、Tomcat内存优化,启动时告诉JVM我要一块大内存(调优内存是最直接的方式)</strong></p>
-<p>Windows 下的catalina.bat</p>
-<p>Linux 下的catalina.sh 如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JAVA_OPTS=&apos;-Xms256m -Xmx512m&apos;</div></pre></td></tr></table></figure>
-<p>-Xms<size> JVM初始化堆的大小</size></p>
-<p>-Xmx<size> JVM堆的最大值 实际参数大小根据服务器配置或者项目具体设置.</size></p>
-<p><strong>二、Tomcat 线程优化</strong> </p>
-<p>在server.xml中 如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;Connector port=&quot;80&quot; protocol=&quot;HTTP/1.1&quot; maxThreads=&quot;600&quot; minSpareThreads=&quot;100&quot; maxSpareThreads=&quot;500&quot; acceptCount=&quot;700&quot;</div><div class="line">connectionTimeout=&quot;20000&quot;  /&gt;</div></pre></td></tr></table></figure>
-<p>maxThreads=”X” 表示最多同时处理X个连接</p>
-<p>minSpareThreads=”X” 初始化X个连接</p>
-<p>maxSpareThreads=”X” 表示如果最多可以有X个线程，一旦超过X个,则会关闭不在需要的线程</p>
-<p>acceptCount=”X” 当同时连接的人数达到maxThreads时,还可以排队,队列大小为X.超过X就不处理</p>
-<p><strong>三、Tomcat IO优化</strong></p>
-<p>1:同步阻塞IO（JAVA BIO） 同步并阻塞，服务器实现模式为一个连接一个线程(one connection one thread 想想都觉得恐怖,线程可是非常宝贵的资源)，当然可以通过线程池机制改善.</p>
-<p>2:JAVA NIO:又分为同步非阻塞IO,异步阻塞IO 与BIO最大的区别one request one thread.可以复用同一个线程处理多个connection(多路复用).</p>
-<p>3:,异步非阻塞IO(Java NIO2又叫AIO) 主要与NIO的区别主要是操作系统的底层区别.可以做个比喻:比作快递，NIO就是网购后要自己到官网查下快递是否已经到了(可能是多次)，然后自己去取快递；AIO就是快递员送货上门了(不用关注快递进度)。</p>
-<p>BIO方式适用于连接数目比较小且固定的架构，这种方式对服务器资源要求比较高，并发局限于应用中，JDK1.4以前的唯一选择，但程序直观简单易理解.</p>
-<p>NIO方式适用于连接数目多且连接比较短（轻操作）的架构，比如聊天服务器，并发局限于应用中，编程比较复杂，JDK1.4开始支持.</p>
-<p>AIO方式使用于连接数目多且连接比较长（重操作）的架构，比如相册服务器，充分调用OS参与并发操作，编程比较复杂，JDK7开始支持.</p>
-<p>在server.xml中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Connector port=&quot;80&quot; protocol=&quot;org.apache.coyote.http11.Http11NioProtocol&quot; </div><div class="line">    connectionTimeout=&quot;20000&quot; </div><div class="line">    URIEncoding=&quot;UTF-8&quot; </div><div class="line">    useBodyEncodingForURI=&quot;true&quot; </div><div class="line">    enableLookups=&quot;false&quot; </div><div class="line">    redirectPort=&quot;8443&quot; /&gt;</div></pre></td></tr></table></figure>
-<p>实现对Tomcat的IO切换.</p>
-<p><strong>四、大杀器APR</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">APR是从操作系统级别来解决异步的IO问题,大幅度的提高性能. (http://apr.apache.org/).</div></pre></td></tr></table></figure>
-<p>APR(Apache Portable Runtime)是一个高可移植库,它是Apache HTTP Server 2.x的核心.能更好地和其它本地web技术集成，总体上让Java更有效率作为一个高性能web服务器平台而不是简单作为后台容器.</p>
-<p>在产品环境中，特别是直接使用Tomcat做WEB服务器的时候，应该使用Tomcat Native来提高其性能.如果不配APR，基本上300个线程狠快就会用满，以后的请求就只好等待.但是配上APR之后，并发的线程数量明显下降，从原来的300可能会马上下降到只有几十，新的请求会毫无阻塞的进来.</p>
-<p>在局域网环境测，就算是400个并发，也是一瞬间就处理/传输完毕，但是在真实的Internet环境下，页面处理时间只占0.1%都不到，绝大部分时间都用来页面传输.如果不用APR，一个线程同一时间只能处理一个用户，势必会造成阻塞。所以生产环境下用apr是非常必要的.</p>
-<p>安装Apache Tomcat Native Library，直接启动就支持apr(<a href="http://tomcat.apache.org/native-doc/" target="_blank" rel="external">http://tomcat.apache.org/native-doc/)它本身是基于APR的</a>%E5%AE%83%E6%9C%AC%E8%BA%AB%E6%98%AF%E5%9F%BA%E4%BA%8EAPR%E7%9A%84). 具体安装方法可以参考其他博客和文章. 排除代码问题Tomcat优化到这个层次,可以应对大部分性能需求.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">最后一句话&quot;再牛B的服务器,也顶不住一个傻B的代码&quot;.优化的前提条件是良好的代码质量和设计.</div></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/02/tomcat优化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-简易命令审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/23/简易命令审计/">简易命令审计</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/23/简易命令审计/" class="archive-article-date">
-  	<time datetime="2017-09-23T07:40:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有时候我们需要对线上用户操作记录进行历史记录待出现问题追究责任人，，但Linux系统自带的history命令用户有自行删除权限，那怎么设置可以让用户的操作记录实时记录，并保证普通用户无权查看和删除呢？</p>
-<h4 id="1、创建保存记录文件存放位置"><a href="#1、创建保存记录文件存放位置" class="headerlink" title="1、创建保存记录文件存放位置"></a>1、创建保存记录文件存放位置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir -p /usr/local/domob/records/</div><div class="line">chmod 777 /usr/local/domob/records/</div><div class="line">chmod +t /usr/local/domob/records/</div></pre></td></tr></table></figure>
-<ul>
-<li>该位置可以自定义</li>
-</ul>
-<h4 id="2、修改-etc-profile"><a href="#2、修改-etc-profile" class="headerlink" title="2、修改/etc/profile"></a>2、修改/etc/profile</h4><p>添加以下内容在该文件的最后</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">if [ ! -d  /usr/local/domob/records/$&#123;LOGNAME&#125; ]</div><div class="line">then </div><div class="line">	mkdir -p /usr/local/domob/records/$&#123;LOGNAME&#125;</div><div class="line"> 	chmod 300 /usr/local/domob/records/$&#123;LOGNAME&#125;</div><div class="line"> fi</div><div class="line"> </div><div class="line">export HISTORY_FILE=&quot;/usr/local/domob/records/$&#123;LOGNAME&#125;/bash_history&quot;</div><div class="line">export PROMPT_COMMAND=&apos;&#123; date &quot;+%Y-%m-%d %T ##### $(who am i |awk &quot;&#123;print \$1\&quot; \&quot;\$2\&quot; \&quot;\$5&#125;&quot;) #### $(history 1 | &#123; read x cmd; echo &quot;$cmd&quot;; &#125;)&quot;; &#125; &gt;&gt;$HISTORY_FILE&apos;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>修改完成后，需要重新加载一下/etc/profile</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source /etc/profile</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="3、查看效果"><a href="#3、查看效果" class="headerlink" title="3、查看效果"></a>3、查看效果</h4><p>我们随便使用几条命令，并查看是否保存</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">w;who;id root;whoami</div><div class="line">cat /usr/local/domob/records/root/bash_history</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170923/154648865.png?imageslim" alt="mark"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/23/简易命令审计/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -989,7 +960,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -997,7 +972,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1005,11 +980,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1025,19 +996,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1049,15 +1012,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1073,15 +1044,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1089,11 +1056,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1105,11 +1080,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ansible</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1121,19 +1100,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DNS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1145,11 +1116,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">安全</a>
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1161,6 +1136,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
@@ -1169,7 +1148,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1177,19 +1156,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1205,15 +1184,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

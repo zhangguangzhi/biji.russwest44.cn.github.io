@@ -181,6 +181,150 @@
         <!-- 目录内容结束 -->
 
   
+    <article id="post-nginx启动，停止，平滑重启和平滑升级" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/12/nginx启动，停止，平滑重启和平滑升级/">nginx启动，停止，平滑重启和平滑升级</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/12/nginx启动，停止，平滑重启和平滑升级/" class="archive-article-date">
+  	<time datetime="2017-11-12T13:01:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="步骤1：查询nginx主进程号"><a href="#步骤1：查询nginx主进程号" class="headerlink" title="步骤1：查询nginx主进程号"></a>步骤1：查询nginx主进程号</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># ps -ef | grep nginx</div></pre></td></tr></table></figure>
+<p>在进程列表里面找master进程，它的编号就是主进程号了。</p>
+<h5 id="步骤2：发送信号"><a href="#步骤2：发送信号" class="headerlink" title="步骤2：发送信号"></a>步骤2：发送信号</h5><h5 id="从容停止Nginx："><a href="#从容停止Nginx：" class="headerlink" title="从容停止Nginx："></a>从容停止Nginx：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># kill-QUIT主进程号 快速停止Nginx：</div><div class="line"># kill-TERM主进程号 强制停止Nginx：</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># pkill-9   主进程号</div></pre></td></tr></table></figure>
+<p>另外，若在nginx.conf配置了pid文件存放路径则该文件存放的就是Nginx主进程号，如果没指定则放在nginx的logs目录下。有了pid文件，我们就不用先查询Nginx的主进程号，而直接向Nginx发送信号了，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># kill-信号类型&apos;/usr/local/nginx/logs/nginx.pid&apos;</div></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2017/11/12/nginx启动，停止，平滑重启和平滑升级/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/12/nginx启动，停止，平滑重启和平滑升级/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-hadoop介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/11/hadoop介绍/">hadoop介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/11/hadoop介绍/" class="archive-article-date">
+  	<time datetime="2017-11-11T14:47:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>大数据简单介绍：大数据指的是所涉及的数据量规模巨大到无法通过人工，在合理时间内达到截取、管理、处理、并整理成为人类所能解读的形式的信息。</p>
+<p>大数据的用途：大数据可帮助我们察觉商业趋势、判定研究质量、避免疾病扩散、打击犯罪或测定即时交通路况等。</p>
+<p>大数据的特点：</p>
+<ul>
+<li>多源异构：描述同一主题的数据由不同的用户、不同的网站产生。网络数据有多种不同的呈现形式，如音视频、图片、文本等，导致网络数据格式上的异构性。</li>
+<li>交互性：不同于测量和传感获取的大规模科学数据，微博等社交网络兴起导至大量网络数据具有很强的交互性。</li>
+<li>时效性：在网络平台上，每时每刻都有大量新的网络数据发布，网络信息内容不断变化，导致了信息传播的时序相关性。</li>
+<li>社会性：网络上用户根据自己的需要和喜好发布、回复或转发信息，因而网络数据成了对社会状态的直接反映。</li>
+<li>突发性：有些信息在传播过程中会在短时间内引起大量新的网络数据与信息的产生，并使相关的网络用户形成网络群体，体现出网络大数据以及网络群体的突发特性。</li>
+<li>高噪声：网络数据来自于众多不同的网络用户，具有很高的噪声。</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/11/11/hadoop介绍/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/11/hadoop介绍/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-nginx限制ip并发连接数以及每秒处理请求数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -700,149 +844,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-30.1、简易堡垒机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/30/30.1、简易堡垒机/">简易堡垒机</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/30/30.1、简易堡垒机/" class="archive-article-date">
-  	<time datetime="2017-10-30T03:17:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、堡垒机介绍"><a href="#一、堡垒机介绍" class="headerlink" title="一、堡垒机介绍"></a>一、堡垒机介绍</h3><p>在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。简易的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计。</p>
-<p>比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理</p>
-<p>商业堡垒机：齐治，Citrix xenapp</p>
-<h3 id="二、简易堡垒机"><a href="#二、简易堡垒机" class="headerlink" title="二、简易堡垒机"></a>二、简易堡垒机</h3><h4 id="2-1、搭建条件"><a href="#2-1、搭建条件" class="headerlink" title="2.1、搭建条件"></a>2.1、搭建条件</h4><p>具备堡垒机的条件是，该机器有公司和私网，其中私网和机房其他机器互通。公网可以通过VPN登录。</p>
-        
-          <a class="article-more-a" href="/2017/10/30/30.1、简易堡垒机/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">堡垒机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/30/30.1、简易堡垒机/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-Nginx-tomcat实现动静分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/26/Nginx-tomcat实现动静分离/">Nginx+tomcat实现动静分离</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/26/Nginx-tomcat实现动静分离/" class="archive-article-date">
-  	<time datetime="2017-10-26T14:29:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、什么是动静分离"><a href="#一、什么是动静分离" class="headerlink" title="一、什么是动静分离"></a>一、什么是动静分离</h3><p>本次实验的动静分离主要是通过nginx+comcat来实现，其中nginx处理图片、html等静态的文件，tomcat处理jsp，do等动态文件</p>
-<p>结构图如下：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171026/223547391.png?imageslim" alt="mark"></p>
-        
-          <a class="article-more-a" href="/2017/10/26/Nginx-tomcat实现动静分离/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/26/Nginx-tomcat实现动静分离/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -951,7 +952,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -959,7 +964,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -967,11 +972,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -987,19 +988,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1011,15 +1004,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">LVS</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1035,15 +1036,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1051,11 +1048,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1067,11 +1072,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ansible</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1083,19 +1092,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DNS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1107,11 +1108,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">安全</a>
+                <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1123,6 +1128,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
@@ -1131,7 +1140,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1139,19 +1148,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">特殊符号</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1167,15 +1176,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>
