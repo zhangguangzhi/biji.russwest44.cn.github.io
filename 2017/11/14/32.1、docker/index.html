@@ -23,11 +23,26 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171114/123824218.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171114/123953541.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171114/124252278.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/100716787.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/100831252.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171114/124428090.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171114/124624228.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171114/125143891.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171114/125907220.png?imageslim">
-<meta property="og:updated_time" content="2017-11-14T04:59:24.304Z">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/101125534.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/101854388.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/112708910.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/113556792.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/121316751.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/145943460.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/150339367.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/151545467.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/153541849.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/215541577.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/224710447.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/230538663.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171115/232034076.png?imageslim">
+<meta property="og:updated_time" content="2017-11-15T15:34:25.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker">
 <meta name="twitter:description" content="[TOC] 什么是docker？ 来至知乎高赞回答：Docker的思想来自于集装箱，集装箱解决了什么问题？在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。 docker就是类似的理念。现在都流行云计算了，云计算就好比">
@@ -186,8 +201,10 @@
 <li>docker从1.13x开始，版本分为社区版ce和企业版ee，并且基于年月的时间线形式。</li>
 </ul>
 <p>1.1、容器虚拟化和传统虚拟化比较：</p>
-<h5 id="容器虚拟化："><a href="#容器虚拟化：" class="headerlink" title="容器虚拟化："></a>容器虚拟化：</h5><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171114/120951656.png?imageslim" alt="mark"></p>
-<h5 id="传统虚拟化："><a href="#传统虚拟化：" class="headerlink" title="传统虚拟化："></a>传统虚拟化：</h5><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171114/121008545.png?imageslim" alt="mark"></p>
+<p><strong>容器虚拟化：</strong></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171114/120951656.png?imageslim" alt="mark"></p>
+<p><strong>传统虚拟化：</strong></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171114/121008545.png?imageslim" alt="mark"></p>
 <p>我们创建一个新的虚拟机的时候，如果使用Vmware，首先我们需要分配一定的硬件资源去运行虚拟出来的系统，如果一台电脑例如我的win7 配置一般，也就顶多可以跑10个centos，但是如果使用Docker就可以创建成千上百个centos系统，且每个系统都是独立的，隔离开来的，硬件资源也是隔离开来的。</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171114/121241168.png?imageslim" alt="mark"></p>
 <p>1.2、docker的优势</p>
@@ -207,7 +224,7 @@
 <li>当我们安装完毕后启动，docker会自动帮我们创建一些iptables规则，尽量不要去修改这些规则。而且每次启动docker时都会重新生成，所以不用担心误删</li>
 </ul>
 <h4 id="2-2、镜像管理"><a href="#2-2、镜像管理" class="headerlink" title="2.2、镜像管理"></a>2.2、镜像管理</h4><p>由于docker的服务器再国外，所以下载镜像是会比较慢，所以我们可以使用阿里云的镜像。并且阿里云还可以配置加速</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vi /etc/docker/daemon.json  </div><div class="line">#加入如下内容</div><div class="line"></div><div class="line">&#123;</div><div class="line">  &quot;registry-mirrors&quot;: [&quot;https://dhq9bx4f.mirror.aliyuncs.com&quot;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vi /etc/docker/daemon.json  </div><div class="line">#加入如下内容</div><div class="line"></div><div class="line">&#123;</div><div class="line">  &quot;registry-mirror&quot;: [&quot;https://dhq9bx4f.mirror.aliyuncs.com&quot;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>这个url为加速器地址，有需要可以自行到阿里云申请</li>
 <li>配置完加速器后，需要重启docker服务，再次pull镜像会快很多</li>
@@ -231,16 +248,22 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -itd centos</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171114/124252278.png?imageslim" alt="mark"></p>
 <ul>
-<li>执行后，镜像就会启动成为一个容器，容器编号为输出内容</li>
+<li>执行后，会创建并启动一个容器使用镜像，容器编号为输出内容</li>
 <li>-i表示让容器的标准输入打开，-t表示分配一个伪终端，-d表示后台启动，要把-i -t -d 放到镜像名字前面</li>
 </ul>
-<p>（6）查看运行的容器</p>
+<p>（6）进入容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker exec -it  92335af5de52  bash</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/100716787.png?imageslim" alt="mark"></p>
+<p>（7）停止镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker  stop 92335af5de52</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/100831252.png?imageslim" alt="mark"></p>
+<p>（8）查看运行的容器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker ps</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171114/124428090.png?imageslim" alt="mark"></p>
 <ul>
 <li>-a可以显示所有</li>
 </ul>
-<p>（7）删除镜像</p>
+<p>（9）删除镜像</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">docker rmi alle</div><div class="line">docker rmi alle:123456</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171114/124624228.png?imageslim" alt="mark"></p>
 <ul>
@@ -265,6 +288,232 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker commit -m &quot;yum net-tools&quot;  -a &quot;allen&quot;  22d6051b0ae7  centos_ifconfig</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171114/125907220.png?imageslim" alt="mark"></p>
+<h4 id="2-4、通过模板创建镜像"><a href="#2-4、通过模板创建镜像" class="headerlink" title="2.4、通过模板创建镜像"></a>2.4、通过模板创建镜像</h4><p>（1）首先我们先在<a href="http://openvz.org/Download/templates/precreated" target="_blank" rel="external">openvz</a>下载一个模板，本次实验下载一个centos-6-x86-minimal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://download.openvz.org/template/precreated/centos-6-x86-minimal.tar.gz</div></pre></td></tr></table></figure>
+<p>（2）导入镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#cat  导入文件  |  docker  import  -  导入后镜像名称</div><div class="line">cat  centos-6-x86-minimal.tar.gz   |   docker  import  - centos6</div></pre></td></tr></table></figure>
+<ul>
+<li>最后面的centos为导入后镜像的名称</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/101125534.png?imageslim" alt="mark"></p>
+<p>（3）将现有镜像导出为一个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#docker save  -o  导出文件  准备导出的镜像名</div><div class="line">docker save -o centos6_ifconfig.tar centos_ifconfig</div></pre></td></tr></table></figure>
+<ul>
+<li>-o后面指定导出后文件的名称。</li>
+</ul>
+<p>（4）使用导出的文件恢复镜像</p>
+<p>首先我们先删除原有镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rmi -f centos_ifconfig</div></pre></td></tr></table></figure>
+<p>然后再使用我们刚刚导出的文件恢复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker load --input centos6_ifconfig.tar</div><div class="line">or</div><div class="line">docker load &lt; centos6_ifconfig.tar</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/101854388.png?imageslim" alt="mark"></p>
+<p>（5）将自己的镜像传到docker官方网站上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker push image_name</div></pre></td></tr></table></figure>
+<ul>
+<li>需要我们先注册一个用户</li>
+</ul>
+<h4 id="2-5、容器管理"><a href="#2-5、容器管理" class="headerlink" title="2.5、容器管理"></a>2.5、容器管理</h4><p>（1）创建容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker create  -it  centos6   bash</div></pre></td></tr></table></figure>
+<ul>
+<li>这样就可以创建一个容器，但该容器并没有启动</li>
+</ul>
+<p>（2）启动容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker  start  container_id</div></pre></td></tr></table></figure>
+<ul>
+<li>启动容器后，可以使用docker  ps查看到，有start，stop和restart</li>
+<li>之前我们使用的docker run相当于先create再start</li>
+</ul>
+<p>（3）直接进入容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -it repository bash</div></pre></td></tr></table></figure>
+<ul>
+<li>这样就可以进入一个虚拟终端里面。我们可以运行一些命令，使用exit或Ctrl+d退出该bash，当退出后这个容器也会停止。</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/112708910.png?imageslim" alt="mark"></p>
+<p>（4）后台运行容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -d  repository bash</div></pre></td></tr></table></figure>
+<ul>
+<li><p>使用-c，后面跟命令。可以让容器运行时执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -d centos bash -c &quot;while :; do echo &quot;123&quot;; sleep 2; done&quot;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>（5）自定义容器名字</p>
+<p>为自定义名字前，容器的名字都是随机的。我们进入容器需要指定CONTAINER ID，自定义名称后我们就可以指定名称登录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#docker run --name 自定义名称 -itd 镜像 bash</div><div class="line">docker run --name web -itd centos bash</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/113556792.png?imageslim" alt="mark"></p>
+<ul>
+<li>实际为创建一个名字为web的容器</li>
+</ul>
+<p>（6）执行命令后删除容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run --rm -it centos bash -c &quot;sleep 30&quot;</div></pre></td></tr></table></figure>
+<p>（7）获取容器运行历史信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker logs  contaier-id</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/121316751.png?imageslim" alt="mark"></p>
+<p>（8）进入后台运行的容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker attach  container_id</div></pre></td></tr></table></figure>
+<ul>
+<li>进入后，如果退出的话，容器也会退出停止</li>
+</ul>
+<p>（9）删除容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker rm  container_id</div></pre></td></tr></table></figure>
+<ul>
+<li>container_id，是ps的时候查看到的，这样就可以把container删除，如果是运行的容器，可以加-f</li>
+</ul>
+<p>（10）导出导入容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#导出</div><div class="line">docker  export  container_id  &gt; file.tar </div><div class="line">#导入</div><div class="line">cat file.tar |docker import - test</div></pre></td></tr></table></figure>
+<h4 id="2-6、docker仓库管理"><a href="#2-6、docker仓库管理" class="headerlink" title="2.6、docker仓库管理"></a>2.6、docker仓库管理</h4><p>我们可以自己创建一个私有仓库，来管理我们的镜像</p>
+<p>（1）首先，下载registry，registry官方提供的一个镜像，我们可以用它来常见本地的docker私有仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull   registry</div></pre></td></tr></table></figure>
+<p>（2）以镜像registry镜像启动容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -d -p 5000:5000 registry</div></pre></td></tr></table></figure>
+<ul>
+<li>-p表示会把容器的端口映射到宿主机上，宿主机端口：容器监听端口</li>
+</ul>
+<p>（3）查看私有仓库的镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl 127.0.0.1:5000/v2/_catalog</div></pre></td></tr></table></figure>
+<p>（4）推送镜像到私有仓库</p>
+<p>首先，我们需要给要推送的镜像编辑一下tag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#docker  tar  镜像   tag内容</div><div class="line">docker  tag centos6 192.168.205.110:5000/centos6</div></pre></td></tr></table></figure>
+<ul>
+<li>tag必须带私有仓库的ip:port</li>
+</ul>
+<p>接下来，我们需要修改配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vim   /etc/docker/daemon.json</div><div class="line">#添加以下内容</div><div class="line"></div><div class="line">&#123; &quot;insecure-registries&quot;:[&quot;192.168.205.110:5000&quot;] &#125;</div></pre></td></tr></table></figure>
+<p>修改之后，需要重新启动docker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl   restart   docker</div></pre></td></tr></table></figure>
+<p>重启之后，docker的容器就都关闭了，所以我们还需要重新启动registry容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker start  id</div></pre></td></tr></table></figure>
+<ul>
+<li>这里的id为registry容器id，可以使用docker  ps  -a查看</li>
+</ul>
+<p>现在，我们就可以将本地的镜像推送到我们的私有仓库了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker push  192.168.205.110/centos6</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/145943460.png?imageslim" alt="mark"></p>
+<p><strong>步骤，启动registry容器，给需要推送的镜像打标签，再推送到私有云</strong></p>
+<p>当然，我们也可以下载私有仓库的镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull   192.168.205.110/centos6</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/150339367.png?imageslim" alt="mark"></p>
+<ul>
+<li>上面提示我们本地已经有该镜像了</li>
+<li>如果我们需要在其他机器上pull该镜像，需要修改配置文件/etc/docker/daemon.json，添加私有仓库的ip:port相关配置</li>
+</ul>
+<h4 id="2-7、docker数据管理"><a href="#2-7、docker数据管理" class="headerlink" title="2.7、docker数据管理"></a>2.7、docker数据管理</h4><p>容器产生的数据，再容器关闭或者删除时，会一并消除。所以我们可以挂载本地的目录到容器里。</p>
+<p>（1）挂载本地的目录到容器里</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run  -itd   -v  /data/:/data/ --name  data_test centos_ifconfig</div></pre></td></tr></table></figure>
+<ul>
+<li>-v后面指定目录，共享目录，并且可关联宿主机的目录，宿主机目录：容器目录</li>
+<li>–name后面跟名字，指定容器名字</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/151545467.png?imageslim" alt="mark"></p>
+<ul>
+<li>在容器中创建的目录，宿主机上也会创建</li>
+</ul>
+<p>（2）我们也可以单纯的将容器的目录共享</p>
+<p>有时候，我们需要多个容器之间相互共享数据，类似于linux里面的NFS，所以就可以搭建一个专门的数据卷容器，然后其他容器直接挂载该数据卷。</p>
+<p>首先，建立数据卷容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -itd -v /data/ --name testvol centos6  bash</div></pre></td></tr></table></figure>
+<ul>
+<li>这里的/data/是容器自己的目录，表示将/data/共享出来</li>
+</ul>
+<p>（3）挂载数据卷</p>
+<p>当我们有数据卷容器时，我们可以挂载这些数据卷</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker  run -itd  --volumes-from   centos bash</div></pre></td></tr></table></figure>
+<ul>
+<li>–volumes-from后面跟的是数据卷容器的名字，如果之前没有指定，需要我们使用docker ps -a查看最后一列</li>
+<li>这样，我们使用centos镜像创建了新的容器，并且使用了data_test容器的数据卷</li>
+</ul>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/153541849.png?imageslim" alt="mark"></p>
+<h4 id="2-8、docker数据卷的备份和恢复"><a href="#2-8、docker数据卷的备份和恢复" class="headerlink" title="2.8、docker数据卷的备份和恢复"></a>2.8、docker数据卷的备份和恢复</h4><p>如果数据卷容器在共享目录时，直接跟宿主机关联了目录，那么数据都会存在关联目录里。如果没有关联目录，那么我们需要进行以下操作</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/215541577.png?imageslim" alt="mark"></p>
+<ul>
+<li>我们在新建的容器中使用一个目录/backup/与宿主机关联目录/data/backup，然后挂载数据卷容器共享的目录/data/。</li>
+<li>备份的时候，打包新建容器/data/中的数据到/backup中即可完成备份</li>
+<li>恢复的时候，将之前打包的数据包直接恢复到新建容器的/data/即可</li>
+</ul>
+<p>（1）备份</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#创建宿主机关联目录</div><div class="line">mkdir  /data/backup</div><div class="line"></div><div class="line">#启动数据卷容器</div><div class="line">docker  run -itd   -v /data/  --name test1  centos_ifconfig  bash</div><div class="line">#新建容器挂载数据卷，并与宿主机关联目录，并且打包/data/下的数据</div><div class="line">docker run -itd  --volumes-from  test1 -v /data/backup:/backup  centos  tar  cvf /backup/data.tar  /data/</div></pre></td></tr></table></figure>
+<p>（2）恢复</p>
+<p>将数据恢复到其他容器</p>
+<p>新建一个数据卷容器，将新的容器挂载数据卷容器目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -itd  --name  test2 -v  /data/  centos bash</div></pre></td></tr></table></figure>
+<p>新建容器挂载数据卷目录，并解包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run  -itd --volumes-from test2 -v /data/backup/:/backup  centos tar  xf /backup/data.tar  -C   /</div></pre></td></tr></table></figure>
+<h3 id="三、docker网络模式"><a href="#三、docker网络模式" class="headerlink" title="三、docker网络模式"></a>三、docker网络模式</h3><h4 id="3-1、网络模式"><a href="#3-1、网络模式" class="headerlink" title="3.1、网络模式"></a>3.1、网络模式</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">使用</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">host</td>
+<td style="text-align:center">docker  run时使用–net=host</td>
+<td style="text-align:center">docker使用的网络实际上和宿主机一样，在容器内看到的网卡ip是宿主机ip</td>
+</tr>
+<tr>
+<td style="text-align:center">container</td>
+<td style="text-align:center">使用–net=container:container_id/container_name</td>
+<td style="text-align:center">多个容器使用共同的网络，看到的ip是一样的</td>
+</tr>
+<tr>
+<td style="text-align:center">none</td>
+<td style="text-align:center">使用–net=none</td>
+<td style="text-align:center">不会配置任何网络</td>
+</tr>
+<tr>
+<td style="text-align:center">bridge</td>
+<td style="text-align:center">使用-net=bridge指定，为默认模式</td>
+<td style="text-align:center">会为每个容器分配一个独立的network namespace。类似VMware的nat网络模式。同一个宿主机上的所有容器会在同一个网段下，可以通信</td>
+</tr>
+<tr>
+<td style="text-align:center">桥接</td>
+<td style="text-align:center">使用第三方工具pipwork</td>
+<td style="text-align:center">容器与宿主机在同一网段，类似VMware的桥接网络</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-2、外部访问容器"><a href="#3-2、外部访问容器" class="headerlink" title="3.2、外部访问容器"></a>3.2、外部访问容器</h4><p>默认使用的是bridge网络模式，容器的网段与宿主机的网段是不同的，其他主机是无法访问到容器的端口的。我们可以使用端口映射，使其他主机可以访问到容器的服务</p>
+<p>（1）首先使用centos镜像新建一个容器，然后在该容器中安装httpd服务，并启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@slave2 ~]# docker run  -itd  centos  bash</div><div class="line">[root@slave2 ~]# docker exec  -it 531c80a44c0  bash</div><div class="line">[root@531c80a44c01 /]# yum install -y httpd</div></pre></td></tr></table></figure>
+<p>（2）再把该镜像导出为一个新的镜像（centos_http），然后再使用新的镜像创建容器并指定端口映射</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">docker  commit -m  &quot;install httpd&quot;  -a &quot;allen&quot;   531c80a44c0   centos_httpd</div><div class="line">docker run -itd  -p  8088:80  centos_httpd  bash</div></pre></td></tr></table></figure>
+<ul>
+<li>-p用来映射端口，也支持ip:port:ip:port 的格式，比如-p 127.0.0.1:8080:80，也可以不写本地的端口，只写ip，这样会随意分配一个端口，比如-p 127.0.0.1::80，有两个冒号</li>
+</ul>
+<p>（3）启动httpd服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">docker exec   -it  fa46140cfe8712329  bash</div><div class="line">systemctl start  httpd</div></pre></td></tr></table></figure>
+<p>启动时，出现错误：”Failed to get D-Bus connection: Operation not permitted”</p>
+<p>解决办法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#这是因为dbus-daemon没有启动，在启动容器时需要加上--privileged -e &quot;container=docker&quot; ，并且最后面的命令改为/usr/sbin/init</div><div class="line">docker run -itd --privileged -e &quot;container=docker&quot; -p 8088:80 centos_httpd  /usr/sbin/init</div><div class="line">docker exec   -it 656defb9c7ccddb  bash</div><div class="line">systemctl start  httpd</div></pre></td></tr></table></figure>
+<p>（4）测试端口映射</p>
+<p>添加测试文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">echo &quot;test&quot;  &gt; /var/www/html/1.html </div><div class="line">#退出容器测试</div><div class="line">[root@656defb9c7cc /]# exit</div><div class="line">[root@slave2 ~]# curl  127.0.0.1:8088/1.html</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/224710447.png?imageslim" alt="mark"></p>
+<h4 id="3-3、配置桥接网络"><a href="#3-3、配置桥接网络" class="headerlink" title="3.3、配置桥接网络"></a>3.3、配置桥接网络</h4><p>为了使本地网络中的机器和Docker容器更方便的通信，我们经常会有将Docker容器配置到和主机同一网段的需求。这个需求其实很容易实现，我们只要将Docker容器和宿主机的网卡桥接起来，再给Docker容器配上IP就可以了。配ip时需要借助第三方工具，该模式类似VMware的桥接模式，容器和宿主机在同一网段。</p>
+<p>（1）修改宿主机网卡配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#创建br0网卡配置文件</div><div class="line">cd  /etc/sysconfig/network-scripts/</div><div class="line">cp  ifcfg-ens33 ifcfg-br0</div></pre></td></tr></table></figure>
+<p>修改ens33网卡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd  /etc/sysconfig/network-scripts/</div><div class="line">vim   ifcfg-ens33</div><div class="line"></div><div class="line">#增加BRIDGE=br0，注释IPADDR,NETMASK,GATEWAY,DNS</div></pre></td></tr></table></figure>
+<p>修改br网卡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd  /etc/sysconfig/network-scripts/</div><div class="line">vim   ifcfg-br0</div><div class="line"></div><div class="line">#修改DEVICE，name为br0,TYPE为Bridge</div><div class="line">#注释掉uuid</div></pre></td></tr></table></figure>
+<p>重启网络服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl restart  network</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/230538663.png?imageslim" alt="mark"></p>
+<ul>
+<li>配置成功应该是这样的，而且使用xshell连接的终端不会断开</li>
+</ul>
+<p>（2）安装pipwork</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/jpetazzo/pipework</div><div class="line">cp pipework/pipework /usr/local/bin/</div></pre></td></tr></table></figure>
+<p>（3）设置容器ip</p>
+<p>开启一个容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -itd --net=none  --name  net_test  centos_ifconfig  bash</div></pre></td></tr></table></figure>
+<ul>
+<li>需要使用–net=none，该容器只会有一个lo网卡</li>
+</ul>
+<p>设置容器ip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#pipework br0  容器名称  ip/网段@网关</div><div class="line">pipework br0  net_test  192.168.205.138/24@192.168.205.2</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171115/232034076.png?imageslim" alt="mark"></p>
 
       
 
@@ -346,7 +595,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、docker介绍"><span class="toc-number">1.</span> <span class="toc-text">一、docker介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#容器虚拟化："><span class="toc-number">1.0.1.</span> <span class="toc-text">容器虚拟化：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#传统虚拟化："><span class="toc-number">1.0.2.</span> <span class="toc-text">传统虚拟化：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、docker的安装和配置"><span class="toc-number">2.</span> <span class="toc-text">二、docker的安装和配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、安装"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、镜像管理"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、镜像管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、通过容器创建镜像"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、通过容器创建镜像</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、docker介绍"><span class="toc-number">1.</span> <span class="toc-text">一、docker介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、docker的安装和配置"><span class="toc-number">2.</span> <span class="toc-text">二、docker的安装和配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、安装"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、镜像管理"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、镜像管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、通过容器创建镜像"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、通过容器创建镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、通过模板创建镜像"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、通过模板创建镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5、容器管理"><span class="toc-number">2.5.</span> <span class="toc-text">2.5、容器管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6、docker仓库管理"><span class="toc-number">2.6.</span> <span class="toc-text">2.6、docker仓库管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7、docker数据管理"><span class="toc-number">2.7.</span> <span class="toc-text">2.7、docker数据管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8、docker数据卷的备份和恢复"><span class="toc-number">2.8.</span> <span class="toc-text">2.8、docker数据卷的备份和恢复</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、docker网络模式"><span class="toc-number">3.</span> <span class="toc-text">三、docker网络模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、网络模式"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、网络模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、外部访问容器"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、外部访问容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3、配置桥接网络"><span class="toc-number">3.3.</span> <span class="toc-text">3.3、配置桥接网络</span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
