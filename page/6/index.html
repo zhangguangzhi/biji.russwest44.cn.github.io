@@ -131,6 +131,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-26.3、shell脚本之循环" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/14/26.3、shell脚本之循环/">shell脚本之循环</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/14/26.3、shell脚本之循环/" class="archive-article-date">
+  	<time datetime="2017-09-14T08:14:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>shell脚本常用的循环有for，while等</p>
+<h3 id="一、for循环"><a href="#一、for循环" class="headerlink" title="一、for循环"></a>一、for循环</h3><h4 id="1-1、语法一"><a href="#1-1、语法一" class="headerlink" title="1.1、语法一"></a>1.1、语法一</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for  变量  in  值1，值2，值3.....</div><div class="line">do</div><div class="line">	command</div><div class="line">done</div></pre></td></tr></table></figure>
+<ul>
+<li><p>for循环会将指定的值分别赋予变量</p>
+</li>
+<li><p>这些值可以手动输入，如”for  i  in   1 2 3”</p>
+</li>
+<li><p>这些值也可以是用命令产生，如”for i  in  `seq  1 100`”</p>
+<p>使用命令产生时是以命令输出的空格或者回车符作为分隔符</p>
+</li>
+<li><p>seq的作用是生成指定范围的连续数字</p>
+</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/09/14/26.3、shell脚本之循环/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/14/26.3、shell脚本之循环/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-26.2、shell脚本之if判断" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -633,11 +710,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
         		</li>
       		
 		</ul>
@@ -885,150 +962,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-19、Linux集群之负载均衡集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/05/19、Linux集群之负载均衡集群/">Linux负载均衡集群之LVS介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/05/19、Linux集群之负载均衡集群/" class="archive-article-date">
-  	<time datetime="2017-09-05T15:16:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、负载均衡集群介绍"><a href="#一、负载均衡集群介绍" class="headerlink" title="一、负载均衡集群介绍"></a>一、负载均衡集群介绍</h3><p>负载均衡：负载均衡就是LB（load bablance）集群架构，简单说就是让多台服务器均衡的去承载压力。常用软件有nginx、lvs、keepalived，商业的硬件负载设备F5、netscale。</p>
-<p>如下图就是一个负载均衡集群，主要角色有分发器（DIR），后端服务器（RS）。当用户的请求过来时，会直接发到分发器（Director Server）上，然后它把用户的请求根据预先设置好的算法，智能均衡地发放到后端真正的服务器（real server）上。</p>
-<p>（如果不同的机器，可能用户请求到的数据不一样，为了避免这样的情况发生，所以用到了共享存储，这样保证所有用户请求的数据是一样的。）</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/104257010.png?imageslim" alt="mark"></p>
-<h3 id="二、LVS介绍"><a href="#二、LVS介绍" class="headerlink" title="二、LVS介绍"></a>二、LVS介绍</h3><p>LVS是由国人章文嵩开发。基于Linux2.6内核</p>
-<h4 id="2-1、LVS的三种模式介绍"><a href="#2-1、LVS的三种模式介绍" class="headerlink" title="2.1、LVS的三种模式介绍"></a>2.1、LVS的三种模式介绍</h4><p>2.1.1、NAT模式</p>
-<p>这种模式需要借助iptables的nat表来实现，用户的请求到分发器后，通过预设的iptables规则，把请求的数据包转发到后端的服务器上。</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/105243989.png?imageslim" alt="mark"></p>
-<ul>
-<li>RS2访问过程一致</li>
-<li>DIP，RIP1，RIP2在通一网段，并且RS1和RS2的网关为DIP</li>
-<li>客户端发起请求，DIR根据设置将请求分发，并修改数据包目标IP为RIP1，RS1处理后返回数据给DIR，DIR接收后将数据包源IP为VIP，响应给客户端。</li>
-<li>数据包接受和处理后返回都需要经过DIR，所以RS1和RS2的网关需要设置为DIP</li>
-<li>在以上模式中，并发量大时，DIR的机器会成为瓶颈。</li>
-<li>只需要DIR上有公网IP，节省公网IP资源</li>
-</ul>
-<p>2.1.2、LVS IP Tunnel模式</p>
-<p>这种模式，需要有一个公共的IP配置在分发器和所有rs上，我们把它叫做vip</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/110923908.png?imageslim" alt="mark"></p>
-<ul>
-<li>客户端发起请求，分发器接受到请求数据包后，会对数据包做一个加工，将目标IP改为RS1的IP，这样数据包就到了RS上，RS接收数据包，会还原原始数据包，发现目标IP为VIP，所以它直接处理，并将结果返回给客户端。</li>
-</ul>
-<p>2.1.3、DR模式</p>
-<p>这种模式，也需要有一个公共的IP配置在分发器和所有rs上</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/110947741.png?imageslim" alt="mark"></p>
-<ul>
-<li>和IP Tunnel不同的是，它会把数据包的MAC地址修改为rs的MAC地址。</li>
-<li>客户端发起请求，分发器接收请求后分发，将数据包的MAC地址修改为RS1的MAC地址，RS1发现目标IP是VIP，处理后直接放回给客户端。</li>
-<li>在这个过程中数据包的源IP和目标IP不会修改</li>
-<li>RS上需要关闭ARP。</li>
-</ul>
-<h4 id="2-2、LVS的调度算法"><a href="#2-2、LVS的调度算法" class="headerlink" title="2.2、LVS的调度算法"></a>2.2、LVS的调度算法</h4><table>
-<thead>
-<tr>
-<th>调度算法</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>rr(Round-Robin)</td>
-<td>轮询，平等分发</td>
-</tr>
-<tr>
-<td>wrr(Weight Round-Robin)</td>
-<td>加权轮询，设置分发比例</td>
-</tr>
-<tr>
-<td>lc(Least-Connection)</td>
-<td>最小连接，那个链接数少优先分发</td>
-</tr>
-<tr>
-<td>wlc(Weight Least-Connection)</td>
-<td>加权最小连接</td>
-</tr>
-<tr>
-<td>lblc(Locality-Based Least Connections)</td>
-<td>基于局部性的最小连接</td>
-</tr>
-<tr>
-<td>lblcr(Locality-Based Least Connections with Replication)</td>
-<td>带复制的基于局部性最小连接</td>
-</tr>
-<tr>
-<td>dh(Destination Hashing)</td>
-<td>目标地址散列调度</td>
-</tr>
-<tr>
-<td>sh(Source Hashing)</td>
-<td>源地址散列调度</td>
-</tr>
-</tbody>
-</table>
-<p>拓展：</p>
-<p><a href="http://www.it165.net/admin/html/201401/2248.html" target="_blank" rel="external">LVS详细介绍</a></p>
-<p><a href="http://ask.apelearn.com/question/7407" target="_blank" rel="external">LVS的调度算法介绍</a></p>
-<p><a href="http://www.cnblogs.com/lgfeng/archive/2012/10/16/2726308.html" target="_blank" rel="external">关于arp_ignore和 arp_announce</a></p>
-<p><a href="http://www.csdn.net/article/2014-07-24/2820837" target="_blank" rel="external">Nginx、LVS及HAProxy负载均衡软件的优缺点详解</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/05/19、Linux集群之负载均衡集群/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
@@ -1145,6 +1078,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
               </li>
              
@@ -1154,10 +1091,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1173,11 +1106,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1185,7 +1118,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1193,19 +1134,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1221,11 +1154,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1237,10 +1170,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -1249,7 +1178,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1257,19 +1186,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ansible</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1281,7 +1210,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">自动化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">jenkins</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DNS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1293,11 +1238,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">安全</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1317,19 +1262,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
+                <a href="javascript:void(0)" class="js-tag color3">安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1341,19 +1282,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1370,10 +1315,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sed</a>
               </li>
             
             <div class="clearfix"></div>
