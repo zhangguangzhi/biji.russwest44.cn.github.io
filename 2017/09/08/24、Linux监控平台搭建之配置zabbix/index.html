@@ -59,7 +59,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/100554276.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/101351262.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170909/101544813.png?imageslim">
-<meta property="og:updated_time" content="2017-09-12T03:16:39.770Z">
+<meta property="og:updated_time" content="2017-11-17T03:59:05.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux监控平台搭建之配置zabbix">
 <meta name="twitter:description" content="[TOC] 安装zabbix的服务端以及客户端后，我们还需要做一些配置，方便我们使用 一、忘记Admin密码怎么办因为Admin的密码是保存在mysql中的，所以只需要进入mysql命令行，选择zabbix库进行重置即可 123mysql -uroot -pallenuse zabbix;&amp;gt; update users set passwd=md5(‘new passwd’) where al">
@@ -353,7 +353,7 @@
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/092115385.png?imageslim" alt="mark"></p>
 <ul>
 <li>“配置”→”模板”→”自动发现”→”选择项目”</li>
-<li>修改为60秒，重启zabbix-agent和zabbix-server服务可以更快是配置生效</li>
+<li>修改为60秒，重启zabbix-agent和zabbix-server服务可以更快使配置生效</li>
 </ul>
 <p>重启zabbix后，会自动生成图形</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/092449328.png?imageslim" alt="mark"></p>
@@ -406,7 +406,7 @@
 <li>创建完成，可以在’检测中’→’最新数据’查看刚添加的项目是否有数据出现</li>
 </ul>
 <p>（4）添加图形</p>
-<p>有了监控线，有了数据，我们就可以添加图形。</p>
+<p>有了监控项，有了数据，我们就可以添加图形。</p>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170909/100509092.png?imageslim" alt="mark"></p>
 <ul>
 <li>“配置”→”主机”→”图形”→”创建图形”</li>

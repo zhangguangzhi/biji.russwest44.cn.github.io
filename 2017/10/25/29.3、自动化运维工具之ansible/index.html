@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171025/151212425.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171025/153739976.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171025/154017781.png?imageslim">
-<meta property="og:updated_time" content="2017-10-26T01:13:08.613Z">
+<meta property="og:updated_time" content="2017-11-17T02:05:50.215Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自动化运维工具之ansible">
 <meta name="twitter:description" content="[TOC] ansible的特点，轻量级，不需要安装客户端，可以通过sshd进行通信，基于模块工作，模块可以由任何语言开发，不仅支持命令行使用模块，也支持编写yaml格式的playbook，支持sudo。有提供UI（浏览器图形化）www.ansible.com/tower  10台主机以内免费。">
@@ -198,9 +198,9 @@
 <ul>
 <li>因为110.allen.com没有加入/et/ansible/hosts中的任意组，所以使会报错的</li>
 </ul>
-<p><strong>还可以使用模块shell，当有些命令用到管道等特殊符号时，模块command不会区分，使用shell就可以了。shell最要还是用于远程执行脚本。</strong></p>
+<p><strong>还可以使用模块shell，当有些命令用到管道等特殊符号时，模块command不会区分，使用shell就可以了。shell主要还是用于远程执行脚本。</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible  testhost  -m  shell -a &apos;cat /etc/passwd | grep root&apos;</div></pre></td></tr></table></figure>
-<h4 id="2-2-、拷贝文件和目录"><a href="#2-2-、拷贝文件和目录" class="headerlink" title="2.2.、拷贝文件和目录"></a>2.2.、拷贝文件和目录</h4><p>拷贝文件和目录使用的命令是一样的，都是使用模块copy</p>
+<h4 id="2-2、拷贝文件和目录"><a href="#2-2、拷贝文件和目录" class="headerlink" title="2.2、拷贝文件和目录"></a>2.2、拷贝文件和目录</h4><p>拷贝文件和目录使用的命令是一样的，都是使用模块copy</p>
 <p>（1）拷贝文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible  testhost -m copy -a &quot;src=/etc/passwd dest=/tmp/1.txt owner=root group=root mode=0644&quot;</div></pre></td></tr></table></figure>
 <ul>
@@ -334,7 +334,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、ansible安装以及配置认证"><span class="toc-number">1.</span> <span class="toc-text">一、ansible安装以及配置认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1、安装ansible"><span class="toc-number">1.1.</span> <span class="toc-text">1.1、安装ansible</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2、配置认证"><span class="toc-number">1.2.</span> <span class="toc-text">1.2、配置认证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、ansible进行远程操作"><span class="toc-number">2.</span> <span class="toc-text">二、ansible进行远程操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、远程执行命令"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、远程执行命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-、拷贝文件和目录"><span class="toc-number">2.2.</span> <span class="toc-text">2.2.、拷贝文件和目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、ansible远程执行脚本"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、ansible远程执行脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、远程创建任务计划"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、远程创建任务计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5、远程安装管理rpm包服务"><span class="toc-number">2.5.</span> <span class="toc-text">2.5、远程安装管理rpm包服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6、ansible文档的使用"><span class="toc-number">2.6.</span> <span class="toc-text">2.6、ansible文档的使用</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、ansible安装以及配置认证"><span class="toc-number">1.</span> <span class="toc-text">一、ansible安装以及配置认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1、安装ansible"><span class="toc-number">1.1.</span> <span class="toc-text">1.1、安装ansible</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2、配置认证"><span class="toc-number">1.2.</span> <span class="toc-text">1.2、配置认证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、ansible进行远程操作"><span class="toc-number">2.</span> <span class="toc-text">二、ansible进行远程操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、远程执行命令"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、远程执行命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、拷贝文件和目录"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、拷贝文件和目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、ansible远程执行脚本"><span class="toc-number">2.3.</span> <span class="toc-text">2.3、ansible远程执行脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4、远程创建任务计划"><span class="toc-number">2.4.</span> <span class="toc-text">2.4、远程创建任务计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5、远程安装管理rpm包服务"><span class="toc-number">2.5.</span> <span class="toc-text">2.5、远程安装管理rpm包服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6、ansible文档的使用"><span class="toc-number">2.6.</span> <span class="toc-text">2.6、ansible文档的使用</span></a></li></ol></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){

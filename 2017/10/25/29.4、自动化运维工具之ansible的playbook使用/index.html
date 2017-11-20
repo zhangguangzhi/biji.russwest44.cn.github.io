@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171026/000535218.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171026/001039766.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171026/001732197.png?imageslim">
-<meta property="og:updated_time" content="2017-10-26T01:12:49.234Z">
+<meta property="og:updated_time" content="2017-11-17T03:49:51.844Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自动化运维工具之ansible的playbook使用">
 <meta name="twitter:description" content="[TOC] playbook可以理解为将模块，函数写入到配置文件里面，然后单独执行配置文件，实现远程自动化操作。 一、playbook实例1.1、在远程touch一个文件（1）创建test_playbook.yml 12345678910cd  /etc/ansiblevim test_playbook.yml#写入以下内容---- hosts: 109.allen.com  remote_use">
@@ -182,7 +182,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">vim create_user.yml</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">---</div><div class="line">- name: create_user</div><div class="line">  hosts: 109.allen.com</div><div class="line">  user: root</div><div class="line">  gather_facts</div><div class="line">  vars: </div><div class="line">    - user: &quot;test&quot;</div><div class="line">  tasks:</div><div class="line">    - name: create_user</div><div class="line">      user: name=&quot;&#123;&#123; user &#125;&#125;&quot;</div></pre></td></tr></table></figure>
 <p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171025/164016226.png?imageslim" alt="mark"></p>
 <ul>
-<li>name参数对该playbook实现的功能做一个概述，后面执行过程中，会打印 name变量的值 ，可以省略；gather_facts参数指定了在以下任务部分执行前，是否先执行setup模块获取主机相关信息，这在后面的task会使用到setup获取的信息时用到；vars参数，指定了变量，这里指字一个user变量，其值为test ，需要注意的是，变量值一定要用引号引住；user提定了调用user模块，name是user模块里的一个参数，而增加的用户名字调用了上面user变量的值。</li>
+<li>name参数对该playbook实现的功能做一个概述，后面执行过程中，会打印 name变量的值 ，可以省略；gather_facts参数指定了在以下任务部分执行前，是否先执行setup模块获取主机相关信息，这在后面的task会使用到setup获取的信息时用到；vars参数，指定了变量，这里指定一个user变量，其值为test ，需要注意的是，变量值一定要用双引号；user指定了调用user模块，name是user模块里的一个参数，而增加的用户名字调用了上面user变量的值。</li>
 </ul>
 <p>（2）setup模块</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ansible &apos;109.allen.com&apos; -m setup</div></pre></td></tr></table></figure>
