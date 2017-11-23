@@ -6,21 +6,40 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>vsftp利用mysql验证虚拟账户 | ZhangGuangZhi</title>
+  <title>jenkin部署Java项目 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、vsftp配置1.1、vsftpd安装 1yum install -y  vsftpd 1.2、修改配置文件vsftpd.conf 1234567891011121314151617cp /etc/vsftpd/vsftpd.conf  /etc/vsftpd/vsftpd.conf.bakvim /etc/vsftpd/vsftpd.conf#写入以下内容listen=YESco">
-<meta name="keywords" content="ftp">
+  <meta name="description" content="[TOC] java项目需要编译和打包的，我们可以使用工具来进行这些操作。可以使用ant或者maven，本次实验中我们将使用maven，所以需要我们安装maven 一、部署准备工作jenkins：192.168.205.110 部署机器：192.168.205.109 1.1、申请私有git仓库申请地址：https://coding.net/ （1）配置ssh认证 因为我们需要进行git操作，所以">
+<meta name="keywords" content="自动化,jenkins">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vsftp利用mysql验证虚拟账户">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/27/vsftp利用mysql验证虚拟账户/index.html">
+<meta property="og:title" content="jenkin部署Java项目">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/11/23/33.2、jenkin部署Java项目/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 一、vsftp配置1.1、vsftpd安装 1yum install -y  vsftpd 1.2、修改配置文件vsftpd.conf 1234567891011121314151617cp /etc/vsftpd/vsftpd.conf  /etc/vsftpd/vsftpd.conf.bakvim /etc/vsftpd/vsftpd.conf#写入以下内容listen=YESco">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170827/143236063.png?imageslim">
-<meta property="og:updated_time" content="2017-08-29T06:32:15.358Z">
+<meta property="og:description" content="[TOC] java项目需要编译和打包的，我们可以使用工具来进行这些操作。可以使用ant或者maven，本次实验中我们将使用maven，所以需要我们安装maven 一、部署准备工作jenkins：192.168.205.110 部署机器：192.168.205.109 1.1、申请私有git仓库申请地址：https://coding.net/ （1）配置ssh认证 因为我们需要进行git操作，所以">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/213627499.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/145221787.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/145307741.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/145915677.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/153230741.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/153058652.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/153336120.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/154312208.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/154539316.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/213859814.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/214105052.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/214331647.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/214859869.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/215505533.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/220701652.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/220732312.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/220206561.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/220418436.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/222149159.png?imageslim">
+<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/222253844.png?imageslim">
+<meta property="og:updated_time" content="2017-11-23T14:23:30.585Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vsftp利用mysql验证虚拟账户">
-<meta name="twitter:description" content="[TOC] 一、vsftp配置1.1、vsftpd安装 1yum install -y  vsftpd 1.2、修改配置文件vsftpd.conf 1234567891011121314151617cp /etc/vsftpd/vsftpd.conf  /etc/vsftpd/vsftpd.conf.bakvim /etc/vsftpd/vsftpd.conf#写入以下内容listen=YESco">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170827/143236063.png?imageslim">
+<meta name="twitter:title" content="jenkin部署Java项目">
+<meta name="twitter:description" content="[TOC] java项目需要编译和打包的，我们可以使用工具来进行这些操作。可以使用ant或者maven，本次实验中我们将使用maven，所以需要我们安装maven 一、部署准备工作jenkins：192.168.205.110 部署机器：192.168.205.109 1.1、申请私有git仓库申请地址：https://coding.net/ （1）配置ssh认证 因为我们需要进行git操作，所以">
+<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171123/213627499.png?imageslim">
   
   
     <link rel="icon" href="/favicon.png">
@@ -136,20 +155,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vsftp利用mysql验证虚拟账户" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-33.2、jenkin部署Java项目" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      vsftp利用mysql验证虚拟账户
+      jenkin部署Java项目
     </h1>
   
 
         
-        <a href="/2017/08/27/vsftp利用mysql验证虚拟账户/" class="archive-article-date">
-  	<time datetime="2017-08-27T06:20:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-27</time>
+        <a href="/2017/11/23/33.2、jenkin部署Java项目/" class="archive-article-date">
+  	<time datetime="2017-11-23T06:24:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-23</time>
 </a>
         
       </header>
@@ -157,35 +176,92 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h3 id="一、vsftp配置"><a href="#一、vsftp配置" class="headerlink" title="一、vsftp配置"></a>一、vsftp配置</h3><p>1.1、vsftpd安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y  vsftpd</div></pre></td></tr></table></figure>
-<p>1.2、修改配置文件vsftpd.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">cp /etc/vsftpd/vsftpd.conf  /etc/vsftpd/vsftpd.conf.bak</div><div class="line">vim /etc/vsftpd/vsftpd.conf</div><div class="line">#写入以下内容</div><div class="line">listen=YES</div><div class="line">connect_from_port_20=YES</div><div class="line">pasv_enable=YES</div><div class="line">tcp_wrappers=YES</div><div class="line">local_enable=YES</div><div class="line">chroot_local_user=yes</div><div class="line">anonymous_enable=NO</div><div class="line">guest_enable=YES</div><div class="line">guest_username=vsftpdguest</div><div class="line">user_config_dir=/etc/vsftpd/vsftpd_user_conf</div><div class="line">pam_service_name=/etc/pam.d/vsftpd</div><div class="line">dirmessage_enable=YES</div><div class="line">idle_session_timeout=600</div><div class="line">check_shell=NO</div></pre></td></tr></table></figure>
+<p>java项目需要编译和打包的，我们可以使用工具来进行这些操作。可以使用ant或者maven，本次实验中我们将使用maven，所以需要我们安装maven</p>
+<h3 id="一、部署准备工作"><a href="#一、部署准备工作" class="headerlink" title="一、部署准备工作"></a>一、部署准备工作</h3><p>jenkins：192.168.205.110</p>
+<p>部署机器：192.168.205.109</p>
+<h4 id="1-1、申请私有git仓库"><a href="#1-1、申请私有git仓库" class="headerlink" title="1.1、申请私有git仓库"></a>1.1、申请私有git仓库</h4><p>申请地址：<a href="https://coding.net/" target="_blank" rel="external">https://coding.net/</a></p>
+<p>（1）配置ssh认证</p>
+<p>因为我们需要进行git操作，所以申请完成之后需要上传部署机器和jenkins机器的公钥到仓库中，配置ssh认证。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/213627499.png?imageslim" alt="mark"></p>
 <a id="more"></a>
-<p>1.3、创建一个系统用户映射虚拟用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd  -s /sbin/nologin   vsftpdguest</div></pre></td></tr></table></figure>
-<h3 id="二、mysql配置"><a href="#二、mysql配置" class="headerlink" title="二、mysql配置"></a>二、mysql配置</h3><p>2.1、安装mysql</p>
-<p>2.2、安装pam-mysql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget  https://nchc.dl.sourceforge.net/project/pam-mysql/pam-mysql/0.7RC1/pam_mysql-0.7RC1.tar.gz</div><div class="line">tar zxvf  pam_mysql-0.7RC1.tar.gz</div><div class="line">cd pam_mysql-0.7RC1</div><div class="line">./configure --with-mysql=/usr/local/mysql --with-pam=/usr --with-pam-mods-dir=/usr/lib</div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<p>2.3、创建vsftp库和相关的表并授权</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; create database vsftp;</div><div class="line">&gt; create table users ( name char(16) binary ,passwd char(125) binary ) ;</div><div class="line">&gt; insert into users (name,passwd) values (&apos;test001&apos;,password(&apos;123456&apos;));</div><div class="line">&gt; insert into users (name,passwd) values (&apos;test002&apos;,password(&apos;234567&apos;));</div><div class="line">&gt; grant select on vsftp.users to vsftpdguest@localhost identified by &apos;vsftpdguest&apos;;</div></pre></td></tr></table></figure>
-<h3 id="三、创建虚拟账户的配置文件"><a href="#三、创建虚拟账户的配置文件" class="headerlink" title="三、创建虚拟账户的配置文件"></a>三、创建虚拟账户的配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mkdir /etc/vsftpd/vsftpd_user_conf </div><div class="line">cd  /etc/vsftpd/vsftpd_user_conf</div><div class="line">#虚拟账户配置文件的名称要与users表创建的一致</div><div class="line">vim test001</div><div class="line">#写入以下内容</div><div class="line">local_root=/ftp/        </div><div class="line">write_enable=YES</div><div class="line">virtual_use_local_privs=YES</div><div class="line">chmod_enable=YES</div></pre></td></tr></table></figure>
-<h3 id="四、编辑认证文件"><a href="#四、编辑认证文件" class="headerlink" title="四、编辑认证文件"></a>四、编辑认证文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim  /etc/pam.d/vsftpd</div><div class="line">#内容如下</div><div class="line">#%PAM-1.0</div><div class="line">auth required /usr/lib/pam_mysql.so user=vsftpdguest passwd=vsftpdguest host=localhost db=vsftp table=users usercolumn=name passwdcolumn=passwd crypt=2</div><div class="line">account required /usr/lib/pam_mysql.so user=vsftpdguest passwd=vsftpdguest host=localhost db=vsftp table=users usercolumn=name passwdcolumn=passwd crypt=2</div></pre></td></tr></table></figure>
+<p>（2）创建一个私有仓库</p>
+<p>添加项目</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/145221787.png?imageslim" alt="mark"></p>
+<p>设置项目为私有</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/145307741.png?imageslim" alt="mark"></p>
+<p>（3）将仓库克隆到本地部署机器上</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/145915677.png?imageslim" alt="mark"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#在192.168.205.109上操作</div><div class="line">cd /data/</div><div class="line">git clone git@git.coding.net:ianyun/test-java.git</div></pre></td></tr></table></figure>
+<h4 id="1-2、添加项目源码"><a href="#1-2、添加项目源码" class="headerlink" title="1.2、添加项目源码"></a>1.2、添加项目源码</h4><p>我们使用zrlog为我们的项目源码</p>
+<p>下载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget https://codeload.github.com/94fzb/zrlog/zip/master</div><div class="line">unzip  master</div><div class="line">mv  zrlog-master/*   /data/test-java</div><div class="line">rm -rf  zrlog-master</div><div class="line">cd  /data/test-java</div><div class="line">git add  .</div><div class="line">git commit -m &quot;add java-test&quot;</div><div class="line">git push origin  master</div></pre></td></tr></table></figure>
+<h4 id="1-3、安装tomcat"><a href="#1-3、安装tomcat" class="headerlink" title="1.3、安装tomcat"></a>1.3、安装tomcat</h4><p>本次实验是Java部署，所以我们安装tomcat来查看项目的部署情况</p>
+<p>在部署机192.168.205.109操作</p>
+<p>（1）安装JDK</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-linux-x64.tar.gz?AuthParam=1510391196_a3f4a13a0606d1f2487afde44541c6c4</div><div class="line">tar  -zxvf jdk-8u151-linux-x64.tar.gz</div><div class="line">mv jdk1.8.0_151  /usr/local/jdk1.8</div><div class="line">#编辑/etc/profile，添加JDK相关变量配置</div><div class="line">JAVA_HOME=/usr/local/jdk1.8</div><div class="line">JAVA_BIN=/usr/local/jdk1.8/bin</div><div class="line">JRE_HOME=/usr/local/jdk1.8/jre</div><div class="line">PATH=$PATH:/usr/local/jdk1.8/bin:/usr/local/jdk1.8/jre/bin</div><div class="line">CLASSPATH=/usr/local/jdk1.8/jre/lib:/usr/local/jdk1.8/lib:/usr/local/jdk1.8/jre/lib/charsets.jar</div><div class="line">#添加之后需要重新加载/etc/profile文件</div><div class="line">source  /etc/profile</div><div class="line">#使用java  -version可以查看是否安装成功</div></pre></td></tr></table></figure>
+<p>（2）安装tomcat</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd  /usr/local/src</div><div class="line">wget https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz</div><div class="line">tar  zxvf  apache-tomcat-8.5.23.tar.gz</div><div class="line">mv apache-tomcat-8.5.23  /usr/local/tomcat</div></pre></td></tr></table></figure>
+<p>（3）配置tomcat管理员信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#编辑配置文件</div><div class="line">vim /usr/local/tomcat/conf/tomcat-users.xml</div><div class="line">#在最后一行上面写入以下内容</div><div class="line">&lt;role rolename=&quot;admin&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;admin-script&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-script&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-jmx&quot;/&gt;</div><div class="line">&lt;role rolename=&quot;manager-status&quot;/&gt;</div><div class="line">&lt;user name=&quot;admin&quot; password=&quot;123456&quot; roles=&quot;admin,manager,admin-gui,admin-script,manager-gui,manager-script,manager-jmx,manager-status&quot; /&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/153230741.png?imageslim" alt="mark"></p>
+<p>（4）配置管理后台访问控制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#编辑配置文件</div><div class="line">vim /usr/local/tomcat/webapps/manager/META-INF/context.xml</div><div class="line">#找到allow，在0:1后面添加</div><div class="line">|192.168.205.*</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/153058652.png?imageslim" alt="mark"></p>
+<p><strong>配置完成后启动tomcat</strong>，访问<a href="http://192.168.205.109:8080/manager/html时需要我们输入用户名密码，我们就可以进入到后台" target="_blank" rel="external">http://192.168.205.109:8080/manager/html时需要我们输入用户名密码，我们就可以进入到后台</a></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/153336120.png?imageslim" alt="mark"></p>
+<h4 id="1-4、安装maven"><a href="#1-4、安装maven" class="headerlink" title="1.4、安装maven"></a>1.4、安装maven</h4><p>maven用来编译和打包java代码</p>
+<p>需要在jenkins机器上操作</p>
+<p>（1）下载安装maven</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/src</div><div class="line">wget  http://mirror.bit.edu.cn/apache/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz</div><div class="line">tar zxvf apache-maven-3.5.2-bin.tar.gz</div><div class="line">mv apache-maven-3.5.2 /usr/local/</div><div class="line">#使用/usr/local/apache-maven-3.5.2/bin/mvn --version查看是否安装成功</div></pre></td></tr></table></figure>
+<p>（2）配置jenkins使用maven</p>
+<p>点击”系统管理”—“全局工具配置”</p>
+<p>配置”Maven Configuration”，下拉选择”Settings file in filesystem”，在path中填写</p>
+<p>/usr/local/apache-maven-3.5.2/conf/settings.xml</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/154312208.png?imageslim" alt="mark"></p>
+<p>配置Maven</p>
+<p>下拉找到Maven，点击”新增Maven”，填写”name”，取消”自动安装”，在MAVEN_HOME填写我们安装的maven位置”/usr/local/apache-maven-3.5.2”</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/154539316.png?imageslim" alt="mark"></p>
+<p>（3）安装maven所需插件</p>
+<p>点击”系统管理”—“管理插件”</p>
+<p>安装Maven Integration plugin，不安装无法创建maven的job</p>
+<p>Deploy to container Plugin，用来编译打包代码包</p>
+<p><strong>安装完成后需要重新启动jenkins</strong></p>
+<h3 id="二、配置job"><a href="#二、配置job" class="headerlink" title="二、配置job"></a>二、配置job</h3><p>2.1、创建maven类型job</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/213859814.png?imageslim" alt="mark"></p>
+<p>（2）配置源码</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/214105052.png?imageslim" alt="mark"></p>
+<p>Repository URL填写我们的代码git地址，因为我们的仓库是私有的，我们还需要配置认证。所以会有报错</p>
+<p>点击”Add”，选择”jenkinx”，选择”Kind”的类型为”SSH  Username with  private  key”。填写”Username”，Privae Key选择”Enter directly”，并输入jenkins机器上的密钥内容（我们需要实现在git中添加jenkins的公钥）</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/214331647.png?imageslim" alt="mark"></p>
 <ul>
-<li>需要查看so文件的位置是否正确，该位置是在pam_mysql编译时指定的</li>
+<li>保存后，选择”Credentials”为刚刚的git</li>
 </ul>
-<h3 id="五、测试"><a href="#五、测试" class="headerlink" title="五、测试"></a>五、测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#创建测试文件</div><div class="line">mkdir  /ftp/</div><div class="line">touch  /ftp/1.txt</div></pre></td></tr></table></figure>
-<p>使用lftp测试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# lftp test001@localhost</div><div class="line">口令: </div><div class="line">lftp test001@localhost:~&gt; ls        </div><div class="line">ls: 登录失败: 530 Login incorrect.</div></pre></td></tr></table></figure>
-<ul>
-<li>出现530登录失败</li>
-</ul>
-<p>查看日志/var/log/secure，得到以下错误信息</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170827/143236063.png?imageslim" alt="mark"></p>
-<p>解决办法：从日志可以看出pam_mysql无法通过sock连接mysql，因为我的sock位置为/tmp/mysql.sock。暂时的解决办法就是创建软连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln -s /tmp/mysql.sock  /var/lib/mysql/mysql.sock</div></pre></td></tr></table></figure>
-<p>创建软连接后可以登录使用vsftp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@allen1 ~]# lftp test001@localhost</div><div class="line">口令: </div><div class="line">lftp test001@localhost:~&gt; ls        </div><div class="line">-rw-r--r--    1 0        0               0 Aug 27 02:41 1.txt</div><div class="line">lftp test001@localhost:/&gt;</div></pre></td></tr></table></figure>
+<p>（3）配置build</p>
+<p>Root POM填写”pom.xml”</p>
+<p>Goals and options填写”clean install -D maven.test.skip=true”</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/214859869.png?imageslim" alt="mark"></p>
+<p>（4）配置发布代码</p>
+<p>选择”构建后操作”，点击”增加构建后操作步骤”，”选择”Deploy war/ear to a container”</p>
+<p>WAR/EAR files填写”*<em>/\</em>.war”，Contex path留空</p>
+<p>Containers根据你的tomcat版本选择，点击后我们需要添加一个用户，点击Add添加用户</p>
+<p>Tomcat URL填写我们要部署的机器ip。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/215505533.png?imageslim" alt="mark"></p>
+<p>（5）配置邮件</p>
+<p>选择”构建后操作”，点击”增加构建后操作步骤”，选择“Editable Email Notification”，在Project Recipient List增加新的邮箱，意思为新增收件人</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/220701652.png?imageslim" alt="mark"></p>
+<p> 点击右下角的“Advanced settings”,定位到“Triggers”，然后点击下方的“Add Trigger”，可以增加发邮件的条件。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/220732312.png?imageslim" alt="mark"></p>
+<p><strong>最后，点击最小面的保存，就可以去构建了。</strong></p>
+<h3 id="三、构建情况"><a href="#三、构建情况" class="headerlink" title="三、构建情况"></a>三、构建情况</h3><p>3.1、构建时出现的错误</p>
+<p>完成以上配置后，进行构建，但是在Console Output的输出中查看到错误</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/220206561.png?imageslim" alt="mark"></p>
+<p>解决办法，配置jenkins使用现有的JDK</p>
+<p>点击”系统管理”，选择”全局工具配置”，选择”新增JDK”，取消自动安装，JAVA_HOME为我们机器安装的jdk路径</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/220418436.png?imageslim" alt="mark"></p>
+<p>保存，重新构建</p>
+<p>在部署机192.168.205.109上可以查看到部署的项目</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/222149159.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171123/222253844.png?imageslim" alt="mark"></p>
 
       
 
@@ -199,7 +275,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ftp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">自动化</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">jenkins</a>
         		</li>
       		
 		</ul>
@@ -218,18 +298,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/28/16、配置tomcat/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          配置tomcat
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/08/25/15、ftp服务配置/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ftp服务配置</div>
+    <a href="/2017/11/20/33.1、jenkins/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">jenkins</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -245,8 +325,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://zhangguangzhi.github.io/2017/08/27/vsftp利用mysql验证虚拟账户/", 
-    sourceId: "vsftp利用mysql验证虚拟账户",
+    url: "http://zhangguangzhi.github.io/2017/11/23/33.2、jenkin部署Java项目/", 
+    sourceId: "33.2、jenkin部署Java项目",
     productKey: "ture",
     target: "cloud-tie-wrapper"
   };
@@ -267,7 +347,7 @@
             <div id="toc-article" class="toc-article">
                 <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
                 <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、vsftp配置"><span class="toc-number">1.</span> <span class="toc-text">一、vsftp配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、mysql配置"><span class="toc-number">2.</span> <span class="toc-text">二、mysql配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、创建虚拟账户的配置文件"><span class="toc-number">3.</span> <span class="toc-text">三、创建虚拟账户的配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、编辑认证文件"><span class="toc-number">4.</span> <span class="toc-text">四、编辑认证文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、测试"><span class="toc-number">5.</span> <span class="toc-text">五、测试</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、部署准备工作"><span class="toc-number">1.</span> <span class="toc-text">一、部署准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1、申请私有git仓库"><span class="toc-number">1.1.</span> <span class="toc-text">1.1、申请私有git仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2、添加项目源码"><span class="toc-number">1.2.</span> <span class="toc-text">1.2、添加项目源码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3、安装tomcat"><span class="toc-number">1.3.</span> <span class="toc-text">1.3、安装tomcat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4、安装maven"><span class="toc-number">1.4.</span> <span class="toc-text">1.4、安装maven</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、配置job"><span class="toc-number">2.</span> <span class="toc-text">二、配置job</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、构建情况"><span class="toc-number">3.</span> <span class="toc-text">三、构建情况</span></a></li></ol>
            </div>
            <script type="text/javascript">
             function showToc(){
