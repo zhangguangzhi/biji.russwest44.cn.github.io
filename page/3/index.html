@@ -131,6 +131,520 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/31/使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录/">使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/31/使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录/" class="archive-article-date">
+  	<time datetime="2017-10-31T07:15:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>转载：<a href="http://blog.chinaunix.net/uid-26284395-id-2949145.html" target="_blank" rel="external">使用ssh-keygen和ssh-copy-id三步实现SSH无密码登录</a></p>
+<p>ssh-keygen：产生密钥对</p>
+<p>ssh-copy-id：将本机的公钥复制到远程机器的authorized_keys文件中，ssh-copy-id也能让你有到远程机器的home, ~./ssh , 和 ~/.ssh/authorized_keys的权利。</p>
+<p>A机器免密码登录B机器</p>
+<p>A机器：192.168.205.140</p>
+<p>B机器：192.168.205.141</p>
+<h3 id="1、生成密钥对"><a href="#1、生成密钥对" class="headerlink" title="1、生成密钥对"></a>1、生成密钥对</h3><p>在A机器上使用ssh-keygen生成密钥对</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171031/152553659.png?imageslim" alt="mark"></p>
+<ul>
+<li>-f可以指定生成密钥对的名称，-C可以指定公钥最后面的注释</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/10/31/使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssh</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/31/使用ssh-keygen和ssh-copy-id三步实现ssh无密码登录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-30.2、堡垒机之jumpserver" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/31/30.2、堡垒机之jumpserver/">堡垒机之jumpserver</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/31/30.2、堡垒机之jumpserver/" class="archive-article-date">
+  	<time datetime="2017-10-31T04:04:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、jumpserver介绍"><a href="#一、jumpserver介绍" class="headerlink" title="一、jumpserver介绍"></a>一、jumpserver介绍</h3><p>官网：www.jumpserver.org</p>
+<p>jumpserver为国人开发的开源软件，是一款使用Python，Django开发的开源跳板机系统，助力互联网企业高效管理用户，资产，权限，审计管理，自动化</p>
+<p>具有以下特点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">完全开源，GPL授权 </div><div class="line">Python编写，容易再次开发 </div><div class="line">实现了跳板机基本功能，认证、授权、审计 </div><div class="line">集成了Ansible，批量命令等 </div><div class="line">支持WebTerminal </div><div class="line">Bootstrap编写，界面美观 </div><div class="line">自动收集硬件信息 </div><div class="line">录像回放 </div><div class="line">命令搜索 </div><div class="line">实时监控 </div><div class="line">批量上传下载</div></pre></td></tr></table></figure>
+<p>最新版为v0.4.0，基于Python3.6，Django 1.11，目前还未开发完成，所以我们接下来将要安装v0.3.2</p>
+        
+          <a class="article-more-a" href="/2017/10/31/30.2、堡垒机之jumpserver/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">堡垒机</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">jumpserver</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/31/30.2、堡垒机之jumpserver/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-30.1、简易堡垒机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/30/30.1、简易堡垒机/">简易堡垒机</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/30/30.1、简易堡垒机/" class="archive-article-date">
+  	<time datetime="2017-10-30T03:17:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、堡垒机介绍"><a href="#一、堡垒机介绍" class="headerlink" title="一、堡垒机介绍"></a>一、堡垒机介绍</h3><p>在一个特定网络环境下，为了保障网络和数据不受外界入侵和破坏，而运用各种技术手段实时收集和监控网络环境中每一个组成部分的系统状态、安全事件、网络活动，以便集中报警、及时处理及审计定责。简易的堡垒机功能简单，主要核心功能是远程登录服务器和日志审计。</p>
+<p>比较优秀的开源软件jumpserver，具有认证，授权，审计，自动化，资产管理</p>
+<p>商业堡垒机：齐治，Citrix xenapp</p>
+<h3 id="二、简易堡垒机"><a href="#二、简易堡垒机" class="headerlink" title="二、简易堡垒机"></a>二、简易堡垒机</h3><h4 id="2-1、搭建条件"><a href="#2-1、搭建条件" class="headerlink" title="2.1、搭建条件"></a>2.1、搭建条件</h4><p>具备堡垒机的条件是，该机器有公司和私网，其中私网和机房其他机器互通。公网可以通过VPN登录。</p>
+        
+          <a class="article-more-a" href="/2017/10/30/30.1、简易堡垒机/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">堡垒机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/30/30.1、简易堡垒机/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-Nginx-tomcat实现动静分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/Nginx-tomcat实现动静分离/">Nginx+tomcat实现动静分离</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/26/Nginx-tomcat实现动静分离/" class="archive-article-date">
+  	<time datetime="2017-10-26T14:29:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、什么是动静分离"><a href="#一、什么是动静分离" class="headerlink" title="一、什么是动静分离"></a>一、什么是动静分离</h3><p>本次实验的动静分离主要是通过nginx+comcat来实现，其中nginx处理图片、html等静态的文件，tomcat处理jsp，do等动态文件</p>
+<p>结构图如下：</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171026/223547391.png?imageslim" alt="mark"></p>
+        
+          <a class="article-more-a" href="/2017/10/26/Nginx-tomcat实现动静分离/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/26/Nginx-tomcat实现动静分离/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-Nginx使用nginx-status查看并发连接数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/Nginx使用nginx-status查看并发连接数/">Nginx使用nginx_status查看并发连接数</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/26/Nginx使用nginx-status查看并发连接数/" class="archive-article-date">
+  	<time datetime="2017-10-26T12:41:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、通过nginx的stub-status模块查看并发连接数"><a href="#一、通过nginx的stub-status模块查看并发连接数" class="headerlink" title="一、通过nginx的stub_status模块查看并发连接数"></a>一、通过nginx的stub_status模块查看并发连接数</h3><p>（1）查看是否编译安装了stub_status模块</p>
+<p>nginx中的stub_status模块可以用于查看nginx的一些状态信息，本模块默认是不会编译进nginx的，如果我们需要使用该模块，则要在编译安装nginx时指定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --prefix=/usr/local/nginx --with-http_stub_status_module</div></pre></td></tr></table></figure>
+<p>查看nginx是否包含stub_status模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/local/nginx/sbin/nginx -V</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171026/205448411.png?imageslim" alt="mark"></p>
+        
+          <a class="article-more-a" href="/2017/10/26/Nginx使用nginx-status查看并发连接数/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/26/Nginx使用nginx-status查看并发连接数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-Nginx简单防御CC攻击的两种方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/Nginx简单防御CC攻击的两种方法/">转载：Nginx简单防御CC攻击的两种方法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/26/Nginx简单防御CC攻击的两种方法/" class="archive-article-date">
+  	<time datetime="2017-10-26T09:12:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>原文文固定链接：<a href="http://www.linuxde.net/2011/11/1953.html" target="_blank" rel="external">http://www.linuxde.net/2011/11/1953.html</a></p>
+<p><strong>CC攻击</strong>可以归为<a href="http://www.linuxde.net/tag/ddos" target="_blank" rel="external">DDOS</a>攻击的一种。他们之间都原理都是一样的，即发送大量的请求数据来导致<a href="http://www.linuxde.net/tag/%e6%9c%8d%e5%8a%a1%e5%99%a8" target="_blank" rel="external">服务器</a>拒绝服务，是一种连接攻击。CC攻击又可分为代理CC攻击，和肉鸡CC攻击。代理CC攻击是<a href="http://www.linuxde.net/tag/%e9%bb%91%e5%ae%a2" target="_blank" rel="external">黑客</a>借助代理服务器生成指向受害主机的合法网页请求，实现DOS，和伪装就叫：cc（ChallengeCollapsar）。而肉鸡CC攻击是黑客使用CC攻击软件，控制大量肉鸡，发动攻击，相比来后者比前者更难防御。因为肉鸡可以模拟正常用户访问网站的请求。伪造成合法数据包。防御CC攻击可以通过多种方法，禁止网站代理访问，尽量将网站做成静态页面，限制连接数量等。</p>
+<p><strong>Nginx</strong>是一款轻量级的<strong>Web服务器</strong>，由俄罗斯的程序设计师Igor Sysoev所开发，最初供俄国大型的入口网站及搜寻引Rambler使用。 其特点是占有<a href="http://www.linuxde.net/tag/%e5%86%85%e5%ad%98" target="_blank" rel="external">内存</a>少，并发能力强，事实上Nginx的并发能力确实在同类型的网站服务器中表现较好。</p>
+<p>Nginx虽然可以比<a href="http://www.linuxde.net/tag/apache" target="_blank" rel="external">Apache</a>处理更大的连接数，但是HTTP GET FLOOD针对的不仅仅是WEB服务器，还有<a href="http://www.linuxde.net/tag/%e6%95%b0%e6%8d%ae%e5%ba%93" target="_blank" rel="external">数据库</a>服务器。大量HTTP请求产生了大量的数据库查询，可以在几秒之内使数据库停止响应，系统负载升高，最终导致服务器当机。</p>
+<p>本文主要介绍<a href="http://www.linuxde.net/tag/centos" target="_blank" rel="external">CentOS</a>+Nginx下如何快速有效得防御CC攻击。至于如何安装Nginx就不详细介绍了，有兴趣的读者可以在Nginx官方网站（<a href="http://www.nginx.org/）下载[源代码](http://www.linuxde.net/tag/%e6%ba%90%e4%bb%a3%e7%a0%81)进行编译。如果你使用的是Centos5，也可以使用rpm包进行安装（http://centos.[ALT](http://www.linuxde.net/tag/alt).ru/repository/centos/5/i386/nginx-stable-0.7.65-1.el5.i386.rpm）。" target="_blank" rel="external">http://www.nginx.org/）下载[源代码](http://www.linuxde.net/tag/%e6%ba%90%e4%bb%a3%e7%a0%81)进行编译。如果你使用的是Centos5，也可以使用rpm包进行安装（http://centos.[ALT](http://www.linuxde.net/tag/alt).ru/repository/centos/5/i386/nginx-stable-0.7.65-1.el5.i386.rpm）。</a></p>
+        
+          <a class="article-more-a" href="/2017/10/26/Nginx简单防御CC攻击的两种方法/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">安全</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/26/Nginx简单防御CC攻击的两种方法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-nginx访问日志中的$quest_time和$upstream_response_time" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/">nginx访问日志中的$quest_time和$upstream_response_time</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/" class="archive-article-date">
+  	<time datetime="2017-10-26T08:34:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在nginx访问日志中，我们可以添加\$upstream_response_time和$quest_time，记录连接处理的时间。</p>
+<p>$quest_time：指的就是从接受用户请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。</p>
+<p>$upstream_response_time：是指从Nginx向后端（php-cgi)建立连接开始到接受完数据然后关闭连接为止的时间。</p>
+<p><strong>我们可以通过比对这两个时间，看一下负载均衡架构中是前端还是后端处理的时间长</strong></p>
+        
+          <a class="article-more-a" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/26/nginx访问日志中的$quest_time和$upstream_response_time/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-29.5、自动化运维工具之使用ansible安装配置nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -358,517 +872,9 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-nginx-keepalive-timeout-设置策略问题分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/">nginx keepalive_timeout 设置策略问题分析</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/" class="archive-article-date">
-  	<time datetime="2017-10-24T13:24:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>转载：<a href="http://www.okay686.cn/786.html" target="_blank" rel="external">http://www.okay686.cn/786.html</a></strong></p>
-<p>1.项目环境：nginx（前段代理，仅作代理用途）+3个tomcat（都在同一个服务器上），做的web项目<br>2.涉及到的业务逻辑：文件上传（可能有大文件，比如说android游戏，100m）；客户端接口请求；网站后台管理<br>3.问题重现流程：<br>3.1 配置好tomcat后，直接加上nginx前段代理（仅配置了http代理）<br>3.2 问题一：当管理员后台上传文件时，大文件无法上传成功，出现time-out，经重复测试，发现上传时间超过1分钟以后，就会返回超时信息，小文件没有问题<br>3.2 经调研得知nginx默认设置的http连接超时时间为75s，超过75s，会断掉当前的http连接，而大文件上传时经常会超过75s，这就导致大文件无法上传成功，当时的解决方案是，设置nginx http连接超时时间为30分钟，即参数keepalive_timeout=1800；文件上传问题基本解决；<br>3.4项目运行2天后，发现服务器突然宕机了，重启nginx可以解决问题，但是2个小时后又再次宕机，重启nginx又解决了问题，调研了一个中午，并且查看nginx的错误日志（socket() failed (24: Too many open files) while connecting to upstream），发现问题来源与nginx的连接数（设置的默认值为1024）达到上限<br>3.5发现这个问题后，我就想应该把nginx的连接数调大点，于是设置 worker_connections  10240；重启nginx，短时间没有出现问题，但是运行过程中，我再次查看错误日志，发现（socket() failed (24: Too many open files) while connecting to upstream）时不时的出现</p>
-        
-          <a class="article-more-a" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/24/nginx-keepalive-timeout-设置策略问题分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-29.2、自动化运维工具之saltstack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/29.2、自动化运维工具之saltstack/">自动化运维工具之saltstack</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/24/29.2、自动化运维工具之saltstack/" class="archive-article-date">
-  	<time datetime="2017-10-24T06:56:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>相比puppet出来晚几年，基于Python开发，saltstack和puppet很像，随着saltstack的使用量越来越多，它的发展也是越来越迅猛，可以说saltstack可以实现puppet的所有功能，并且更容易配置。</p>
-<p>三种工作方式：本地，c/s，基于ssh</p>
-<p>三大功能：远程命令执行，配置管理（服务，文件，cron，用户，组），云管理</p>
-<p>支持系统：大多数都支持，Windows上不支持安装master</p>
-        
-          <a class="article-more-a" href="/2017/10/24/29.2、自动化运维工具之saltstack/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">saltstack</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/24/29.2、自动化运维工具之saltstack/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-29.1、自动化运维工具之puppet安装配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/">自动化运维工具之puppet安装配置</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/" class="archive-article-date">
-  	<time datetime="2017-10-23T06:25:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>自动化运维介绍，自动化运维可以做什么？自动化运维可以解决下面所有问题：</p>
-<ul>
-<li>传统运维效率低，大多工作人为完成</li>
-<li>传统运维工作繁琐，容易出错</li>
-<li>传统运维每日重复做相同的事情</li>
-<li>传统运维没有标准化流程</li>
-<li>传统运维的脚本繁多，不能方便管理</li>
-</ul>
-<h3 id="一、puppet介绍"><a href="#一、puppet介绍" class="headerlink" title="一、puppet介绍"></a>一、puppet介绍</h3><h4 id="1-1、puppet简介"><a href="#1-1、puppet简介" class="headerlink" title="1.1、puppet简介"></a>1.1、puppet简介</h4><p>​ puppet是一个为实现数据中心自动化管理而设计的配置管理软件，能够管理IT基础设施的整个生命周期：供应（provisioning）配置（configuration）、联动（orchestration）及报告（reporting）。puppet基于C/S架构，类似于zabbiz，有master与agent节点之分。它是一个开源的（谈不上真正的开源，因为有商业版与社区版之分）、新一代的、集中化的配置管理工具，由ruby语言研发，它拥有自己的配置语言（PCL，puppet configuration language）。<br>​ puppet能够把IT日常的系统管理代码化，而代码可重用，这样可以减少运维人员的工作量，而且能快速、大规模部署服务器。在puppet的世界有其自己的哲学思想：在IT系统管理中，puppet只关注结果，不关心过程！这名话怎样理解，比如puppet的master端向各agent下达把nginx这个包安装上并启动服务，puppet的agent端面只向master端报告软件是否安装完成，服务是否已启动，puppet不关心软件是怎样安装上的，服务是怎样启动的，它只关心结果。</p>
-        
-          <a class="article-more-a" href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">自动化运维</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">puppet</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/23/29.1、自动化运维工具之puppet安装配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-28.5、代码管理之gitlab" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/22/28.5、代码管理之gitlab/">代码管理之gitlab</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/22/28.5、代码管理之gitlab/" class="archive-article-date">
-  	<time datetime="2017-10-22T12:09:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>GitLab 是一个用于仓库管理系统的开源项目。使用<a href="http://baike.baidu.com/view/1531489.htm" target="_blank" rel="external">Git</a>作为代码管理工具，并在此基础上搭建起来的web服务。</p>
-<p>可通过Web界面进行访问公开的或者私人项目。它拥有与Github类似的功能，能够浏览源代码，管理缺陷和注释。可以管理团队对仓库的访问，它非常易于浏览提交过的版本并提供一个文件历史库。团队成员可以利用内置的简单聊天程序(Wall)进行交流。它还提供一个代码片段收集功能可以轻松实现代码复用。</p>
-<p>gitlab官网为：<a href="https://about.gitlab.com/gitlab-com/" target="_blank" rel="external">https://about.gitlab.com/gitlab-com/</a></p>
-<p>官方安装文档：<a href="https://about.gitlab.com/installation/?version=ce#centos-7" target="_blank" rel="external">https://about.gitlab.com/installation/?version=ce#centos-7</a> (ce/ee)</p>
-        
-          <a class="article-more-a" href="/2017/10/22/28.5、代码管理之gitlab/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">gitlab</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/22/28.5、代码管理之gitlab/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-28.4、版本控制之github管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/21/28.4、版本控制之github管理/">代码管理之github管理</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/21/28.4、版本控制之github管理/" class="archive-article-date">
-  	<time datetime="2017-10-21T11:46:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、github分支"><a href="#一、github分支" class="headerlink" title="一、github分支"></a>一、github分支</h3><p>什么是github的分支branch？github仓库默认有一个master的分支，当我们在master分支开发过程中接到一个新的需求，我们可以创建新的分支同步开发而互不影响，开发完成后，在合并到master分支上即可。以下是一些关于分支的操作：</p>
-        
-          <a class="article-more-a" href="/2017/10/21/28.4、版本控制之github管理/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/21/28.4、版本控制之github管理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-28.3、版本控制之github使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/21/28.3、版本控制之github使用/">代码管理平台之github配置</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/21/28.3、版本控制之github使用/" class="archive-article-date">
-  	<time datetime="2017-10-21T07:09:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、建立远程仓库"><a href="#一、建立远程仓库" class="headerlink" title="一、建立远程仓库"></a>一、建立远程仓库</h3><h4 id="1-1、注册github"><a href="#1-1、注册github" class="headerlink" title="1.1、注册github"></a>1.1、注册github</h4><p>github地址：<a href="https://github.com" target="_blank" rel="external">https://github.com</a></p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171021/152000147.png?imageslim" alt="mark"></p>
-<ul>
-<li>创建用户后，还需要认证以下邮箱</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/10/21/28.3、版本控制之github使用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/21/28.3、版本控制之github使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-28.2、版本控制之git命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/21/28.2、版本控制之git命令/">代码管理平台之git命令介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/21/28.2、版本控制之git命令/" class="archive-article-date">
-  	<time datetime="2017-10-21T06:31:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、git介绍"><a href="#一、git介绍" class="headerlink" title="一、git介绍"></a>一、git介绍</h3><p>git是Linux创始人Linus发起的，2005年发布，最初目的是为可更好管理Linux内核代码</p>
-<p>git和svn不同在于git不需要依赖服务端就可以工作，即git是分布式的</p>
-<p>github是基于git的在线web页面代码托管平台，可以选择付费服务。</p>
-<p>gitlib可以认为是一个开源的github，需要自己创建服务。两者没有直接关系</p>
-        
-          <a class="article-more-a" href="/2017/10/21/28.2、版本控制之git命令/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码管理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/21/28.2、版本控制之git命令/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -970,7 +976,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -978,7 +984,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -987,10 +997,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iptables</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">LAMP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1006,11 +1012,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1022,7 +1032,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1030,19 +1044,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LVS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1074,6 +1080,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
@@ -1082,19 +1092,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1102,7 +1104,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1122,11 +1124,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">python入门</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1142,6 +1144,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
               </li>
              
@@ -1151,6 +1161,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">awk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1166,14 +1184,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">shell</a>
               </li>
              
@@ -1182,19 +1192,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">yum</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1206,19 +1220,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
             
             <div class="clearfix"></div>
