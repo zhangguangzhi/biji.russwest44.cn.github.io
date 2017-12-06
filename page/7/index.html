@@ -131,6 +131,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-26.2、shell脚本之if判断" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/13/26.2、shell脚本之if判断/">shell脚本之逻辑判断if,case</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/13/26.2、shell脚本之if判断/" class="archive-article-date">
+  	<time datetime="2017-09-13T12:07:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="判断表达式的两种格式"><a href="#判断表达式的两种格式" class="headerlink" title="判断表达式的两种格式"></a>判断表达式的两种格式</h3><p>（1）test  -e   /root/1.sh</p>
+<p>（2）[  -e  /root/1.sh ]        #注意[ ]与判断语句之间有空格</p>
+<h3 id="一、逻辑判断表达式"><a href="#一、逻辑判断表达式" class="headerlink" title="一、逻辑判断表达式"></a>一、逻辑判断表达式</h3><h4 id="1-1、按照文件类型判断"><a href="#1-1、按照文件类型判断" class="headerlink" title="1.1、按照文件类型判断"></a>1.1、按照文件类型判断</h4><table>
+<thead>
+<tr>
+<th>判断选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-e  file</td>
+<td>判断文件或目录是否存在，并且存在为真</td>
+</tr>
+<tr>
+<td>-d  file</td>
+<td>判断文件是否存在，并且为目录</td>
+</tr>
+<tr>
+<td>-f  file</td>
+<td>判断文件是否存在，并且为文件</td>
+</tr>
+<tr>
+<td>-s  file</td>
+<td>判断文件是否非空，并且非空为真</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>-b,-c,-l,-p,-S分别表示块设备文件，字符设备文件，符号链接文件，字符管道文件，套接字符文件</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/09/13/26.2、shell脚本之if判断/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/13/26.2、shell脚本之if判断/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-26.1、shell脚本介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -490,85 +585,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-zabbix监控平台搭建之自动发现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/09/zabbix监控平台搭建之自动发现/">Linux监控平台搭建之自动发现</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/09/zabbix监控平台搭建之自动发现/" class="archive-article-date">
-  	<time datetime="2017-09-09T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>当我们在第一次部署监控环境时，假设zabbix-server服务器已经配置完成，zabbix-agent端也已经通过saltstack批量部署完毕。那么这时候就需要我们在zabbix的监控页面进行添加工作了，如果我们有10几台机器还好说。但是现在企业基本上都是动辄上百台的虚拟机，添加主机的工作量就非常巨大了，而且无脑的重复性劳动是我们这些高端IT人才所最不愿意干的（主要个人就是懒）。为了解决这些重复的机械性工作，自动发现功能孕育而生。</p>
-<h4 id="创建思路"><a href="#创建思路" class="headerlink" title="创建思路"></a>创建思路</h4><p>首先说下自动发现强大的功能，它到底可以帮助我们完成什么工作：</p>
-<ul>
-<li>快速发现并添加主机</li>
-<li>简单的管理</li>
-<li>随着环境的改变而快速搭建监控系统</li>
-</ul>
-<p><strong>自动发现基于网络发现功能，而网络发现又基于以下信息：</strong></p>
-<ul>
-<li>IP地址段</li>
-<li>基于服务的FTP、SSH、Web、POP3、IMAP、TCP等</li>
-<li>从Zabbix-agent端接收的信息</li>
-<li>从SNMP agent端接受的信息</li>
-</ul>
-<p>好了了解到以上信息，我们可以理解创建自动发现的过程为，zabbix-server会扫描你添加的IP地址段。比如你需要添加IP地址段为192.168.80.100到192.168.80.199这个区间的机器，设定好网络区间。当zabbix-server扫描到已经启动的些机器时，下一步需要触发动作，什么类型的机器进行什么操作。比如linux机器添加linux模板，并且添加到KVM虚拟机的分组当中。当完成了这些操作，zabbix主机的添加也就已经完成了。下面我们先进行动作的设置。</p>
-        
-          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之自动发现/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之自动发现/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
     <article id="post-zabbix监控平台搭建之监控php-fpm性能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -639,6 +655,85 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之监控php-fpm性能/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-zabbix监控平台搭建之自动发现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/09/zabbix监控平台搭建之自动发现/">Linux监控平台搭建之自动发现</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/09/zabbix监控平台搭建之自动发现/" class="archive-article-date">
+  	<time datetime="2017-09-09T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>当我们在第一次部署监控环境时，假设zabbix-server服务器已经配置完成，zabbix-agent端也已经通过saltstack批量部署完毕。那么这时候就需要我们在zabbix的监控页面进行添加工作了，如果我们有10几台机器还好说。但是现在企业基本上都是动辄上百台的虚拟机，添加主机的工作量就非常巨大了，而且无脑的重复性劳动是我们这些高端IT人才所最不愿意干的（主要个人就是懒）。为了解决这些重复的机械性工作，自动发现功能孕育而生。</p>
+<h4 id="创建思路"><a href="#创建思路" class="headerlink" title="创建思路"></a>创建思路</h4><p>首先说下自动发现强大的功能，它到底可以帮助我们完成什么工作：</p>
+<ul>
+<li>快速发现并添加主机</li>
+<li>简单的管理</li>
+<li>随着环境的改变而快速搭建监控系统</li>
+</ul>
+<p><strong>自动发现基于网络发现功能，而网络发现又基于以下信息：</strong></p>
+<ul>
+<li>IP地址段</li>
+<li>基于服务的FTP、SSH、Web、POP3、IMAP、TCP等</li>
+<li>从Zabbix-agent端接收的信息</li>
+<li>从SNMP agent端接受的信息</li>
+</ul>
+<p>好了了解到以上信息，我们可以理解创建自动发现的过程为，zabbix-server会扫描你添加的IP地址段。比如你需要添加IP地址段为192.168.80.100到192.168.80.199这个区间的机器，设定好网络区间。当zabbix-server扫描到已经启动的些机器时，下一步需要触发动作，什么类型的机器进行什么操作。比如linux机器添加linux模板，并且添加到KVM虚拟机的分组当中。当完成了这些操作，zabbix主机的添加也就已经完成了。下面我们先进行动作的设置。</p>
+        
+          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之自动发现/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之自动发现/">展开全文 >></a>
         </p>
       
 
@@ -818,80 +913,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-22、LVS结合keepalived" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/22、LVS结合keepalived/">LVS结合keepalived</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/06/22、LVS结合keepalived/" class="archive-article-date">
-  	<time datetime="2017-09-06T08:37:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、keepalived结合LVS介绍"><a href="#一、keepalived结合LVS介绍" class="headerlink" title="一、keepalived结合LVS介绍"></a>一、keepalived结合LVS介绍</h3><p>1.1、为什么要引入keepalived</p>
-<p>之前的lvs虽然配置成功也实现了负载均衡，但是我们测试的时候发现，当某台real server把nginx停掉，那么director照样会把请求转发过去，这样就造成了某些请求不正常(如下图)。所以需要有一种机制用来检测real server的状态，这时就可以使用keepalive。</p>
-        
-          <a class="article-more-a" href="/2017/09/06/22、LVS结合keepalived/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/06/22、LVS结合keepalived/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
@@ -1008,7 +1029,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
+                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1016,11 +1041,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">防火墙</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iptables</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1112,19 +1133,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1136,15 +1157,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">kvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1160,19 +1185,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">DRBD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1184,15 +1205,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1240,6 +1261,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
@@ -1248,7 +1273,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
+                <a href="javascript:void(0)" class="js-tag color3">linux集群</a>
               </li>
             
             <div class="clearfix"></div>

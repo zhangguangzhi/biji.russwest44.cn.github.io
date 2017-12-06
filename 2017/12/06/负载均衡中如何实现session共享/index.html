@@ -6,26 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
-  <title>LAMP之nginx用户认证和域名跳转 | ZhangGuangZhi</title>
+  <title>负载均衡中如何实现session共享 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] nginx用户认证对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。  使用location匹配相应的目录或者目录 密码文件需要使用htpasswd生成 添加配置文件时不要忘记语句后面的分号;">
-<meta name="keywords" content="LNMP">
+  <meta name="description" content="前言在我们给Web站点使用负载均衡之后，必须面临的一个重要问题就是Session的处理办法，无论是PHP、Python、Ruby还是Java，只要使用服务器保存Session，在做负载均衡时都需要考虑Session的问题。 分享目录：问题在哪里？如何处理？ 会话保持（案例：Nginx、Haproxy） 会话复制（案例：Tomcat） 会话共享（案例：Memcached、Redis）  问题在哪里？">
+<meta name="keywords" content="linux集群">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LAMP之nginx用户认证和域名跳转">
-<meta property="og:url" content="http://zhangguangzhi.github.io/2017/08/10/12.5、LAMP之nginx用户认证和域名跳转/index.html">
+<meta property="og:title" content="负载均衡中如何实现session共享">
+<meta property="og:url" content="http://zhangguangzhi.github.io/2017/12/06/负载均衡中如何实现session共享/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] nginx用户认证对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。  使用location匹配相应的目录或者目录 密码文件需要使用htpasswd生成 添加配置文件时不要忘记语句后面的分号;">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/171521541.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/172043153.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/172300180.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/173604299.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/174520690.png?imageslim">
-<meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/174640706.png?imageslim">
-<meta property="og:updated_time" content="2017-08-11T02:29:22.814Z">
+<meta property="og:description" content="前言在我们给Web站点使用负载均衡之后，必须面临的一个重要问题就是Session的处理办法，无论是PHP、Python、Ruby还是Java，只要使用服务器保存Session，在做负载均衡时都需要考虑Session的问题。 分享目录：问题在哪里？如何处理？ 会话保持（案例：Nginx、Haproxy） 会话复制（案例：Tomcat） 会话共享（案例：Memcached、Redis）  问题在哪里？">
+<meta property="og:updated_time" content="2017-12-06T15:31:10.287Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LAMP之nginx用户认证和域名跳转">
-<meta name="twitter:description" content="[TOC] nginx用户认证对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。  使用location匹配相应的目录或者目录 密码文件需要使用htpasswd生成 添加配置文件时不要忘记语句后面的分号;">
-<meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20170810/171521541.png?imageslim">
+<meta name="twitter:title" content="负载均衡中如何实现session共享">
+<meta name="twitter:description" content="前言在我们给Web站点使用负载均衡之后，必须面临的一个重要问题就是Session的处理办法，无论是PHP、Python、Ruby还是Java，只要使用服务器保存Session，在做负载均衡时都需要考虑Session的问题。 分享目录：问题在哪里？如何处理？ 会话保持（案例：Nginx、Haproxy） 会话复制（案例：Tomcat） 会话共享（案例：Memcached、Redis）  问题在哪里？">
   
   
     <link rel="icon" href="/favicon.png">
@@ -141,88 +134,80 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-12.5、LAMP之nginx用户认证和域名跳转" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-负载均衡中如何实现session共享" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      LAMP之nginx用户认证和域名跳转
+      负载均衡中如何实现session共享
     </h1>
   
 
         
-        <a href="/2017/08/10/12.5、LAMP之nginx用户认证和域名跳转/" class="archive-article-date">
-  	<time datetime="2017-08-10T09:02:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-10</time>
+        <a href="/2017/12/06/负载均衡中如何实现session共享/" class="archive-article-date">
+  	<time datetime="2017-12-06T13:09:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<h2 id="nginx用户认证"><a href="#nginx用户认证" class="headerlink" title="nginx用户认证"></a>nginx用户认证</h2><p>对一些站点管理后台，我们是可以使用用户认证进行限制，增加安全性。接下来，介绍nginx如何设置用户认证。</p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在我们给Web站点使用负载均衡之后，必须面临的一个重要问题就是Session的处理办法，无论是PHP、Python、Ruby还是Java，只要使用服务器保存Session，在做负载均衡时都需要考虑Session的问题。</p>
+<h4 id="分享目录："><a href="#分享目录：" class="headerlink" title="分享目录："></a>分享目录：</h4><h5 id="问题在哪里？如何处理？"><a href="#问题在哪里？如何处理？" class="headerlink" title="问题在哪里？如何处理？"></a>问题在哪里？如何处理？</h5><ul>
+<li>会话保持（案例：Nginx、Haproxy）</li>
+<li>会话复制（案例：Tomcat）</li>
+<li>会话共享（案例：Memcached、Redis）</li>
+</ul>
+<h4 id="问题在哪里？"><a href="#问题在哪里？" class="headerlink" title="问题在哪里？"></a>问题在哪里？</h4><p>从用户端来解释，就是当一个用户第一次访问被负载均衡代理到后端服务器A并登录后，服务器A上保留了用户的登录信息；当用户再次发送请求时，根据负载均衡策略可能被代理到后端不同的服务器，例如服务器B，由于这台服务器B没有用户的登录信息，所以导致用户需要重新登录。这对用户来说是不可忍受的。所以，在实施负载均衡的时候，我们必须考虑Session的问题。</p>
+<p>在负载均衡中，针对Session的处理，我们一般有以下几种方法：</p>
 <ul>
-<li>使用location匹配相应的目录或者目录</li>
-<li>密码文件需要使用htpasswd生成</li>
-<li>添加配置文件时不要忘记语句后面的分号;</li>
+<li>Session 保持</li>
+<li>Session 复制</li>
+<li>Session 共享</li>
 </ul>
 <a id="more"></a>
-<h3 id="1、创建新的虚拟机主机"><a href="#1、创建新的虚拟机主机" class="headerlink" title="1、创建新的虚拟机主机"></a>1、创建新的虚拟机主机</h3><p>我们现在只有一台默认虚拟主机，所以我们需要创建新的虚拟主机来进行实验</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/nginx/conf/vhost/test.com.conf</div><div class="line">#创建虚拟主机配置文件，必须以.conf结尾，写入以下内容：</div><div class="line">server </div><div class="line">&#123;</div><div class="line">    listen 80;</div><div class="line">    server_name  www.test.com;</div><div class="line">    index  index.html  index.htm  index.php;</div><div class="line">    root  /data/wwwroot/test.com;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>创建根目录以及index.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  /data/wwwroot/test.com</div><div class="line">echo &quot;this is test.com&quot;  &gt;/data/wwwroot/test.com/index.html</div></pre></td></tr></table></figure>
-<p>检查重载配置文件后测试</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170810/171521541.png?imageslim" alt="mark"></p>
-<ul>
-<li>创建新的虚拟主机www.test.com完成</li>
-</ul>
-<h3 id="2、配置用户认证"><a href="#2、配置用户认证" class="headerlink" title="2、配置用户认证"></a>2、配置用户认证</h3><p>2.1、修改虚拟主机配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/nginx/conf/vhost/test.com.conf </div><div class="line">#在server&#123;&#125;中加入以下内容</div><div class="line">    location  /</div><div class="line">    &#123;</div><div class="line">        auth_basic  &quot;auth&quot;;</div><div class="line">        auth_basic_user_file  /data/wwwroot/.htpasswd;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170810/172043153.png?imageslim" alt="mark"></p>
-<ul>
-<li>location   /表示匹配根目录</li>
-<li>auth_basic表示认证类型</li>
-<li>auth_basic_user_file认证用户保存文件，该文件需要使用httpd的htpasswd命令生成</li>
-<li>注意{}和;</li>
-</ul>
-<p>2.2、检查重载配置文件，测试</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170810/172300180.png?imageslim" alt="mark"></p>
-<ul>
-<li>测试结果为401，说明配置成功。使用-uuser:password可以免输入认证信息</li>
-</ul>
-<p>2.3、如何对指定目录或者文件进行用户认证</p>
-<p>只需要修改配置文件中的location匹配内容即可</p>
-<p>指定目录：location  /admin/</p>
-<p>指定文件：location  /admin/admin.php</p>
-<p>匹配文件：location  ~  (.*)\.php</p>
-<h2 id="nginx域名跳转"><a href="#nginx域名跳转" class="headerlink" title="nginx域名跳转"></a>nginx域名跳转</h2><p>在Apache配置文件中，servername后面只能带一个域名。而在nginx配置文件中，server_name后面可以跟多个域名。这就涉及到域名权重问题，为了优化SOE，所以我们需要设置主域名。</p>
-<ul>
-<li>需要定义多个域名</li>
-<li>使用if语句判断变量host是否为指定域名</li>
-<li>使用rewrite进行重写</li>
-<li>permanent为301重定向，redirect为302重定向</li>
-</ul>
-<h3 id="1、添加多个域名"><a href="#1、添加多个域名" class="headerlink" title="1、添加多个域名"></a>1、添加多个域名</h3><p>修改虚拟主机配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/nginx/conf/vhost/test.com.conf</div><div class="line">#在&quot;server_name&quot;后面添加域名</div><div class="line">server</div><div class="line">&#123;</div><div class="line">    listen 80;</div><div class="line">    server_name  test.com test2.com  test3.com; </div><div class="line">    index  index.html  index.htm  index.php;</div><div class="line">    root  /data/wwwroot/test.com;</div><div class="line">    location ~  (.*)\.php</div><div class="line">    &#123;</div><div class="line">        auth_basic  &quot;auth&quot;;</div><div class="line">        auth_basic_user_file  /data/wwwroot/.htpasswd;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170810/173604299.png?imageslim" alt="mark"></p>
-<ul>
-<li>此时，我们可使用配置文件中的三个域名访问</li>
-</ul>
-<h3 id="2、设置域名跳转"><a href="#2、设置域名跳转" class="headerlink" title="2、设置域名跳转"></a>2、设置域名跳转</h3><p>为了优化SOE，我们需要设置一个主域名</p>
-<p>2.1、修改配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim /usr/local/nginx/conf/vhost/test.com.conf </div><div class="line">#在server&#123;&#125;中添加以下配置内容</div><div class="line">    if ( $host != &apos;test.com&apos;  )</div><div class="line">    &#123;</div><div class="line">        rewrite  ^(.*)  http://test.com/$1  permanent;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170810/174520690.png?imageslim" alt="mark"></p>
-<ul>
-<li>使用if判断访问域名不是test.com时，将URL重写为<a href="http://test.com" target="_blank" rel="external">http://test.com</a></li>
-<li>parmanent为301重定向，redirect为302重定向</li>
-</ul>
-<p>2.2、检查重载配置文件，测试</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170810/174640706.png?imageslim" alt="mark"></p>
-<ul>
-<li>测试结果为301，表示已经永久跳转</li>
-</ul>
+<h4 id="会话保持"><a href="#会话保持" class="headerlink" title="会话保持"></a>会话保持</h4><p>Session保持（会话保持）是我们见到最多的名词之一，通过会话保持，负载均衡进行请求分发的时候<strong>保证每个客户端固定的访问到后端的同一台应用服务器</strong>。会话保持方案在所有的负载均衡都有对应的实现。而且这是在负载均衡这一层就可以解决Session问题。</p>
+<h4 id="Nginx-做负载均衡的Session保持"><a href="#Nginx-做负载均衡的Session保持" class="headerlink" title="Nginx 做负载均衡的Session保持"></a>Nginx 做负载均衡的Session保持</h4><p>对于Nginx可以选用Session保持的方法实行负载均衡，nginx的upstream目前支持5种方式的分配方式，其中有两种比较通用的Session解决方法，<strong>ip_hash</strong>和<em>url_hash</em>。<em>注意：后者不是官方模块，需要额外安装。</em></p>
+<h4 id="ip-hash"><a href="#ip-hash" class="headerlink" title="ip_hash"></a>ip_hash</h4><p>每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，达到了Session保持的方法。</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream bakend &#123;</div><div class="line">   ip_hash;</div><div class="line">   server192.168.0.11:80;</div><div class="line">   server192.168.0.12:80;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h4 id="Haproxy做负载均衡的Session保持"><a href="#Haproxy做负载均衡的Session保持" class="headerlink" title="Haproxy做负载均衡的Session保持"></a>Haproxy做负载均衡的Session保持</h4><p>Haproxy作为一个优秀的反向代理和负载均衡软件，也提供了多种Session保持的方法，下面列举了两种最常用的：</p>
+<h5 id="源地址-Hash"><a href="#源地址-Hash" class="headerlink" title="源地址 Hash"></a>源地址 Hash</h5><p>haroxy 将用户IP经过hash计算后指定到固定的真实服务器上（类似于nginx 的ip hash 指令）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">配置指令:balancesource</div></pre></td></tr></table></figure>
+<h4 id="使用cookie-进行识别"><a href="#使用cookie-进行识别" class="headerlink" title="使用cookie 进行识别"></a>使用cookie 进行识别</h4><p>也就是Haproxy在用户第一次访问的后在用户浏览器插入了一个Cookie，用户下一次访问的时候浏览器就会带上这个Cookie给Haproxy，Haproxy进行识别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">配置指令:cookie  SESSION_COOKIE  insert indirect nocache</div></pre></td></tr></table></figure>
+<p>配置例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cookie SERVERID insert indirect nocache</div><div class="line"></div><div class="line">server web01 192.168.56.11:8080 check cookie web01</div><div class="line"></div><div class="line">server web02 192.168.56.12:8080 check cookie web02</div></pre></td></tr></table></figure>
+<h4 id="会话保持的缺点："><a href="#会话保持的缺点：" class="headerlink" title="会话保持的缺点："></a>会话保持的缺点：</h4><p>会话保持看似解决了Session同步的问题，但是却带来的一些其它方面的问题：</p>
+<p><strong>负载不均衡了</strong>：由于使用了Session保持，很显然就无法保证负载绝对的均衡。</p>
+<p><strong>没有彻底解决问题</strong>：如果后端有服务器宕机，那么这台服务器的Session丢失，被分配到这台服务请求的用户还是需要重新登录。</p>
+<hr>
+<h4 id="会话复制"><a href="#会话复制" class="headerlink" title="会话复制"></a>会话复制</h4><p>既然，我们的目标是所有服务器上都要保持用户的Session，那么将每个应用服务器中的Session信息复制到其它服务器节点上是不是就可以呢？这就是Session的第二中处理办法：会话复制。</p>
+<p><strong>会话复制在Tomcat上得到了支持</strong>，它是基于IP组播（multicast）来完成Session的复制，Tomcat的会话复制分为两种：</p>
+<p><strong>全局会话复制</strong>：利用Delta Manager复制会话中的变更信息到集群中的所有其他节点。</p>
+<p><strong>非全局复制</strong>：使用Backup Manager进行复制，它会把Session复制给一个指定的备份节点。</p>
+<p>不过，这里我不准备来解释会话复制的Tomcat配置，如果有需求可以参考Tomcat官方文档，<strong>主要是因为会话复制不适合大的集群</strong>。根据笔者在生产的实践案例，当时是在集群超过6个节点之后就会出现各种问题，不推荐生产使用。</p>
+<hr>
+<h4 id="会话共享"><a href="#会话共享" class="headerlink" title="会话共享"></a>会话共享</h4><p>既然<strong>会话保持和会话复制都不完美</strong>，那么我们为什么不把Session放在一个统一的地方呢，这样集群中的所有节点都在一个地方进行Session的存取就可以解决问题。</p>
+<h5 id="Session存放到哪里？"><a href="#Session存放到哪里？" class="headerlink" title="Session存放到哪里？"></a>Session存放到哪里？</h5><p>对于Session来说，肯定是频繁使用的，虽然你<strong>可以把它存放在数据库中</strong>，但是真正生产环境中我更推荐存放在性能更快的分布式<strong>KV数据</strong>中，例如：<strong>Memcached和Redis</strong>。</p>
+<h4 id="PHP设置Session共享"><a href="#PHP设置Session共享" class="headerlink" title="PHP设置Session共享"></a>PHP设置Session共享</h4><p>如果你使用的是PHP那么恭喜你，配置<strong>非常的简单</strong>。PHP通过两行配置就可以把Session存放在<strong>Memcached</strong>或者<strong>Redis</strong>中，当然你要提前配置好他们。修改php.ini：</p>
+<h5 id="使用Memcache存储Session"><a href="#使用Memcache存储Session" class="headerlink" title="使用Memcache存储Session"></a>使用Memcache存储Session</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">session.save_handler = memcache</div><div class="line"></div><div class="line">session.save_path = &quot;tcp://192.168.56.11:11211&quot;</div></pre></td></tr></table></figure>
+<h5 id="使用Redis存储Session"><a href="#使用Redis存储Session" class="headerlink" title="使用Redis存储Session"></a>使用Redis存储Session</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">session.save_handler = redis</div><div class="line"></div><div class="line">session.save_path =&quot;tcp://localhost:6379&quot;</div></pre></td></tr></table></figure>
+<p><strong>提醒</strong>：别忘了给PHP安装memcache或者redis插件。</p>
+<h4 id="Tomcat设置Session共享"><a href="#Tomcat设置Session共享" class="headerlink" title="Tomcat设置Session共享"></a>Tomcat设置Session共享</h4><p>我们可以使用<strong>MSM</strong>（Memcached Session Manager）来实现同样把Session存放到Memcache中，GIthub地址如下：<a href="https://github.com/magro/memcached-session-manager%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81Tomcat" target="_blank" rel="external">https://github.com/magro/memcached-session-manager目前支持Tomcat</a> 6.x7.x和8.x的版本。</p>
+<p>如果你想使用Redis，刚好也有开源的可以用，但是遗憾的是暂时不支持Tomcat 8.x的版本：<a href="https://github.com/jcoleman/tomcat-redis-session-manager" target="_blank" rel="external">https://github.com/jcoleman/tomcat-redis-session-manager</a></p>
+<h5 id="Django设置Session共享"><a href="#Django设置Session共享" class="headerlink" title="Django设置Session共享"></a>Django设置Session共享</h5><p>在Django中Session是通过一个中间件管理的。如果要在应用程序中使用Session，需要在settings.py中的MIDDLEWARE_CLASSES变量中加入’django.contrib.sessions.middleware.SessionMiddleware’ 。Django的Session引擎可以将Session存放在三个地方，分别是：数据库、缓存、文件。</p>
+<h5 id="使用数据库保存Session"><a href="#使用数据库保存Session" class="headerlink" title="使用数据库保存Session"></a>使用数据库保存Session</h5><p>如果你想使用数据库支持的会话，你需要添加’django.contrib.sessions’到你的INSTALLED_APPS设置中。在配置完成之后，<a href="http://xn--manage-2w2rx8ukkj.py/" target="_blank" rel="external">请运行manage.py</a> migrate来安装保存会话数据的一张数据库表。</p>
+<h5 id="使用缓存保持Session"><a href="#使用缓存保持Session" class="headerlink" title="使用缓存保持Session"></a>使用缓存保持Session</h5><p><strong>对于简单的缓存会话</strong>：</p>
+<p>可以设置SESSION_ENGINE 为”django.contrib.sessions.backends.cache”。此时会话数据将直接存储在你的缓存中。然而，缓存数据将可能不会持久：如果缓存填满或者缓存服务器重启，缓存数据可能会被清理掉。</p>
+<p><strong>若要持久的缓存数据</strong>：</p>
+<p>可以设置SESSION_ENGINE为”django.contrib.sessions.backends.cached_db”。它的写操作使用缓存，对缓存的每次写入都将再写入到数据库。对于读取的会话，如果数据不在缓存中，则从数据库读取。两种会话的存储都非常快，但是简单的缓存更快，因为它放弃了持久性。大部分情况下，cached_db后端已经足够快，但是如果你需要榨干最后一点的性能，并且接受会话数据丢失的风险，那么你可使用cache而不是cached_db</p>
+<h5 id="使用文件保存Session"><a href="#使用文件保存Session" class="headerlink" title="使用文件保存Session"></a>使用文件保存Session</h5><p>使用文件保存Session不再我们的讨论之类，因为很难进行共享，PHP默认也是将Session存放在/tmp目录下。</p>
+<h5 id="总结如下："><a href="#总结如下：" class="headerlink" title="总结如下："></a>总结如下：</h5><p><strong>会话保持</strong>的缺点： <strong>①负载不均衡了 ②没有彻底解决问题</strong></p>
+<p><strong>会话复制</strong>的缺点： <strong>集群超过6个节点就会出现一系列的问题</strong></p>
+<p><strong>会话共享</strong>：会话数据<strong>共享在Nosql（Redis）数据库</strong>中分享。</p>
 
       
 
@@ -236,7 +221,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">LNMP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">linux集群</a>
         		</li>
       		
 		</ul>
@@ -255,18 +240,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/11/12.6、LNMP之nginx访问日志管理/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2066/06/26/test/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          LNMP之nginx日志管理
+          记录Linux的学习
         
       </div>
     </a>
   
   
-    <a href="/2017/08/10/12.4、LNMP之nginx默认虚拟主机/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">LNMP之nginx默认虚拟主机</div>
+    <a href="/2017/12/06/一次生产事故的优化经历/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一次生产事故的优化经历</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -282,8 +267,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://zhangguangzhi.github.io/2017/08/10/12.5、LAMP之nginx用户认证和域名跳转/", 
-    sourceId: "12.5、LAMP之nginx用户认证和域名跳转",
+    url: "http://zhangguangzhi.github.io/2017/12/06/负载均衡中如何实现session共享/", 
+    sourceId: "负载均衡中如何实现session共享",
     productKey: "ture",
     target: "cloud-tie-wrapper"
   };
@@ -296,30 +281,6 @@
   
 
 <!-- 目录内容 -->
-        
-            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
-            <span class="btn-bg"></span>
-            <span class="btn-text">文章导航</span>
-            </p>
-            <div id="toc-article" class="toc-article">
-                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
-                <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx用户认证"><span class="toc-number">1.</span> <span class="toc-text">nginx用户认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、创建新的虚拟机主机"><span class="toc-number">1.1.</span> <span class="toc-text">1、创建新的虚拟机主机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、配置用户认证"><span class="toc-number">1.2.</span> <span class="toc-text">2、配置用户认证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx域名跳转"><span class="toc-number">2.</span> <span class="toc-text">nginx域名跳转</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、添加多个域名"><span class="toc-number">2.1.</span> <span class="toc-text">1、添加多个域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、设置域名跳转"><span class="toc-number">2.2.</span> <span class="toc-text">2、设置域名跳转</span></a></li></ol></li></ol>
-           </div>
-           <script type="text/javascript">
-            function showToc(){
-                var toc_article = document.getElementById("toc-article");
-                var show_toc_btn = document.getElementById("show-toc-btn");
-                toc_article.setAttribute("style","display:block");
-                show_toc_btn.setAttribute("style","display:none");
-                };
-            function showBtn(){
-                var toc_article = document.getElementById("toc-article");
-                var show_toc_btn = document.getElementById("show-toc-btn");
-                toc_article.setAttribute("style","display:none");
-                show_toc_btn.setAttribute("style","display:block");
-                };
-           </script>
              
         <!-- 目录内容结束 -->
 
