@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171118/I93IGJBCgL.png?imageslim">
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171118/diFBmhI7IL.png?imageslim">
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171118/ml8lfkh98E.png?imageslim">
-<meta property="og:updated_time" content="2017-12-06T12:32:52.114Z">
+<meta property="og:updated_time" content="2017-12-06T12:52:28.999Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux监控平台搭建之自动发现">
 <meta name="twitter:description" content="[TOC] 当我们在第一次部署监控环境时，假设zabbix-server服务器已经配置完成，zabbix-agent端也已经通过saltstack批量部署完毕。那么这时候就需要我们在zabbix的监控页面进行添加工作了，如果我们有10几台机器还好说。但是现在企业基本上都是动辄上百台的虚拟机，添加主机的工作量就非常巨大了，而且无脑的重复性劳动是我们这些高端IT人才所最不愿意干的（主要个人就是懒）。为">
@@ -182,6 +182,7 @@
 <li>从SNMP agent端接受的信息</li>
 </ul>
 <p>好了了解到以上信息，我们可以理解创建自动发现的过程为，zabbix-server会扫描你添加的IP地址段。比如你需要添加IP地址段为192.168.80.100到192.168.80.199这个区间的机器，设定好网络区间。当zabbix-server扫描到已经启动的些机器时，下一步需要触发动作，什么类型的机器进行什么操作。比如linux机器添加linux模板，并且添加到KVM虚拟机的分组当中。当完成了这些操作，zabbix主机的添加也就已经完成了。下面我们先进行动作的设置。</p>
+<a id="more"></a>
 <h5 id="创建动作"><a href="#创建动作" class="headerlink" title="创建动作"></a>创建动作</h5><p><img src="http://oi47iib4e.bkt.clouddn.com/okay686cn/171118/m6mB6HcC9E.png?imageslim" alt="mark"></p>
 <p><strong>依次点击以下位置：</strong></p>
 <ul>
@@ -257,18 +258,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/09/10/keepalived结合mysql实现高可用/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/09/09/zabbix监控平台搭建之监控mysql性能/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          keepalived结合mysql实现高可用
+          zabbix监控平台搭建之监控mysql性能
         
       </div>
     </a>
   
   
-    <a href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Linux监控平台搭建之配置zabbix</div>
+    <a href="/2017/09/09/zabbix监控平台搭建之监控php-fpm性能/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">zabbix监控平台搭建之监控php-fpm性能</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -422,6 +423,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
@@ -430,7 +435,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -446,15 +451,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -478,15 +483,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,7 +495,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -510,11 +511,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -526,10 +527,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
@@ -538,7 +535,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -550,11 +559,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -570,27 +583,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python入门</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DNS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -642,15 +643,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,15 +655,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,6 +672,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

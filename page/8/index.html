@@ -131,6 +131,226 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-21、LVS之DR模式搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/06/21、LVS之DR模式搭建/">LVS之DR模式搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/06/21、LVS之DR模式搭建/" class="archive-article-date">
+  	<time datetime="2017-09-06T08:15:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、DR模式介绍"><a href="#一、DR模式介绍" class="headerlink" title="一、DR模式介绍"></a>一、DR模式介绍</h3><h4 id="1-1、数据流向"><a href="#1-1、数据流向" class="headerlink" title="1.1、数据流向"></a>1.1、数据流向</h4><p>DR模式：调度器将请求来的数据包的目标mac地址改为real server的mac地址，返回的时候不经过调度器，直接返回给客户端。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/143007995.png?imageslim" alt="mark"></p>
+<ul>
+<li>以上是DR模式下，数据包大致流向</li>
+<li>DR模式下，请求需要经过DIR。但是RS处理后直接返回客户端，不需要经过DIR，减少DIR压力</li>
+</ul>
+<h4 id="1-2、DR模式特点"><a href="#1-2、DR模式特点" class="headerlink" title="1.2、DR模式特点"></a>1.2、DR模式特点</h4><p>1、通过在调度器DIR上修改数据包的目的MAC地址实现转发。注意源地址仍然是CIP，目的地址仍然是VIP地址。</p>
+<p>2、请求的报文经过调度器，而RS响应处理后的报文无需经过调度器LB，因此并发访问量大时使用效率很高（和NAT模式比）。</p>
+<p>3、因为DR模式是通过MAC地址改写机制实现转发，因此所有RS节点和调度器LB只能在一个局域网里面。</p>
+<p>4、RS主机需要绑定VIP地址在LO接口上，并且需要配置ARP抑制。</p>
+<p>5、RS节点的默认网关不需要配置成DIP，而是直接配置为上级路由的网关，能让RS直接出网就可以。</p>
+<p>6、由于DR模式的调度器仅做MAC地址的改写，所以调度器LB就不能改写目标端口，那么RS服务器就得使用和VIP相同的端口提供服务。</p>
+<p>7、需要的公网IP较多</p>
+<h3 id="二、LVS的DR模式搭建"><a href="#二、LVS的DR模式搭建" class="headerlink" title="二、LVS的DR模式搭建"></a>二、LVS的DR模式搭建</h3><p>DR模式是通过修改MAC地址进行数据包传输，其中需要关闭RS响应ARP广播</p>
+<h4 id="2-1、实验环境"><a href="#2-1、实验环境" class="headerlink" title="2.1、实验环境"></a>2.1、实验环境</h4><p>DIR：192.168.205.138</p>
+<p>RS1：192.168.205.140</p>
+<p>RS2：192.168.205.141</p>
+<p>VIP：192.168.205.200</p>
+<p>DIR，RS1，RS2上都需要公网ip</p>
+<p>RS需要开启nginx</p>
+<h4 id="2-2、配置DIR"><a href="#2-2、配置DIR" class="headerlink" title="2.2、配置DIR"></a>2.2、配置DIR</h4><p>DIR上需要安装ipvsadm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install  -y  ipvsadm</div></pre></td></tr></table></figure>
+<p>编写相对应脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#在DIR上编写以下脚本</div><div class="line">vim /usr/local/sbin/lvs_dr.sh </div><div class="line">#写入以下内容</div><div class="line">#! /bin/bash</div><div class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</div><div class="line">ipv=/usr/sbin/ipvsadm</div><div class="line">vip=192.168.205.200</div><div class="line">rs1=192.168.205.140</div><div class="line">rs2=192.168.205.141</div><div class="line">#注意这里的网卡名字，在DIR上添加VIP</div><div class="line">ifconfig ens33:2 $vip broadcast $vip netmask 255.255.255.255 up</div><div class="line">route add -host $vip dev ens33:2</div><div class="line">$ipv -C</div><div class="line">$ipv -A -t $vip:80 -s wrr</div><div class="line">$ipv -a -t $vip:80 -r $rs1:80 -g -w 1</div><div class="line">$ipv -a -t $vip:80 -r $rs2:80 -g -w 1</div></pre></td></tr></table></figure>
+<p>保存后，执行该脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh  /usr/local/sbin/lvs_dr.sh</div></pre></td></tr></table></figure>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/152535843.png?imageslim" alt="mark"></p>
+<h4 id="2-3、配置RS"><a href="#2-3、配置RS" class="headerlink" title="2.3、配置RS"></a>2.3、配置RS</h4><p>两台RS服务器都需要添加脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#在RS上添加以下脚本</div><div class="line">vim /usr/local/sbin/lvs_rs.sh</div><div class="line">#写入以下内容</div><div class="line">#/bin/bash</div><div class="line">vip=192.168.205.200</div><div class="line">#把vip绑定在lo上，是为了实现rs直接把结果返回给客户端</div><div class="line">ifconfig lo:0 $vip broadcast $vip netmask 255.255.255.255 up</div><div class="line">route add -host $vip lo:0</div><div class="line">#以下操作为更改arp内核参数，禁止响应arp广播，目的是为了让rs顺利发送mac地址给客户端</div><div class="line">#参考文档www.cnblogs.com/lgfeng/archive/2012/10/16/2726308.html</div><div class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</div><div class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</div><div class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</div><div class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</div></pre></td></tr></table></figure>
+<p>保存后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh  /usr/local/sbin/lvs_rs.sh</div></pre></td></tr></table></figure>
+<h4 id="2-4、测试"><a href="#2-4、测试" class="headerlink" title="2.4、测试"></a>2.4、测试</h4><p>不能在调度端和两个服务端用curl测试。因为两个服务端都配置了vip，访问时访问的都是自己，而调度端的子网掩码是255.255.255.255，数据包可以发出去但是收不回来。</p>
+<p>需要其他的服务器用curl测试：curl 192.168.205.200，lo回环接口：可以用于本地进程之间通讯的虚拟网络接口</p>
+<p>修改nginx上的测试页</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RS1：echo &quot;this is RS1.&quot; &gt;/usr/local/nginx/html/index.html</div><div class="line">RS2：echo &quot;this is RS2.&quot; &gt;/usr/local/nginx/html/index.html</div></pre></td></tr></table></figure>
+<p>使用其他服务器curl</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170922/143025586.png?imageslim" alt="mark"></p>
+<h4 id="2-5、总结"><a href="#2-5、总结" class="headerlink" title="2.5、总结"></a>2.5、总结</h4><p>DR模式将报文直接路由给目标真实服务器。在DR模式中，调度器根据各个真实服务器的负载情况，连接数多少等，动态地选择一台服务器，不修改目标IP地址和目标端口，也不封装IP报文，而是将请求报文的数据帧的目标MAC地址改为真实服务器的MAC地址。然后再将修改的数据帧在服务器组的局域网上发送。因为数据帧的MAC地址是真实服务器的MAC地址，并且又在同一个局域网。那么根据局域网的通讯原理，真实服务器是一定能够收到由LB发出的数据包。真实服务器接收到请求数据包的时候，解开IP包头查看到的目标IP是VIP。然后真实服务器响应请求，之后根据自己的路由信息将这个响应数据包发送回给客户，并且源IP地址还是VIP。</p>
+<p><strong>为什么服务端要设置回环地址为vip并禁止arp协议：</strong></p>
+<p>因为只有自己的IP符合数据包中目标IP才会接收进来，所以我们需要在本地的回环借口上面配置VIP。由于网络接口都会进行ARP广播响应，但集群的其他机器都有这个VIP的lo接口，都响应就会冲突。所以我们需要把真实服务器的lo接口的ARP响应关闭掉。</p>
+<p>拓展：</p>
+<p><a href="http://storysky.blog.51cto.com/628458/338726" target="_blank" rel="external">只用一个公网IP搭建DR模式</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/06/21、LVS之DR模式搭建/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
+    <article id="post-20、LVS之NAT模式搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/06/20、LVS之NAT模式搭建/">LVS之NAT模式搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/06/20、LVS之NAT模式搭建/" class="archive-article-date">
+  	<time datetime="2017-09-06T07:50:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、NAT模式介绍"><a href="#一、NAT模式介绍" class="headerlink" title="一、NAT模式介绍"></a>一、NAT模式介绍</h3><h4 id="1-1、数据流向"><a href="#1-1、数据流向" class="headerlink" title="1.1、数据流向"></a>1.1、数据流向</h4><p>NAT：调度器将请求的目标IP即vip地址改为Real server的IP，返回的数据包也经过调度器，调度器再把源地址修改为vip返回给客户端。</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/155404968.png?imageslim" alt="mark"></p>
+<ul>
+<li>以上是NAT模式下，数据包大致的流向。</li>
+<li>NAT模式下，由于请求与返回数据都需要经过DIR，所以在高并发时，DIR会成为性能瓶颈</li>
+</ul>
+<h4 id="1-2、特点"><a href="#1-2、特点" class="headerlink" title="1.2、特点"></a>1.2、特点</h4><p>1，所有的后端服务器和DIR服务器（调度器）要在同一个内网网段内</p>
+<p>2，后端服务器IP是内网地址，仅用于集群节点之间进行通信</p>
+<p>3，DIR服务器同时处理请求和应答数据包</p>
+<p>4，后端服务器的网关要指向DIR服务器的DIP</p>
+<p>5，可以实现端口映射</p>
+<p>6，后端服务器可以是任意操作系统</p>
+<p>7，DIR服务器很可能成为系统性能瓶颈（请求和返回都要经过DIR服务器）</p>
+<h3 id="二、NAT模式搭建"><a href="#二、NAT模式搭建" class="headerlink" title="二、NAT模式搭建"></a>二、NAT模式搭建</h3><h4 id="2-1、实验环境："><a href="#2-1、实验环境：" class="headerlink" title="2.1、实验环境："></a>2.1、实验环境：</h4><p>DIR：192.168.205.138（内网），192.168.2.100（公网VIP）</p>
+<p>RS1：192.168.205.136（内网）</p>
+<p>RS2：192.168.205.137（内网）</p>
+<p>为了实验方便，我们可关闭selinux和firewalld，开启iptables</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#三台机器都执行以下命令</div><div class="line">systemctl stop firewalld</div><div class="line">setenforce 0</div><div class="line">yum install -y iptables-services</div><div class="line">systemctl start  iptables</div><div class="line">iptables -F</div><div class="line">service iptables save</div></pre></td></tr></table></figure>
+<p>并且将RS1和RS2的网关设置为192.168.205.138</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim   /etc/sysconfig/network-scripts/ifcfg-ens33</div><div class="line">#将GATEWAY的值改为DIR内网网卡IP（192.168.205.138）</div></pre></td></tr></table></figure>
+<p>RS需要开启nginx</p>
+<h4 id="2-2、配置DIR"><a href="#2-2、配置DIR" class="headerlink" title="2.2、配置DIR"></a>2.2、配置DIR</h4><p>DIR为分发器，也叫调度器，下面我们将在DIR上面进行配置</p>
+<p>在DIR上安装ipvsadm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum  install -y ipvsadm</div></pre></td></tr></table></figure>
+<p>编写相对应脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#在dir上编写规则脚本</div><div class="line">vim /usr/local/sbin/lvs_nat.sh</div><div class="line">#写入以下内容</div><div class="line">#!/bin/bash</div><div class="line"># director 服务器上开启路由转发功能</div><div class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</div><div class="line"># 关闭icmp的重定向</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/all/send_redirects</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/default/send_redirects</div><div class="line"># 注意区分网卡名字，本次实验两个网卡分别为ens33和ens37</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/ens33/send_redirects</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/ens37/send_redirects</div><div class="line"># director 设置nat防火墙</div><div class="line">iptables -t nat -F</div><div class="line">iptables -t nat -X</div><div class="line">iptables -t nat -A POSTROUTING -s 192.168.205.0/24  -j MASQUERADE</div><div class="line"># director设置ipvsadm</div><div class="line">IPVSADM=&apos;/usr/sbin/ipvsadm&apos;</div><div class="line">$IPVSADM -C</div><div class="line">$IPVSADM -A -t 192.168.2.100:80 -s rr</div><div class="line">$IPVSADM -a -t 192.168.2.100:80 -r 192.168.205.136:80 -m -w 1</div><div class="line">$IPVSADM -a -t 192.168.2.100:80 -r 192.168.205.137:80 -m -w 1</div></pre></td></tr></table></figure>
+<p>保存后执行该脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh /usr/local/sbin/lvs_nat.sh</div></pre></td></tr></table></figure>
+<h4 id="2-3、测试"><a href="#2-3、测试" class="headerlink" title="2.3、测试"></a>2.3、测试</h4><p>执行脚本<code>/usr/local/sbin/lvs_nat.sh</code></p>
+<p>修改nginx上的测试页</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RS1：echo &quot;this is RS1.&quot; &gt;/usr/local/nginx/html/index.html</div><div class="line">RS2：echo &quot;this is RS2.&quot; &gt;/usr/local/nginx/html/index.html</div></pre></td></tr></table></figure>
+<p>使用curl测试</p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/000936604.png?imageslim" alt="mark"></p>
+<ul>
+<li>因为在脚本中我们选择的是轮询算法，所以均衡的访问RS1和RS2</li>
+</ul>
+<h4 id="2-4、配置的注意点"><a href="#2-4、配置的注意点" class="headerlink" title="2.4、配置的注意点"></a>2.4、配置的注意点</h4><p>需要注意的地方：</p>
+<p>1、切记一定要在两台RS上设置网关的IP为director的内网ip。</p>
+<p>2、由于浏览器缓存的原因，可以使用curl vip测试</p>
+<p>3、访问失败时，可以查看selinux是否关闭，尝试清除原先的iptables规则再执行lvs_nat.sh</p>
+<p>4、为什么后端realserver1/2的网关需要设置为dir的内网IP？</p>
+<p>因为realserver返回的IP为rip-cip，而rip不是cip要请求的vip，所以需要将网关设置为lvs的内网iP，将dip当做一个网关，将源ip转换为vip。</p>
+<p>5、为什么客户端不能和realserver在同一网段？</p>
+<p>如果在同一网段，请求时不会经过dir，直接响应，此时返回的源IP不是客户端请求的ip，客户端会直接丢弃，导致请求失败。</p>
+<h4 id="2-5、fullnat模型介绍"><a href="#2-5、fullnat模型介绍" class="headerlink" title="2.5、fullnat模型介绍"></a>2.5、fullnat模型介绍</h4><p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/163550872.png?imageslim" alt="mark"></p>
+<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20170906/163912733.png?imageslim" alt="mark"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux集群</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LVS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/06/20、LVS之NAT模式搭建/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-19、Linux集群之负载均衡集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -755,144 +975,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-16、配置tomcat" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/28/16、配置tomcat/">配置tomcat</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/28/16、配置tomcat/" class="archive-article-date">
-  	<time datetime="2017-08-28T01:54:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>目前有很多网站是用Java编写的，所以解析Java程序就必须有相关的软件来完成，tomcat就是其中之一。tomcat是Apache基金会的Jakarta项目中的一个核心项目，有Apache，sun和其他一些公司及个人共同开发。tomcat技术先进，新能稳定而且免费，因而深受Java爱好者的喜爱，并得到了部分软件开发商的认可，成为目前运行Java比较流行的web应用服务。</p>
-<p>tomcat是一个轻量级的web应用服务，在中小型系统和开发访问用户不是很多的场合下被普遍使用，是开发和调试Java程序的首选。实际上，tomcat部分是Apache服务的扩展，但是它是独立运行的，是作为一个独立进程运行的。</p>
-        
-          <a class="article-more-a" href="/2017/08/28/16、配置tomcat/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/28/16、配置tomcat/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-vsftp利用mysql验证虚拟账户" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/27/vsftp利用mysql验证虚拟账户/">vsftp利用mysql验证虚拟账户</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/27/vsftp利用mysql验证虚拟账户/" class="archive-article-date">
-  	<time datetime="2017-08-27T06:20:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h3 id="一、vsftp配置"><a href="#一、vsftp配置" class="headerlink" title="一、vsftp配置"></a>一、vsftp配置</h3><p>1.1、vsftpd安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y  vsftpd</div></pre></td></tr></table></figure>
-<p>1.2、修改配置文件vsftpd.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">cp /etc/vsftpd/vsftpd.conf  /etc/vsftpd/vsftpd.conf.bak</div><div class="line">vim /etc/vsftpd/vsftpd.conf</div><div class="line">#写入以下内容</div><div class="line">listen=YES</div><div class="line">connect_from_port_20=YES</div><div class="line">pasv_enable=YES</div><div class="line">tcp_wrappers=YES</div><div class="line">local_enable=YES</div><div class="line">chroot_local_user=yes</div><div class="line">anonymous_enable=NO</div><div class="line">guest_enable=YES</div><div class="line">guest_username=vsftpdguest</div><div class="line">user_config_dir=/etc/vsftpd/vsftpd_user_conf</div><div class="line">pam_service_name=/etc/pam.d/vsftpd</div><div class="line">dirmessage_enable=YES</div><div class="line">idle_session_timeout=600</div><div class="line">check_shell=NO</div></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2017/08/27/vsftp利用mysql验证虚拟账户/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ftp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/27/vsftp利用mysql验证虚拟账户/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
@@ -997,6 +1079,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
@@ -1005,7 +1091,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1021,15 +1107,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1053,15 +1139,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1069,7 +1151,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1085,11 +1167,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1101,10 +1183,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
@@ -1113,7 +1191,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1125,11 +1215,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1145,27 +1239,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python入门</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DNS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1217,15 +1299,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1233,15 +1311,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1250,6 +1328,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

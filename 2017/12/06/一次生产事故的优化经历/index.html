@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>一次生产事故的优化经历 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 转载：http://www.okay686.cn/826.html 在一次正常的活动促销之后，客服开始陆续反馈有用户反应在抢标的时候打不开网页或者APP，在打开的时候标的就已经被抢光了，刚开始没有特别的上心，觉得抢标不就是这样吗，抢小米手机的时候也不就这样吗？随着活动继续推进，有更多的用户强烈抗议，用户领了加息卷或者抵现卷之后抢不上标的，认为是平台作假故意不让使用以达到节省资源。 分析">
+  <meta name="description" content="[TOC] 转载：http://www.okay686.cn/826.html 在一次正常的活动促销之后，客服开始陆续反馈有用户反应在抢标的时候打不开网页或者APP，在打开的时候标的就已经被抢光了，刚开始没有特别的上心，觉得抢标不就是这样吗，抢小米手机的时候也不就这样吗？随着活动继续推进，有更多的用户强烈抗议，用户领了加息卷或者抵现卷之后抢不上标的，认为是平台作假故意不让使用以达到节省资源。">
 <meta name="keywords" content="日常管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一次生产事故的优化经历">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/12/06/一次生产事故的优化经历/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 转载：http://www.okay686.cn/826.html 在一次正常的活动促销之后，客服开始陆续反馈有用户反应在抢标的时候打不开网页或者APP，在打开的时候标的就已经被抢光了，刚开始没有特别的上心，觉得抢标不就是这样吗，抢小米手机的时候也不就这样吗？随着活动继续推进，有更多的用户强烈抗议，用户领了加息卷或者抵现卷之后抢不上标的，认为是平台作假故意不让使用以达到节省资源。 分析">
+<meta property="og:description" content="[TOC] 转载：http://www.okay686.cn/826.html 在一次正常的活动促销之后，客服开始陆续反馈有用户反应在抢标的时候打不开网页或者APP，在打开的时候标的就已经被抢光了，刚开始没有特别的上心，觉得抢标不就是这样吗，抢小米手机的时候也不就这样吗？随着活动继续推进，有更多的用户强烈抗议，用户领了加息卷或者抵现卷之后抢不上标的，认为是平台作假故意不让使用以达到节省资源。">
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171106/AD44f8g9ik.png">
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171106/HafflHFLBD.png">
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171106/6bGj0m94CK.png">
@@ -27,10 +27,10 @@
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171106/eFck7C7i7I.png?imageslim">
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171106/mFL4df5b50.png?imageslim">
 <meta property="og:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171106/e7h8dK1fcJ.png?imageslim">
-<meta property="og:updated_time" content="2017-12-06T12:21:55.874Z">
+<meta property="og:updated_time" content="2017-12-06T12:52:35.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次生产事故的优化经历">
-<meta name="twitter:description" content="[TOC] 转载：http://www.okay686.cn/826.html 在一次正常的活动促销之后，客服开始陆续反馈有用户反应在抢标的时候打不开网页或者APP，在打开的时候标的就已经被抢光了，刚开始没有特别的上心，觉得抢标不就是这样吗，抢小米手机的时候也不就这样吗？随着活动继续推进，有更多的用户强烈抗议，用户领了加息卷或者抵现卷之后抢不上标的，认为是平台作假故意不让使用以达到节省资源。 分析">
+<meta name="twitter:description" content="[TOC] 转载：http://www.okay686.cn/826.html 在一次正常的活动促销之后，客服开始陆续反馈有用户反应在抢标的时候打不开网页或者APP，在打开的时候标的就已经被抢光了，刚开始没有特别的上心，觉得抢标不就是这样吗，抢小米手机的时候也不就这样吗？随着活动继续推进，有更多的用户强烈抗议，用户领了加息卷或者抵现卷之后抢不上标的，认为是平台作假故意不让使用以达到节省资源。">
 <meta name="twitter:image" content="http://oi47iib4e.bkt.clouddn.com/okay686cn/171106/AD44f8g9ik.png">
   
   
@@ -170,6 +170,7 @@
         <p>[TOC]</p>
 <p>转载：<a href="http://www.okay686.cn/826.html" target="_blank" rel="external">http://www.okay686.cn/826.html</a></p>
 <p>在一次正常的活动促销之后，客服开始陆续反馈有用户反应在抢标的时候打不开网页或者APP，在打开的时候标的就已经被抢光了，刚开始没有特别的上心，觉得抢标不就是这样吗，抢小米手机的时候也不就这样吗？随着活动继续推进，有更多的用户强烈抗议，用户领了加息卷或者抵现卷之后抢不上标的，认为是平台作假故意不让使用以达到节省资源。</p>
+<a id="more"></a>
 <h2 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h2><p>其实以前也会有陆续的用户反馈不减少，给客户以小米抢手机为例子忽悠了过去，这次用户反馈太过强烈，才让我们重视了起来。我们前端一共三款产品，app、官网、H5，其中app使用量最大，官网其次，H5平时使用量极少但是做活动期间流量会暴增（活动一般都是H5游戏居多，H5也便于推广营销）,前端的三款产品都是分别使用lvs负载到后端的两台web服务器中（如下图），这次用户反馈基本在web和app端，所以重点观察这四台服务器。</p>
 <p><img src="http://oi47iib4e.bkt.clouddn.com/okay686cn/171106/AD44f8g9ik.png" alt="img"></p>
 <hr>
@@ -414,6 +415,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
@@ -422,7 +427,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -438,15 +443,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -470,15 +475,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -486,7 +487,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,11 +503,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,10 +519,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
@@ -530,7 +527,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -542,11 +551,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,27 +575,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python入门</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DNS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,15 +635,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,15 +647,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -667,6 +664,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>

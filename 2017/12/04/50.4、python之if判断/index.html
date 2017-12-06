@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>python之if判断 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] if是判断语句，大意为如果条件符合，就执行什么。我们之前学习的比较运算，和逻辑运算都可以作为if判断的条件。 一、if1.1、if格式if流程图  if格式 12if  条件:    执行的内容  if条件后需要有英文字符的”:” 执行的内容成为代码块，需要缩进4个字符  1.2、if示例12if a==4:				    #如果变量a==4为真，就    print  &quot;it is">
+  <meta name="description" content="[TOC] if是判断语句，大意为如果条件符合，就执行什么。我们之前学习的比较运算，和逻辑运算都可以作为if判断的条件。 一、if1.1、if格式if流程图  if格式 12if  条件:    执行的内容  if条件后需要有英文字符的”:” 执行的内容成为代码块，需要缩进4个字符">
 <meta name="keywords" content="python入门">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python之if判断">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/12/04/50.4、python之if判断/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] if是判断语句，大意为如果条件符合，就执行什么。我们之前学习的比较运算，和逻辑运算都可以作为if判断的条件。 一、if1.1、if格式if流程图  if格式 12if  条件:    执行的内容  if条件后需要有英文字符的”:” 执行的内容成为代码块，需要缩进4个字符  1.2、if示例12if a==4:				    #如果变量a==4为真，就    print  &quot;it is">
+<meta property="og:description" content="[TOC] if是判断语句，大意为如果条件符合，就执行什么。我们之前学习的比较运算，和逻辑运算都可以作为if判断的条件。 一、if1.1、if格式if流程图  if格式 12if  条件:    执行的内容  if条件后需要有英文字符的”:” 执行的内容成为代码块，需要缩进4个字符">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171204/214924793.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171204/215729813.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171204/220324032.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171204/221619700.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171204/223433743.png?imageslim">
-<meta property="og:updated_time" content="2017-12-04T14:47:09.581Z">
+<meta property="og:updated_time" content="2017-12-06T12:53:34.472Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python之if判断">
-<meta name="twitter:description" content="[TOC] if是判断语句，大意为如果条件符合，就执行什么。我们之前学习的比较运算，和逻辑运算都可以作为if判断的条件。 一、if1.1、if格式if流程图  if格式 12if  条件:    执行的内容  if条件后需要有英文字符的”:” 执行的内容成为代码块，需要缩进4个字符  1.2、if示例12if a==4:				    #如果变量a==4为真，就    print  &quot;it is">
+<meta name="twitter:description" content="[TOC] if是判断语句，大意为如果条件符合，就执行什么。我们之前学习的比较运算，和逻辑运算都可以作为if判断的条件。 一、if1.1、if格式if流程图  if格式 12if  条件:    执行的内容  if条件后需要有英文字符的”:” 执行的内容成为代码块，需要缩进4个字符">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171204/214924793.png?imageslim">
   
   
@@ -170,6 +170,7 @@
 <li>if条件后需要有英文字符的”:”</li>
 <li>执行的内容成为代码块，需要缩进4个字符</li>
 </ul>
+<a id="more"></a>
 <h4 id="1-2、if示例"><a href="#1-2、if示例" class="headerlink" title="1.2、if示例"></a>1.2、if示例</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> a==<span class="number">4</span>:				    <span class="comment">#如果变量a==4为真，就</span></div><div class="line">    <span class="keyword">print</span>  <span class="string">"it is four"</span>		 <span class="comment">#打印"it  is four"</span></div></pre></td></tr></table></figure>
 <h3 id="二、if…else…格式"><a href="#二、if…else…格式" class="headerlink" title="二、if…else…格式"></a>二、if…else…格式</h3><p>如上的示例中，如果变量a==4为假，那么运行脚本时就不会得到输出，这对用户来说是不友好的，所以我们可以使用if…else…。</p>
 <h4 id="2-1、if…else…格式"><a href="#2-1、if…else…格式" class="headerlink" title="2.1、if…else…格式"></a>2.1、if…else…格式</h4><p>if…else…流程图：</p>
@@ -408,6 +409,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">系统负载</a>
               </li>
              
@@ -416,7 +421,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">rsync</a>
+                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -432,15 +437,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">firewall</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">LNMP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -464,15 +469,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -480,7 +481,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,11 +497,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,10 +513,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
@@ -524,7 +521,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">自动化运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,11 +545,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -556,27 +569,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python入门</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DNS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -628,15 +629,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -644,15 +641,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">安全防御</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -661,6 +658,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rpm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文本处理</a>
               </li>
             
             <div class="clearfix"></div>
