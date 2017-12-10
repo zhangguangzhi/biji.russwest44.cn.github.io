@@ -131,6 +131,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-26.3、shell脚本之循环" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/14/26.3、shell脚本之循环/">shell脚本之循环</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/14/26.3、shell脚本之循环/" class="archive-article-date">
+  	<time datetime="2017-09-14T08:14:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>shell脚本常用的循环有for，while等</p>
+<h3 id="一、for循环"><a href="#一、for循环" class="headerlink" title="一、for循环"></a>一、for循环</h3><h4 id="1-1、语法一"><a href="#1-1、语法一" class="headerlink" title="1.1、语法一"></a>1.1、语法一</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for  变量  in  值1，值2，值3.....</div><div class="line">do</div><div class="line">	command</div><div class="line">done</div></pre></td></tr></table></figure>
+<ul>
+<li><p>for循环会将指定的值分别赋予变量</p>
+</li>
+<li><p>这些值可以手动输入，如”for  i  in   1 2 3”</p>
+</li>
+<li><p>这些值也可以是用命令产生，如”for i  in  `seq  1 100`”</p>
+<p>使用命令产生时是以命令输出的空格或者回车符作为分隔符</p>
+</li>
+<li><p>seq的作用是生成指定范围的连续数字</p>
+</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/09/14/26.3、shell脚本之循环/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/14/26.3、shell脚本之循环/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-26.2、shell脚本之if判断" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -496,6 +573,85 @@
         <!-- 目录内容结束 -->
 
   
+    <article id="post-zabbix监控平台搭建之自动发现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/09/zabbix监控平台搭建之自动发现/">Linux监控平台搭建之自动发现</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/09/zabbix监控平台搭建之自动发现/" class="archive-article-date">
+  	<time datetime="2017-09-09T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<p>当我们在第一次部署监控环境时，假设zabbix-server服务器已经配置完成，zabbix-agent端也已经通过saltstack批量部署完毕。那么这时候就需要我们在zabbix的监控页面进行添加工作了，如果我们有10几台机器还好说。但是现在企业基本上都是动辄上百台的虚拟机，添加主机的工作量就非常巨大了，而且无脑的重复性劳动是我们这些高端IT人才所最不愿意干的（主要个人就是懒）。为了解决这些重复的机械性工作，自动发现功能孕育而生。</p>
+<h4 id="创建思路"><a href="#创建思路" class="headerlink" title="创建思路"></a>创建思路</h4><p>首先说下自动发现强大的功能，它到底可以帮助我们完成什么工作：</p>
+<ul>
+<li>快速发现并添加主机</li>
+<li>简单的管理</li>
+<li>随着环境的改变而快速搭建监控系统</li>
+</ul>
+<p><strong>自动发现基于网络发现功能，而网络发现又基于以下信息：</strong></p>
+<ul>
+<li>IP地址段</li>
+<li>基于服务的FTP、SSH、Web、POP3、IMAP、TCP等</li>
+<li>从Zabbix-agent端接收的信息</li>
+<li>从SNMP agent端接受的信息</li>
+</ul>
+<p>好了了解到以上信息，我们可以理解创建自动发现的过程为，zabbix-server会扫描你添加的IP地址段。比如你需要添加IP地址段为192.168.80.100到192.168.80.199这个区间的机器，设定好网络区间。当zabbix-server扫描到已经启动的些机器时，下一步需要触发动作，什么类型的机器进行什么操作。比如linux机器添加linux模板，并且添加到KVM虚拟机的分组当中。当完成了这些操作，zabbix主机的添加也就已经完成了。下面我们先进行动作的设置。</p>
+        
+          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之自动发现/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之自动发现/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-zabbix监控平台搭建之监控mysql性能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -672,85 +828,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-zabbix监控平台搭建之自动发现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/09/zabbix监控平台搭建之自动发现/">Linux监控平台搭建之自动发现</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/09/zabbix监控平台搭建之自动发现/" class="archive-article-date">
-  	<time datetime="2017-09-09T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>当我们在第一次部署监控环境时，假设zabbix-server服务器已经配置完成，zabbix-agent端也已经通过saltstack批量部署完毕。那么这时候就需要我们在zabbix的监控页面进行添加工作了，如果我们有10几台机器还好说。但是现在企业基本上都是动辄上百台的虚拟机，添加主机的工作量就非常巨大了，而且无脑的重复性劳动是我们这些高端IT人才所最不愿意干的（主要个人就是懒）。为了解决这些重复的机械性工作，自动发现功能孕育而生。</p>
-<h4 id="创建思路"><a href="#创建思路" class="headerlink" title="创建思路"></a>创建思路</h4><p>首先说下自动发现强大的功能，它到底可以帮助我们完成什么工作：</p>
-<ul>
-<li>快速发现并添加主机</li>
-<li>简单的管理</li>
-<li>随着环境的改变而快速搭建监控系统</li>
-</ul>
-<p><strong>自动发现基于网络发现功能，而网络发现又基于以下信息：</strong></p>
-<ul>
-<li>IP地址段</li>
-<li>基于服务的FTP、SSH、Web、POP3、IMAP、TCP等</li>
-<li>从Zabbix-agent端接收的信息</li>
-<li>从SNMP agent端接受的信息</li>
-</ul>
-<p>好了了解到以上信息，我们可以理解创建自动发现的过程为，zabbix-server会扫描你添加的IP地址段。比如你需要添加IP地址段为192.168.80.100到192.168.80.199这个区间的机器，设定好网络区间。当zabbix-server扫描到已经启动的些机器时，下一步需要触发动作，什么类型的机器进行什么操作。比如linux机器添加linux模板，并且添加到KVM虚拟机的分组当中。当完成了这些操作，zabbix主机的添加也就已经完成了。下面我们先进行动作的设置。</p>
-        
-          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之自动发现/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之自动发现/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
     <article id="post-24、Linux监控平台搭建之配置zabbix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -801,101 +878,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
-    <article id="post-23、Linux监控平台搭建之zabbix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/08/23、Linux监控平台搭建之zabbix/">Linux监控平台搭建之zabbix</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/08/23、Linux监控平台搭建之zabbix/" class="archive-article-date">
-  	<time datetime="2017-09-08T01:16:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>监控对于一个架构是十分重要的。一个企业就算架构再不成熟，监控都必须要有。监控不管用什么方式实现，开源软件也好，商业的监控服务也好，或者简陋的shell脚本，在业务上线时都必须要先做到位。当前，流行的开源监控软件有cacti，nagios，zabbix，open-falcon。</p>
-<table>
-<thead>
-<tr>
-<th>监控软件</th>
-<th style="text-align:left">特点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>cacti</td>
-<td style="text-align:left">成图专业，擅长监控网络流量</td>
-</tr>
-<tr>
-<td>nagios</td>
-<td style="text-align:left">没有历史数据，直接返回状态</td>
-</tr>
-<tr>
-<td>zabbix</td>
-<td style="text-align:left">支持查询历史数据，自定义监控项目方便</td>
-</tr>
-<tr>
-<td>open-falcon</td>
-<td style="text-align:left">由小米公司开发，开源后受到诸多大公司追捧</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>cacti，nagios，zabbix都可以监控服务器的基础指标</li>
-<li>cacti，nagios，zabbix都是C/S架构，都需要LAMP，其中nagios不保存数据可以不用mysql。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/09/08/23、Linux监控平台搭建之zabbix/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/08/23、Linux监控平台搭建之zabbix/">展开全文 >></a>
         </p>
       
 
@@ -1053,15 +1035,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">lNMP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1081,7 +1055,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux集群</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1089,7 +1071,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+                <a href="javascript:void(0)" class="js-tag color1">mysql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1105,11 +1087,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1121,7 +1103,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1129,11 +1111,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1141,11 +1119,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">saltstack</a>
+                <a href="javascript:void(0)" class="js-tag color2">gitlab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1157,22 +1135,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">自动化</a>
               </li>
              
@@ -1181,7 +1143,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">python入门</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">python函数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1193,7 +1171,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DNS</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1205,15 +1187,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1233,19 +1215,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文本内容处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color5">环境变量</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1258,6 +1240,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
