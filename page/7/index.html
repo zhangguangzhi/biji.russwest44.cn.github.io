@@ -131,6 +131,71 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-26.4、shell脚本之函数，数组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/15/26.4、shell脚本之函数，数组/">shell脚本之函数，数组</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/15/26.4、shell脚本之函数，数组/" class="archive-article-date">
+  	<time datetime="2017-09-15T05:48:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、shell脚本中的函数"><a href="#一、shell脚本中的函数" class="headerlink" title="一、shell脚本中的函数"></a>一、shell脚本中的函数</h3><p>shell脚本中的函数就是把一段代码整理到一个小单元中，并给这个单元起一个名字，当用到这段代码时直接调用这个小单元的名字即可。</p>
+        
+          <a class="article-more-a" href="/2017/09/15/26.4、shell脚本之函数，数组/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shell脚本</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/15/26.4、shell脚本之函数，数组/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-26.3、shell脚本之循环" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -652,95 +717,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-zabbix监控平台搭建之监控mysql性能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/09/zabbix监控平台搭建之监控mysql性能/">zabbix监控平台搭建之监控mysql性能</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/09/zabbix监控平台搭建之监控mysql性能/" class="archive-article-date">
-  	<time datetime="2017-09-09T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>转载：<a href="http://www.ttlsa.com/zabbix/zabbix-monitor-mysql/" target="_blank" rel="external">http://www.ttlsa.com/zabbix/zabbix-monitor-mysql/</a></p>
-<p>[TOC]</p>
-<p>今天来看看<a href="http://www.ttlsa.com/monitor/zabbix/" target="_blank" rel="external">zabbix</a>如何监控mysql性能，这边使用mysql自带的模板，可以监控如下内容：OPS（增删改查）、mysql请求流量带宽，mysql响应流量带宽，最后会附上相应的监控图！</p>
-<h3 id="编写check-mysql-sh脚本"><a href="#编写check-mysql-sh脚本" class="headerlink" title="编写check_mysql.sh脚本"></a>编写check_mysql.sh脚本</h3><p>用于获取mysql性能指标数据，你需要修改相应的数据库信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># vim /usr/local/zabbix-2.4.4/scripts/chk_mysql.sh</div></pre></td></tr></table></figure>
-<p>脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"># -------------------------------------------------------------------------------</div><div class="line"># FileName:    check_mysql.sh</div><div class="line"># Revision:    1.0</div><div class="line"># Date:        2015/06/09</div><div class="line"># Author:      DengYun</div><div class="line"># Email:       dengyun@ttlsa.com</div><div class="line"># Website:     www.ttlsa.com</div><div class="line"># Description: </div><div class="line"># Notes:       ~</div><div class="line"># -------------------------------------------------------------------------------</div><div class="line"># Copyright:   2015 (c) DengYun</div><div class="line"># License:     GPL</div><div class="line"> </div><div class="line"># 用户名</div><div class="line">MYSQL_USER=&apos;zabbix&apos;</div><div class="line"> </div><div class="line"># 密码</div><div class="line">MYSQL_PWD=&apos;123456&apos;</div><div class="line"> </div><div class="line"># 主机地址/IP</div><div class="line">MYSQL_HOST=&apos;127.0.0.1&apos;</div><div class="line"> </div><div class="line"># 端口</div><div class="line">MYSQL_PORT=&apos;3306&apos;</div><div class="line"> </div><div class="line"># 数据连接</div><div class="line">MYSQL_CONN=&quot;/usr/bin/mysqladmin -u$&#123;MYSQL_USER&#125; -p$&#123;MYSQL_PWD&#125; -h$&#123;MYSQL_HOST&#125; -P$&#123;MYSQL_PORT&#125;&quot;</div><div class="line"> </div><div class="line"># 参数是否正确</div><div class="line">if [ $# -ne &quot;1&quot; ];then </div><div class="line">    echo &quot;arg error!&quot; </div><div class="line">fi </div><div class="line"> </div><div class="line"># 获取数据</div><div class="line">case $1 in </div><div class="line">    Uptime) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; status|cut -f2 -d&quot;:&quot;|cut -f1 -d&quot;T&quot;` </div><div class="line">        echo $result </div><div class="line">        ;; </div><div class="line">    Com_update) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_update&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">        echo $result </div><div class="line">        ;; </div><div class="line">    Slow_queries) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; status |cut -f5 -d&quot;:&quot;|cut -f1 -d&quot;O&quot;` </div><div class="line">        echo $result </div><div class="line">        ;; </div><div class="line">    Com_select) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_select&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">        echo $result </div><div class="line">                ;; </div><div class="line">    Com_rollback) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_rollback&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Questions) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; status|cut -f4 -d&quot;:&quot;|cut -f1 -d&quot;S&quot;` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Com_insert) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_insert&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Com_delete) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_delete&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Com_commit) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_commit&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Bytes_sent) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Bytes_sent&quot; |cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Bytes_received) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Bytes_received&quot; |cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Com_begin) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_begin&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">                        </div><div class="line">        *) </div><div class="line">        echo &quot;Usage:$0(Uptime|Com_update|Slow_queries|Com_select|Com_rollback|Questions|Com_insert|Com_delete|Com_commit|Bytes_sent|Bytes_received|Com_begin)&quot; </div><div class="line">        ;; </div><div class="line">esac</div></pre></td></tr></table></figure>
-<h3 id="修改zabbix-agentd-conf"><a href="#修改zabbix-agentd-conf" class="headerlink" title="修改zabbix_agentd.conf"></a>修改zabbix_agentd.conf</h3><p>增加自定义key，在最后一行增加如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 获取mysql版本</div><div class="line">UserParameter=mysql.version,mysql -V</div><div class="line"><span class="meta">#</span> 获取mysql性能指标,这个是上面定义好的脚本</div><div class="line">UserParameter=mysql.status[*],/usr/local/zabbix-2.4.4/scripts/chk_mysql.sh $1</div><div class="line"><span class="meta">#</span> 获取mysql运行状态</div><div class="line">UserParameter=mysql.ping,mysqladmin -uzabbix -p123456 -P3306 -h127.0.0.1  ping | grep -c alive</div></pre></td></tr></table></figure>
-<p>备注：请注意修改你的数据库信息，以及zabbix路径信息</p>
-<h3 id="重启zabbix"><a href="#重启zabbix" class="headerlink" title="重启zabbix"></a>重启zabbix</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># killall zabbix-agentd</div><div class="line"># /usr/local/zabbix-2.4.4/bin/zabbix_agentd</div><div class="line">或者</div><div class="line"># service zabbix_agentd restart</div></pre></td></tr></table></figure>
-<h3 id="Link-MySQL模板"><a href="#Link-MySQL模板" class="headerlink" title="Link MySQL模板"></a>Link MySQL模板</h3><p>模板是zabbix系统提供的，进入zabbix web后台，configuration–&gt;hosts–&gt;点击你的主机name–&gt;选择template选项卡，选择模板“<a href="http://moni:9800/zabbix/templates.php?form=update&amp;templateid=10073&amp;sid=dff08c1b55eefbbb" target="_blank" rel="external">Template App MySQL</a>”，最后点击update即可</p>
-<p><img src="http://www.ttlsa.com/wp-content/uploads/2015/07/zabbix-monitor-mysql-02.jpg" alt="mysql"></p>
-<p>zabbix监控mysql</p>
-<h3 id="数据查看"><a href="#数据查看" class="headerlink" title="数据查看"></a>数据查看</h3><p>如果配置没有异常，那么可以在graph中查看到2张监控图，分别为请求流量带宽、响应流量带宽、ops，点击monitoring–&gt;graphs–&gt;选择你的主机，分别选择Graph“MySQL bandwidth”、“MySQL operations”，监控图分别如下（图片可以点击放大查看）：</p>
-<p><img src="http://www.ttlsa.com/wp-content/uploads/2015/07/zabbix-monitor-mysql-01-1024x302.jpg" alt="mysql"></p>
-<p>zabbix监控mysql</p>
-<p><img src="http://www.ttlsa.com/wp-content/uploads/2015/07/zabbix-monitor-mysql-03-1024x235.jpg" alt="mysql"></p>
-<p>zabbix监控mysql</p>
-<h3 id="常见错误解决思路"><a href="#常见错误解决思路" class="headerlink" title="常见错误解决思路"></a>常见错误解决思路</h3><p>如果发现监控没有数据，请排查如下问题</p>
-<ol>
-<li>zabbix客户端是否重启</li>
-<li>脚本是否有执行权限</li>
-<li>数据库是否有权限</li>
-<li>环境变量是否有问题</li>
-<li>请看zabbix item列，鼠标移至红色叉上，有错误提示。</li>
-<li>如果数据库密码保存在脚本中，会导致监控没有数据会不断的报错为Warning: Using a password on the command line interface can be insecure.需要将帐号密码等配置添加到my.cnf中。</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zabbix</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之监控mysql性能/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
     <article id="post-zabbix监控平台搭建之监控php-fpm性能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -828,33 +804,55 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-24、Linux监控平台搭建之配置zabbix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-zabbix监控平台搭建之监控mysql性能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/">Linux监控平台搭建之配置zabbix</a>
+      <a class="article-title" href="/2017/09/09/zabbix监控平台搭建之监控mysql性能/">zabbix监控平台搭建之监控mysql性能</a>
     </h1>
   
 
         
-        <a href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/" class="archive-article-date">
-  	<time datetime="2017-09-08T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-08</time>
+        <a href="/2017/09/09/zabbix监控平台搭建之监控mysql性能/" class="archive-article-date">
+  	<time datetime="2017-09-09T13:19:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<p>安装zabbix的服务端以及客户端后，我们还需要做一些配置，方便我们使用</p>
-<h3 id="一、忘记Admin密码怎么办"><a href="#一、忘记Admin密码怎么办" class="headerlink" title="一、忘记Admin密码怎么办"></a>一、忘记Admin密码怎么办</h3><p>因为Admin的密码是保存在mysql中的，所以只需要进入mysql命令行，选择zabbix库进行重置即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -pallen</div><div class="line">use zabbix;</div><div class="line">&gt; update users set passwd=md5(‘new passwd’) where alias=‘Admin’;</div></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/#more">more >></a>
-        
+        <p>转载：<a href="http://www.ttlsa.com/zabbix/zabbix-monitor-mysql/" target="_blank" rel="external">http://www.ttlsa.com/zabbix/zabbix-monitor-mysql/</a></p>
+<p>[TOC]</p>
+<p>今天来看看<a href="http://www.ttlsa.com/monitor/zabbix/" target="_blank" rel="external">zabbix</a>如何监控mysql性能，这边使用mysql自带的模板，可以监控如下内容：OPS（增删改查）、mysql请求流量带宽，mysql响应流量带宽，最后会附上相应的监控图！</p>
+<h3 id="编写check-mysql-sh脚本"><a href="#编写check-mysql-sh脚本" class="headerlink" title="编写check_mysql.sh脚本"></a>编写check_mysql.sh脚本</h3><p>用于获取mysql性能指标数据，你需要修改相应的数据库信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># vim /usr/local/zabbix-2.4.4/scripts/chk_mysql.sh</div></pre></td></tr></table></figure>
+<p>脚本如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"># -------------------------------------------------------------------------------</div><div class="line"># FileName:    check_mysql.sh</div><div class="line"># Revision:    1.0</div><div class="line"># Date:        2015/06/09</div><div class="line"># Author:      DengYun</div><div class="line"># Email:       dengyun@ttlsa.com</div><div class="line"># Website:     www.ttlsa.com</div><div class="line"># Description: </div><div class="line"># Notes:       ~</div><div class="line"># -------------------------------------------------------------------------------</div><div class="line"># Copyright:   2015 (c) DengYun</div><div class="line"># License:     GPL</div><div class="line"> </div><div class="line"># 用户名</div><div class="line">MYSQL_USER=&apos;zabbix&apos;</div><div class="line"> </div><div class="line"># 密码</div><div class="line">MYSQL_PWD=&apos;123456&apos;</div><div class="line"> </div><div class="line"># 主机地址/IP</div><div class="line">MYSQL_HOST=&apos;127.0.0.1&apos;</div><div class="line"> </div><div class="line"># 端口</div><div class="line">MYSQL_PORT=&apos;3306&apos;</div><div class="line"> </div><div class="line"># 数据连接</div><div class="line">MYSQL_CONN=&quot;/usr/bin/mysqladmin -u$&#123;MYSQL_USER&#125; -p$&#123;MYSQL_PWD&#125; -h$&#123;MYSQL_HOST&#125; -P$&#123;MYSQL_PORT&#125;&quot;</div><div class="line"> </div><div class="line"># 参数是否正确</div><div class="line">if [ $# -ne &quot;1&quot; ];then </div><div class="line">    echo &quot;arg error!&quot; </div><div class="line">fi </div><div class="line"> </div><div class="line"># 获取数据</div><div class="line">case $1 in </div><div class="line">    Uptime) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; status|cut -f2 -d&quot;:&quot;|cut -f1 -d&quot;T&quot;` </div><div class="line">        echo $result </div><div class="line">        ;; </div><div class="line">    Com_update) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_update&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">        echo $result </div><div class="line">        ;; </div><div class="line">    Slow_queries) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; status |cut -f5 -d&quot;:&quot;|cut -f1 -d&quot;O&quot;` </div><div class="line">        echo $result </div><div class="line">        ;; </div><div class="line">    Com_select) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_select&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">        echo $result </div><div class="line">                ;; </div><div class="line">    Com_rollback) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_rollback&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Questions) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; status|cut -f4 -d&quot;:&quot;|cut -f1 -d&quot;S&quot;` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Com_insert) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_insert&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Com_delete) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_delete&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Com_commit) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_commit&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Bytes_sent) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Bytes_sent&quot; |cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Bytes_received) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Bytes_received&quot; |cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">    Com_begin) </div><div class="line">        result=`$&#123;MYSQL_CONN&#125; extended-status |grep -w &quot;Com_begin&quot;|cut -d&quot;|&quot; -f3` </div><div class="line">                echo $result </div><div class="line">                ;; </div><div class="line">                        </div><div class="line">        *) </div><div class="line">        echo &quot;Usage:$0(Uptime|Com_update|Slow_queries|Com_select|Com_rollback|Questions|Com_insert|Com_delete|Com_commit|Bytes_sent|Bytes_received|Com_begin)&quot; </div><div class="line">        ;; </div><div class="line">esac</div></pre></td></tr></table></figure>
+<h3 id="修改zabbix-agentd-conf"><a href="#修改zabbix-agentd-conf" class="headerlink" title="修改zabbix_agentd.conf"></a>修改zabbix_agentd.conf</h3><p>增加自定义key，在最后一行增加如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 获取mysql版本</div><div class="line">UserParameter=mysql.version,mysql -V</div><div class="line"><span class="meta">#</span> 获取mysql性能指标,这个是上面定义好的脚本</div><div class="line">UserParameter=mysql.status[*],/usr/local/zabbix-2.4.4/scripts/chk_mysql.sh $1</div><div class="line"><span class="meta">#</span> 获取mysql运行状态</div><div class="line">UserParameter=mysql.ping,mysqladmin -uzabbix -p123456 -P3306 -h127.0.0.1  ping | grep -c alive</div></pre></td></tr></table></figure>
+<p>备注：请注意修改你的数据库信息，以及zabbix路径信息</p>
+<h3 id="重启zabbix"><a href="#重启zabbix" class="headerlink" title="重启zabbix"></a>重启zabbix</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># killall zabbix-agentd</div><div class="line"># /usr/local/zabbix-2.4.4/bin/zabbix_agentd</div><div class="line">或者</div><div class="line"># service zabbix_agentd restart</div></pre></td></tr></table></figure>
+<h3 id="Link-MySQL模板"><a href="#Link-MySQL模板" class="headerlink" title="Link MySQL模板"></a>Link MySQL模板</h3><p>模板是zabbix系统提供的，进入zabbix web后台，configuration–&gt;hosts–&gt;点击你的主机name–&gt;选择template选项卡，选择模板“<a href="http://moni:9800/zabbix/templates.php?form=update&amp;templateid=10073&amp;sid=dff08c1b55eefbbb" target="_blank" rel="external">Template App MySQL</a>”，最后点击update即可</p>
+<p><img src="http://www.ttlsa.com/wp-content/uploads/2015/07/zabbix-monitor-mysql-02.jpg" alt="mysql"></p>
+<p>zabbix监控mysql</p>
+<h3 id="数据查看"><a href="#数据查看" class="headerlink" title="数据查看"></a>数据查看</h3><p>如果配置没有异常，那么可以在graph中查看到2张监控图，分别为请求流量带宽、响应流量带宽、ops，点击monitoring–&gt;graphs–&gt;选择你的主机，分别选择Graph“MySQL bandwidth”、“MySQL operations”，监控图分别如下（图片可以点击放大查看）：</p>
+<p><img src="http://www.ttlsa.com/wp-content/uploads/2015/07/zabbix-monitor-mysql-01-1024x302.jpg" alt="mysql"></p>
+<p>zabbix监控mysql</p>
+<p><img src="http://www.ttlsa.com/wp-content/uploads/2015/07/zabbix-monitor-mysql-03-1024x235.jpg" alt="mysql"></p>
+<p>zabbix监控mysql</p>
+<h3 id="常见错误解决思路"><a href="#常见错误解决思路" class="headerlink" title="常见错误解决思路"></a>常见错误解决思路</h3><p>如果发现监控没有数据，请排查如下问题</p>
+<ol>
+<li>zabbix客户端是否重启</li>
+<li>脚本是否有执行权限</li>
+<li>数据库是否有权限</li>
+<li>环境变量是否有问题</li>
+<li>请看zabbix item列，鼠标移至红色叉上，有错误提示。</li>
+<li>如果数据库密码保存在脚本中，会导致监控没有数据会不断的报错为Warning: Using a password on the command line interface can be insecure.需要将帐号密码等配置添加到my.cnf中。</li>
+</ol>
+
       
 
       
@@ -877,7 +875,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/08/24、Linux监控平台搭建之配置zabbix/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/09/09/zabbix监控平台搭建之监控mysql性能/">展开全文 >></a>
         </p>
       
 
@@ -1039,6 +1037,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
@@ -1052,10 +1054,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1087,11 +1085,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1103,15 +1101,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1131,7 +1129,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1143,7 +1149,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1151,11 +1157,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">python函数</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">python函数</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1171,11 +1181,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1183,7 +1189,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1192,14 +1202,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1223,11 +1225,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color1">Flask</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">uWSGI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1235,15 +1245,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -131,6 +131,78 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-50.1、python数据类型之数字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/01/50.1、python数据类型之数字/">python数据类型之数字</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/01/50.1、python数据类型之数字/" class="archive-article-date">
+  	<time datetime="2017-12-01T13:34:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h3 id="一、数字的类型"><a href="#一、数字的类型" class="headerlink" title="一、数字的类型"></a>一、数字的类型</h3><p>python的数字类型我们主要使用整数型和浮点型</p>
+<p>整数型：类似5，1，-7，0这样的形式的数。</p>
+<p>浮点型：类似4.0，-2.0，23.1233，3.14的小数。</p>
+<p>整数，就是小学学过的整数；浮点数，就是小数。如果整数写成小数形式，比如4写成4.0，也就变成了浮点数。</p>
+<p>在IDE中运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; 2.0</div><div class="line">2.0</div><div class="line">&gt;&gt;&gt; 3</div><div class="line">3</div><div class="line">&gt;&gt;&gt; 4</div><div class="line">4</div><div class="line">&gt;&gt;&gt; 3.0</div><div class="line">3.0</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<p>还有一种类型，在整数后面会有一个”L”，说明该数据类型为长整数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; 2**1000</div><div class="line">10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376L</div></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2017/12/01/50.1、python数据类型之数字/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">python入门</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/01/50.1、python数据类型之数字/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+<!-- 目录内容 -->
+             
+        <!-- 目录内容结束 -->
+
+  
     <article id="post-33.2、jenkin部署Java项目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -798,90 +870,6 @@
         <!-- 目录内容结束 -->
 
   
-    <article id="post-31.1、虚拟化之KVM配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/06/31.1、虚拟化之KVM配置/">虚拟化之KVM配置</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/06/31.1、虚拟化之KVM配置/" class="archive-article-date">
-  	<time datetime="2017-11-06T14:37:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<p>虚拟化：通过虚拟化工具把cpu，内存，硬盘等真实硬件资源给模拟成更少的虚拟硬件资源。进行虚拟化的好处是，最大限度的利用硬件资源。也是云计算的基础。下图为虚拟化模型：</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171106/224753323.png?imageslim" alt="mark"></p>
-<p><strong>虚拟化分类：</strong></p>
-<p>软件级别，所有硬件通过模拟器模拟出来（qemu）</p>
-<p>硬件级别，通过VMM（虚拟机监视器），将硬件分配和管理，操作系统运行在建立好的vm上（xen，VMware[ESX,workstation]，kvm，virtualbox）</p>
-<p>操作系统级别，虚拟机操作系统和宿主操作系统共享，可以模拟上千个虚拟机出来（openvz）</p>
-<p><strong>半虚拟化和全虚拟化</strong></p>
-<p>半虚拟化：半虚拟化，宿主机和客户机需要更改操作系统的内核，客户机知道宿主机的存在，两者需要系统合作。（Xen支持虚拟化），半虚拟化性能较好。</p>
-<p>全虚拟化：全虚拟化为客户机提供了完整的虚拟硬件资源，客户机不需要做任何更改，它不知道宿主机的存在（kvm属于全虚拟化，VMware也是全虚拟化）</p>
-<p><strong>Xen和kvm比较</strong></p>
-<p>1.不管CPU支持不支持虚拟化，xen都可以安装，而kvm必须要CPU支持虚拟化才行</p>
-<p>2.xen支持半虚拟化也会支持全虚拟化，kvm仅支持全虚拟化</p>
-<p>3.安装xen后，xen会替换原来的内核接管系统管理，而kvm只是Linux内核的一个模块，依然由原系统内核管理系统</p>
-<p>4.xen出现的时间比kvm早，由于kvm不需要接管内核，收到大多数内核的喜爱并使用</p>
-<p>5.在xen的体系结构中，xen  hypervisor运行与硬件之上，并且将系统资源进行虚拟化，将虚拟户的资源分配给上层的虚拟机（vm），然后通过虚拟机vm来运行相应的客户机操作系统</p>
-<p><img src="http://oqx92let4.bkt.clouddn.com/blog/20171106/230601254.png?imageslim" alt="mark"></p>
-        
-          <a class="article-more-a" href="/2017/11/06/31.1、虚拟化之KVM配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟化</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">kvm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/06/31.1、虚拟化之KVM配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-<!-- 目录内容 -->
-             
-        <!-- 目录内容结束 -->
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1026,6 +1014,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ftp</a>
               </li>
              
@@ -1039,10 +1031,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mysql主从</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1074,11 +1062,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">memcache</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1090,15 +1078,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">svn</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1118,7 +1106,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">堡垒机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1130,7 +1126,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">jumpserver</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1138,11 +1134,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">python函数</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">python函数</a>
+                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1158,11 +1158,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">虚拟化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">kvm</a>
+                <a href="javascript:void(0)" class="js-tag color4">awk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1170,7 +1166,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">awk</a>
+                <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1179,14 +1179,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">正则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">puppet</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mysql备份</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1210,11 +1202,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">yum</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">sort</a>
+                <a href="javascript:void(0)" class="js-tag color1">Flask</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">uWSGI</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1222,15 +1222,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">日常运维</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
               </li>
              
               <li class="article-tag-list-item">
