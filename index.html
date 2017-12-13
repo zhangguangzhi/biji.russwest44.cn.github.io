@@ -203,10 +203,9 @@
       
         <p>[TOC]</p>
 <h3 id="一、部署准备"><a href="#一、部署准备" class="headerlink" title="一、部署准备"></a>一、部署准备</h3><h4 id="1-1、实验环境"><a href="#1-1、实验环境" class="headerlink" title="1.1、实验环境"></a>1.1、实验环境</h4><p>系统：Ubuntu14.04.5</p>
-<p>nginx：</p>
-<p>Flask：</p>
+<p>nginx：1.12.1</p>
 <p>python：2.7</p>
-<p>uWSGI：</p>
+<p>uWSGI：2.0.15</p>
 <h4 id="1-2、配置安装环境"><a href="#1-2、配置安装环境" class="headerlink" title="1.2、配置安装环境"></a>1.2、配置安装环境</h4><p>（1）安装依赖包</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install python-setuptools</div><div class="line">sudo easy_install  pip</div><div class="line">sudo pip install virtualenv</div></pre></td></tr></table></figure>
 <ul>
@@ -272,7 +271,7 @@
 <h4 id="4-2、配置uWSGI"><a href="#4-2、配置uWSGI" class="headerlink" title="4.2、配置uWSGI"></a>4.2、配置uWSGI</h4><p>之所以出现502，是因为nginx在连接到我们的python应用网关uWSGI遇到了问题。到uWSGI的链接在nginx配置文件的第10行定义</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uwsgi_pass unix:/var/www/demoapp/demoapp_uwsgi.sock;</div></pre></td></tr></table></figure>
 <p>这代表Nginx和uWSGI之间的链接是通过一个socket文件，这个文件位于<em>/var/www/demoapp/demoapp_uwsgi.sock</em>。因为我们还没有配置uWSGI，所以这个文件还不存在，因此Nginx返回“bad gateway”错误。</p>
-<p>（1）创建一个新的uWSGI配置文件/var/www/demoapp/uwsgi.ini</p>
+<p>（1）创建一个新的uWSGI配置文件/var/www/demoapp/demoapp_uwsgi.ini</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/var/www/demoapp/demoapp_uwsgi.ini</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line"></div><div class="line">[uwsgi]</div><div class="line">#application&apos;s base folder</div><div class="line">base = /var/www/demoapp</div><div class="line"> </div><div class="line">#python module to import</div><div class="line">app = hello</div><div class="line">module = %(app)</div><div class="line"> </div><div class="line">home = %(base)/venv</div><div class="line">pythonpath = %(base)</div><div class="line"> </div><div class="line">#socket file&apos;s location</div><div class="line">socket = /var/www/demoapp/%n.sock</div><div class="line"> </div><div class="line">#permissions for the socket file</div><div class="line">chmod-socket    = 666</div><div class="line"> </div><div class="line">#the variable that holds a flask application inside the module imported at line #6</div><div class="line">callable = app</div><div class="line"> </div><div class="line">#location of log files</div><div class="line">logto = /var/log/uwsgi/%n.log</div></pre></td></tr></table></figure>
 <p>（2）创建一个新目录存放uWSGi日志</p>
 <p>该日志需要修改为ubuntu</p>

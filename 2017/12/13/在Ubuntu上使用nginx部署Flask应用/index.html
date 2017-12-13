@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="http://zhangguangzhi.github.io">
   <title>在Ubuntu上使用nginx部署Flask应用 | ZhangGuangZhi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 一、部署准备1.1、实验环境系统：Ubuntu14.04.5 nginx： Flask： python：2.7 uWSGI： 1.2、配置安装环境（1）安装依赖包 123sudo apt-get install python-setuptoolssudo easy_install  pipsudo pip install virtualenv  安装是可以使用”echo $?”查看是否">
+  <meta name="description" content="[TOC] 一、部署准备1.1、实验环境系统：Ubuntu14.04.5 nginx：1.12.1 python：2.7 uWSGI：2.0.15 1.2、配置安装环境（1）安装依赖包 123sudo apt-get install python-setuptoolssudo easy_install  pipsudo pip install virtualenv  安装是可以使用”echo $?">
 <meta name="keywords" content="nginx,Flask,uWSGI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Ubuntu上使用nginx部署Flask应用">
 <meta property="og:url" content="http://zhangguangzhi.github.io/2017/12/13/在Ubuntu上使用nginx部署Flask应用/index.html">
 <meta property="og:site_name" content="ZhangGuangZhi">
-<meta property="og:description" content="[TOC] 一、部署准备1.1、实验环境系统：Ubuntu14.04.5 nginx： Flask： python：2.7 uWSGI： 1.2、配置安装环境（1）安装依赖包 123sudo apt-get install python-setuptoolssudo easy_install  pipsudo pip install virtualenv  安装是可以使用”echo $?”查看是否">
+<meta property="og:description" content="[TOC] 一、部署准备1.1、实验环境系统：Ubuntu14.04.5 nginx：1.12.1 python：2.7 uWSGI：2.0.15 1.2、配置安装环境（1）安装依赖包 123sudo apt-get install python-setuptoolssudo easy_install  pipsudo pip install virtualenv  安装是可以使用”echo $?">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171213/224935933.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171213/235554458.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171213/235849679.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171214/001622617.png?imageslim">
 <meta property="og:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171214/003755830.png?imageslim">
-<meta property="og:updated_time" content="2017-12-13T16:38:14.783Z">
+<meta property="og:updated_time" content="2017-12-13T16:46:56.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Ubuntu上使用nginx部署Flask应用">
-<meta name="twitter:description" content="[TOC] 一、部署准备1.1、实验环境系统：Ubuntu14.04.5 nginx： Flask： python：2.7 uWSGI： 1.2、配置安装环境（1）安装依赖包 123sudo apt-get install python-setuptoolssudo easy_install  pipsudo pip install virtualenv  安装是可以使用”echo $?”查看是否">
+<meta name="twitter:description" content="[TOC] 一、部署准备1.1、实验环境系统：Ubuntu14.04.5 nginx：1.12.1 python：2.7 uWSGI：2.0.15 1.2、配置安装环境（1）安装依赖包 123sudo apt-get install python-setuptoolssudo easy_install  pipsudo pip install virtualenv  安装是可以使用”echo $?">
 <meta name="twitter:image" content="http://oqx92let4.bkt.clouddn.com/blog/20171213/224935933.png?imageslim">
   
   
@@ -162,10 +162,9 @@
       
         <p>[TOC]</p>
 <h3 id="一、部署准备"><a href="#一、部署准备" class="headerlink" title="一、部署准备"></a>一、部署准备</h3><h4 id="1-1、实验环境"><a href="#1-1、实验环境" class="headerlink" title="1.1、实验环境"></a>1.1、实验环境</h4><p>系统：Ubuntu14.04.5</p>
-<p>nginx：</p>
-<p>Flask：</p>
+<p>nginx：1.12.1</p>
 <p>python：2.7</p>
-<p>uWSGI：</p>
+<p>uWSGI：2.0.15</p>
 <h4 id="1-2、配置安装环境"><a href="#1-2、配置安装环境" class="headerlink" title="1.2、配置安装环境"></a>1.2、配置安装环境</h4><p>（1）安装依赖包</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install python-setuptools</div><div class="line">sudo easy_install  pip</div><div class="line">sudo pip install virtualenv</div></pre></td></tr></table></figure>
 <ul>
@@ -231,7 +230,7 @@
 <h4 id="4-2、配置uWSGI"><a href="#4-2、配置uWSGI" class="headerlink" title="4.2、配置uWSGI"></a>4.2、配置uWSGI</h4><p>之所以出现502，是因为nginx在连接到我们的python应用网关uWSGI遇到了问题。到uWSGI的链接在nginx配置文件的第10行定义</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uwsgi_pass unix:/var/www/demoapp/demoapp_uwsgi.sock;</div></pre></td></tr></table></figure>
 <p>这代表Nginx和uWSGI之间的链接是通过一个socket文件，这个文件位于<em>/var/www/demoapp/demoapp_uwsgi.sock</em>。因为我们还没有配置uWSGI，所以这个文件还不存在，因此Nginx返回“bad gateway”错误。</p>
-<p>（1）创建一个新的uWSGI配置文件/var/www/demoapp/uwsgi.ini</p>
+<p>（1）创建一个新的uWSGI配置文件/var/www/demoapp/demoapp_uwsgi.ini</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/var/www/demoapp/demoapp_uwsgi.ini</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line"></div><div class="line">[uwsgi]</div><div class="line">#application&apos;s base folder</div><div class="line">base = /var/www/demoapp</div><div class="line"> </div><div class="line">#python module to import</div><div class="line">app = hello</div><div class="line">module = %(app)</div><div class="line"> </div><div class="line">home = %(base)/venv</div><div class="line">pythonpath = %(base)</div><div class="line"> </div><div class="line">#socket file&apos;s location</div><div class="line">socket = /var/www/demoapp/%n.sock</div><div class="line"> </div><div class="line">#permissions for the socket file</div><div class="line">chmod-socket    = 666</div><div class="line"> </div><div class="line">#the variable that holds a flask application inside the module imported at line #6</div><div class="line">callable = app</div><div class="line"> </div><div class="line">#location of log files</div><div class="line">logto = /var/log/uwsgi/%n.log</div></pre></td></tr></table></figure>
 <p>（2）创建一个新目录存放uWSGi日志</p>
 <p>该日志需要修改为ubuntu</p>
@@ -320,6 +319,30 @@
   
 
 <!-- 目录内容 -->
+        
+            <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+            <span class="btn-bg"></span>
+            <span class="btn-text">文章导航</span>
+            </p>
+            <div id="toc-article" class="toc-article">
+                <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、部署准备"><span class="toc-number">1.</span> <span class="toc-text">一、部署准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1、实验环境"><span class="toc-number">1.1.</span> <span class="toc-text">1.1、实验环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2、配置安装环境"><span class="toc-number">1.2.</span> <span class="toc-text">1.2、配置安装环境</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装服务"><span class="toc-number">2.</span> <span class="toc-text">二、安装服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1、安装nginx"><span class="toc-number">2.1.</span> <span class="toc-text">2.1、安装nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、安装uWSGI"><span class="toc-number">2.2.</span> <span class="toc-text">2.2、安装uWSGI</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、示例应用"><span class="toc-number">3.</span> <span class="toc-text">三、示例应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1、创建示例存放目录"><span class="toc-number">3.1.</span> <span class="toc-text">3.1、创建示例存放目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2、测试示例应用"><span class="toc-number">3.2.</span> <span class="toc-text">3.2、测试示例应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、配置nginx结合uWSGI"><span class="toc-number">4.</span> <span class="toc-text">四、配置nginx结合uWSGI</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1、配置nginx"><span class="toc-number">4.1.</span> <span class="toc-text">4.1、配置nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2、配置uWSGI"><span class="toc-number">4.2.</span> <span class="toc-text">4.2、配置uWSGI</span></a></li></ol></li></ol>
+           </div>
+           <script type="text/javascript">
+            function showToc(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:block");
+                show_toc_btn.setAttribute("style","display:none");
+                };
+            function showBtn(){
+                var toc_article = document.getElementById("toc-article");
+                var show_toc_btn = document.getElementById("show-toc-btn");
+                toc_article.setAttribute("style","display:none");
+                show_toc_btn.setAttribute("style","display:block");
+                };
+           </script>
              
         <!-- 目录内容结束 -->
 
