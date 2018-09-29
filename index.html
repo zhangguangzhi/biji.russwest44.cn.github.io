@@ -219,7 +219,7 @@
 <p>升级已有的包，确保系统上有uWSGI所需的编译器和工具</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo  apt-get  update</div></pre></td></tr></table></figure>
 <h3 id="二、安装服务"><a href="#二、安装服务" class="headerlink" title="二、安装服务"></a>二、安装服务</h3><h4 id="2-1、安装nginx"><a href="#2-1、安装nginx" class="headerlink" title="2.1、安装nginx"></a>2.1、安装nginx</h4><p>（1）安装nginx</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get nginx  -y</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install nginx  -y</div></pre></td></tr></table></figure>
 <p>（2）nginx启动命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/nginx  start</div></pre></td></tr></table></figure>
 <ul>
@@ -263,7 +263,7 @@
 <li>如果配置文件不存在，可能在/etc/nginx/conf.d中</li>
 </ul>
 <p>创建一个我们应用使用的新配置文件/var/www/demoapp/demoapp_nginx.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">vim  /var/www/demoapp/demoapp_nginx.conf</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">server &#123;</div><div class="line">    listen  80；</div><div class="line">    server_name  192.168.205.145；</div><div class="line">    charset  utf-8;</div><div class="line">    client_max_body_size  75M;</div><div class="line">    </div><div class="line">    location / &#123;</div><div class="line">      try_files  $uri  @youapplication</div><div class="line">    &#125;</div><div class="line">    location @youapplication  &#123;</div><div class="line">      include  uwsgi_params;</div><div class="line">      uwsgi_pass unix:/var/www/demoapp/demoapp_uwsgi.sock;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">vim  /var/www/demoapp/demoapp_nginx.conf</div><div class="line">#写入以下内容</div><div class="line"></div><div class="line">server &#123;</div><div class="line">    listen  80;</div><div class="line">    server_name  192.168.205.145;</div><div class="line">    charset  utf-8;</div><div class="line">    client_max_body_size  75M;</div><div class="line">    </div><div class="line">    location / &#123;</div><div class="line">      try_files  $uri  @youapplication</div><div class="line">    &#125;</div><div class="line">    location @youapplication  &#123;</div><div class="line">      include  uwsgi_params;</div><div class="line">      uwsgi_pass unix:/var/www/demoapp/demoapp_uwsgi.sock;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>将刚刚创建的配置文件使用符号链接到nginx配置文件文件夹中，重启nginx</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo  ln  -s /var/www/demoapp/demoapp-nginx.conf /etc/nginx/conf.d/</div><div class="line">sudo  /etc/init.d/nginx  restart</div></pre></td></tr></table></figure>
 <p>此时，我们访问服务器时，会出现502的状态码</p>
@@ -964,7 +964,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 Rise zhangguangzhi
+    		&copy; 2018 Rise zhangguangzhi
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
